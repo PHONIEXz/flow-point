@@ -8,7 +8,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 Version 0.2 adds an actual event workspace at `/workspace`, a Node HTTP server, and a server-only hosted Gemma adapter. The workspace supports editing, open questions, deterministic checks, browser-local draft restoration, version approval and Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
-**The app is deployed at https://flow-point-app.onrender.com/workspace.** Health, workspace, configuration and sample endpoints respond successfully. Live hosted Gemma generation, desktop review/approval, Markdown and CSV export, reload restoration, and approval invalidation after edits have been verified. Successful short requests took 5.9 and 6.2 seconds. Phone layout and longer-request reliability remain unverified. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
+**The app is live at https://flowpoint.phoenixreborn.tech/workspace.** The original https://flow-point-app.onrender.com/workspace address remains available. Health, workspace, configuration and sample endpoints respond successfully. Live hosted Gemma generation, desktop review/approval, Markdown and CSV export, reload restoration, and approval invalidation after edits have been verified. Successful short requests took 5.9 and 6.2 seconds. Phone layout and longer-request reliability remain unverified. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
 
 ## Run
 
@@ -48,9 +48,9 @@ Server safeguards include JSON/body limits, fixed static routes, same-origin bro
 
 `render.yaml` now describes a **Node Web Service** called `flow-point-app`, with `npm test && npm run build`, `npm start` and `/healthz`. The server binds `0.0.0.0` and honors `PORT`. A Static Site alone cannot run the API.
 
-If an older static preview exists, keep it until the new app has been verified. Do not assume changing the Blueprint converts an existing Static Site. Create/confirm the separate Node service, set `GEMINI_API_KEY` in Render's secret environment settings, and verify a real request before moving the domain. The free service may sleep between visits. The free Node service is deployed in Ayoade Paul's Workspace (Frankfurt), with Render-managed HTTPS at https://flow-point-app.onrender.com. Custom-domain DNS and live inference are still pending. This service was created through MCP; the optional `/healthz` HTTP health-check setting must still be applied in the Dashboard (the service currently uses Render's default port check).
+If an older static preview exists, keep it until the new app has been verified. Do not assume changing the Blueprint converts an existing Static Site. Create/confirm the separate Node service, set `GEMINI_API_KEY` in Render's secret environment settings, and verify a real request before moving the domain. The free service may sleep between visits. The free Node service is deployed in Ayoade Paul's Workspace (Frankfurt), with Render-managed HTTPS at https://flow-point-app.onrender.com. Custom-domain DNS, public HTTPS access and live inference have been verified. This service was created through MCP; the optional `/healthz` HTTP health-check setting must still be applied in the Dashboard (the service currently uses Render's default port check).
 
-Planned address: `flowpoint.phoenixreborn.tech`. See [domain setup](docs/domain-setup.md).
+Live custom address: https://flowpoint.phoenixreborn.tech/workspace. Browser-local drafts from the onrender.com address do not transfer automatically to this separate origin. See [domain setup](docs/domain-setup.md).
 
 ## Verification
 
@@ -62,7 +62,7 @@ This version retains the established dependency-free Node stack. eve was conside
 
 Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
-Intended categories: Gemma, Render and .tech Domain, subject to actual implementation and eligibility. Outstanding: broader model-quality/reliability evaluation, custom-domain setup, phone layout checks, timed user-effort measurements, final screenshots/demo and DEV submission. The live desktop workflow has passed; see docs/verification.md. Do not claim category completion or savings without that evidence. Record any changes made after the deadline.
+Intended categories: Gemma, Render and .tech Domain, subject to actual implementation and eligibility. Outstanding: broader model-quality/reliability evaluation, phone layout checks, timed user-effort measurements, final screenshots/demo and DEV submission. The live desktop workflow has passed; see docs/verification.md. Do not claim category completion or savings without that evidence. Record any changes made after the deadline.
 
 ## License
 
