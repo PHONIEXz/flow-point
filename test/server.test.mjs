@@ -71,3 +71,15 @@ test('health and static routes use restrictive headers and never serve server fi
   assert.equal((await client.get('/src/server.mjs')).status, 404);
   assert.equal((await client.get('/.env')).status, 404);
 });
+
+
+test('provider setup failures are specific without leaking upstream data', async () => {
+  for (const [status, error, expected] of [
+    [400, { message: 'API key not valid. secret-value', details: [{ reason: 'API_KEY_INVALID' }] }, /invalid or expired/],
+    [403, { details: [{ reason: 'API_KEY_SERVICE_BLOCKED' }] }, /key restrictions/],
+    [404, { message: 'secret-value' }, /configured Gemma model/],
+    [400, { message: 'secret-value' }, /HTTP 400/]
+  ]) {
+    await assert.rejects(generatePack({ request: 'Example event request' }, { apiKey: 'secret-value', fetchImpl: async () => Response.json({ error }, { status }) }), failure => expected.test(failure.message) && !failure.message.includes('secret-value'));
+  }
+});
