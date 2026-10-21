@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6c47d8">
+  <meta name="description" content="Flow Point turns rough event requests into invitations, schedules, checklists and budgets for review. Explore the early project preview.">
+  <title>Flow Point | Make room for the event</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="brand" href="#" aria-label="Flow Point home"><img src="/icon.svg" width="36" height="36" alt="">Flow Point<span class="preview-label">Preview</span></a>
+    <nav aria-label="Main navigation"><a href="#how">The idea</a><a href="#example">Example pack</a><a class="source-link" href="https://github.com/PHONIEXz/flow-point">View source <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span> A little less admin. A little more breathing room.</p>
+        <h1>Make room<br>for the <span>event.</span></h1>
+        <p class="hero-description">The invitation. The schedule. The list you keep rewriting. Flow Point is being built to turn one rough request into an event pack you can actually use.</p>
+        <div class="hero-actions"><a class="button primary" href="#example">Explore the example <span aria-hidden="true">↗</span></a><a class="text-link" href="#how">See how it works <span aria-hidden="true">↓</span></a></div>
+        <p class="build-note">Early project preview. The example below is prepared sample data; live AI generation is still in development.</p>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of a rough request becoming an organized event pack">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="rough-note"><span class="mini-label">THE STARTING POINT</span><p>“Family day is on Friday. Need invitations, activities, chairs… and a budget.”</p><span class="note-underline"></span></div>
+        <div class="pack-card"><div class="pack-head"><div><span class="mini-label">A CLEARER NEXT STEP</span><h2>School Family Day</h2></div><span class="small-icon" aria-hidden="true">✦</span></div><div class="pack-date">23 October 2026 <span>•</span> School assembly hall</div><div class="pack-list"><p><span class="check">✓</span> Invitation draft <span class="tag">Review</span></p><p><span class="check">✓</span> Preparation checklist <span class="tag">Review</span></p><p><span class="check">✓</span> Run of show <span class="tag">Review</span></p><p><span class="question">?</span> Budget prices <span class="tag amber">To confirm</span></p></div><div class="pack-foot"><span class="dot"></span> Missing details stay visible.</div></div>
+        <div class="floating-note"><span aria-hidden="true">↳</span> Your plans, with a little more order.</div>
+      </div>
+    </section>
+    <section class="process wrap" id="how" aria-labelledby="process-title">
+      <div class="section-intro"><p class="eyebrow">THE IDEA IS SIMPLE</p><h2 id="process-title">One request.<br>A few things off your mind.</h2></div>
+      <ol class="steps"><li><span class="step-number">01</span><h3>Start with the mess</h3><p>Write what you know about the event. It does not have to sound polished.</p></li><li><span class="step-number">02</span><h3>Fill the real gaps</h3><p>Confirm the missing facts. A venue or a price should never be quietly invented.</p></li><li><span class="step-number">03</span><h3>Review, then use</h3><p>The planned workflow gives you editable drafts and exports after you check the details.</p></li></ol>
+    </section>
+    <section class="example-section" id="example" aria-labelledby="example-title">
+      <div class="wrap">
+        <div class="example-intro"><div><p class="eyebrow">TAKE A LOOK INSIDE</p><h2 id="example-title">A calmer kind of preparation.</h2><p>Explore a hand-authored school event pack. This is an example of the intended output.</p></div><span class="sample-badge">Sample data · No AI call</span></div>
+        <div class="example-workspace">
+          <aside class="event-summary"><div class="calendar-icon" aria-hidden="true">23<span>OCT</span></div><h3>School Family Day</h3><p>Friday, 23 October 2026</p><dl><dt>Venue</dt><dd>School assembly hall</dd><dt>Start time</dt><dd class="missing">Needs confirmation</dd><dt>Budget</dt><dd class="missing">Prices not supplied</dd></dl><div class="review-reminder"><span aria-hidden="true">✦</span><p>A useful draft makes the unknowns easy to spot.</p></div></aside>
+          <div class="example-content"><div class="tabs" role="tablist" aria-label="Example event pack"><button id="tab-invitation" role="tab" aria-selected="true" aria-controls="panel-invitation" tabindex="0">Invitation</button><button id="tab-checklist" role="tab" aria-selected="false" aria-controls="panel-checklist" tabindex="-1">Checklist</button><button id="tab-schedule" role="tab" aria-selected="false" aria-controls="panel-schedule" tabindex="-1">Run of show</button><button id="tab-budget" role="tab" aria-selected="false" aria-controls="panel-budget" tabindex="-1">Budget</button></div>
+            <div class="tab-panel" id="panel-invitation" role="tabpanel" aria-labelledby="tab-invitation"><div class="document-meta"><span>DRAFT INVITATION</span><span>For review</span></div><h3>You’re invited to Family Day.</h3><p>Dear Parents and Guardians,</p><p>You are warmly invited to School Family Day on Friday, 23 October 2026, at the school assembly hall.</p><p>Time: <mark>[Confirm start time]</mark></p><p>We look forward to celebrating together.</p><p class="signatory">[School name and signatory]</p></div>
+            <div class="tab-panel" id="panel-checklist" role="tabpanel" aria-labelledby="tab-checklist" hidden><div class="document-meta"><span>PREPARATION CHECKLIST</span><span>2 example tasks</span></div><h3>Give every task a place.</h3><p>Try checking these sample tasks. Changes here last until the page is refreshed.</p><label class="task"><input type="checkbox"><span>Review and distribute invitations<small>Event coordinator · Due 22 October</small></span></label><label class="task"><input type="checkbox"><span>Confirm chairs and sound equipment<small>Owner to assign · Due 22 October</small></span></label></div>
+            <div class="tab-panel" id="panel-schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden><div class="document-meta"><span>PROPOSED RUN OF SHOW</span><span>Times to confirm</span></div><h3>A little structure for the day.</h3><ol class="agenda"><li><span>01</span>Welcome and opening</li><li><span>02</span>Children’s presentations</li><li><span>03</span>Family activity</li><li><span>04</span>Closing remarks</li></ol><p class="inline-notice">Confirm the start time, durations and presenters before using this schedule.</p></div>
+            <div class="tab-panel" id="panel-budget" role="tabpanel" aria-labelledby="tab-budget" hidden><div class="document-meta"><span>BUDGET WORKSHEET</span><span>NGN</span></div><h3>Unknown is not the same as free.</h3><p>The request supplied quantities, but no prices. The budget stays incomplete until those are confirmed.</p><div class="table-scroll"><table><thead><tr><th scope="col">Item</th><th scope="col">Quantity</th><th scope="col">Unit price</th></tr></thead><tbody><tr><td>Refreshment packs</td><td>50</td><td>To confirm</td></tr><tr><td>Printed programmes</td><td>50</td><td>To confirm</td></tr></tbody></table></div><p class="inline-notice">Total: incomplete. No costs have been estimated.</p></div>
+            <div class="example-footer"><span>Prepared example, ready to inspect.</span><button id="download-example" class="download-button" type="button">Download sample pack <span aria-hidden="true">↓</span></button><span id="download-status" role="status" class="sr-only"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="open-section wrap"><div class="open-symbol" aria-hidden="true">↗</div><div><p class="eyebrow">BUILT IN THE OPEN</p><h2>Follow the work.<br>See what is real.</h2><p>The validation and export core is available now. The next step is connecting Gemma to a working event workspace. The source documents progress and current limits.</p></div><a class="button outline" href="https://github.com/PHONIEXz/flow-point">Explore the repository <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="site-footer wrap"><a class="brand" href="#"><img src="/icon.svg" width="28" height="28" alt="">Flow Point</a><p>A project by Paul Ayoade David.</p><a href="https://github.com/PHONIEXz/flow-point">Open source on GitHub ↗</a></footer>
+</body>
+</html>

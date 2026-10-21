@@ -1,0 +1,10 @@
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { preparationPack } from '../src/export.mjs';
+const root = new URL('../', import.meta.url);
+const output = new URL('dist/', root);
+await rm(output, { recursive: true, force: true });
+await mkdir(output, { recursive: true });
+await cp(new URL('public/', root), output, { recursive: true });
+const sample = JSON.parse(await readFile(new URL('examples/school-event.json', root), 'utf8'));
+await writeFile(new URL('sample-pack.md', output), 'SAMPLE DATA: hand-authored fixture. No AI inference was performed.\n\n' + preparationPack(sample));
+console.log('Built static launch preview in dist/.');

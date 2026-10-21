@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Turn event requests into reviewed, usable preparation packs.",
-  "scripts": { "test": "node --test", "demo": "node scripts/demo.mjs" },
+  "scripts": { "test": "node --test", "demo": "node scripts/demo.mjs", "build": "node scripts/build.mjs" },
   "engines": { "node": ">=22" },
   "license": "MIT"
 }
