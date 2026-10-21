@@ -43,7 +43,8 @@ export async function generatePack({ request, answers = '', previousPlan = null 
     if (response.status === 400) throw new AppError(502, 'Google rejected the generation request (HTTP 400). The server model settings or Google API key configuration need attention.');
     if (response.status === 429) throw new AppError(429, 'The model quota is temporarily exhausted. Please wait and retry.');
     if ([401, 403].includes(response.status)) throw new AppError(503, 'Gemma access needs attention. The server owner should check the API key and model permissions.');
-    throw new AppError(502, 'Gemma could not prepare this pack. Check model availability and retry.');
+    console.warn(JSON.stringify({ event: 'gemma_generation_failed', httpStatus: response.status, model, durationMs: Date.now() - started }));
+    throw new AppError(502, `Google generation returned HTTP ${response.status}. Please retry when the provider is available.`);
   }
   let result;
   try { result = await response.json(); } catch { throw new AppError(502, 'Gemma returned an unreadable response. Please retry.'); }
@@ -51,4 +52,16 @@ export async function generatePack({ request, answers = '', previousPlan = null 
   if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'Gemma did not finish a usable pack. Try a shorter request.');
   const output = candidate?.content?.parts?.filter(part => !part.thought).map(part => part.text ?? '').join('');
   return { ...parseModelPlan(output), provenance: { mode: 'live', provider: 'Google Gemini API', model, generatedAt: new Date().toISOString(), durationMs: Date.now() - started } };
+}
+
+// One metadata check per server start, with no event content or credentials in logs.
+export async function checkModelAccess({ apiKey, model = 'gemma-4-26b-a4b-it', fetchImpl = fetch } = {}) {
+  if (!apiKey) return { event: 'gemma_model_access', configured: false };
+  if (!/^gemma-[a-zA-Z0-9.-]+$/.test(model)) return { event: 'gemma_model_access', configured: true, available: false, reason: 'invalid_model_setting' };
+  try {
+    const response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${model}`, { headers: { 'x-goog-api-key': apiKey }, signal: AbortSignal.timeout(10000) });
+    // Discard the response body; only status is needed for this diagnostic.
+    await response.body?.cancel();
+    return { event: 'gemma_model_access', configured: true, model, httpStatus: response.status, available: response.ok };
+  } catch { return { event: 'gemma_model_access', configured: true, model, available: false, reason: 'connection_or_timeout' }; }
 }
