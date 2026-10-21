@@ -24,3 +24,7 @@ An organizer enters a request, generates an event pack, resolves missing details
 4. Verify desktop and phone layout, sample editing, draft restoration after reload, cancellation, approval invalidation and downloaded contents in a permitted browser.
 5. Connect the verified service to flowpoint.phoenixreborn.tech, preserving existing root and unrelated DNS records; verify HTTPS.
 6. Measure manual preparation effort against the same task using Flow Point. Do not invent time-savings percentages.
+
+## Live provider check after key setup
+
+The user added GEMINI_API_KEY and redeployed. A permitted browser loaded the deployed workspace and showed live configuration enabled. A novel Cedar Grove Reading Day request was submitted through the UI. The server returned provider failures and 60-second timeouts; no valid live preparation pack was received. This confirms the key is configured, not that it is valid or that inference is working. Added safe key/model error categories and Gemma 4 minimal-thinking settings; all 21 automated tests pass. Deployment dep-dbc8vk2fngtc739eb790 (commit b36d2b8eb6d009014170c1b60d77a701c784343b) reached live. The final browser attempt still returned a provider error. The complete live generation/review/export acceptance gate remains blocked. Screenshot capture of the final error timed out. No private key was read or exposed.
