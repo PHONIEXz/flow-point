@@ -6,7 +6,7 @@ import { createApp } from '../src/server.mjs';
 import { generatePack, parseModelPlan, checkModelAccess } from '../src/gemma.mjs';
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
 function complete() { return { ...structuredClone(sample), startTime: '10:00', organizer: 'Example School', signatory: 'Principal', openQuestions: [], budget: [{ label: 'Paper', quantity: 3, unitCostMinor: 101 }], drafts: { invitation: 'Reviewed invitation.', schedule: '10:00 Welcome. 11:00 Closing.' } }; }
-async function app(t, config = {}) { const server = createApp(config); server.listen(0, '127.0.0.1'); await once(server, 'listening'); t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })); const base = `http://127.0.0.1:${server.address().port}`; return { get: path => fetch(base + path), post: (path, data, headers = {}) => fetch(base + path, { method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data) }) }; }
+async function app(t, config = {}) { const server = createApp(config); server.listen(0, '127.0.0.1'); await once(server, 'listening'); t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })); const base = `http://127.0.0.1:${server.address().port}`; return { get: path => fetch(base + path), post: (path, data, headers = {}, signal) => fetch(base + path, { signal, method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data) }) }; }
 
 test('HTTP flow: sample -> edit -> approve -> export -> edit invalidates approval', async t => {
   const client = await app(t, { apiKey: '' });
@@ -94,4 +94,31 @@ test('cancellation and timeout while reading the provider body cannot return a n
   const controller = new AbortController();
   await assert.rejects(generatePack({ request: 'Prepare Reading Day.' }, { apiKey: 'test', signal: controller.signal, fetchImpl: async () => ({ ok: true, json: async () => { controller.abort(); return { candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(complete()) }] } }] }; } }) }), error => error.status === 499);
   await assert.rejects(generatePack({ request: 'Prepare Reading Day.' }, { apiKey: 'test', fetchImpl: async () => ({ ok: true, json: async () => { throw new DOMException('timed out', 'TimeoutError'); } }) }), error => error.status === 504);
+});
+
+
+test('disconnect cancels upstream work and releases both generation slots', { timeout: 5000 }, async t => {
+  let started = 0, aborted = 0, respond = false;
+  let firstStarted, bothStarted, bothAborted;
+  const first = new Promise(resolve => { firstStarted = resolve; });
+  const both = new Promise(resolve => { bothStarted = resolve; });
+  const cancelled = new Promise(resolve => { bothAborted = resolve; });
+  const client = await app(t, { apiKey: 'test', fetchImpl: async (_url, { signal }) => {
+    if (respond) return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(complete()) }] } }] });
+    started++; if (started === 1) firstStarted(); if (started === 2) bothStarted();
+    return new Promise((_resolve, reject) => signal.addEventListener('abort', () => {
+      aborted++; if (aborted === 2) bothAborted(); reject(signal.reason);
+    }, { once: true }));
+  } });
+  const a = new AbortController(), b = new AbortController();
+  const input = { request: 'Prepare a reading day event.' };
+  const one = client.post('/api/generate', input, {}, a.signal).catch(error => error);
+  await first;
+  const two = client.post('/api/generate', input, {}, b.signal).catch(error => error);
+  await both;
+  assert.equal((await client.post('/api/generate', input)).status, 429);
+  a.abort(); b.abort(); await Promise.all([one, two, cancelled]);
+  respond = true;
+  assert.equal((await client.post('/api/generate', input)).status, 200);
+  assert.equal(aborted, 2);
 });
