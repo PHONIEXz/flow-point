@@ -20,7 +20,11 @@ Use a readable, mobile-friendly workspace with a calm cream background, dark ink
 
 Approval is a product review state, not an authentication or authorization mechanism. A content fingerprint invalidates a previous review after any normalized field changes. The web layer must also handle unresolved factual questions and never imply external actions have happened.
 
-## Next implementation
+## Implementation update (21 October 2026)
+
+The editable workspace, server-side Gemma adapter, browser-local save, review, approval and exports are implemented in the established Node stack. Live inference, deployed/browser verification, print/PDF and competition evidence remain pending. See `verification.md`. The earlier sequence below is retained as planning history; eve has not been integrated.
+
+## Original implementation sequence
 
 1. Scaffold eve using its installed documentation and confirm Render compatibility.
 2. Add server-only hosted Gemma inference with strict output validation, request size limits, timeout and clear quota errors. Confirm model access with an actual test request.

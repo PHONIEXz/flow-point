@@ -10,17 +10,24 @@
 
 Think: domain = address, hosting = building, DNS = directions.
 
-## 1. Deploy the preview
+## 1. Deploy the working app
 
-Connect Render to the GitHub repository `PHONIEXz/flow-point`. Create a Static Site using the repo's `render.yaml` Blueprint, or enter these settings in the dashboard:
+Connect Render to `PHONIEXz/flow-point`. The current `render.yaml` describes a Node Web Service, not the earlier static preview.
 
 | Setting | Value |
 | --- | --- |
+| Service name | `flow-point-app` |
+| Runtime | Node |
 | Branch | `main` |
-| Build command | `npm run build` |
-| Publish directory | `dist` |
+| Build command | `npm test && npm run build` |
+| Start command | `npm start` |
+| Health-check path | `/healthz` |
+| Secret environment variable | `GEMINI_API_KEY` |
+| Model variable | `GEMMA_MODEL=gemma-4-26b-a4b-it` |
 
-Wait for the deployment to succeed and open the exact Render URL it returns. This first preview is a launch page with sample data, not the completed AI application. A static page cannot safely store a private model API key.
+Set the key privately in Render, never in the repository or browser code. Keep an older static preview running until the Node service works. Changing the Blueprint does not itself prove the service type was migrated.
+
+Wait for a live deployment, open the exact Render URL it returns, and test `/workspace`. Verify a novel live Gemma request and a downloaded pack before connecting the domain.
 
 ## 2. Tell Render the public address
 
@@ -49,7 +56,7 @@ Return to Render and verify the custom domain. DNS changes can take time to reac
 
 ## Current state
 
-Launch website and Render configuration are prepared in the repository. A Render service, its exact DNS target, applied DNS record and verified HTTPS connection are still pending. This document is a walkthrough, not a claim that those steps have happened.
+The event workspace, Node server and Render Web Service configuration are prepared in the repository. Service inspection, a live deployment, its exact DNS target, applied DNS record and verified HTTPS connection are still pending. This document is a walkthrough, not a claim that those steps have happened.
 
 ## Official references
 

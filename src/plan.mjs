@@ -22,8 +22,12 @@ export function validatePlan(input) {
   const requestedWeekday = input.requestedWeekday == null ? null : text(input.requestedWeekday, 'weekday', 10);
   if (requestedWeekday !== null && !weekdays.includes(requestedWeekday)) throw new Error('Invalid weekday');
   const venue = input.venue == null ? null : text(input.venue, 'venue', 500) || null;
+  const startTime = input.startTime == null ? null : text(input.startTime, 'start time', 5) || null;
+  if (startTime && !/^([01]\d|2[0-3]):[0-5]\d$/.test(startTime)) throw new Error('Invalid start time');
+  const organizer = input.organizer == null ? null : text(input.organizer, 'organizer', 200) || null;
+  const signatory = input.signatory == null ? null : text(input.signatory, 'signatory', 200) || null;
   const currency = text(input.currency, 'currency', 3).toUpperCase();
-  if (!/^[A-Z]{3}$/.test(currency)) throw new Error('Expected a three-letter currency code');
+  if (!['NGN', 'USD', 'GBP', 'EUR', 'GHS', 'KES', 'ZAR', 'CAD', 'AUD', 'CHF', 'INR', 'CNY', 'SGD', 'AED'].includes(currency)) throw new Error('Choose a supported currency with 100 minor units');
   if (!Array.isArray(input.tasks) || input.tasks.length > 100) throw new Error('Invalid tasks');
   const tasks = input.tasks.map((task) => {
     if (!task || typeof task !== 'object') throw new Error('Invalid task');
@@ -50,7 +54,7 @@ export function validatePlan(input) {
   for (const key of ['invitation', 'schedule']) drafts[key] = text(input.drafts?.[key], key);
   if (!Array.isArray(input.openQuestions) || input.openQuestions.length > 50) throw new Error('Invalid open questions');
   const openQuestions = input.openQuestions.map((question) => text(question, 'open question', 500)).filter(Boolean);
-  return { title, eventDate, requestedWeekday, venue, currency, tasks, budget, drafts, openQuestions };
+  return { title, eventDate, requestedWeekday, venue, startTime, organizer, signatory, currency, tasks, budget, drafts, openQuestions };
 }
 
 export function reviewPlan(input) {
@@ -58,8 +62,12 @@ export function reviewPlan(input) {
   const issues = [];
   if (!plan.eventDate) issues.push({ code: 'MISSING_DATE', message: 'Confirm the event date.' });
   if (!plan.venue) issues.push({ code: 'MISSING_VENUE', message: 'Confirm the venue.' });
+  if (!plan.startTime) issues.push({ code: 'MISSING_TIME', message: 'Confirm the event start time.' });
+  if (!plan.organizer) issues.push({ code: 'MISSING_ORGANIZER', message: 'Confirm the organizing school or group.' });
+  if (!plan.signatory) issues.push({ code: 'MISSING_SIGNATORY', message: 'Confirm the invitation signatory.' });
   for (const question of plan.openQuestions) issues.push({ code: 'OPEN_QUESTION', message: question });
   if (!plan.drafts.invitation || !plan.drafts.schedule) issues.push({ code: 'MISSING_DRAFT', message: 'Complete both the invitation and run of show.' });
+  if (Object.values(plan.drafts).some(draft => /\[Confirm[^\]]*\]/i.test(draft))) issues.push({ code: 'DRAFT_PLACEHOLDER', message: 'Replace confirmation placeholders in the invitation and run of show.' });
   const actual = plan.eventDate && weekdays[calendarDate(plan.eventDate).getUTCDay()];
   if (actual && plan.requestedWeekday && actual !== plan.requestedWeekday) {
     issues.push({ code: 'DATE_CONFLICT', message: `${plan.eventDate} is a ${actual}, but the request says ${plan.requestedWeekday}.` });

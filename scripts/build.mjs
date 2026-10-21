@@ -7,4 +7,4 @@ await mkdir(output, { recursive: true });
 await cp(new URL('public/', root), output, { recursive: true });
 const sample = JSON.parse(await readFile(new URL('examples/school-event.json', root), 'utf8'));
 await writeFile(new URL('sample-pack.md', output), 'SAMPLE DATA: hand-authored fixture. No AI inference was performed.\n\n' + preparationPack(sample));
-console.log('Built static launch preview in dist/.');
+console.log('Built Flow Point client assets and sample pack in dist/.');

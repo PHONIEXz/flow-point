@@ -7,6 +7,9 @@ const example = JSON.parse(await readFile(new URL('../examples/school-event.json
 const copy = () => structuredClone(example);
 function completePlan() {
   const plan = copy();
+  plan.startTime = '10:00';
+  plan.organizer = 'Example School';
+  plan.signatory = 'Event Coordinator';
   plan.openQuestions = [];
   plan.budget.forEach((item) => { item.unitCostMinor = 10000; });
   plan.drafts.invitation = 'Reviewed invitation with confirmed details.';
@@ -83,4 +86,15 @@ test('does not copy extra model-provided fields into the validated plan', () => 
   const plan = completePlan();
   plan.apiKey = 'must-not-be-copied';
   assert.equal(Object.hasOwn(validatePlan(plan), 'apiKey'), false);
+});
+
+
+test('essential event details and unresolved draft placeholders block approval', () => {
+  for (const field of ['startTime', 'organizer', 'signatory']) {
+    const plan = completePlan(); plan[field] = null; assert.throws(() => approvePlan(plan));
+  }
+  const plan = completePlan(); plan.startTime = '25:00'; assert.throws(() => validatePlan(plan));
+  plan.startTime = '10:00'; plan.drafts.invitation += ' [Confirm venue]';
+  assert.ok(reviewPlan(plan).issues.some(issue => issue.code === 'DRAFT_PLACEHOLDER'));
+  assert.throws(() => approvePlan(plan));
 });
