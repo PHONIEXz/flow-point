@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { reviewPlan, approvePlan, isApproved } from './plan.mjs';
 import { budgetCsv, preparationPack } from './export.mjs';
-import { generatePack, AppError } from './gemma.mjs';
+import { generatePack, checkModelAccess, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
 const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
@@ -87,6 +87,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const server = createApp();
+  checkModelAccess({ apiKey: process.env.GEMINI_API_KEY, model: process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it' }).then(result => console.info(JSON.stringify(result)));
   const portIndex = process.argv.indexOf('--port');
   const port = Number(portIndex >= 0 ? process.argv[portIndex + 1] : process.env.PORT || 3000);
   server.listen(port, '0.0.0.0', () => console.log(`Flow Point listening on port ${port}`));
