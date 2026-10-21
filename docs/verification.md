@@ -14,7 +14,7 @@ An organizer enters a request, generates an event pack, resolves missing details
 - JavaScript syntax checks and the static build pass. The supervised preview starts at port 4173.
 - Cloud browser access to the preview was rejected by the browser security policy. No screenshots, mobile layout, browser persistence behavior or click-through flow have been verified. No alternate browser path was used to bypass that decision.
 - No GEMINI_API_KEY was available in this work session, so there is no live inference result or quality benchmark.
-- Render listing requires explicit confirmation of the workspace before the connector permits service inspection or changes. No service or DNS changes were made.
+- The user confirmed Ayoade Paul's Workspace. Created the free Node Web Service `flow-point-app` (`srv-dbc8labbc2fs73blobc0`) in Frankfurt. Deployment `dep-dbc8ls4s728c73ec4lhg`, commit `8daac1cf752875b840b424ed2d13e36a03218f4f`, reached `live`. URL: https://flow-point-app.onrender.com/workspace. Health, workspace HTML, configuration and sample APIs return 200. A remote HTTP sample flow verifies approval, Markdown export and approval invalidation after an edit. Browser interaction and phone layout remain unverified. The API key and custom domain are not configured. No DNS changes were made.\n- The first clean Render build exposed that HTTP tests needed generated assets. Added a pretest build hook, reproduced a clean build locally, and passed all 20 tests before redeploying.
 
 ## Remaining acceptance gates
 
