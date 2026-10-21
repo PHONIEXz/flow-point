@@ -2,29 +2,50 @@
 
 Date: 21 October 2026.
 
-## User story
+## Current result
 
-An organizer enters a request, generates an event pack, resolves missing details, edits its documents and budget, approves a version and downloads the reviewed pack. Drafts survive a reload on the same browser.
+The deployed desktop workflow has passed with actual hosted Gemma inference: request -> generated pack -> review -> approval -> Markdown and CSV downloads -> reload restoration -> edit invalidates approval.
 
-## Evidence
+App: https://flow-point-app.onrender.com/workspace
+Service: flow-point-app (srv-dbc8labbc2fs73blobc0), free Node service, Frankfurt.
+Verified deployment: dep-dbc95cg473hc73fgrm10, commit 24937cca33def818312769c6fa18259d21f18df8.
+Model: gemma-4-26b-a4b-it through Google's Gemini API.
 
-- Automated core/HTTP tests pass. The generation route is exercised with a simulated Google response; the server validates the result and returns model provenance.
-- HTTP sample -> blocked approval -> completed plan -> approval -> approved Markdown -> edited plan -> draft Markdown is covered.
-- Model quota/auth/network failures, malformed and truncated output, cross-site actions, oversized input and invalid currency arithmetic are covered.
-- JavaScript syntax checks and the static build pass. The supervised preview starts at port 4173.
-- Cloud browser access to the preview was rejected by the browser security policy. No screenshots, mobile layout, browser persistence behavior or click-through flow have been verified. No alternate browser path was used to bypass that decision.
-- No GEMINI_API_KEY was available in this work session, so there is no live inference result or quality benchmark.
-- The user confirmed Ayoade Paul's Workspace. Created the free Node Web Service `flow-point-app` (`srv-dbc8labbc2fs73blobc0`) in Frankfurt. Deployment `dep-dbc8ls4s728c73ec4lhg`, commit `8daac1cf752875b840b424ed2d13e36a03218f4f`, reached `live`. URL: https://flow-point-app.onrender.com/workspace. Health, workspace HTML, configuration and sample APIs return 200. A remote HTTP sample flow verifies approval, Markdown export and approval invalidation after an edit. Browser interaction and phone layout remain unverified. The API key and custom domain are not configured. No DNS changes were made.\n- The first clean Render build exposed that HTTP tests needed generated assets. Added a pretest build hook, reproduced a clean build locally, and passed all 20 tests before redeploying.
+## Automated checks
 
-## Remaining acceptance gates
+All 22 automated tests pass. Tests cover dates, exact integer budget arithmetic, approval fingerprints, CSV escaping, HTTP workflow, request validation, provider failures and safe model-access diagnostics. Model responses in automated tests are simulated and are distinct from the real browser runs below.
 
-1. Confirm the Render workspace and inspect existing services before creating or changing one.
-2. Deploy the Node service; add the Google key privately in its environment settings.
-3. Use a novel request to verify actual model access, missing-information behavior and draft quality. Record the model, generated time, elapsed time and a sanitized output.
-4. Verify desktop and phone layout, sample editing, draft restoration after reload, cancellation, approval invalidation and downloaded contents in a permitted browser.
-5. Connect the verified service to flowpoint.phoenixreborn.tech, preserving existing root and unrelated DNS records; verify HTTPS.
-6. Measure manual preparation effort against the same task using Flow Point. Do not invent time-savings percentages.
+## Live evidence
 
-## Live provider check after key setup
+The user configured GEMINI_API_KEY privately in Render. The server model metadata check returned HTTP 200. No private key was read or exposed.
 
-The user added GEMINI_API_KEY and redeployed. A permitted browser loaded the deployed workspace and showed live configuration enabled. A novel Cedar Grove Reading Day request was submitted through the UI. The server returned provider failures and 60-second timeouts; no valid live preparation pack was received. This confirms the key is configured, not that it is valid or that inference is working. Added safe key/model error categories and Gemma 4 minimal-thinking settings; all 21 automated tests pass. Deployment dep-dbc8vk2fngtc739eb790 (commit b36d2b8eb6d009014170c1b60d77a701c784343b) reached live. The final browser attempt still returned a provider error. The complete live generation/review/export acceptance gate remains blocked. Screenshot capture of the final error timed out. No private key was read or exposed.
+A browser submitted this test request:
+
+> Reading Day on Saturday 14 November 2026, 10:00 to 12:00, Cedar Grove hall. Organizer: Cedar Grove Club. Signatory: Ada, coordinator. Currency NGN. Budget: 10 snack packs at 1000 naira each. Prepare a short invitation, schedule and checklist. Keep every section brief.
+
+- Actual generation succeeded in 5.9 seconds in the first successful run and 6.2 seconds in a subsequent browser run.
+- The pack preserved the supplied date, weekday, time, venue, organizer and currency.
+- The generated checklist kept unspecified owners and due dates blank.
+- Budget: quantity 10, unit price NGN 1,000, total NGN 10,000; stored subtotal 1,000,000 kobo.
+- The model unnecessarily asked for currency confirmation despite NGN being supplied. A human resolved it against the original request before approval. This illustrates why review is still needed.
+- Invitation and proposed schedule were inspected, then the version was approved.
+- The browser's Download pack and Budget CSV controls both produced files. Local inspection confirmed Approved status, event details and exact CSV money values.
+- Reloading restored the request, plan and approval from browser local storage after the API check completed.
+- Editing invitation wording immediately removed approval and required a fresh review. The revised version was reviewed and approved again.
+- A desktop screenshot captured the approved version. Phone layout remains unverified.
+
+## Earlier failures and fixes
+
+The first clean Render build exposed a test order issue. Added a pretest asset build and reproduced a passing clean build locally.
+
+Initial live attempts returned provider failures and 60-second timeouts. Added specific sanitized provider errors, minimal thinking for Gemma 4 and a bounded output size. Later short-request runs succeeded. This does not prove the earlier provider failures cannot recur, or establish reliability for long requests.
+
+The free Render service displayed its wake-up page after inactivity; the workspace loaded after startup. Cold starts remain a product limitation of the selected hosting tier.
+
+## Remaining work
+
+1. Add flowpoint.phoenixreborn.tech to the Render service and configure DNS with the domain provider. The connected Render tools do not expose custom-domain controls; the dashboard currently requires a separate browser sign-in.
+2. Set the optional HTTP health-check path to /healthz in the dashboard; MCP direct creation did not expose this setting.
+3. Verify phone layout, live refinement, cancellation, sparse/contradictory novel requests and longer-input reliability.
+4. Measure human preparation effort against the same task using Flow Point. Generation elapsed time is not a measured time-savings percentage.
+5. Produce final demo/screenshots and the DEV submission. Do not claim category completion until its requirements are verified.
