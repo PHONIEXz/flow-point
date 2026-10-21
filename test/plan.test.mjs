@@ -100,7 +100,7 @@ test('essential event details and unresolved draft placeholders block approval',
 });
 test('blocks ordinary model placeholders even after event fields are completed', () => {
   const plan = { title: 'Reading Day', eventDate: '2026-11-14', requestedWeekday: 'Saturday', startTime: '10:00', venue: 'Cedar hall', organizer: 'Cedar Club', signatory: 'Ada', currency: 'NGN', tasks: [], budget: [], openQuestions: [], drafts: { invitation: 'Welcome.', schedule: '10:00 Welcome.' } };
-  for (const placeholder of ['[Date]', '[Time]', '[Venue]', '[Signatory]', '[Organizer]', '[Activity]', '[Insert location]', '[TBD]']) {
+  for (const placeholder of ['[Date]', '[Time]', '[Venue]', '[Signatory]', '[Organizer]', '[Activity]', '[Insert location]', '[TBD]', '[Proposed run of show to be drafted upon confirmation of start time and agenda.]']) {
     plan.drafts.invitation = `Join us ${placeholder}.`;
     assert.ok(reviewPlan(plan).issues.some(issue => issue.code === 'DRAFT_PLACEHOLDER'), placeholder);
     assert.throws(() => approvePlan(plan));
