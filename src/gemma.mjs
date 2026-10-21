@@ -25,7 +25,7 @@ export async function generatePack({ request, answers = '', previousPlan = null 
     response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(60000)]) : AbortSignal.timeout(60000),
-      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: instructions + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan }) }] }], generationConfig: { temperature: 0.2, maxOutputTokens: 10000 } })
+      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: instructions + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan }) }] }], generationConfig: { temperature: 0.2, maxOutputTokens: 4096, ...(model.startsWith('gemma-4-') ? { thinkingConfig: { thinkingLevel: 'minimal' } } : {}) } })
     });
   } catch (error) {
     if (signal?.aborted) throw new AppError(499, 'Generation cancelled.');
