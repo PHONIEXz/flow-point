@@ -90,3 +90,8 @@ test('startup model check records status without returning key or provider respo
   assert.equal(result.available, true); assert.equal(result.httpStatus, 200);
   assert.doesNotMatch(JSON.stringify(result), /private/);
 });
+test('cancellation and timeout while reading the provider body cannot return a new pack', async () => {
+  const controller = new AbortController();
+  await assert.rejects(generatePack({ request: 'Prepare Reading Day.' }, { apiKey: 'test', signal: controller.signal, fetchImpl: async () => ({ ok: true, json: async () => { controller.abort(); return { candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(complete()) }] } }] }; } }) }), error => error.status === 499);
+  await assert.rejects(generatePack({ request: 'Prepare Reading Day.' }, { apiKey: 'test', fetchImpl: async () => ({ ok: true, json: async () => { throw new DOMException('timed out', 'TimeoutError'); } }) }), error => error.status === 504);
+});
