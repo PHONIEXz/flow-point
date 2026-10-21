@@ -8,7 +8,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 Version 0.2 adds an actual event workspace at `/workspace`, a Node HTTP server, and a server-only hosted Gemma adapter. The workspace supports editing, open questions, deterministic checks, browser-local draft restoration, version approval and Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
-**Live inference and production deployment are not verified yet.** No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
+**The app is deployed at https://flow-point-app.onrender.com/workspace.** Health, workspace, configuration and sample endpoints respond successfully. Live inference and browser/phone interaction are not verified yet. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
 
 ## Run
 
@@ -48,7 +48,7 @@ Server safeguards include JSON/body limits, fixed static routes, same-origin bro
 
 `render.yaml` now describes a **Node Web Service** called `flow-point-app`, with `npm test && npm run build`, `npm start` and `/healthz`. The server binds `0.0.0.0` and honors `PORT`. A Static Site alone cannot run the API.
 
-If an older static preview exists, keep it until the new app has been verified. Do not assume changing the Blueprint converts an existing Static Site. Create/confirm the separate Node service, set `GEMINI_API_KEY` in Render's secret environment settings, and verify a real request before moving the domain. The free service may sleep between visits. No hosted service, DNS change or TLS certificate is claimed by this repository update.
+If an older static preview exists, keep it until the new app has been verified. Do not assume changing the Blueprint converts an existing Static Site. Create/confirm the separate Node service, set `GEMINI_API_KEY` in Render's secret environment settings, and verify a real request before moving the domain. The free service may sleep between visits. The free Node service is deployed in Ayoade Paul's Workspace (Frankfurt), with Render-managed HTTPS at https://flow-point-app.onrender.com. Custom-domain DNS and live inference are still pending. This service was created through MCP; the optional `/healthz` HTTP health-check setting must still be applied in the Dashboard (the service currently uses Render's default port check).
 
 Planned address: `flowpoint.phoenixreborn.tech`. See [domain setup](docs/domain-setup.md).
 
