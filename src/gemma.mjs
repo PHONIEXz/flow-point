@@ -20,21 +20,26 @@ export async function generatePack({ request, answers = '', previousPlan = null 
   if (!apiKey) throw new AppError(503, 'Live generation is not connected yet. Try the labelled sample workspace, or configure the server API key.');
   if (!/^gemma-[a-zA-Z0-9.-]+$/.test(model)) throw new AppError(503, 'The server Gemma model setting is invalid.');
   const started = Date.now();
+  const requestSignal = signal ? AbortSignal.any([signal, AbortSignal.timeout(60000)]) : AbortSignal.timeout(60000);
+  function checkInterrupted(error) {
+    if (signal?.aborted) throw new AppError(499, 'Generation cancelled.');
+    if (requestSignal.aborted || error?.name === 'TimeoutError' || error?.name === 'AbortError') throw new AppError(504, 'Gemma took too long to reply. Your draft is safe; please retry.');
+  }
   let response;
   try {
     response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-      signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(60000)]) : AbortSignal.timeout(60000),
+      signal: requestSignal,
       body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: instructions + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan }) }] }], generationConfig: { temperature: 0.2, maxOutputTokens: 4096, ...(model.startsWith('gemma-4-') ? { thinkingConfig: { thinkingLevel: 'minimal' } } : {}) } })
     });
   } catch (error) {
-    if (signal?.aborted) throw new AppError(499, 'Generation cancelled.');
-    if (error.name === 'TimeoutError' || error.name === 'AbortError') throw new AppError(504, 'Gemma took too long to reply. Your draft is safe; please retry.');
+    checkInterrupted(error);
     throw new AppError(502, 'Could not reach Gemma. Please retry when the connection is available.');
   }
   if (!response.ok) {
     // Inspect only known error categories. Never forward Google's raw body or key.
     const failure = await response.json().catch(() => ({}));
+    checkInterrupted();
     const message = typeof failure.error?.message === 'string' ? failure.error.message : '';
     const reasons = Array.isArray(failure.error?.details) ? failure.error.details.map(item => item?.reason) : [];
     if (reasons.includes('API_KEY_INVALID') || /api key not valid|api key is invalid|api key expired/i.test(message)) throw new AppError(503, 'Google rejected the API key as invalid or expired. Replace GEMINI_API_KEY in Render with a valid Google AI Studio key, then redeploy.');
@@ -47,7 +52,8 @@ export async function generatePack({ request, answers = '', previousPlan = null 
     throw new AppError(502, `Google generation returned HTTP ${response.status}. Please retry when the provider is available.`);
   }
   let result;
-  try { result = await response.json(); } catch { throw new AppError(502, 'Gemma returned an unreadable response. Please retry.'); }
+  try { result = await response.json(); } catch (error) { checkInterrupted(error); throw new AppError(502, 'Gemma returned an unreadable response. Please retry.'); }
+  checkInterrupted();
   const candidate = result.candidates?.[0];
   if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'Gemma did not finish a usable pack. Try a shorter request.');
   const output = candidate?.content?.parts?.filter(part => !part.thought).map(part => part.text ?? '').join('');
