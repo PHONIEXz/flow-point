@@ -56,7 +56,15 @@ Return to Render and verify the custom domain. DNS changes can take time to reac
 
 ## Current state
 
-The event workspace, Node server and Render Web Service configuration are prepared in the repository. Service inspection, a live deployment, its exact DNS target, applied DNS record and verified HTTPS connection are still pending. This document is a walkthrough, not a claim that those steps have happened.
+The Node app is live at https://flow-point-app.onrender.com/workspace and the live desktop generation/review/export workflow has passed.
+
+The user signed in to the .tech dashboard. Existing CNAME, A and AAAA sections showed no records before the change. Created and verified this entry in the dashboard:
+
+| Type | Host | Value | TTL |
+| --- | --- | --- | --- |
+| CNAME | flowpoint | flow-point-app.onrender.com | Auto |
+
+The domain association in Render is still pending. Automatic approval review blocked the separate Google sign-in needed to access Render's dashboard, despite the connected Render tools already having service access. Those tools do not expose custom-domain controls. Do not claim the custom address or certificate works until Render association, DNS verification and HTTPS checks succeed.
 
 ## Official references
 
