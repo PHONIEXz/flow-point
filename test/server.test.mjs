@@ -42,6 +42,7 @@ test('live provider adapter sends the key only in a header and validates returne
   assert.equal(response.status, 200); const result = await response.json(); assert.equal(result.provenance.mode, 'live'); assert.match(result.provenance.model, /^gemma-/);
   assert.ok(!seen.url.includes('secret-fixture-key')); assert.equal(seen.options.headers['x-goog-api-key'], 'secret-fixture-key');
   assert.match(JSON.parse(seen.options.body).contents[0].parts[0].text, /Unknown facts MUST be null/);
+  assert.equal(JSON.parse(seen.options.body).generationConfig.thinkingConfig.thinkingLevel, 'minimal');
 });
 test('provider quota, bad output, truncated output and network failures are actionable', async () => {
   const input = { request: 'A school event request.' };
