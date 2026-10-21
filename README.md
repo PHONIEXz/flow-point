@@ -8,7 +8,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 Version 0.2 adds an actual event workspace at `/workspace`, a Node HTTP server, and a server-only hosted Gemma adapter. The workspace supports editing, open questions, deterministic checks, browser-local draft restoration, version approval and Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
-**The app is deployed at https://flow-point-app.onrender.com/workspace.** Health, workspace, configuration and sample endpoints respond successfully. Live inference and browser/phone interaction are not verified yet. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
+**The app is deployed at https://flow-point-app.onrender.com/workspace.** Health, workspace, configuration and sample endpoints respond successfully. Live hosted Gemma generation, desktop review/approval, Markdown and CSV export, reload restoration, and approval invalidation after edits have been verified. Successful short requests took 5.9 and 6.2 seconds. Phone layout and longer-request reliability remain unverified. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
 
 ## Run
 
@@ -62,7 +62,7 @@ This version retains the established dependency-free Node stack. eve was conside
 
 Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
-Intended categories: Gemma, Render and .tech Domain, subject to actual implementation and eligibility. Outstanding: novel live Gemma runs, deployed end-to-end verification, phone layout checks, timed user-effort measurements, screenshots/demo and DEV submission. Do not claim category completion or savings without that evidence. Record any changes made after the deadline.
+Intended categories: Gemma, Render and .tech Domain, subject to actual implementation and eligibility. Outstanding: broader model-quality/reliability evaluation, custom-domain setup, phone layout checks, timed user-effort measurements, final screenshots/demo and DEV submission. The live desktop workflow has passed; see docs/verification.md. Do not claim category completion or savings without that evidence. Record any changes made after the deadline.
 
 ## License
 
