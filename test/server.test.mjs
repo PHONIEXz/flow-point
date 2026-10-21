@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { readFile } from 'node:fs/promises';
 import { createApp } from '../src/server.mjs';
-import { generatePack, parseModelPlan } from '../src/gemma.mjs';
+import { generatePack, parseModelPlan, checkModelAccess } from '../src/gemma.mjs';
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
 function complete() { return { ...structuredClone(sample), startTime: '10:00', organizer: 'Example School', signatory: 'Principal', openQuestions: [], budget: [{ label: 'Paper', quantity: 3, unitCostMinor: 101 }], drafts: { invitation: 'Reviewed invitation.', schedule: '10:00 Welcome. 11:00 Closing.' } }; }
 async function app(t, config = {}) { const server = createApp(config); server.listen(0, '127.0.0.1'); await once(server, 'listening'); t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })); const base = `http://127.0.0.1:${server.address().port}`; return { get: path => fetch(base + path), post: (path, data, headers = {}) => fetch(base + path, { method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data) }) }; }
@@ -83,4 +83,10 @@ test('provider setup failures are specific without leaking upstream data', async
   ]) {
     await assert.rejects(generatePack({ request: 'Example event request' }, { apiKey: 'secret-value', fetchImpl: async () => Response.json({ error }, { status }) }), failure => expected.test(failure.message) && !failure.message.includes('secret-value'));
   }
+});
+
+test('startup model check records status without returning key or provider response', async () => {
+  const result = await checkModelAccess({ apiKey: 'private-value', fetchImpl: async () => new Response('private-upstream-body', { status: 200 }) });
+  assert.equal(result.available, true); assert.equal(result.httpStatus, 200);
+  assert.doesNotMatch(JSON.stringify(result), /private/);
 });
