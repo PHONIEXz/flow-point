@@ -1,0 +1,20 @@
+{
+  "title": "School Family Day",
+  "eventDate": "2026-10-23",
+  "requestedWeekday": "Friday",
+  "venue": "School assembly hall",
+  "currency": "NGN",
+  "openQuestions": ["Confirm the event start time.", "Confirm the school name and invitation signatory."],
+  "tasks": [
+    { "label": "Review and distribute invitations", "owner": "Event coordinator", "dueDate": "2026-10-22" },
+    { "label": "Confirm chairs and sound equipment", "owner": null, "dueDate": "2026-10-22" }
+  ],
+  "budget": [
+    { "label": "Refreshment packs", "quantity": 50, "unitCostMinor": null },
+    { "label": "Printed programmes", "quantity": 50, "unitCostMinor": null }
+  ],
+  "drafts": {
+    "invitation": "Dear Parents and Guardians,\n\nYou are warmly invited to School Family Day on Friday, 23 October 2026, at the school assembly hall.\n\nTime: [Confirm start time]\n\nWe look forward to celebrating together.\n\n[School name and signatory]",
+    "schedule": "Proposed order, subject to review:\n1. Welcome and opening\n2. Children's presentations\n3. Family activity\n4. Closing remarks\n\n[Confirm start time, durations and assigned presenters.]"
+  }
+}

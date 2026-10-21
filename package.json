@@ -1,0 +1,10 @@
+{
+  "name": "flow-point",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Turn event requests into reviewed, usable preparation packs.",
+  "scripts": { "test": "node --test", "demo": "node scripts/demo.mjs" },
+  "engines": { "node": ">=22" },
+  "license": "MIT"
+}
