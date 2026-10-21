@@ -6,7 +6,8 @@ Date: 21 October 2026.
 
 The deployed desktop workflow has passed with actual hosted Gemma inference: request -> generated pack -> review -> approval -> Markdown and CSV downloads -> reload restoration -> edit invalidates approval.
 
-App: https://flow-point-app.onrender.com/workspace
+App: https://flowpoint.phoenixreborn.tech/workspace
+Original address: https://flow-point-app.onrender.com/workspace
 Service: flow-point-app (srv-dbc8labbc2fs73blobc0), free Node service, Frankfurt.
 Verified deployment: dep-dbc95cg473hc73fgrm10, commit 24937cca33def818312769c6fa18259d21f18df8.
 Model: gemma-4-26b-a4b-it through Google's Gemini API.
@@ -34,6 +35,10 @@ A browser submitted this test request:
 - Editing invitation wording immediately removed approval and required a fresh review. The revised version was reviewed and approved again.
 - A desktop screenshot captured the approved version. Phone layout remains unverified.
 
+## Custom-domain verification
+
+The provider dashboard confirmed CNAME flowpoint -> flow-point-app.onrender.com (TTL Auto). After the user completed the Render domain association, the custom-domain workspace loaded successfully in the browser over HTTPS. An HTTPS GET to /healthz returned HTTP 200 and {"status":"ok"} with normal certificate validation. Render's own certificate status label was not separately observed. Drafts are stored per origin, so drafts from onrender.com do not automatically appear at the custom domain. The earlier full generation/review/export test was performed at the original address.
+
 ## Earlier failures and fixes
 
 The first clean Render build exposed a test order issue. Added a pretest asset build and reproduced a passing clean build locally.
@@ -44,7 +49,6 @@ The free Render service displayed its wake-up page after inactivity; the workspa
 
 ## Remaining work
 
-1. Add flowpoint.phoenixreborn.tech to the Render service and configure DNS with the domain provider. The connected Render tools do not expose custom-domain controls; the dashboard currently requires a separate browser sign-in.
 2. Set the optional HTTP health-check path to /healthz in the dashboard; MCP direct creation did not expose this setting.
 3. Verify phone layout, live refinement, cancellation, sparse/contradictory novel requests and longer-input reliability.
 4. Measure human preparation effort against the same task using Flow Point. Generation elapsed time is not a measured time-savings percentage.
