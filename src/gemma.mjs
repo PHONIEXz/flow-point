@@ -33,6 +33,14 @@ export async function generatePack({ request, answers = '', previousPlan = null 
     throw new AppError(502, 'Could not reach Gemma. Please retry when the connection is available.');
   }
   if (!response.ok) {
+    // Inspect only known error categories. Never forward Google's raw body or key.
+    const failure = await response.json().catch(() => ({}));
+    const message = typeof failure.error?.message === 'string' ? failure.error.message : '';
+    const reasons = Array.isArray(failure.error?.details) ? failure.error.details.map(item => item?.reason) : [];
+    if (reasons.includes('API_KEY_INVALID') || /api key not valid|api key is invalid|api key expired/i.test(message)) throw new AppError(503, 'Google rejected the API key as invalid or expired. Replace GEMINI_API_KEY in Render with a valid Google AI Studio key, then redeploy.');
+    if (reasons.some(reason => ['API_KEY_SERVICE_BLOCKED', 'API_KEY_HTTP_REFERRER_BLOCKED', 'API_KEY_IP_ADDRESS_BLOCKED', 'SERVICE_DISABLED'].includes(reason))) throw new AppError(503, 'Google blocked this key for the Generative Language API. Check the key restrictions and enabled API in the Google project.');
+    if (response.status === 404) throw new AppError(503, 'Google could not find the configured Gemma model for this API. Check GEMMA_MODEL and model availability for this Google project.');
+    if (response.status === 400) throw new AppError(502, 'Google rejected the generation request (HTTP 400). The server model settings or Google API key configuration need attention.');
     if (response.status === 429) throw new AppError(429, 'The model quota is temporarily exhausted. Please wait and retry.');
     if ([401, 403].includes(response.status)) throw new AppError(503, 'Gemma access needs attention. The server owner should check the API key and model permissions.');
     throw new AppError(502, 'Gemma could not prepare this pack. Check model availability and retry.');
