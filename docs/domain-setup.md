@@ -64,7 +64,9 @@ The user signed in to the .tech dashboard. Existing CNAME, A and AAAA sections s
 | --- | --- | --- | --- |
 | CNAME | flowpoint | flow-point-app.onrender.com | Auto |
 
-The domain association in Render is still pending. Automatic approval review blocked the separate Google sign-in needed to access Render's dashboard, despite the connected Render tools already having service access. Those tools do not expose custom-domain controls. Do not claim the custom address or certificate works until Render association, DNS verification and HTTPS checks succeed.
+Custom-domain setup is complete. On 21 October 2026, after the user completed the Render domain step, https://flowpoint.phoenixreborn.tech/workspace loaded the expected Flow Point workspace over HTTPS without a certificate warning. An HTTPS GET to /healthz returned HTTP 200 with {"status":"ok"}, using normal certificate validation. The Render dashboard's domain/certificate status labels were not separately observed; the public HTTPS checks establish that the custom address serves the app. The original onrender.com address remains available.
+
+Draft storage is scoped to the browser origin. Drafts saved at the onrender.com address do not automatically appear at the custom domain.
 
 ## Official references
 
