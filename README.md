@@ -8,7 +8,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 Version 0.2 adds an actual event workspace at `/workspace`, a Node HTTP server, and a server-only hosted Gemma adapter. The workspace supports editing, open questions, deterministic checks, browser-local draft restoration, version approval and Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
-**The app is live at https://flowpoint.phoenixreborn.tech/workspace.** The original https://flow-point-app.onrender.com/workspace address remains available. Health, workspace, configuration and sample endpoints respond successfully. Live hosted Gemma generation, desktop review/approval, Markdown and CSV export, reload restoration, and approval invalidation after edits have been verified. Successful short requests took 5.9 and 6.2 seconds. Phone layout and longer-request reliability remain unverified. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
+**The app is live at https://flowpoint.phoenixreborn.tech/workspace.** The original https://flow-point-app.onrender.com/workspace address remains available. Health, workspace, configuration and sample endpoints respond successfully. Live hosted Gemma generation, desktop review/approval, Markdown and CSV export, reload restoration, and approval invalidation after edits have been verified. Successful short requests took 5.9 and 6.2 seconds. The first reliability pass exercised missing facts, conflicting/ambiguous dates, a 4,788-character request, preservation of manual edits during refinement, and browser cancellation. Broader repeated model reliability and phone layout remain unverified. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
 
 ## Run
 
@@ -54,7 +54,7 @@ Live custom address: https://flowpoint.phoenixreborn.tech/workspace. Browser-loc
 
 ## Verification
 
-`npm test` covers date conflicts and invalid dates, exact budget arithmetic and overflow, missing facts, placeholders, approval invalidation, CSV escaping, and HTTP routes through generation, review, approval and export. Provider tests simulate valid, truncated, malformed, quota and network-failure responses. See [verification record](docs/verification.md) for remaining gates.
+`npm test` covers date conflicts and invalid dates, exact budget arithmetic and overflow, missing facts, placeholders, approval invalidation, CSV escaping, and HTTP routes through generation, review, approval and export. Provider tests simulate valid, truncated, malformed, quota and network-failure responses. All 25 tests pass. See [verification record](docs/verification.md) for evidence and remaining gates, and [contest work chunks](docs/contest-readiness.md) for the five-part plan.
 
 This version retains the established dependency-free Node stack. eve was considered in the initial design but is not installed or claimed as part of the running app.
 
