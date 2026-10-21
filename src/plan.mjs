@@ -67,7 +67,8 @@ export function reviewPlan(input) {
   if (!plan.signatory) issues.push({ code: 'MISSING_SIGNATORY', message: 'Confirm the invitation signatory.' });
   for (const question of plan.openQuestions) issues.push({ code: 'OPEN_QUESTION', message: question });
   if (!plan.drafts.invitation || !plan.drafts.schedule) issues.push({ code: 'MISSING_DRAFT', message: 'Complete both the invitation and run of show.' });
-  if (Object.values(plan.drafts).some(draft => /\[(?:confirm\b|insert\b|enter\b|tbd\b|to be confirmed\b|(?:event\s+)?(?:date|time|venue|location|organizer|signatory|activity|name|price|quantity)\b)[^\]]*\]/i.test(draft))) issues.push({ code: 'DRAFT_PLACEHOLDER', message: 'Replace confirmation placeholders in the invitation and run of show.' });
+  // Bracketed draft text needs review; allow only the plain proposed-section heading.
+  if (Object.values(plan.drafts).some(draft => /\[[^\]]+\]/.test(draft.replace(/\[Proposed Run of Show\]/gi, '')))) issues.push({ code: 'DRAFT_PLACEHOLDER', message: 'Replace bracketed draft placeholders in the invitation and run of show.' });
   const actual = plan.eventDate && weekdays[calendarDate(plan.eventDate).getUTCDay()];
   if (actual && plan.requestedWeekday && actual !== plan.requestedWeekday) {
     issues.push({ code: 'DATE_CONFLICT', message: `${plan.eventDate} is a ${actual}, but the request says ${plan.requestedWeekday}.` });
