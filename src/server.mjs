@@ -24,11 +24,10 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
   return createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'self'; form-action 'self'");
+    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
     res.setHeader('Cache-Control', 'no-store');
     const pathname = new URL(req.url, 'http://local').pathname;
     try {
-      if (req.method === 'GET' && pathname === '/__responsive-check') { res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' }); return res.end(await readFile(new URL('../test/responsive-check.html', import.meta.url))); }
       if (req.method === 'GET' && pathname === '/healthz') return json(res, 200, { status: 'ok' });
       if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), model, storage: 'browser-local' });
       if (req.method === 'GET' && pathname === '/api/sample') {
