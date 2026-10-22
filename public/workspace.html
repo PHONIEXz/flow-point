@@ -7,6 +7,7 @@
 <main id="workspace-main" class="workspace-main">
 <div class="workspace-heading"><div><p class="eyebrow">LESS ADMIN. MORE ROOM TO BREATHE.</p><h1>Your event, taking shape.</h1><p>One rough request. An invitation, a run of show, a checklist, and a budget.</p></div><span class="save-state" id="save-state" role="status">Saved on this browser</span></div>
 <ol class="flow-steps" aria-label="Preparation stages"><li id="stage-capture" class="current"><span>01</span> Capture</li><li id="stage-review"><span>02</span> Clarify & edit</li><li id="stage-approve"><span>03</span> Review & export</li></ol>
+<nav class="workspace-jumps" aria-label="Workspace sections"><a href="#request-form">Event request</a><a href="#pack-heading">Event pack</a></nav>
 <div id="notice" role="status" class="workspace-notice" hidden></div>
 <div class="workspace-grid">
 <aside class="capture-card">
@@ -22,7 +23,7 @@
 <section id="clarify-section" class="clarify-section" hidden><h3>More details to add?</h3><label for="answers">Confirmations or changes</label><textarea id="answers" rows="4" maxlength="8000" placeholder="The start time is 10:00. The organizer is…"></textarea><button class="button outline full" id="refine" type="button">Update pack with Gemma</button><p class="field-help">This sends the request, current pack, and your changes to Google. Review the refreshed drafts before approval.</p></section>
 </aside>
 <section class="pack-workspace" aria-labelledby="pack-heading">
-<div class="pack-toolbar"><div><p class="eyebrow">YOUR PREPARATION PACK</p><h2 id="pack-heading">A clearer next step.</h2></div><span class="state-badge" id="pack-status">Waiting for your request</span></div>
+<div class="pack-toolbar"><div><p class="eyebrow">YOUR PREPARATION PACK</p><h2 id="pack-heading" tabindex="-1">A clearer next step.</h2></div><span class="state-badge" id="pack-status">Waiting for your request</span></div>
 <div id="empty-state" class="empty-state"><div class="empty-illustration" aria-hidden="true"><span>✦</span><div>Invitation <b>✓</b></div><div>Run of show <b>✓</b></div><div>Checklist & budget <b>✓</b></div></div><h3>Less scattered. More prepared.</h3><p>Your editable event pack will appear here.<br>Missing facts stay visible, ready for you to confirm.</p><button class="button outline" id="empty-sample" type="button">Try the sample workspace</button></div>
 <div id="pack-editor" hidden>
 <p class="provenance" id="provenance"></p>
