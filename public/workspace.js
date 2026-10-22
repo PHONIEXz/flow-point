@@ -18,6 +18,7 @@ async function api(path, data, signal) {
 }
 function activate(tab) {
   tabs.forEach(item => { const selected = item === tab; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; $(item.getAttribute('aria-controls')).hidden = !selected; });
+  tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 }
 tabs.forEach((tab, index) => {
   tab.addEventListener('click', () => activate(tab));
@@ -62,8 +63,9 @@ function renderReview() {
   $('total-label').textContent = review.budgetComplete ? 'Total' : 'Known subtotal · incomplete';
   $('total-value').textContent = `${state.plan.currency} ${(review.knownTotalMinor / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
-function inputField(label, value, onChange, { type = 'text', maxLength = 300, min, max, step } = {}) {
+function inputField(label, value, onChange, { type = 'text', maxLength = 300, min, max, step, ariaLabel, inputMode, placeholder } = {}) {
   const wrap = node('label', label), input = node('input'); input.type = type; input.value = value ?? ''; input.maxLength = maxLength;
+  if (ariaLabel) input.setAttribute('aria-label', ariaLabel); if (inputMode) input.inputMode = inputMode; if (placeholder) input.placeholder = placeholder;
   if (min != null) input.min = min; if (max != null) input.max = max; if (step != null) input.step = step;
   input.addEventListener('input', () => { onChange(input.value); invalidate(); }); wrap.append(input); return wrap;
 }
@@ -79,17 +81,17 @@ function renderRows() {
   $('tasks').replaceChildren(...state.plan.tasks.map((task, index) => {
     const row = node('div', null, 'task-row'), grid = node('div', null, 'row-grid');
     row.append(inputField(`Task ${index + 1}`, task.label, value => { task.label = value; }));
-    grid.append(inputField('Owner', task.owner, value => { task.owner = value || null; }, { maxLength: 150 }), inputField('Due date', task.dueDate, value => { task.dueDate = value || null; }, { type: 'date' }), removeButton('Remove task', () => { state.plan.tasks.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
+    grid.append(inputField('Owner (optional)', task.owner, value => { task.owner = value || null; }, { maxLength: 150, ariaLabel: `Task ${index + 1} owner`, placeholder: 'Unassigned' }), inputField('Due date (optional)', task.dueDate, value => { task.dueDate = value || null; }, { type: 'date', ariaLabel: `Task ${index + 1} due date` }), removeButton('Remove task', () => { state.plan.tasks.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
   }));
   $('budget').replaceChildren(...state.plan.budget.map((item, index) => {
     const row = node('div', null, 'budget-row'), grid = node('div', null, 'row-grid');
     row.append(inputField(`Item ${index + 1}`, item.label, value => { item.label = value; }, { maxLength: 200 }));
-    grid.append(inputField('Quantity', item.quantity, value => { item.quantity = /^\d+$/.test(value) ? Number(value) : null; }, { type: 'number', min: 1, step: 1 }), inputField(`Unit price (${state.plan.currency})`, item.unitCostMinor == null ? '' : (item.unitCostMinor / 100).toFixed(2), value => {
+    grid.append(inputField('Quantity', item.quantity, value => { item.quantity = /^\d+$/.test(value) ? Number(value) : null; }, { type: 'number', min: 1, step: 1, inputMode: 'numeric', ariaLabel: `Item ${index + 1} quantity` }), inputField(`Unit price (${state.plan.currency})`, item.unitCostMinor == null ? '' : (item.unitCostMinor / 100).toFixed(2), value => {
       // Parse decimal text without floating-point currency arithmetic.
       if (value === '') item.unitCostMinor = null;
       else if (/^\d+(\.\d{1,2})?$/.test(value)) { const [whole, fraction = ''] = value.split('.'); item.unitCostMinor = Number(whole) * 100 + Number(fraction.padEnd(2, '0')); }
       else item.unitCostMinor = -1;
-    }, { type: 'number', min: 0, step: '0.01' }), removeButton('Remove item', () => { state.plan.budget.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
+    }, { type: 'number', min: 0, step: '0.01', inputMode: 'decimal', ariaLabel: `Item ${index + 1} unit price (${state.plan.currency})` }), removeButton('Remove item', () => { state.plan.budget.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
   }));
 }
 function renderPack() {
