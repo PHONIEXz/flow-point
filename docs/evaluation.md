@@ -44,19 +44,19 @@ Manual files: save a text/Markdown pack and a budget CSV using normal editor/spr
 
 Copy or read this exact brief only when the timer starts:
 
-> Prepare an event pack for Cedar School Reading Day on Saturday 14 November 2026, from 10:00 to 12:00, at Cedar School hall. Organizer: Cedar School Literacy Club. Invitation signatory: Ada Bello, club coordinator. Invite parents to attend. Planned activities: arrival, welcome, pupil reading, a group reading activity and closing. Currency: NGN. Budget: 30 reading booklets at NGN 500 each, 30 water bottles at NGN 200 each, and 5 marker packs at NGN 1200 each. Include an invitation of about 80–150 words, a proposed schedule with at least five entries, at least six preparation tasks, and all three budget items. Task owners and preparation deadlines are unassigned. Do not invent confirmed arrangements.
+> Prepare an event pack for Cedar School Reading Day on Saturday 14 November 2026, from 10:00 to 12:00, at Cedar School hall. Organizer: Cedar School Literacy Club. Invitation signatory: Ada Bello, club coordinator. Invite parents to attend. Planned activities: arrival, welcome, pupil reading, a group reading activity and closing. Currency: NGN. Budget: 30 reading booklets at NGN 500 each, 30 water bottles at NGN 200 each, and 5 marker packs at NGN 1200 each. Include an invitation of about 80–150 words, a proposed schedule with at least five entries, at least six preparation tasks, and all three budget items. For this fictional exercise, the venue booking and listed event details are confirmed. Invitations have not been sent. Task owners and preparation deadlines are unassigned. Do not invent additional confirmed arrangements.
 
 Reference total: NGN 27,000. Booklets: 30 × 500 = 15,000; water: 30 × 200 = 6,000; markers: 5 × 1,200 = 6,000.
 
 ## Task 2: church programme
 
-> Prepare an event pack for Hope Chapel Community Thanksgiving on Sunday 15 November 2026, from 14:00 to 16:00, at Hope Chapel main hall. Organizer: Hope Chapel Welfare Team. Invitation signatory: Daniel Cole, programme coordinator. Invite members and neighbours. Planned activities: arrival, welcome, music, a gratitude discussion and closing. Currency: NGN. Budget: 50 refreshment packs at NGN 300 each, 10 table covers at NGN 1000 each, and 100 printed programmes at NGN 100 each. Include an invitation of about 80–150 words, a proposed schedule with at least five entries, at least six preparation tasks, and all three budget items. Task owners and preparation deadlines are unassigned. Do not invent confirmed arrangements.
+> Prepare an event pack for Hope Chapel Community Thanksgiving on Sunday 15 November 2026, from 14:00 to 16:00, at Hope Chapel main hall. Organizer: Hope Chapel Welfare Team. Invitation signatory: Daniel Cole, programme coordinator. Invite members and neighbours. Planned activities: arrival, welcome, music, a gratitude discussion and closing. Currency: NGN. Budget: 50 refreshment packs at NGN 300 each, 10 table covers at NGN 1000 each, and 100 printed programmes at NGN 100 each. Include an invitation of about 80–150 words, a proposed schedule with at least five entries, at least six preparation tasks, and all three budget items. For this fictional exercise, the venue booking and listed event details are confirmed. Invitations have not been sent. Task owners and preparation deadlines are unassigned. Do not invent additional confirmed arrangements.
 
 Reference total: NGN 35,000 (15,000 + 10,000 + 10,000).
 
 ## Task 3: community meeting
 
-> Prepare an event pack for Maple Community Skills Meeting on Saturday 21 November 2026, from 09:00 to 11:00, at Maple Community Centre. Organizer: Maple Residents Association. Invitation signatory: Tunde Akin, meeting secretary. Invite residents to attend. Planned activities: registration, welcome, a skills demonstration, group discussion and closing. Currency: NGN. Budget: 20 notebooks at NGN 800 each, 40 water bottles at NGN 200 each, and 4 stationery packs at NGN 1500 each. Include an invitation of about 80–150 words, a proposed schedule with at least five entries, at least six preparation tasks, and all three budget items. Task owners and preparation deadlines are unassigned. Do not invent confirmed arrangements.
+> Prepare an event pack for Maple Community Skills Meeting on Saturday 21 November 2026, from 09:00 to 11:00, at Maple Community Centre. Organizer: Maple Residents Association. Invitation signatory: Tunde Akin, meeting secretary. Invite residents to attend. Planned activities: registration, welcome, a skills demonstration, group discussion and closing. Currency: NGN. Budget: 20 notebooks at NGN 800 each, 40 water bottles at NGN 200 each, and 4 stationery packs at NGN 1500 each. Include an invitation of about 80–150 words, a proposed schedule with at least five entries, at least six preparation tasks, and all three budget items. For this fictional exercise, the venue booking and listed event details are confirmed. Invitations have not been sent. Task owners and preparation deadlines are unassigned. Do not invent additional confirmed arrangements.
 
 Reference total: NGN 30,000 (16,000 + 8,000 + 6,000).
 
@@ -120,6 +120,10 @@ Any public claim must identify this as a self-test by the project owner, disclos
 - Honest short findings written, including limitations.
 
 Current conclusion: no human time-savings claim is supported yet.
+
+## Untimed preflight
+
+Before collecting human results, a live school-case preflight returned a 98-word invitation, five schedule entries, six preparation tasks and the correct NGN 27,000 budget. It asked whether the venue was booked. The three fictional briefs were then clarified to state that venue booking and event details are confirmed. No participant has been timed; this preflight is not a baseline or a time-savings result.
 
 ## Separate technical evidence
 
