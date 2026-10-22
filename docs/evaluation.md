@@ -123,7 +123,7 @@ Current conclusion: no human time-savings claim is supported yet.
 
 ## Untimed preflight
 
-Before collecting human results, a live school-case preflight returned a 98-word invitation, five schedule entries, six preparation tasks and the correct NGN 27,000 budget. It asked whether the venue was booked. The three fictional briefs were then clarified to state that venue booking and event details are confirmed. No participant has been timed; this preflight is not a baseline or a time-savings result.
+Before collecting human results, a live school-case preflight returned a 98-word invitation, five schedule entries, six preparation tasks and the correct NGN 27,000 budget. It asked whether the venue was booked. The three fictional briefs were then clarified to state that venue booking and event details are confirmed. A second live preflight with the clarified school brief returned all six tasks, all three budget lines and the correct total, but included a spurious open question reading "None". A tester should verify this is not an actual unresolved question, then mark it resolved; count that review/correction time. Do not discard inconvenient output from the measurements. No participant has been timed; these preflights are not a baseline or a time-savings result.
 
 ## Separate technical evidence
 
