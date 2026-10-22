@@ -19,7 +19,7 @@ Status: first stress-test and correction pass completed on 21 October 2026. Broa
 | Cancellation/timeout during provider body reading | Added regression coverage, reproduced failure, then fixed classification and rejection before accepting a pack. |
 | Disconnect and capacity | Local HTTP test filled both generation slots, confirmed the third request was rejected, disconnected both clients, confirmed both upstream signals aborted and the next generation succeeded. |
 
-All 25 automated tests pass. Simulated provider tests are distinct from the live cases above. Small-sample success does not establish a production success rate or prompt-injection immunity. Generation latency is not measured user-effort savings. Initial successful provider timings in this pass were 5.7–7.4 seconds, excluding network overhead and human review.
+All 26 automated tests pass, including PDF export checks. Simulated provider tests are distinct from the live cases above. Small-sample success does not establish a production success rate or prompt-injection immunity. Generation latency is not measured user-effort savings. Initial successful provider timings in this pass were 5.7–7.4 seconds, excluding network overhead and human review.
 
 Remaining reliability limits: provider failures and free-host cold starts; arbitrary draft factual inconsistencies still need human review; no claim of exhaustive model-quality coverage. Browser cancellation evidence was captured before the server-body interruption patch; server-body handling is covered separately by regression tests.
 
@@ -29,7 +29,7 @@ In progress: [the three-task pilot](evaluation.md) now defines school, church an
 
 ## 3. Mobile usability
 
-Pending: verify narrow screens, readable type, horizontal overflow, all editing tabs, approval and downloads on a phone. Distinguish responsive viewport checks from actual-device testing.
+Responsive browser-frame pass completed on 22 October 2026. At 320, 390, 768 and 1280 CSS pixels, all five editor panels and the page remained within the frame width; the five tabs fit without horizontal scrolling. Before the change, the 320px tab strip held 442px of content in a 267px strip, and the two budget price inputs were about 110px wide. Afterward the tabs occupy 267px and the budget inputs use the full 231px content width. Narrow layouts now expose header navigation and request/pack jump links, wrap stage labels and notices, stack budget fields, keep 16px input text, and use larger, labeled controls.\n\nIn the 320px browser frame, a sample pack was edited across the details, invitation, run of show, checklist and budget tabs. Entered prices recalculated an exact NGN 102,525.00 total; review issues cleared, the sample was approved, and both state and total persisted through reload. An edit invalidated approval. PDF, Markdown and CSV controls reported that downloads started. The PDF export endpoint and output are separately covered by automated/local PDF checks; the cloud browser did not surface a download event for the iframe, so this check does not prove a physical-phone download. Actual Android/iOS touch, native date/time pickers, keyboard behavior and file handling still need device testing.
 
 ## 4. Demo and evidence
 
