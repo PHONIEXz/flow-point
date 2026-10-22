@@ -28,6 +28,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
     res.setHeader('Cache-Control', 'no-store');
     const pathname = new URL(req.url, 'http://local').pathname;
     try {
+      if (req.method === 'GET' && pathname === '/__responsive-check') { res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' }); return res.end(await readFile(new URL('../test/responsive-check.html', import.meta.url))); }
       if (req.method === 'GET' && pathname === '/healthz') return json(res, 200, { status: 'ok' });
       if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), model, storage: 'browser-local' });
       if (req.method === 'GET' && pathname === '/api/sample') {
