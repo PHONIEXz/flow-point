@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { reviewPlan, approvePlan, isApproved } from './plan.mjs';
 import { budgetCsv, preparationPack } from './export.mjs';
+import { preparationPdf } from './pdf.mjs';
 import { generatePack, checkModelAccess, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
@@ -68,6 +69,11 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
           return json(res, 200, { approval });
         }
         const approval = data.approval && approved.get(data.approval.fingerprint);
+        if (data.format === 'pdf') {
+          const pdf = await preparationPdf(review.plan, approval, { sample: data.sample === true });
+          res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition': 'attachment; filename="flow-point-pack.pdf"' });
+          return res.end(pdf);
+        }
         if (data.format === 'csv') { res.writeHead(200, { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="flow-point-budget.csv"' }); return res.end(budgetCsv(review.plan)); }
         res.writeHead(200, { 'Content-Type': 'text/markdown; charset=utf-8', 'Content-Disposition': 'attachment; filename="flow-point-pack.md"' });
         return res.end((data.sample === true ? 'SAMPLE DATA: no AI inference was performed.\n\n' : '') + preparationPack(review.plan, approval));
