@@ -69,3 +69,13 @@ Browser cancellation of a real refinement retained the edited draft and clarific
 The ambiguous-input run preserved uncertainty and did not invent the malicious quoted price, but omitted 12 explicitly requested notebooks from the budget. Strengthened instructions to retain known-quantity items with null prices and avoid reconfirming supplied currencies. Post-deployment retest retained the 12 notebooks with unitCostMinor null, budgetComplete false and a MISSING_PRICES issue; date/time stayed null. A second complete NGN request returned no questions and the correct NGN 10,000 total. These provider runs took 4.6 and 4.4 seconds respectively. The retest also produced a differently worded bracketed schedule placeholder: generalized the approval check to all bracketed draft text, except the exact [Proposed Run of Show] heading, and added that captured phrase to the regression test. This deliberately requires users to resolve bracketed draft text before approval.
 
 See [work chunks](contest-readiness.md) for the remaining contest work. These are small synthetic tests, not a measured success-rate study, a privacy guarantee, or evidence of human time savings.
+
+## PDF export, 22 October 2026
+
+Deployed PDF export in dep-dbcrvpgm7kps73codh50, source commit 5dc6ec981356e1943fb2b4b3ad2a10e0470dda7e. The workspace now offers PDF, Markdown and budget CSV downloads. PDFKit embeds bundled DejaVu fonts; exports are generated in memory and sent as attachments, without creating a cloud document history.
+
+All 26 automated tests pass. PDF route tests cover draft/sample and approved exports, response headers, a complete PDF byte stream and invalid-plan rejection. Local visual inspection covered approved and draft samples, a long invitation, a 40-task checklist, repeated headers/footers, wrapped budget rows, unknown prices, exact large-amount formatting, Nigerian names and the naira symbol. Fixed a header continuation issue and kept short budgets together rather than orphaning the total.
+
+The live browser displayed the new controls and initiated a PDF download from the custom domain. Separate live HTTP exports returned application/pdf for an approved plan and an edited plan using the old approval. Text extraction verified approved status on the former, draft status on the latter, the NGN 27,000 total and accented name. These checks used synthetic data, not additional model calls.
+
+Storage remains one current request/pack in localStorage per browser origin. Replacing the pack overwrites that current draft; clearing browser data removes it. The UI now explicitly states these limits. Downloaded PDFs are snapshots and cannot restore editable workspace data. Accounts, named saved packs, cross-device sync and cloud history are not implemented.
