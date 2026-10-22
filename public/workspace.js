@@ -158,16 +158,16 @@ $('approve').addEventListener('click', async () => {
   } catch (error) { announce(error.message); if (review) renderReview(); }
 });
 async function download(format) {
-  const button = $(format === 'csv' ? 'export-csv' : 'export-md'); button.disabled = true;
+  const button = $(`export-${format}`); button.disabled = true;
   try {
     const response = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: state.plan, approval: state.approval, format, sample: state.provenance?.mode === 'sample' }) });
     if (!response.ok) { const data = await response.json(); throw new Error(data.error); }
-    const blob = await response.blob(), url = URL.createObjectURL(blob), a = node('a'); a.href = url; a.download = (state.provenance?.mode === 'sample' ? 'sample-' : '') + (format === 'csv' ? 'flow-point-budget.csv' : 'flow-point-pack.md'); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const blob = await response.blob(), url = URL.createObjectURL(blob), a = node('a'); a.href = url; a.download = (state.provenance?.mode === 'sample' ? 'sample-' : '') + (format === 'csv' ? 'flow-point-budget.csv' : `flow-point-pack.${format}`); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     announce('Download started. The pack includes its review status; the CSV is a budget worksheet.');
   } catch (error) { announce(error.message || 'Download failed. Please retry.'); }
   finally { button.disabled = false; }
 }
-$('export-md').addEventListener('click', () => download('md')); $('export-csv').addEventListener('click', () => download('csv'));
+$('export-pdf').addEventListener('click', () => download('pdf')); $('export-md').addEventListener('click', () => download('md')); $('export-csv').addEventListener('click', () => download('csv'));
 $('reset').addEventListener('click', () => {
   if (!confirm('Clear this browser’s Flow Point request and draft? Download a copy first if you need it.')) return;
   try { localStorage.removeItem(storageKey); } catch { /* Storage may be disabled. */ }
