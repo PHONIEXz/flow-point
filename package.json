@@ -15,5 +15,9 @@
   "engines": {
     "node": ">=22"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dejavu-fonts-ttf": "2.37.3",
+    "pdfkit": "0.20.2"
+  }
 }
