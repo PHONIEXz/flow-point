@@ -73,6 +73,25 @@ test('health and static routes use restrictive headers and never serve server fi
   assert.equal((await client.get('/.env')).status, 404);
 });
 
+test('PDF exports are attachments for draft and approved packs, including unknown prices', async t => {
+  const client = await app(t);
+  const fixture = await (await client.get('/api/sample')).json();
+  let response = await client.post('/api/export', { plan: fixture.plan, format: 'pdf', sample: true });
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get('content-type'), 'application/pdf');
+  assert.match(response.headers.get('content-disposition'), /attachment; filename="flow-point-pack.pdf"/);
+  const bytes = Buffer.from(await response.arrayBuffer());
+  assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
+  assert.match(bytes.subarray(-30).toString(), /%%EOF/);
+  const plan = complete();
+  const { approval } = await (await client.post('/api/approve', { plan, confirmed: true })).json();
+  response = await client.post('/api/export', { plan, approval, format: 'pdf' });
+  assert.equal(response.status, 200);
+  assert.equal(Buffer.from(await response.arrayBuffer()).subarray(0, 5).toString(), '%PDF-');
+  response = await client.post('/api/export', { plan: { ...plan, eventDate: '2026-02-30' }, format: 'pdf' });
+  assert.equal(response.status, 400);
+});
+
 
 test('provider setup failures are specific without leaking upstream data', async () => {
   for (const [status, error, expected] of [
