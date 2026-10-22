@@ -25,7 +25,7 @@ Remaining reliability limits: provider failures and free-host cold starts; arbit
 
 ## 2. Measured usefulness
 
-Pending: compare manual preparation with Flow Point on the same tasks, including review and corrections. Record participant, task, timing method, results and errors. Do not invent baseline times or extrapolate a savings percentage from generation latency.
+In progress: [the three-task pilot](evaluation.md) now defines school, church and community briefs, matching output requirements, a quality gate, stopwatch rules, alternating method order and a blank result sheet. Dates and reference budget totals have been checked. Human attempts and timing results have not been collected. Complete all pairs, retain failures and calculate only from measured values. Disclose that the participant is the project owner and that repeated briefs introduce learning bias.
 
 ## 3. Mobile usability
 
