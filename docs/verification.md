@@ -76,3 +76,8 @@ Fresh recording attempts returned two generation timeouts and a Google HTTP 500.
 The new PNG screenshots show the current Notes, schedule and budget editors using a labelled, manually edited School Family Day sample. Fictional confirmations include 09:30, Harbor Community School and Ada Bello. Programmes are 50 × NGN 180; 50 refreshment packs have no price. The NGN 9,000 known subtotal is incomplete, and the sample remains a draft. This is separate from the earlier NGN 24,000 Community Repair Day live pack. The current Home-page capture is the cover. See [media provenance and original images](media/README.md).
 
 All three YouTube players loaded with the expected titles in DEV preview and their embed URLs were verified on the published article. Continuous playback of the full uploads was not independently confirmed in the cloud browser. The local source MP4s passed full decoding checks at 1080p, 24 fps, with 48 kHz AAC stereo audio and 192-second duration.
+
+
+## Repository audit (23 October 2026)
+
+A clean checkout of `63e7ad3` was reviewed. Fixed asynchronous sample/saved-pack load races, restored notes before network validation, hardened malformed provider envelopes, and handled invalid request URLs inside the server error boundary. The Node engine floor now matches the documented 22.9 minimum. All 43 tests pass; `npm audit --omit=dev` reports zero known vulnerabilities. Current deployment discovery shows automatic deploys enabled, the older `npm test && npm run build` command and an empty HTTP health-check path, so the live service uses the default TCP check rather than the Blueprint’s declared `/healthz`. See [the detailed review](repo-review.md). No new live inference success rate was measured by this audit.

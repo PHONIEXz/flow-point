@@ -88,3 +88,5 @@ The 38-test automated suite passed in the last code verification. Remaining meas
 ## License
 
 MIT. Copyright (c) 2026 Paul Ayoade David. Upstream models and services retain their own licenses and terms.
+
+The [23 October repository review](docs/repo-review.md) records the latest fixes, automated checks and remaining limits.

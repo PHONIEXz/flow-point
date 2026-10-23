@@ -19,7 +19,7 @@ Connect Render to `PHONIEXz/flow-point`. The current `render.yaml` describes a N
 | Service name | `flow-point-app` |
 | Runtime | Node |
 | Branch | `main` |
-| Build command | `npm test && npm run build` |
+| Build command | `npm ci && npm test && npm run build` |
 | Start command | `npm start` |
 | Health-check path | `/healthz` |
 | Secret environment variable | `GEMINI_API_KEY` |

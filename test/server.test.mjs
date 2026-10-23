@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { once } from 'node:events';
+import { request as httpRequest } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { createApp } from '../src/server.mjs';
 import { generatePack, parseModelPlan, checkModelAccess, probeGeneration } from '../src/gemma.mjs';
@@ -261,4 +262,28 @@ test('PDF download names preserve event title spelling and Unicode with safe uni
     }
   }
   assert.equal(new Set(names).size, names.length);
+});
+
+test('malformed provider envelopes remain safe upstream errors rather than client validation failures', async t => {
+  for (const payload of [null, {}, { candidates: {} }, { candidates: [null] }, { candidates: [{ content: { parts: {} } }] }, { candidates: [{ content: { parts: [null, { text: 42 }] } }] }]) {
+    const client = await app(t, { apiKey: 'test', log: () => {}, fetchImpl: async () => Response.json(payload) });
+    const response = await client.post('/api/generate', { request: 'Prepare a school event.' });
+    assert.equal(response.status, 502);
+    assert.doesNotMatch((await response.json()).error, /This plan could not be validated/);
+  }
+  await assert.rejects(generatePack({ request: 'School event' }, { apiKey: 'test', log: () => {}, fetchImpl: async () => Response.json(null, { status: 403 }) }), error => error.status === 503);
+});
+
+
+test('a malformed request URL returns 400 and leaves the server healthy', async t => {
+  const server = createApp({ apiKey: '' });
+  server.listen(0, '127.0.0.1'); await once(server, 'listening');
+  t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); }));
+  const port = server.address().port;
+  const response = await new Promise((resolve, reject) => {
+    const req = httpRequest({ hostname: '127.0.0.1', port, path: 'http://[', method: 'GET' }, res => { res.resume(); res.on('end', () => resolve(res)); });
+    req.on('error', reject); req.end();
+  });
+  assert.equal(response.statusCode, 400);
+  assert.equal((await fetch(`http://127.0.0.1:${port}/healthz`)).status, 200);
 });

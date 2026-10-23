@@ -12,7 +12,7 @@ Keep the original request visible. Show supplied facts separately from proposals
 
 ## Interface
 
-Use a readable, mobile-friendly workspace with a calm cream background, dark ink, purple accents and generous spacing. The primary action is preparing the event pack. Show progress through concrete stages, clear failures, retry and cancel. Place the original request beside the pack on large screens and above it on phones. Offer a sample request clearly labelled as sample data.
+Use a readable, mobile-friendly workspace with a calm cream background, dark ink, purple accents and generous spacing. The primary action is preparing the event pack. Show progress through concrete stages, clear failures, retry and cancel. Use a full-page Notes view and a separate pack view, with the update form beside the pack on large screens and stacked on phones. Offer a sample request clearly labelled as sample data.
 
 ## Core contract
 
@@ -22,7 +22,7 @@ Approval is a product review state, not an authentication or authorization mecha
 
 ## Implementation update (21 October 2026)
 
-The editable workspace, server-side Gemma adapter, browser-local save, review, approval and exports are implemented in the established Node stack. Live inference, deployed/browser verification, print/PDF and competition evidence remain pending. See `verification.md`. The earlier sequence below is retained as planning history; eve has not been integrated.
+The editable workspace, server-side Gemma adapter, browser-local save, review, approval and exports are implemented in the established Node stack. Since this planning snapshot, live inference, deployed/browser checks, PDF export and published competition evidence have been delivered. The 23 October status is recorded in [verification.md](verification.md); repeated reliability evaluation and the measured usefulness pilot remain incomplete. The earlier sequence below is retained as planning history; eve has not been integrated.
 
 ## Original implementation sequence
 

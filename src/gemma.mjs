@@ -57,8 +57,8 @@ export async function generatePack({ request, answers = '', previousPlan = null 
     // Inspect only known error categories. Never forward Google's raw body or key.
     const failure = await response.json().catch(() => ({}));
     checkInterrupted();
-    const message = typeof failure.error?.message === 'string' ? failure.error.message : '';
-    const reasons = Array.isArray(failure.error?.details) ? failure.error.details.map(item => item?.reason) : [];
+    const message = typeof failure?.error?.message === 'string' ? failure.error.message : '';
+    const reasons = Array.isArray(failure?.error?.details) ? failure.error.details.map(item => item?.reason) : [];
     if (reasons.includes('API_KEY_INVALID') || /api key not valid|api key is invalid|api key expired/i.test(message)) throw new AppError(503, 'Google rejected the API key as invalid or expired. Replace GEMINI_API_KEY in Render with a valid Google AI Studio key, then redeploy.');
     if (reasons.some(reason => ['API_KEY_SERVICE_BLOCKED', 'API_KEY_HTTP_REFERRER_BLOCKED', 'API_KEY_IP_ADDRESS_BLOCKED', 'SERVICE_DISABLED'].includes(reason))) throw new AppError(503, 'Google blocked this key for the Generative Language API. Check the key restrictions and enabled API in the Google project.');
     if (response.status === 404) throw new AppError(503, 'Google could not find the configured Gemma model for this API. Check GEMMA_MODEL and model availability for this Google project.');
@@ -71,9 +71,10 @@ export async function generatePack({ request, answers = '', previousPlan = null 
   let result;
   try { result = await response.json(); } catch (error) { checkInterrupted(error); throw new AppError(502, 'Gemma returned an unreadable response. Please retry.'); }
   checkInterrupted();
-  const candidate = result.candidates?.[0];
+  const candidate = Array.isArray(result?.candidates) ? result.candidates[0] : null;
   if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'Gemma did not finish a usable pack. Try a shorter request.');
-  const output = candidate?.content?.parts?.filter(part => !part.thought).map(part => part.text ?? '').join('');
+  const parts = candidate?.content?.parts;
+  const output = Array.isArray(parts) ? parts.filter(part => part && !part.thought && typeof part.text === 'string').map(part => part.text).join('') : undefined;
   const parsed = parseModelPlan(output);
   record({ event: 'gemma_generation_succeeded', model: usedModel, requestedModel: model, attempts, durationMs: Date.now() - started });
   return { ...parsed, provenance: { mode: 'live', provider: 'Google Gemini API', model: usedModel, requestedModel: model, attempts, generatedAt: new Date().toISOString(), durationMs: Date.now() - started } };

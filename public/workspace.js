@@ -119,18 +119,20 @@ function loadCurrent(candidate, message) {
   if (!persist(candidate)) return false;
   state = collection.current; $('request').value = state.request; $('answers').value = state.answers;
   renderPack(); renderSavedPacks(); activate(tabs[0]); announce(message);
-  switchView(state.plan ? 'pack' : 'notes');
+  switchView(state.plan ? 'pack' : 'notes', false, true);
   if (!state.plan) { $('pack-heading').textContent = 'A clearer next step.'; $('pack-status').textContent = 'Waiting for your request'; $('pack-status').className = 'state-badge'; $('stage-capture').classList.add('current'); $('stage-review').classList.remove('current'); $('stage-approve').classList.remove('current'); }
   return true;
 }
 async function openSaved(id) {
   if (busy) return;
   if ((state.plan || state.request.trim()) && !collection.activeId && !confirm('Open a saved pack? The unnamed current work will be replaced. Save it with a name first if you want to keep it.')) return;
+  setBusy(true);
   try {
     const candidate = openNamed(collection, id);
     candidate.current.plan = (await api('/api/review', { plan: candidate.current.plan, approval: candidate.current.approval })).plan;
     loadCurrent(candidate, `Opened “${candidate.packs.find(item => item.id === id).name}”. Review its facts and export status.`);
   } catch (error) { announce(error.message); }
+  finally { setBusy(false); }
 }
 function renameSaved(id) {
   const item = collection.packs.find(entry => entry.id === id);
@@ -263,7 +265,7 @@ $('add-budget').addEventListener('click', () => { if (state.plan.budget.length >
 function setBusy(value) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
-  $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('reset').disabled = value;
+  $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; renderSavedPacks();
   $('cancel').hidden = !value; $('cancel-refine').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
   if (!value && review) renderReview(); else $('approve').disabled = true;
@@ -291,12 +293,14 @@ $('cancel-refine').addEventListener('click', () => controller?.abort());
 async function sample() {
   if (busy) return;
   if (state.plan && !confirm(collection.activeId ? 'Open the sample? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack with the labelled sample? Save it with a name first if needed.')) return;
+  setBusy(true);
   try {
     const result = await api('/api/sample'); clearTimeout(timer); revision++;
     collection = { ...collection, activeId: null };
     state = { request: 'SAMPLE: School Family Day on Friday, 23 October 2026, at the school assembly hall. Prepare invitations and a run of show, with 50 refreshment packs and 50 printed programmes. Prices and start time are not supplied.', answers: '', plan: result.plan, approval: null, provenance: result.provenance };
-    $('request').value = state.request; $('answers').value = ''; $('review-confirm').checked = false; save(); renderPack(); announce('Sample workspace opened. This is hand-authored data, with no AI call. You can edit, review, and export it.'); activate(tabs[0]); switchView('pack');
+    $('request').value = state.request; $('answers').value = ''; $('review-confirm').checked = false; save(); renderPack(); announce('Sample workspace opened. This is hand-authored data, with no AI call. You can edit, review, and export it.'); activate(tabs[0]); switchView('pack', false, true);
   } catch (error) { announce(error.message); }
+  finally { setBusy(false); }
 }
 $('sample').addEventListener('click', sample); $('empty-sample').addEventListener('click', sample);
 $('approve').addEventListener('click', async () => {
@@ -326,16 +330,19 @@ $('reset').addEventListener('click', () => {
   loadCurrent(newWorkspace(collection), 'Blank workspace ready. Your named packs and AI processing choice remain available.');
 });
 async function init() {
+  setBusy(true);
   try {
     const stored = localStorage.getItem(storageKey), legacy = localStorage.getItem(legacyKey);
     collection = restoreCollection(stored?.length <= 1500000 ? stored : null, legacy?.length <= 150000 ? legacy : null);
     state = collection.current;
+    // Restore notes before contacting the server, so a failed review cannot hide them.
+    $('request').value = state.request; $('answers').value = state.answers;
     if (state.plan) state.plan = (await api('/api/review', { plan: state.plan, approval: state.approval })).plan;
-    $('request').value = state.request; $('answers').value = state.answers; renderPack();
+    renderPack();
     if (!stored && legacy) save();
   } catch { announce('The saved draft could not be restored. You can start a new pack or retry after reconnecting.'); }
   try { const config = await api('/api/config'); liveAvailable = config.liveAvailable; $('model-state').textContent = liveAvailable ? `Live drafting · ${config.model}` : 'Live Gemma is not connected yet. The sample workspace is available.'; }
   catch { $('model-state').textContent = 'Cannot reach the app server. Please reconnect and reload.'; }
-  $('generate').disabled = !liveAvailable; $('refine').disabled = !liveAvailable;
+  setBusy(false);
 }
 init();

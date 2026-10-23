@@ -27,12 +27,14 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
     res.setHeader('Cache-Control', 'no-store');
-    const pathname = new URL(req.url, 'http://local').pathname;
+    let pathname = '';
     const requestId = randomUUID();
     const started = Date.now();
     let action = 'prepare';
     res.setHeader('X-Request-ID', requestId);
     try {
+      try { pathname = new URL(req.url, 'http://local').pathname; }
+      catch { throw new AppError(400, 'Invalid request URL.'); }
       if (req.method === 'GET' && pathname === '/healthz') return json(res, 200, { status: 'ok' });
       if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), model, storage: 'browser-local' });
       if (req.method === 'GET' && pathname === '/api/sample') {
