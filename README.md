@@ -62,9 +62,9 @@ This version retains the established dependency-free Node stack. eve was conside
 
 Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
-The [submission draft](docs/dev-submission-draft.md) uses live screenshots in `docs/media/`; the [winner comparison](docs/submission-review.md) records the presentation choices and remaining gates. This draft is not a published DEV entry.
+The [published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8) uses live screenshots in `docs/media/`. Its [Markdown source](docs/dev-submission-draft.md) and the [winner comparison](docs/submission-review.md) record the evidence and presentation choices.
 
-Intended categories: Gemma, Render and .tech Domain, subject to eligibility. A novel live generation, refinement and draft PDF export have been checked. The user reported that the phone experience worked perfectly. Outstanding: timed user-effort measurement, recording and DEV submission. Do not claim savings without evidence. Record any changes made after the deadline.
+Entry categories: Gemma, Render and .tech Domain, subject to eligibility. A novel live generation, refinement and draft PDF export have been checked. The user reported that the phone experience worked perfectly. Outstanding: timed user-effort measurement and an optional recording. Do not claim savings without evidence. Record any changes made after the deadline.
 
 ## License
 
