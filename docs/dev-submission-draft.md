@@ -1,11 +1,3 @@
----
-title: "Flow Point: one messy event note, four useful drafts, and the questions we still need to answer"
-published: true
-tags: devchallenge, hf26challenge, gemma, hacktoberfest
----
-
-Published on DEV: https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8
-
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady](https://dev.to/challenges/hacktoberfest-week3-2026-10-19).*
 
 ## What I Built
@@ -38,7 +30,7 @@ The screenshots show a real hosted Gemma run using fictional data. The pack has 
 
 **[Source and setup instructions](https://github.com/PHONIEXz/flow-point)** · **[Live verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md)**
 
-The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current test suite passes **33 tests**.
+The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current test suite passes **38 tests**.
 
 ## How I Built It
 
@@ -60,11 +52,9 @@ The current invitation is a starting draft, not polished copy. The later schedul
 
 I also tested a fictional Young Minds school event, first for 150 attendees and then for 180. I timed Flow Point myself: approximately **37 seconds to prepare** and **53 seconds to update** in that test. These are my own approximate operation timings, not a multi-user benchmark or a claim of percentage time saved. A full manual-writing baseline and review/export time are not included in those figures. The [exact initial brief, follow-up update and expected checks](https://github.com/PHONIEXz/flow-point/blob/main/docs/school-event-test.md) are public so the test can be repeated.
 
-The uploaded result preserved the revised date, venue, 10:00 start, activity durations and **NGN 181,500 total**. It also exposed a real weakness: the rehearsal time was still awaiting approval, but its question disappeared; the named first-aid officer was missing from the checklist. Structural validation did not catch those semantic omissions. I tightened the prompt to retain pending approvals, named duties and the spending-limit explanation, and kept the original failure in the verification record. A post-fix retest using those exact inputs returned Google HTTP 500 twice, so I have not yet verified the revised model output. The notes were preserved. A human must still compare the pack with the source brief.
+The uploaded result preserved the revised date, venue, 10:00 start, activity durations and **NGN 181,500 total**. It also exposed a real weakness: the rehearsal time was still awaiting approval, but its question disappeared; the named first-aid officer was missing from the checklist. Structural validation did not catch those semantic omissions. I tightened the prompt to retain pending approvals, named duties and the spending-limit explanation, and kept the original failure in the verification record. Early post-fix retests returned Google HTTP 500 and preserved the notes. On a later manual retest, preparation and update worked, and I confirmed the first-aid duty, pending rehearsal time, NGN 181,500 total and NGN 18,500 remaining allowance. This is a successful manual check, not a claim that every generation is reliable. A human must still compare each pack with the source brief.
 
-The adapter now retries transient server failures with a bounded delay and can fall back from Gemma 4 26b to the supported Gemma 4 31b model. It records the model actually used. The fresh exact-brief replay still received HTTP 500 from both models, so the revised school-event output remains unverified. This is failure handling, not a claim that the provider service is repaired.
-
-I also removed repeated processing checkboxes. One explicit choice covers Prepare and Update, with an optional **Remember my choice on this browser** setting and a way to revoke it. Export filenames now identify the event, date, draft or approved status, timestamp and a unique suffix.
+I also removed repeated processing checkboxes. One explicit choice covers Prepare and Update, with an optional **Remember my choice on this browser** setting and a way to revoke it. PDF download filenames now preserve the event title’s capitalization, spaces and Unicode, replacing characters forbidden in filenames and retaining a timestamp and unique suffix. The PDF itself still shows its review status.
 
 ## Why Does Open Innovation Matter?
 
@@ -76,7 +66,7 @@ Saved packs stay in this browser rather than on a server, but browser storage ca
 
 ## The Lazy Payoff
 
-One rough note produced four linked draft materials, and a follow-up answer updated the affected wording without retyping the whole pack. That removes a lot of copy-and-paste work. The operation timings show how quickly the drafts were returned in those tests. I estimate that preparing equivalent documents manually could take hours, but that is an estimate rather than a timed baseline, so I am not claiming a percentage saving. Reading, correcting and exporting the pack also take time.
+One rough note produced four linked draft materials, and a follow-up answer updated the affected wording without retyping the whole pack. That removes a lot of copy-and-paste work. The operation timings show how quickly the drafts were returned in those tests. No manual-writing baseline duration is recorded here, so I am not claiming a percentage saving. Reading, correcting and exporting the pack also take time.
 
 ## Prize Categories
 
@@ -86,7 +76,7 @@ These are the challenge tools at the heart of Flow Point and the categories I am
 - **Render → Best Use of Render.** Render runs the [Node service](https://github.com/PHONIEXz/flow-point/blob/main/src/server.mjs) behind the public demo. It keeps the Google key on the server, validates Gemma's output, serves the workspace and produces PDF, Markdown and CSV downloads.
 - **.tech domain → Best Use of a .tech Domain.** [flowpoint.phoenixreborn.tech](https://flowpoint.phoenixreborn.tech/workspace) is the public address for the live project, under the .tech domain claimed for this challenge.
 
-- **GitHub Copilot → Best Use of GitHub Copilot.** I used Copilot Chat to review the PDF download changes in [pull request #1](https://github.com/PHONIEXz/flow-point/pull/1). It flagged malformed Unicode handling and suggested checking decoded filenames in the browser. I evaluated the findings, corrected an inaccurate HTTP-status claim, and added Unicode handling plus safe filename fallbacks. The [review record](https://github.com/PHONIEXz/flow-point/blob/main/docs/copilot-review.md) explains the changes and the 38 passing automated tests. Gemma remains the app's inference model.
+- **GitHub Copilot → Best Use of GitHub Copilot.** I used Copilot Chat to inspect the PDF download changes in [pull request #1](https://github.com/PHONIEXz/flow-point/pull/1). It identified malformed Unicode handling and recommended independent checks for decoded browser filenames. I evaluated the findings, corrected its inaccurate HTTP-status claim, and added Unicode handling plus safe filename fallbacks. The [review record](https://github.com/PHONIEXz/flow-point/blob/main/docs/copilot-review.md) explains the fixes and the 38 passing automated tests. Gemma remains the app’s inference model.
 
 The [MIT-licensed GitHub repository](https://github.com/PHONIEXz/flow-point) holds the application, tests, sample and verification notes. GitHub is how I share the work; the four entries above are the prize categories I am targeting.
 
