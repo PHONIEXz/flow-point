@@ -36,3 +36,15 @@ Inspection of the four-page approved PDF verified the updated date, venue, 10:00
 Consent now covers explicit generation and refinement actions through one choice. Remembering is opt-in on this browser, with session-only behavior by default and a Notes-page control to revoke or forget it. A restored pack without that choice cannot send an update until the choice is made. Export filenames identify the event, event date, sample/draft/approval status, timestamp and a random suffix for PDF, Markdown and CSV.
 
 Post-deploy checks: remembered acceptance survived reload; revoking it unchecked both controls and survived reload. An update without acceptance returned to Notes before any generation. Two live PDF downloads completed from a previously saved real pack. The 31-test suite verifies unique, safe, event-specific names across PDF, Markdown, CSV and approved exports. The exact long school brief was retried once after an HTTP 500; the second attempt also returned HTTP 500 with notes preserved. Revised school-event content therefore remains unverified with the live model; do not describe those semantic omissions as resolved yet.
+
+## Bounded retries and supported Gemma fallback (23 October 2026)
+
+A short live request also returned Google HTTP 500, so the long school brief is not the sole observed trigger. Render startup metadata checks returned HTTP 200 for the configured model; the failures occurred during generation. Google documents both `gemma-4-26b-a4b-it` and `gemma-4-31b-it` and the minimal thinking setting used here. No definitive provider-side root cause was exposed.
+
+The adapter now permits at most three attempts within the original 60-second request deadline: the configured 26b model, one delayed retry, then the documented 31b Gemma model if transient HTTP errors persist. Backoff includes jitter. Quota and key errors are not retried or bypassed, and cancellation stops retries. Successful provenance records the actual model, requested model, attempt count and elapsed time. There is no closed-model or sample fallback.
+
+All 33 automated tests passed. The deployed exact school-event replay failed on initial generation: two 26b HTTP 500 responses followed by a 31b HTTP 500 response, with 4,929 ms recorded by the adapter. The second brief could not run because no new pack was produced. Semantic corrections remain unverified live. This shows bounded failure handling works; it does not show that the upstream outage or semantic omissions are fixed.
+
+The author estimates that preparing equivalent documents manually could take hours. This is an estimate, not a measured baseline; the 37-second generation and 53-second update are the author's approximate measured app timings. No percentage saving is claimed.
+
+References: https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api and https://ai.google.dev/gemini-api/docs/troubleshooting .
