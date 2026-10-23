@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { readFile } from 'node:fs/promises';
 import { createApp } from '../src/server.mjs';
-import { generatePack, parseModelPlan, checkModelAccess } from '../src/gemma.mjs';
+import { generatePack, parseModelPlan, checkModelAccess, probeGeneration } from '../src/gemma.mjs';
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
 function complete() { return { ...structuredClone(sample), startTime: '10:00', organizer: 'Example School', signatory: 'Principal', openQuestions: [], budget: [{ label: 'Paper', quantity: 3, unitCostMinor: 101 }], drafts: { invitation: 'Reviewed invitation.', schedule: '10:00 Welcome. 11:00 Closing.' } }; }
 async function app(t, config = {}) { const server = createApp(config); server.listen(0, '127.0.0.1'); await once(server, 'listening'); t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })); const base = `http://127.0.0.1:${server.address().port}`; return { get: path => fetch(base + path), post: (path, data, headers = {}, signal) => fetch(base + path, { signal, method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data) }) }; }
@@ -196,4 +196,41 @@ test('retries are bounded, stop on cancellation, and never retry quota or key er
   calls = 0; const controller = new AbortController();
   await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', signal: controller.signal, wait: async () => controller.abort(), fetchImpl: async () => { calls++; return new Response('', { status: 503 }); } }), error => error.status === 499);
   assert.equal(calls, 1);
+});
+
+
+test('request references correlate attempts, successes and failures without logging private content', async t => {
+  const logs = [];
+  const client = await app(t, { apiKey: 'private-key-marker', log: entry => logs.push(entry), fetchImpl: async () => Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(complete()) }] } }] }) });
+  const response = await client.post('/api/generate', { request: 'private-note-marker event.', previousPlan: complete(), answers: 'private-answer-marker' });
+  const result = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get('x-request-id'), result.requestId);
+  assert.ok(logs.some(entry => entry.event === 'generation_request_succeeded'));
+  assert.ok(logs.some(entry => entry.event === 'gemma_generation_attempt'));
+  assert.ok(logs.every(entry => entry.requestId === result.requestId && entry.action === 'update'));
+  const failed = await app(t, { apiKey: 'private-key-marker', log: entry => logs.push(entry), fetchImpl: async () => Response.json({ error: { message: 'private-upstream-marker' } }, { status: 403 }) });
+  const failure = await failed.post('/api/generate', { request: 'private-note-marker event.' });
+  const error = await failure.json();
+  assert.equal(failure.status, 503);
+  assert.equal(failure.headers.get('x-request-id'), error.requestId);
+  assert.notEqual(error.requestId, result.requestId);
+  assert.ok(logs.some(entry => entry.event === 'generation_request_failed' && entry.requestId === error.requestId));
+  assert.doesNotMatch(JSON.stringify(logs), /private-(key|note|answer|upstream)-marker/);
+});
+
+test('minimal probes omit all generation settings, do not retry errors and never log output', async () => {
+  const payloads = [], logs = [];
+  const results = await probeGeneration({ apiKey: 'private-key-marker', log: entry => logs.push(entry), fetchImpl: async (url, options) => {
+    payloads.push(JSON.parse(options.body));
+    return payloads.length === 1 ? Response.json({ candidates: [{ content: { parts: [{ text: 'OK' }] } }] }) : Response.json({ error: { message: 'private-provider-marker' } }, { status: 500 });
+  } });
+  assert.equal(results.length, 3);
+  assert.deepEqual(Object.keys(payloads[0]), ['contents']);
+  assert.equal(payloads[1].generationConfig.thinkingConfig.thinkingLevel, 'minimal');
+  assert.deepEqual(Object.keys(payloads[2]), ['contents']);
+  assert.equal(results[0].usableReply, true);
+  assert.equal(results[1].httpStatus, 500);
+  assert.equal(results[2].model, 'gemma-4-31b-it');
+  assert.doesNotMatch(JSON.stringify(logs), /private-|Reply with|candidates/);
 });
