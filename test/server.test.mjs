@@ -83,7 +83,7 @@ test('PDF exports are attachments for draft and approved packs, including unknow
   let response = await client.post('/api/export', { plan: fixture.plan, format: 'pdf', sample: true });
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('content-type'), 'application/pdf');
-  assert.match(response.headers.get('content-disposition'), /attachment; filename="flow-point-pack.pdf"/);
+  assert.match(response.headers.get('content-disposition'), /attachment; filename="sample-school-family-day-.*-pack-draft-.*\.pdf"/);
   const bytes = Buffer.from(await response.arrayBuffer());
   assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
   assert.match(bytes.subarray(-30).toString(), /%%EOF/);
@@ -144,4 +144,25 @@ test('disconnect cancels upstream work and releases both generation slots', { ti
   respond = true;
   assert.equal((await client.post('/api/generate', input)).status, 200);
   assert.equal(aborted, 2);
+});
+
+
+test('export names identify event, status and format and are unique even for repeated downloads', async t => {
+  const client = await app(t);
+  const plan = { ...complete(), title: 'Young Minds: Science / Reading "Day"' };
+  const names = [];
+  for (const format of ['pdf', 'pdf', 'md', 'csv']) {
+    const response = await client.post('/api/export', { plan, format });
+    assert.equal(response.status, 200);
+    const name = response.headers.get('content-disposition').match(/filename="([^"]+)"/)[1];
+    assert.match(name, /^young-minds-science-reading-day-/);
+    assert.match(name, new RegExp(`-${format === 'csv' ? 'budget' : 'pack'}-draft-.*\\.${format}$`));
+    assert.doesNotMatch(name, /[\r\n"\/]/);
+    names.push(name);
+    await response.arrayBuffer();
+  }
+  assert.equal(new Set(names).size, names.length);
+  const { approval } = await (await client.post('/api/approve', { plan, confirmed: true })).json();
+  const approved = await client.post('/api/export', { plan, approval, format: 'md' });
+  assert.match(approved.headers.get('content-disposition'), /-pack-approved-/);
 });
