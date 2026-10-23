@@ -1,0 +1,83 @@
+/* Readable type and one theme control shared by Home and the workspace. */
+body{font-size:17px;font-weight:500}
+nav{font-size:15px;gap:20px}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:7px 12px;border:1px solid #cfc5dc;border-radius:9px;background:#fff;color:#503589;font:700 15px/1.3 Arial,Helvetica,sans-serif;cursor:pointer;white-space:nowrap}
+.theme-toggle:hover{background:#eee8f8}
+.theme-icon{font-size:21px;line-height:1}
+.nav-home[aria-current=page]{color:#6040ad;text-decoration:underline;text-underline-offset:6px}
+.eyebrow{font-size:12px}
+.mini-label{font-size:11px}
+.button,.text-link{font-size:15px}
+.build-note,.steps p,.example-intro p:not(.eyebrow),.open-section p:not(.eyebrow){font-size:15px;color:#5f536d}
+.pack-date,.pack-foot,.event-summary>p,.event-summary dd,.review-reminder p,.task small,.inline-notice{font-size:13px}
+.pack-list p,.tab-panel,.task{font-size:15px}
+.tag,.sample-badge,.event-summary dt,.document-meta,.example-footer,.download-button,th{font-size:12px}
+.tabs button,table,.signatory{font-size:14px}
+.tab-panel{color:#54435e}
+.tab-panel h3{color:#2e2638}
+.workspace-body label,.workspace-header nav,.workspace-body .button{font-size:16px}
+.workspace-body .privacy-consent,.workspace-body .approval-confirm,.field-help,.pack-side-intro p{font-size:15px;color:#5b4b67}
+.model-info p,.storage-note,.provenance,.workspace-footer,.saved-item-date{font-size:14px;color:#60526e}
+.card-heading p,.sample-option,.save-state,.state-badge,.review-box ul,.saved-heading span{font-size:14px}
+.editor-tabs button,.quiet,.workspace-body .quiet,.saved-packs .quiet{font-size:15px}
+.workspace-heading p:not(.eyebrow){color:#5e536e}
+.workspace-body textarea,.workspace-body input:not([type=checkbox]),.workspace-body select{font-weight:500}
+.workspace-header nav>a{font-weight:700}
+
+:root[data-theme=dark]{color-scheme:dark}
+:root[data-theme=dark] body{background:#171524;color:#f2edf8}
+:root[data-theme=dark] h1,:root[data-theme=dark] h2,:root[data-theme=dark] h3,:root[data-theme=dark] .brand{color:#f6f0fc}
+:root[data-theme=dark] .hero-description,:root[data-theme=dark] .eyebrow,:root[data-theme=dark] .build-note,:root[data-theme=dark] .steps p,:root[data-theme=dark] .example-intro p:not(.eyebrow),:root[data-theme=dark] .open-section p:not(.eyebrow){color:#d1c4de}
+:root[data-theme=dark] .theme-toggle{background:#312b41;border-color:#80718f;color:#f2e8fa}
+:root[data-theme=dark] .theme-toggle:hover{background:#433653}
+:root[data-theme=dark] .nav-home[aria-current=page],:root[data-theme=dark] nav a:hover,:root[data-theme=dark] .text-link:hover{color:#d7b7ff}
+:root[data-theme=dark] .source-link,:root[data-theme=dark] .outline{background:#2c2639;color:#e5d0ff;border-color:#7d6c92}
+:root[data-theme=dark] .primary{background:#875ee2;color:#fff}
+:root[data-theme=dark] .primary:hover{background:#9a75ed}
+:root[data-theme=dark] .preview-label,:root[data-theme=dark] .sample-badge{background:#3a304c;color:#f0ddff;border-color:#75608d}
+:root[data-theme=dark] .orbit{background:#29223b}
+:root[data-theme=dark] .orbit-two{background:transparent;border-color:#766293}
+:root[data-theme=dark] .rough-note{background:#343a32;border-color:#64725a;color:#f0f5e4}
+:root[data-theme=dark] .rough-note .mini-label{color:#d3e1b6}
+:root[data-theme=dark] .pack-card,:root[data-theme=dark] .example-workspace{background:#282338;border-color:#655674;color:#f0e8f7}
+:root[data-theme=dark] .pack-head h2,:root[data-theme=dark] .tab-panel h3,:root[data-theme=dark] .event-summary h3{color:#f4eafa}
+:root[data-theme=dark] .pack-date,:root[data-theme=dark] .pack-foot,:root[data-theme=dark] .pack-list p,:root[data-theme=dark] .tag,:root[data-theme=dark] .event-summary>p,:root[data-theme=dark] .event-summary dd,:root[data-theme=dark] .review-reminder p,:root[data-theme=dark] .document-meta,:root[data-theme=dark] .tab-panel,:root[data-theme=dark] .example-footer,:root[data-theme=dark] .floating-note{color:#d4c5e3}
+:root[data-theme=dark] .pack-foot,:root[data-theme=dark] .event-summary{background:#302940}
+:root[data-theme=dark] .example-section{background:#211c30}
+:root[data-theme=dark] .tabs button{color:#c6b3d8}
+:root[data-theme=dark] .tabs button[aria-selected=true]{color:#e0bbff;border-color:#be93ff}
+:root[data-theme=dark] .inline-notice{background:#473929;color:#f6dfa5}
+:root[data-theme=dark] .tab-panel mark{background:#66502a;color:#ffe6a3}
+:root[data-theme=dark] .task small,:root[data-theme=dark] th,:root[data-theme=dark] .event-summary dt{color:#c9b5d9}
+:root[data-theme=dark] .process,:root[data-theme=dark] .site-footer,:root[data-theme=dark] .pack-list p,:root[data-theme=dark] .example-footer,:root[data-theme=dark] .tabs,:root[data-theme=dark] .task,:root[data-theme=dark] .agenda li,:root[data-theme=dark] th,:root[data-theme=dark] td{border-color:#51445f}
+:root[data-theme=dark] .site-footer p,:root[data-theme=dark] .site-footer>a:last-child{color:#d0bedf}
+
+:root[data-theme=dark] .workspace-body{background:#1d1a29;color:#f3ecfa}
+:root[data-theme=dark] .workspace-header,:root[data-theme=dark] .capture-card,:root[data-theme=dark] .pack-workspace{background:#29243a;border-color:#645775}
+:root[data-theme=dark] .workspace-heading p:not(.eyebrow),:root[data-theme=dark] .workspace-body label,:root[data-theme=dark] .field-help,:root[data-theme=dark] .pack-side-intro p,:root[data-theme=dark] .model-info p,:root[data-theme=dark] .storage-note,:root[data-theme=dark] .provenance,:root[data-theme=dark] .workspace-footer,:root[data-theme=dark] .card-heading p,:root[data-theme=dark] .sample-option,:root[data-theme=dark] .flow-steps,:root[data-theme=dark] .saved-item-date{color:#d7c9e4}
+:root[data-theme=dark] .workspace-header nav>a[aria-current=page],:root[data-theme=dark] .quiet,:root[data-theme=dark] .workspace-body .quiet,:root[data-theme=dark] .editor-tabs button[aria-selected=true]{color:#e4c0ff}
+:root[data-theme=dark] .quiet:hover{background:#413452}
+:root[data-theme=dark] .workspace-body textarea,:root[data-theme=dark] .workspace-body input:not([type=checkbox]),:root[data-theme=dark] .workspace-body select{background:#211d2f;border-color:#806f93;color:#f9f2ff}
+:root[data-theme=dark] .workspace-body input::placeholder,:root[data-theme=dark] .workspace-body textarea::placeholder{color:#baaac8;opacity:1}
+:root[data-theme=dark] .save-state,:root[data-theme=dark] .state-badge,:root[data-theme=dark] .flow-steps span,:root[data-theme=dark] .card-symbol,:root[data-theme=dark] .budget-total,:root[data-theme=dark] .workspace-jumps a{background:#46375c;color:#f0d8ff}
+:root[data-theme=dark] .flow-steps .current,:root[data-theme=dark] .budget-total{color:#f1d7ff}
+:root[data-theme=dark] .flow-steps .current span{background:#9269e2;color:#fff}
+:root[data-theme=dark] .empty-illustration{background:#342b49;border-color:#75638a;box-shadow:14px 14px 0 #3a304e}
+:root[data-theme=dark] .empty-illustration>div,:root[data-theme=dark] .empty-state p,:root[data-theme=dark] .provenance{color:#dfd0ec}
+:root[data-theme=dark] .saved-packs li,:root[data-theme=dark] .saved-packs li.active{background:#342b48;border-color:#76618f}
+:root[data-theme=dark] .review-box,:root[data-theme=dark] .workspace-notice{background:#493923;border-color:#9a7943;color:#ffe4ab}
+:root[data-theme=dark] .review-box h3,:root[data-theme=dark] .review-box li{color:#ffe4ab}
+:root[data-theme=dark] .approval-section{background:#30283f}
+:root[data-theme=dark] .state-badge.approved{background:#264837;color:#c8f6d2}
+:root[data-theme=dark] .workspace-header,:root[data-theme=dark] .pack-toolbar,:root[data-theme=dark] .editor-tabs,:root[data-theme=dark] .approval-section,:root[data-theme=dark] .task-row,:root[data-theme=dark] .budget-row,:root[data-theme=dark] .clarify-section,:root[data-theme=dark] .saved-packs,:root[data-theme=dark] .storage-note,:root[data-theme=dark] .sample-option,:root[data-theme=dark] .provenance{border-color:#645775}
+
+@media(max-width:760px){
+  .site-header{flex-wrap:wrap;padding-block:16px;gap:12px}
+  .site-header nav{width:100%;gap:14px;flex-wrap:wrap}
+  .site-header nav>a:first-child,.site-header nav>a:nth-child(2){display:inline-flex}
+  .site-header .nav-example,.site-header .source-link{display:none}
+  .site-header .theme-toggle{margin-left:auto}
+  .workspace-header nav{gap:8px 14px}
+  .workspace-header nav>a{font-size:15px}
+  .workspace-header .theme-toggle{margin-left:auto}
+}
