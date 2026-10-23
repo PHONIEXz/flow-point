@@ -152,7 +152,7 @@ $('save-named').addEventListener('click', () => {
 });
 async function api(path, data, signal) {
   const response = await fetch(path, data === undefined ? { signal } : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal });
-  if (!response.ok) { const result = await response.json().catch(() => ({})); throw new Error(result.error || 'This action could not finish. Please retry.'); }
+  if (!response.ok) { const result = await response.json().catch(() => ({})); const message = result.error || 'This action could not finish. Please retry.'; throw new Error(message + (result.requestId ? ` Reference: ${result.requestId}` : '')); }
   return response.json();
 }
 function activate(tab) {
