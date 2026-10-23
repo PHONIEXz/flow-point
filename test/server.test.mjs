@@ -241,3 +241,24 @@ test('invalid model JSON and invalid plan fields have separate safe diagnostic c
   const invalid = complete(); invalid.eventDate = '2026-02-30';
   assert.throws(() => parseModelPlan(JSON.stringify(invalid)), error => error.code === 'MODEL_PLAN_INVALID');
 });
+
+
+test('PDF download names preserve event title spelling and Unicode with safe unique suffixes', async t => {
+  const client = await app(t);
+  const names = [];
+  for (const title of ['Young Minds: Science, Reading and Creativity Day', 'École Ọmọ Learning Day', 'CON', 'x'.repeat(200)]) {
+    for (let copy = 0; copy < 2; copy++) {
+      const response = await client.post('/api/export', { plan: { ...complete(), title }, format: 'pdf' });
+      const header = response.headers.get('content-disposition');
+      const name = decodeURIComponent(header.match(/filename\*=UTF-8''([^;]+)/)[1]);
+      const expected = title === 'CON' ? 'Event CON' : title.replace(':', '-').slice(0, 170);
+      assert.ok(name.startsWith(expected + ' - '));
+      assert.doesNotMatch(name, /[<>:"/\\|?*\u0000-\u001f]/);
+      assert.ok(Buffer.byteLength(name) <= 255);
+      assert.ok(name.endsWith('.pdf'));
+      names.push(name);
+      await response.arrayBuffer();
+    }
+  }
+  assert.equal(new Set(names).size, names.length);
+});
