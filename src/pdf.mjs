@@ -36,7 +36,19 @@ export async function preparationPdf(input, approval, { sample = false } = {}) {
   paragraph(approved ? 'This exact version was reviewed and approved. Approval does not confirm external actions or guarantee factual accuracy.' : 'This is a working draft. Check the facts, wording and outstanding items before use.');
   if (issues.length) for (const issue of issues) paragraph(`• ${issue.message}`, { size: 9 });
   else paragraph('Structural checks passed. Human review of the facts and wording is still required.', { size: 9 });
-  heading('Invitation'); paragraph(plan.drafts.invitation || 'No invitation drafted.');
+  heading('Invitation');
+  const invitation = plan.drafts.invitation || 'No invitation drafted.';
+  const invitationBlocks = invitation.split(/\n\s*\n/);
+  for (let index = 0; index < invitationBlocks.length; index++) {
+    // Keep the closing and signatory together when a model supplies them as
+    // short separate paragraphs near a page boundary.
+    if (index === invitationBlocks.length - 3) {
+      const closing = invitationBlocks.slice(index).join('\n\n');
+      const closingHeight = doc.font('Body').fontSize(10).heightOfString(closing, { width, lineGap: 3, paragraphGap: 6 });
+      if (closingHeight < doc.page.height - 134) room(closingHeight + 38);
+    }
+    paragraph(invitationBlocks[index]);
+  }
   heading('Proposed run of show'); paragraph(plan.drafts.schedule || 'No schedule drafted.');
   heading('Preparation checklist');
   if (!plan.tasks.length) paragraph('No preparation tasks recorded.');
