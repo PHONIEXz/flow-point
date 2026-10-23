@@ -31,3 +31,13 @@ Render discovery confirmed service `flow-point-app` on the expected repository a
 Google HTTP 500/timeouts and semantically incomplete output remain possible. The audit uses mocked provider responses and does not establish a new live generation success rate. Earlier successful live and owner-reported checks remain in `verification.md`.
 
 The measured manual-writing comparison and complete human review/export timings remain uncollected. Real Android/iOS keyboard, picker and download behavior still needs device testing. Published videos and screenshots distinguish live footage from hand-authored samples. Contest eligibility and winning are not guaranteed.
+
+## Follow-up app pass
+
+The next pass found and reproduced an older tab replacing newer stored notes. Writes now compare the saved snapshot before replacing it, warn on a changed snapshot and retain the current in-memory edits for copying or exporting. This is a conflict guard, not collaborative editing or an atomic multi-tab transaction; avoid editing the same workspace simultaneously in several tabs.
+
+Browser money formatting now keeps the integer remainder, fixing the demonstrated case where `9007199254740990` minor units displayed as `.91` instead of `.90`. Currency edits also refresh the budget field labels. Invalid edit values remain editable and still fail server validation.
+
+Client JSON requests now have a deadline: 15 seconds for review/configuration/sample actions and 75 seconds for generation, allowing the server's original 60-second generation budget. Cancellation forwards to fetch and timers/listeners are cleaned up. Regression checks cover timeout recovery, cancellation, storage quota failure and preservation after a failed AI update. The suite now passes 49 tests.
+
+The existing Render build command was corrected in the dashboard to `npm ci && npm test && npm run build`; saving it started deployment `dep-dbdrrpfavr4c7396lps0` from `28dd071`. Final rollout and HTTP health-check verification are recorded separately after deployment; the earlier TCP-only observation above remains a historical finding.

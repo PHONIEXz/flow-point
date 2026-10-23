@@ -1,9 +1,11 @@
 'use strict';
 import { downloadFilename } from './download-name.mjs';
+import { minorToDecimal, formatMinor } from './money.mjs';
 import { legacyKey, storageKey, maxPacks, emptyWorkspace, restoreCollection, recordCurrent, saveNamed, renameNamed, openNamed, removeNamed, newWorkspace, serializeCollection } from './pack-store.mjs';
 const $ = id => document.getElementById(id);
 let collection = { current: emptyWorkspace(), packs: [], activeId: null };
 let state = collection.current;
+let lastSavedRaw = null;
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
 function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
@@ -77,7 +79,15 @@ for (const id of ['notes-link', 'pack-link', 'edit-notes', 'review-pack']) {
 window.addEventListener('popstate', renderView);
 function persist(candidate) {
   try {
-    localStorage.setItem(storageKey, serializeCollection(candidate));
+    // Do not replace newer work written by another open tab.
+    if (localStorage.getItem(storageKey) !== lastSavedRaw) {
+      $('save-state').textContent = 'Another tab changed the saved workspace.';
+      announce('Another tab saved changes. Your edits are still open here. Download or copy them, then reload to use the latest saved workspace.');
+      return false;
+    }
+    const raw = serializeCollection(candidate);
+    localStorage.setItem(storageKey, raw);
+    lastSavedRaw = raw;
     try { localStorage.removeItem(legacyKey); } catch { /* The new entry is already saved. */ }
     collection = candidate;
     $('save-state').textContent = 'Saved on this browser';
@@ -115,8 +125,8 @@ function renderSavedPacks() {
   }));
 }
 function loadCurrent(candidate, message) {
-  clearTimeout(timer); revision++; review = null; $('review-confirm').checked = false;
   if (!persist(candidate)) return false;
+  clearTimeout(timer); revision++; review = null; $('review-confirm').checked = false;
   state = collection.current; $('request').value = state.request; $('answers').value = state.answers;
   renderPack(); renderSavedPacks(); activate(tabs[0]); announce(message);
   switchView(state.plan ? 'pack' : 'notes', false, true);
@@ -154,9 +164,23 @@ $('save-named').addEventListener('click', () => {
   } catch (error) { announce(error.message); }
 });
 async function api(path, data, signal) {
-  const response = await fetch(path, data === undefined ? { signal } : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal });
-  if (!response.ok) { const result = await response.json().catch(() => ({})); const message = result.error || 'This action could not finish. Please retry.'; throw new Error(message + (result.requestId ? ` Reference: ${result.requestId}` : '')); }
-  return response.json();
+  const requestController = new AbortController();
+  let timedOut = false;
+  const cancel = () => requestController.abort();
+  if (signal?.aborted) cancel();
+  else signal?.addEventListener('abort', cancel, { once: true });
+  const deadline = setTimeout(() => { timedOut = true; cancel(); }, path === '/api/generate' ? 75000 : 15000);
+  try {
+    const response = await fetch(path, data === undefined ? { signal: requestController.signal } : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal: requestController.signal });
+    if (!response.ok) { const result = await response.json().catch(() => ({})); const message = result?.error || 'This action could not finish. Please retry.'; throw new Error(message + (result?.requestId ? ` Reference: ${result.requestId}` : '')); }
+    return await response.json();
+  } catch (error) {
+    if (timedOut) throw new Error('The app server took too long to reply. Your current notes and draft are still here. Check your connection and retry.');
+    throw error;
+  } finally {
+    clearTimeout(deadline);
+    signal?.removeEventListener('abort', cancel);
+  }
 }
 function activate(tab) {
   tabs.forEach(item => { const selected = item === tab; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; $(item.getAttribute('aria-controls')).hidden = !selected; });
@@ -203,7 +227,7 @@ function renderReview() {
   $('approval-help').textContent = approved ? 'Approval covers this exact version. Any edit requires a new review. Keep a downloaded copy; server restarts may require renewed approval.' : 'Draft exports are available. Review issues must be resolved before approval.';
   $('stage-capture').classList.remove('current'); $('stage-review').classList.toggle('current', !approved); $('stage-approve').classList.toggle('current', approved);
   $('total-label').textContent = review.budgetComplete ? 'Total' : 'Known subtotal · incomplete';
-  $('total-value').textContent = `${state.plan.currency} ${(review.knownTotalMinor / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  $('total-value').textContent = `${state.plan.currency} ${formatMinor(review.knownTotalMinor)}`;
 }
 function inputField(label, value, onChange, { type = 'text', maxLength = 300, min, max, step, ariaLabel, inputMode, placeholder } = {}) {
   const wrap = node('label', label), input = node('input'); input.type = type; input.value = value ?? ''; input.maxLength = maxLength;
@@ -228,7 +252,7 @@ function renderRows() {
   $('budget').replaceChildren(...state.plan.budget.map((item, index) => {
     const row = node('div', null, 'budget-row'), grid = node('div', null, 'row-grid');
     row.append(inputField(`Item ${index + 1}`, item.label, value => { item.label = value; }, { maxLength: 200 }));
-    grid.append(inputField('Quantity', item.quantity, value => { item.quantity = /^\d+$/.test(value) ? Number(value) : null; }, { type: 'number', min: 1, step: 1, inputMode: 'numeric', ariaLabel: `Item ${index + 1} quantity` }), inputField(`Unit price (${state.plan.currency})`, item.unitCostMinor == null ? '' : (item.unitCostMinor / 100).toFixed(2), value => {
+    grid.append(inputField('Quantity', item.quantity, value => { item.quantity = /^\d+$/.test(value) ? Number(value) : null; }, { type: 'number', min: 1, step: 1, inputMode: 'numeric', ariaLabel: `Item ${index + 1} quantity` }), inputField(`Unit price (${state.plan.currency})`, item.unitCostMinor == null ? '' : Number.isSafeInteger(item.unitCostMinor) && item.unitCostMinor >= 0 ? minorToDecimal(item.unitCostMinor) : String(item.unitCostMinor / 100), value => {
       // Parse decimal text without floating-point currency arithmetic.
       if (value === '') item.unitCostMinor = null;
       else if (/^\d+(\.\d{1,2})?$/.test(value)) { const [whole, fraction = ''] = value.split('.'); item.unitCostMinor = Number(whole) * 100 + Number(fraction.padEnd(2, '0')); }
@@ -254,6 +278,7 @@ document.querySelectorAll('[data-field]').forEach(input => input.addEventListene
   if (input.dataset.field === 'currency') state.plan.currency = input.value.toUpperCase();
   if (input.dataset.field === 'title') $('pack-heading').textContent = input.value || 'Untitled event';
   invalidate();
+  if (input.dataset.field === 'currency') renderRows();
 }));
 document.querySelectorAll('[data-draft]').forEach(input => input.addEventListener('input', () => { state.plan.drafts[input.dataset.draft] = input.value; invalidate(); }));
 $('request').addEventListener('input', () => { if (state.plan) invalidate(); else save(); });
@@ -333,6 +358,7 @@ async function init() {
   setBusy(true);
   try {
     const stored = localStorage.getItem(storageKey), legacy = localStorage.getItem(legacyKey);
+    lastSavedRaw = stored;
     collection = restoreCollection(stored?.length <= 1500000 ? stored : null, legacy?.length <= 150000 ? legacy : null);
     state = collection.current;
     // Restore notes before contacting the server, so a failed review cannot hide them.
