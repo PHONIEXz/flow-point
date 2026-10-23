@@ -8,7 +8,7 @@ import { preparationPdf } from './pdf.mjs';
 import { generatePack, checkModelAccess, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
-const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/pack-store.mjs': 'pack-store.mjs', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
+const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
 const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8' };
 function json(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(body)); }
 async function body(req) {
