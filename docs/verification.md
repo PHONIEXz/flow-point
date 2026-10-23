@@ -26,3 +26,11 @@ The live draft export was a two-page A4 PDF. Text extraction and page renders co
 
 - Record a short demo and make a fair manual-versus-assisted effort measurement that includes human review time. No percentage saving has been measured.
 - Update the submission narrative with the observed provider HTTP 500, the successful retry, and the remaining human edits. Do not call the generated drafts approved.
+
+## Author school-event pilot (23 October 2026)
+
+See [the exact initial and follow-up briefs](school-event-test.md). The author reports manually timing the use of Flow Point at approximately 37 seconds for preparation and 53 seconds for update. There is one participant and one supplied updated PDF. These are user-measured operation timings. The manual-writing baseline and full review/export duration are not recorded, so no time-saving percentage is claimed.
+
+Inspection of the four-page approved PDF verified the updated date, venue, 10:00 start, 09:30 registration, all supplied durations and the NGN 181,500 total. It also exposed omissions: the still-unconfirmed rehearsal time was not retained as a question; the named first-aid officer was absent; the NGN 200,000 ceiling and NGN 18,500 remaining allowance were not displayed. The prompt now explicitly requires unresolved approval questions, named duties and a checklist note for spending limits, but human review remains required. The original uploaded PDF is evidence of this earlier behavior, not a corrected result.
+
+Consent now covers explicit generation and refinement actions through one choice. Remembering is opt-in on this browser, with session-only behavior by default and a Notes-page control to revoke or forget it. A restored pack without that choice cannot send an update until the choice is made. Export filenames identify the event, event date, sample/draft/approval status, timestamp and a random suffix for PDF, Markdown and CSV.
