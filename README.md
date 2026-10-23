@@ -8,7 +8,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
-**Live inference and production deployment are not verified yet.** No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
+**Live inference and production deployment were verified on 23 October 2026.** A fictional event pack and a follow-up update were generated with `gemma-4-26b-a4b-it` on the deployed site. One provider HTTP 500 preceded the successful retry; the request was preserved. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses; see the separate [live verification record](docs/verification.md).
 
 ## Run
 
@@ -48,7 +48,7 @@ Server safeguards include JSON/body limits, fixed static routes, same-origin bro
 
 `render.yaml` now describes a **Node Web Service** called `flow-point-app`, with `npm test && npm run build`, `npm start` and `/healthz`. The server binds `0.0.0.0` and honors `PORT`. A Static Site alone cannot run the API.
 
-If an older static preview exists, keep it until the new app has been verified. Do not assume changing the Blueprint converts an existing Static Site. Create/confirm the separate Node service, set `GEMINI_API_KEY` in Render's secret environment settings, and verify a real request before moving the domain. The free service may sleep between visits. No hosted service, DNS change or TLS certificate is claimed by this repository update.
+The Node service runs on Render with `GEMINI_API_KEY` set privately in its environment. The free service may sleep between visits. The live custom domain was opened over HTTPS during verification.
 
 Planned address: `flowpoint.phoenixreborn.tech`. See [domain setup](docs/domain-setup.md).
 
@@ -62,7 +62,7 @@ This version retains the established dependency-free Node stack. eve was conside
 
 Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
-Intended categories: Gemma, Render and .tech Domain, subject to actual implementation and eligibility. Outstanding: novel live Gemma runs, deployed end-to-end verification, phone layout checks, timed user-effort measurements, screenshots/demo and DEV submission. Do not claim category completion or savings without that evidence. Record any changes made after the deadline.
+Intended categories: Gemma, Render and .tech Domain, subject to eligibility. A novel live generation, refinement and draft PDF export have been checked. Outstanding: phone layout check, timed user-effort measurement, recording and DEV submission. Do not claim savings without evidence. Record any changes made after the deadline.
 
 ## License
 
