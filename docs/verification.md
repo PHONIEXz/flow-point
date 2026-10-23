@@ -10,6 +10,8 @@ The first generation returned Google HTTP 500. The UI kept the request and repor
 
 A follow-up confirmed a 09:30 start time and explicitly kept the snack price unknown. The live refinement succeeded in 7.7 seconds. The details, invitation and run of show used 09:30. The three budget quantities and known prices remained intact. The sample label was absent; the UI displayed live model provenance. The resulting schedule still had `[Time]` placeholders for later sessions and required human editing. The invitation is usable as a starting draft but generic, so this is not a claim of publish-ready writing.
 
+After improving the run-of-show prompt, another live update took 8.5 seconds. It kept the confirmed 09:30 welcome and gave suggested 10:00 bicycle demonstrations, 11:30 electronics safety talk and 12:30 closing. Each later time was visibly labelled as a suggestion requiring confirmation. The price was still unknown and the pack remained a draft. This is one observed model response, not a broad quality benchmark.
+
 The pack was named `Repair Day Live QA` in browser-local Saved Packs, alongside two earlier sample test packs. The direct `/workspace/pack` route and the move back to Notes were verified in a desktop browser. Notes survived navigation, and the named live pack returned after a full page reload. The refinement consent gate was verified separately with a sample pack: without consent, no request was sent and the UI explained the requirement. The user subsequently reported that the phone experience worked perfectly; no device model or independent mobile capture was recorded.
 
 ## PDF export
