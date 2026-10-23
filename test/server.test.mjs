@@ -70,6 +70,8 @@ test('health and static routes use restrictive headers and never serve server fi
   assert.equal((await client.get('/healthz')).status, 200);
   const response = await client.get('/workspace'); assert.equal(response.status, 200); assert.match(response.headers.get('content-security-policy'), /script-src 'self'/);
   assert.match(await response.text(), /src="\/workspace.js" type="module"/);
+  const packPage = await client.get('/workspace/pack'); assert.equal(packPage.status, 200);
+  assert.match(await packPage.text(), /class="workspace-body pack-page"/);
   const module = await client.get('/pack-store.mjs'); assert.equal(module.status, 200); assert.match(module.headers.get('content-type'), /text\/javascript/);
   assert.equal((await client.get('/src/server.mjs')).status, 404);
   assert.equal((await client.get('/.env')).status, 404);
