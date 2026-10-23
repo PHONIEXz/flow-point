@@ -48,3 +48,16 @@ All 33 automated tests passed. The deployed exact school-event replay failed on 
 The author estimates that preparing equivalent documents manually could take hours. This is an estimate, not a measured baseline; the 37-second generation and 53-second update are the author's approximate measured app timings. No percentage saving is claimed.
 
 References: https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api and https://ai.google.dev/gemini-api/docs/troubleshooting .
+
+
+## Correlated diagnostics and minimal Google probes (23 October 2026)
+
+Generation now assigns a server-generated request ID, returns it in X-Request-ID and JSON, and includes it in every attempt and terminal request log. Logs distinguish prepare/update and record model, attempt, HTTP status and duration. The client appends the reference to errors. Successful generation is logged only after output validation. Raw notes, answers, model response text and keys are never logged. Separate MODEL_JSON_INVALID and MODEL_PLAN_INVALID codes identify invalid JSON and invalid plan fields without including their contents.
+
+All 36 automated tests passed, including correlation across success/failure, privacy markers, minimal probe payloads and distinct validation codes. The initial diagnostic deployment became live at 13:07:37 UTC. Live health and client checks passed, and an invalid request returned matching header/body reference 9e0089df-22c8-483d-ba52-85a8eb62ba32.
+
+An opt-in startup diagnostic, controlled by an expiry timestamp no more than one hour ahead, sends only "Reply with the single word OK." The bare 31b call returned HTTP 500 after 17,704 ms without application instructions or generationConfig. The bare 26b call reached the diagnostic's 20-second timeout and is inconclusive. Neither call produced a usable reply, so the conditional app-settings comparison did not run. These observations do not establish a global outage or a definitive backend root cause.
+
+The subsequent exact school-event replay reached Google HTTP 200 on the first 26b attempt after 25,775 ms, but output failed JSON/plan validation. The correlated request ID was 9df88891-b056-4b9e-bdaa-72226e6deb6d; application response was HTTP 502. The follow-up brief was not sent. There are therefore at least two observed failure classes: upstream HTTP 500, and a successful upstream response whose content cannot be accepted. The exact invalid-output category in this replay predates the new category codes and is unknown. School-event semantic checks remain pending.
+
+The author's screenshot separately confirms successful 31b preparation in 47.2 seconds; the author reports that Update failed first and succeeded on a manual retry. This is evidence of intermittent success, not proof of consistent reliability. The temporary startup diagnostic was disabled after collecting its results.
