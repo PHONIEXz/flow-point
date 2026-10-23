@@ -85,7 +85,15 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
         const status = isApproved(review.plan, approval) ? 'approved' : 'draft';
         const stamp = new Date().toISOString().replace(/[-:.]/g, '');
         const filename = `${data.sample === true ? 'sample-' : ''}${slug}-${review.plan.eventDate || 'date-to-confirm'}-${format === 'csv' ? 'budget' : 'pack'}-${status}-${stamp}-${randomUUID().slice(0, 8)}.${format}`;
-        const attachment = `attachment; filename="${filename}"`;
+        // Keep the event's capitalization and spacing in the PDF download name.
+        // Windows-reserved characters and control characters cannot be file names.
+        let pdfTitle = review.plan.title.normalize('NFC').replace(/[<>:"/\\|?*\u0000-\u001f\u007f\u202a-\u202e\u2066-\u2069]/g, '-').replace(/\s+/g, ' ').trim().replace(/[. ]+$/, '');
+        if (!pdfTitle || /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(pdfTitle)) pdfTitle = 'Event ' + pdfTitle;
+        let boundedTitle = '';
+        for (const character of pdfTitle) { if (Buffer.byteLength(boundedTitle + character, 'utf8') > 170) break; boundedTitle += character; }
+        const pdfName = `${data.sample === true ? 'SAMPLE - ' : ''}${boundedTitle.trim().replace(/[. ]+$/, '') || 'Event'} - ${stamp}-${randomUUID().slice(0, 8)}.pdf`;
+        const encodedPdfName = encodeURIComponent(pdfName).replace(/['()*]/g, char => '%' + char.charCodeAt(0).toString(16).toUpperCase());
+        const attachment = `attachment; filename="${filename}"${format === 'pdf' ? `; filename*=UTF-8''${encodedPdfName}` : ''}`;
 
         if (data.format === 'pdf') {
           const pdf = await preparationPdf(review.plan, approval, { sample: data.sample === true });
