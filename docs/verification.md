@@ -24,8 +24,8 @@ The live draft export was a two-page A4 PDF. Text extraction and page renders co
 
 ## Remaining gates
 
-- Record a short demo and make a fair manual-versus-assisted effort measurement that includes human review time. No percentage saving has been measured.
-- Update the submission narrative with the observed provider HTTP 500, the successful retry, and the remaining human edits. Do not call the generated drafts approved.
+- Make a fair manual-versus-assisted effort measurement that includes human review and export time. No percentage saving has been measured.
+- Three edited demonstration videos and the updated narrative are now published. Their evidence labels and limitations are recorded below; no draft is presented as approved.
 
 ## Author school-event pilot (23 October 2026)
 
@@ -61,3 +61,18 @@ An opt-in startup diagnostic, controlled by an expiry timestamp no more than one
 The subsequent exact school-event replay reached Google HTTP 200 on the first 26b attempt after 25,775 ms, but output failed JSON/plan validation. The correlated request ID was 9df88891-b056-4b9e-bdaa-72226e6deb6d; application response was HTTP 502. The follow-up brief was not sent. There are therefore at least two observed failure classes: upstream HTTP 500, and a successful upstream response whose content cannot be accepted. The exact invalid-output category in this replay predates the new category codes and is unknown. School-event semantic checks remain pending.
 
 The author's screenshot separately confirms successful 31b preparation in 47.2 seconds; the author reports that Update failed first and succeeded on a manual retry. This is evidence of intermittent success, not proof of consistent reliability. The temporary startup diagnostic was disabled after collecting its results.
+
+
+## Latest author report, review and media refresh (23 October 2026)
+
+The author subsequently reported that preparation and update worked and confirmed the first-aid duty, pending rehearsal-time question, NGN 181,500 total and NGN 18,500 remaining allowance in the school-event retest. This is an author-reported manual check, not an independently captured corrected PDF or a reliability benchmark. Earlier failures and pending-at-the-time observations above are retained chronologically.
+
+Copilot Chat evaluated the PDF download-name change. Unicode handling and browser filename validation were implemented after evaluating its findings; one predicted HTTP status was corrected. All 38 automated tests passed in the last code check. See [the Copilot review record](copilot-review.md). No formal Copilot PR review registered.
+
+The revised three-video set is 3:12 per video, with original instrumental music, captions, cursor emphasis and edited actual interface motion. The films include earlier successful Community Repair Day live-run evidence and explicitly labelled hand-authored sample sections. In the recorded follow-up run, the invitation omitted the confirmed 09:30 start and an explicit editor correction was made. Successful prepare/update evidence is not a claim that every result preserves every fact.
+
+Fresh recording attempts returned two generation timeouts and a Google HTTP 500. A later generation attempt during the image refresh also returned HTTP 500 (reference 2b2b68d2-8088-4ca3-9518-d6ffbc722a4c); the notes were preserved. No sample was substituted for a successful model response. These observations establish intermittent failure, not a definitive Google backend root cause or global outage.
+
+The new PNG screenshots show the current Notes, schedule and budget editors using a labelled, manually edited School Family Day sample. Fictional confirmations include 09:30, Harbor Community School and Ada Bello. Programmes are 50 × NGN 180; 50 refreshment packs have no price. The NGN 9,000 known subtotal is incomplete, and the sample remains a draft. This is separate from the earlier NGN 24,000 Community Repair Day live pack. The current Home-page capture is the cover. See [media provenance and original images](media/README.md).
+
+All three YouTube players loaded with the expected titles in DEV preview and their embed URLs were verified on the published article. Continuous playback of the full uploads was not independently confirmed in the cloud browser. The local source MP4s passed full decoding checks at 1080p, 24 fps, with 48 kHz AAC stereo audio and 192-second duration.

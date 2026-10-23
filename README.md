@@ -4,19 +4,34 @@
 
 Flow Point helps organizers at schools, churches and community groups prepare an invitation, run of show, checklist and budget. Built by Paul Ayoade David ([PHONIEXz](https://github.com/PHONIEXz)) for Hacktoberfest 2026 Week 3, Slow and Steady.
 
+**[Live workspace](https://flowpoint.phoenixreborn.tech/workspace)** · **[Published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8)**
+
+![Current Flow Point Home page](docs/media/current/cover.png)
+
+## Watch the walkthroughs
+
+| Video | Focus | Length |
+| --- | --- | --- |
+| [1. Create and navigate](https://youtu.be/xHEi4ybfHL0) | Home, Notes, consent and preparing a pack | 3:12 |
+| [2. Update, review and export](https://youtu.be/m3PTH6_Rt2w) | Live update evidence, manual corrections, PDF and saved packs | 3:12 |
+| [3. Tools and build evidence](https://youtu.be/p_Ob6AzwyVo) | Render, Gemma, .tech, GitHub, Copilot Chat, Node.js and PDFKit | 3:12 |
+
+The three videos are embedded in different sections of the published entry. They combine edited interface motion, original instrumental music, captions and cursor emphasis. Earlier successful live runs and hand-authored sample sections are explicitly labelled; video pacing is not a speed benchmark. See [the media record](docs/media/README.md) and [demo guide](docs/demo-shot-list.md).
+
 ## Current status
 
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
-**Live inference and production deployment were verified on 23 October 2026.** A fictional event pack and a follow-up update were generated with `gemma-4-26b-a4b-it` on the deployed site. One provider HTTP 500 preceded the successful retry; the request was preserved. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses; see the separate [live verification record](docs/verification.md).
+**Earlier live inference and production deployment were verified on 23 October 2026.** A fictional event pack and a follow-up update were generated with `gemma-4-26b-a4b-it` on the deployed site. One provider HTTP 500 preceded the successful retry; the request was preserved. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses; see the separate [live verification record](docs/verification.md).
 
 ## Run
 
-Requires Node.js 22.9 or newer (Node 24 recommended). No third-party packages are required.
+Requires Node.js 22.9 or newer (Node 24 recommended). Run `npm ci` to install the locked dependencies, including PDFKit and DejaVu fonts for PDF export. Hosted inference does not require a model download.
 
 ```sh
 cp .env.example .env
 # Add GEMINI_API_KEY to .env using your editor, for live generation.
+npm ci
 npm test
 npm run build
 npm start
@@ -46,25 +61,29 @@ Server safeguards include JSON/body limits, fixed static routes, same-origin bro
 
 ## Deploy on Render
 
-`render.yaml` now describes a **Node Web Service** called `flow-point-app`, with `npm test && npm run build`, `npm start` and `/healthz`. The server binds `0.0.0.0` and honors `PORT`. A Static Site alone cannot run the API.
+`render.yaml` now describes a **Node Web Service** called `flow-point-app`, with `npm ci && npm test && npm run build`, `npm start` and `/healthz` declared in the Blueprint. The server binds `0.0.0.0` and honors `PORT`. A Static Site alone cannot run the API.
 
 The Node service runs on Render with `GEMINI_API_KEY` set privately in its environment. The free service may sleep between visits. The live custom domain was opened over HTTPS during verification.
 
-Planned address: `flowpoint.phoenixreborn.tech`. See [domain setup](docs/domain-setup.md).
+Live address: [flowpoint.phoenixreborn.tech](https://flowpoint.phoenixreborn.tech/). See [domain setup](docs/domain-setup.md).
 
 ## Verification
 
 `npm test` covers date conflicts and invalid dates, exact budget arithmetic and overflow, missing facts, placeholders, approval invalidation, CSV escaping, and HTTP routes through generation, review, approval and export. Provider tests simulate valid, truncated, malformed, quota and network-failure responses. See [verification record](docs/verification.md) for remaining gates.
 
-This version retains the established dependency-free Node stack. eve was considered in the initial design but is not installed or claimed as part of the running app.
+The HTTP service uses Node.js; PDF export uses PDFKit with bundled DejaVu fonts. eve was considered in the initial design but is not installed or claimed as part of the running app.
 
 ## Competition evidence
 
 Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
-The [published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8) uses live screenshots in `docs/media/`. Its [Markdown source](docs/dev-submission-draft.md) and the [winner comparison](docs/submission-review.md) record the evidence and presentation choices.
+The [published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8) contains three video embeds and fresh UI captures. Original PNGs are in [`docs/media/current/`](docs/media/current/). Its [Markdown source](docs/dev-submission-draft.md), [media provenance](docs/media/README.md) and [winner comparison](docs/submission-review.md) record the evidence and presentation choices.
 
-Entry categories: Gemma, Render and .tech Domain, subject to eligibility. A novel live generation, refinement and draft PDF export have been checked. The user reported that the phone experience worked perfectly. Outstanding: timed user-effort measurement and an optional recording. Do not claim savings without evidence. Record any changes made after the deadline.
+Entry categories: Gemma, Render, .tech Domain and GitHub Copilot, subject to eligibility. [Copilot Chat's evaluated contribution](docs/copilot-review.md) covers PDF download filenames; it was not a registered formal PR review.
+
+Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
+
+The 38-test automated suite passed in the last code verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 
 ## License
 
