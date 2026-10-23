@@ -10,7 +10,7 @@ The first generation returned Google HTTP 500. The UI kept the request and repor
 
 A follow-up confirmed a 09:30 start time and explicitly kept the snack price unknown. The live refinement succeeded in 7.7 seconds. The details, invitation and run of show used 09:30. The three budget quantities and known prices remained intact. The sample label was absent; the UI displayed live model provenance. The resulting schedule still had `[Time]` placeholders for later sessions and required human editing. The invitation is usable as a starting draft but generic, so this is not a claim of publish-ready writing.
 
-The pack was named `Repair Day Live QA` in browser-local Saved Packs, alongside two earlier sample test packs. The direct `/workspace/pack` route and the move back to Notes were verified in a desktop browser. Notes survived navigation, and the named live pack returned after a full page reload. The refinement consent gate was verified separately with a sample pack: without consent, no request was sent and the UI explained the requirement.
+The pack was named `Repair Day Live QA` in browser-local Saved Packs, alongside two earlier sample test packs. The direct `/workspace/pack` route and the move back to Notes were verified in a desktop browser. Notes survived navigation, and the named live pack returned after a full page reload. The refinement consent gate was verified separately with a sample pack: without consent, no request was sent and the UI explained the requirement. The user subsequently reported that the phone experience worked perfectly; no device model or independent mobile capture was recorded.
 
 ## PDF export
 
@@ -22,6 +22,5 @@ The live draft export was a two-page A4 PDF. Text extraction and page renders co
 
 ## Remaining gates
 
-- Verify the full workflow at a phone-sized viewport or on a physical phone. CSS has responsive breakpoints, but desktop browser inspection alone is not mobile proof.
 - Record a short demo and make a fair manual-versus-assisted effort measurement that includes human review time. No percentage saving has been measured.
 - Update the submission narrative with the observed provider HTTP 500, the successful retry, and the remaining human edits. Do not call the generated drafts approved.
