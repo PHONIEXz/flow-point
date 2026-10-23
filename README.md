@@ -6,16 +6,15 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 ## Current status
 
-Version 0.2 adds an actual event workspace at `/workspace`, a Node HTTP server, and a server-only hosted Gemma adapter. The workspace supports editing, open questions, deterministic checks, browser-local draft restoration, version approval and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
+The event workspace at `/workspace` uses a Node HTTP server and a server-only hosted Gemma adapter. It supports editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
-**The app is live at https://flowpoint.phoenixreborn.tech/workspace.** The original https://flow-point-app.onrender.com/workspace address remains available. Health, workspace, configuration and sample endpoints respond successfully. Live hosted Gemma generation, desktop review/approval, Markdown and CSV export, reload restoration, and approval invalidation after edits have been verified. Successful short requests took 5.9 and 6.2 seconds. The first reliability pass exercised missing facts, conflicting/ambiguous dates, a 4,788-character request, preservation of manual edits during refinement, and browser cancellation. Broader repeated model reliability and phone layout remain unverified. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
+**Live inference and production deployment are not verified yet.** No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
 
 ## Run
 
-Requires Node.js 22.9 or newer (Node 24 recommended). Install the pinned dependencies with `npm ci`. PDF generation uses PDFKit and bundled DejaVu fonts.
+Requires Node.js 22.9 or newer (Node 24 recommended). No third-party packages are required.
 
 ```sh
-npm ci
 cp .env.example .env
 # Add GEMINI_API_KEY to .env using your editor, for live generation.
 npm test
@@ -31,9 +30,9 @@ Open `http://localhost:3000/workspace`. Without a key, the sample still supports
 2. Generate the pack with Gemma, or explicitly open the sample.
 3. Compare extracted facts with the original request. Fill missing details, resolve questions and edit both drafts, tasks and prices. Refine with Gemma when you want the draft wording updated from new confirmations.
 4. Review all sections and approve the exact version. Date/weekday conflicts, missing date, venue, start time, organizer, signatory, unresolved questions, confirmation placeholders and unknown prices block approval.
-5. Download the printable PDF pack, Markdown pack or budget CSV worksheet. PDFs include review status, outstanding issues, an invitation, run of show, checklist and budget in main currency units. Draft downloads are allowed and marked as draft. The sample pack is labelled as sample data.
+5. Download the preparation pack or budget worksheet. Draft downloads are allowed and marked as draft. The sample pack is labelled as sample data.
 
-The current request and pack auto-save in browser local storage. A new generated or sample pack replaces the current pack; there is no named-pack library or cloud history yet. A PDF is a portable snapshot and cannot be imported to restore an editable draft. Edits are saved in browser local storage. They are not synced across devices, encrypted by the app or backed up on a server. The browser reports when storage is unavailable; download a copy before clearing browser data or the workspace. Editing a plan or its original request clears approval. Changing event facts does not silently rewrite the invitation: update the wording yourself or refine with Gemma.
+The current pack saves automatically in browser local storage. Name a pack in Saved Packs to keep it when starting another. Up to 12 named packs can be reopened, renamed and removed, and the previous single-draft format is migrated on first load. Named packs also save edits automatically. These browser copies are not synced across devices, encrypted by the app or backed up on a server. Browser storage may be cleared or fill up, so download a PDF or Markdown copy for backup. Editing a plan or its original request clears approval. Changing event facts does not silently rewrite the invitation: update the wording yourself or refine with Gemma.
 
 Approval is a human review state, not authentication, permission to act externally or a guarantee of factual correctness. The server remembers approval fingerprints in a bounded in-memory cache. A restart or cache eviction may require renewed approval, while the browser-local draft remains. Export rechecks the fingerprint; a changed pack cannot inherit the previous approval.
 
@@ -47,23 +46,23 @@ Server safeguards include JSON/body limits, fixed static routes, same-origin bro
 
 ## Deploy on Render
 
-`render.yaml` now describes a **Node Web Service** called `flow-point-app`, with `npm ci && npm test && npm run build`, `npm start` and `/healthz`. The server binds `0.0.0.0` and honors `PORT`. A Static Site alone cannot run the API.
+`render.yaml` now describes a **Node Web Service** called `flow-point-app`, with `npm test && npm run build`, `npm start` and `/healthz`. The server binds `0.0.0.0` and honors `PORT`. A Static Site alone cannot run the API.
 
-If an older static preview exists, keep it until the new app has been verified. Do not assume changing the Blueprint converts an existing Static Site. Create/confirm the separate Node service, set `GEMINI_API_KEY` in Render's secret environment settings, and verify a real request before moving the domain. The free service may sleep between visits. The free Node service is deployed in Ayoade Paul's Workspace (Frankfurt), with Render-managed HTTPS at https://flow-point-app.onrender.com. Custom-domain DNS, public HTTPS access and live inference have been verified. This service was created through MCP; the optional `/healthz` HTTP health-check setting must still be applied in the Dashboard (the service currently uses Render's default port check).
+If an older static preview exists, keep it until the new app has been verified. Do not assume changing the Blueprint converts an existing Static Site. Create/confirm the separate Node service, set `GEMINI_API_KEY` in Render's secret environment settings, and verify a real request before moving the domain. The free service may sleep between visits. No hosted service, DNS change or TLS certificate is claimed by this repository update.
 
-Live custom address: https://flowpoint.phoenixreborn.tech/workspace. Browser-local drafts from the onrender.com address do not transfer automatically to this separate origin. See [domain setup](docs/domain-setup.md).
+Planned address: `flowpoint.phoenixreborn.tech`. See [domain setup](docs/domain-setup.md).
 
 ## Verification
 
-`npm test` covers date conflicts and invalid dates, exact budget arithmetic and overflow, missing facts, placeholders, approval invalidation, CSV escaping, and HTTP routes through generation, review, approval and export. Provider tests simulate valid, truncated, malformed, quota and network-failure responses. All 26 tests pass. See [verification record](docs/verification.md) for evidence and remaining gates, and [contest work chunks](docs/contest-readiness.md) for the five-part plan.
+`npm test` covers date conflicts and invalid dates, exact budget arithmetic and overflow, missing facts, placeholders, approval invalidation, CSV escaping, and HTTP routes through generation, review, approval and export. Provider tests simulate valid, truncated, malformed, quota and network-failure responses. See [verification record](docs/verification.md) for remaining gates.
 
-This version uses a Node HTTP server, PDFKit for PDF export, and bundled DejaVu fonts under their accompanying license. eve was considered in the initial design but is not installed or claimed as part of the running app.
+This version retains the established dependency-free Node stack. eve was considered in the initial design but is not installed or claimed as part of the running app.
 
 ## Competition evidence
 
 Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
-Intended categories: Gemma, Render and .tech Domain, subject to actual implementation and eligibility. Outstanding: broader model-quality/reliability evaluation, phone layout checks, timed user-effort measurements, final screenshots/demo and DEV submission. The live desktop workflow has passed; see docs/verification.md. Do not claim category completion or savings without that evidence. Record any changes made after the deadline.
+Intended categories: Gemma, Render and .tech Domain, subject to actual implementation and eligibility. Outstanding: novel live Gemma runs, deployed end-to-end verification, phone layout checks, timed user-effort measurements, screenshots/demo and DEV submission. Do not claim category completion or savings without that evidence. Record any changes made after the deadline.
 
 ## License
 
