@@ -62,7 +62,7 @@ This version retains the established dependency-free Node stack. eve was conside
 
 Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
-Intended categories: Gemma, Render and .tech Domain, subject to eligibility. A novel live generation, refinement and draft PDF export have been checked. Outstanding: phone layout check, timed user-effort measurement, recording and DEV submission. Do not claim savings without evidence. Record any changes made after the deadline.
+Intended categories: Gemma, Render and .tech Domain, subject to eligibility. A novel live generation, refinement and draft PDF export have been checked. The user reported that the phone experience worked perfectly. Outstanding: timed user-effort measurement, recording and DEV submission. Do not claim savings without evidence. Record any changes made after the deadline.
 
 ## License
 
