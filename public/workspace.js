@@ -311,7 +311,11 @@ async function download(format) {
   try {
     const response = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: state.plan, approval: state.approval, format, sample: state.provenance?.mode === 'sample' }) });
     if (!response.ok) { const data = await response.json(); throw new Error(data.error); }
-    const blob = await response.blob(), url = URL.createObjectURL(blob), a = node('a'); a.href = url; a.download = response.headers.get('Content-Disposition')?.match(/filename="([^"]+)"/)?.[1] || `flow-point-${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${format}`; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const disposition = response.headers.get('Content-Disposition') || '';
+    let filename = disposition.match(/filename="([^"]+)"/)?.[1];
+    const encodedName = disposition.match(/filename\*=UTF-8''([^;]+)/i)?.[1];
+    if (encodedName) { try { filename = decodeURIComponent(encodedName); } catch { /* Use the safe ASCII fallback. */ } }
+    const blob = await response.blob(), url = URL.createObjectURL(blob), a = node('a'); a.href = url; a.download = filename || `flow-point-${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${format}`; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     announce('Download started. The pack includes its review status; the CSV is a budget worksheet.');
   } catch (error) { announce(error.message || 'Download failed. Please retry.'); }
   finally { button.disabled = false; }
