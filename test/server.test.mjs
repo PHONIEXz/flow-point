@@ -166,3 +166,34 @@ test('export names identify event, status and format and are unique even for rep
   const approved = await client.post('/api/export', { plan, approval, format: 'md' });
   assert.match(approved.headers.get('content-disposition'), /-pack-approved-/);
 });
+
+
+test('transient errors retry twice then use the supported Gemma fallback with honest provenance', async () => {
+  const urls = [], delays = [];
+  const result = await generatePack({ request: 'Fictional school test.' }, {
+    apiKey: 'private-fixture', wait: async ms => delays.push(ms),
+    fetchImpl: async url => { urls.push(url); return urls.length < 3 ? Response.json({ error: { status: 'INTERNAL' } }, { status: 500 }) : Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(complete()) }] } }] }); }
+  });
+  assert.equal(urls.length, 3);
+  assert.match(urls[0], /gemma-4-26b-a4b-it:generateContent$/);
+  assert.match(urls[1], /gemma-4-26b-a4b-it:generateContent$/);
+  assert.match(urls[2], /gemma-4-31b-it:generateContent$/);
+  assert.ok(delays[0] >= 1000 && delays[1] >= 2000);
+  assert.equal(result.provenance.model, 'gemma-4-31b-it');
+  assert.equal(result.provenance.requestedModel, 'gemma-4-26b-a4b-it');
+  assert.equal(result.provenance.attempts, 3);
+});
+
+test('retries are bounded, stop on cancellation, and never retry quota or key errors', async () => {
+  let calls = 0;
+  await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', wait: async () => {}, fetchImpl: async () => { calls++; return Response.json({ error: { message: 'secret provider text' } }, { status: 500 }); } }), error => error.status === 502 && !error.message.includes('secret'));
+  assert.equal(calls, 3);
+  for (const status of [400, 401, 403, 429]) {
+    calls = 0;
+    await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', wait: async () => assert.fail('must not wait'), fetchImpl: async () => { calls++; return Response.json({ error: {} }, { status }); } }));
+    assert.equal(calls, 1);
+  }
+  calls = 0; const controller = new AbortController();
+  await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', signal: controller.signal, wait: async () => controller.abort(), fetchImpl: async () => { calls++; return new Response('', { status: 503 }); } }), error => error.status === 499);
+  assert.equal(calls, 1);
+});
