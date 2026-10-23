@@ -38,7 +38,7 @@ The screenshots show a real hosted Gemma run using fictional data. The pack has 
 
 **[Source and setup instructions](https://github.com/PHONIEXz/flow-point)** · **[Live verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md)**
 
-The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current test suite passes **31 tests**.
+The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current test suite passes **33 tests**.
 
 ## How I Built It
 
@@ -62,6 +62,8 @@ I also tested a fictional Young Minds school event, first for 150 attendees and 
 
 The uploaded result preserved the revised date, venue, 10:00 start, activity durations and **NGN 181,500 total**. It also exposed a real weakness: the rehearsal time was still awaiting approval, but its question disappeared; the named first-aid officer was missing from the checklist. Structural validation did not catch those semantic omissions. I tightened the prompt to retain pending approvals, named duties and the spending-limit explanation, and kept the original failure in the verification record. A post-fix retest using those exact inputs returned Google HTTP 500 twice, so I have not yet verified the revised model output. The notes were preserved. A human must still compare the pack with the source brief.
 
+The adapter now retries transient server failures with a bounded delay and can fall back from Gemma 4 26b to the supported Gemma 4 31b model. It records the model actually used. The fresh exact-brief replay still received HTTP 500 from both models, so the revised school-event output remains unverified. This is failure handling, not a claim that the provider service is repaired.
+
 I also removed repeated processing checkboxes. One explicit choice covers Prepare and Update, with an optional **Remember my choice on this browser** setting and a way to revoke it. Export filenames now identify the event, date, draft or approved status, timestamp and a unique suffix.
 
 ## Why Does Open Innovation Matter?
@@ -74,7 +76,7 @@ Saved packs stay in this browser rather than on a server, but browser storage ca
 
 ## The Lazy Payoff
 
-One rough note produced four linked draft materials, and a follow-up answer updated the affected wording without retyping the whole pack. That removes a lot of copy-and-paste work. The operation timings show how quickly the drafts were returned in those tests. No manual-writing baseline duration is recorded here, so I am not claiming a percentage saving. Reading, correcting and exporting the pack also take time.
+One rough note produced four linked draft materials, and a follow-up answer updated the affected wording without retyping the whole pack. That removes a lot of copy-and-paste work. The operation timings show how quickly the drafts were returned in those tests. I estimate that preparing equivalent documents manually could take hours, but that is an estimate rather than a timed baseline, so I am not claiming a percentage saving. Reading, correcting and exporting the pack also take time.
 
 ## Prize Categories
 
