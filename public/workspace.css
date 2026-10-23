@@ -2,6 +2,7 @@
 
 /* Keep editable content within the viewport without hiding overflow. */
 .workspace-body input:not([type=checkbox]),.workspace-body select,.workspace-body textarea{min-width:0;max-width:100%}
+.saved-packs{border-top:1px solid #eee8f5;padding-top:20px;margin-top:20px}.saved-heading{display:flex;justify-content:space-between;align-items:center;gap:8px}.saved-heading h3{font-size:18px;margin:0}.saved-heading span{font-size:12px;color:#786c86}.saved-packs .field-help{margin:8px 0 14px}.saved-create{display:grid;gap:10px}.saved-create input{margin-top:2px!important}.saved-packs ul{list-style:none;padding:0;margin:18px 0 0}.saved-packs li{border:1px solid #e9e0f2;border-radius:10px;padding:12px;margin:10px 0;background:#fcfaff;min-width:0}.saved-packs li.active{border-color:#9d7bd1;background:#f5efff}.saved-item-name{display:block;font-size:14px;font-weight:700;overflow-wrap:anywhere}.saved-item-date{display:block;font-size:12px;color:#7c7089}.saved-item-actions{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.saved-item-actions button{min-height:44px}.saved-packs .quiet{font-size:13px}
 .facts-grid>label,.row-grid>label,.pack-toolbar>div{min-width:0}
 .pack-toolbar h2,.provenance,.workspace-notice,.review-box li{overflow-wrap:anywhere}
 .workspace-jumps{display:none}
