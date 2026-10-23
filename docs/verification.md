@@ -1,81 +1,28 @@
 # Workspace verification record
 
-Date: 21 October 2026.
+Date: 23 October 2026. The live site was tested at `https://flowpoint.phoenixreborn.tech/workspace` and `/workspace/pack`.
 
-## Current result
+## Live Gemma run
 
-The deployed desktop workflow has passed with actual hosted Gemma inference: request -> generated pack -> review -> approval -> Markdown and CSV downloads -> reload restoration -> edit invalidates approval.
+A fictional new event, Harbor Makers Club Community Repair Day, was entered in the live notes page. The input supplied Saturday 7 November 2026, Riverside Civic Hall in Abuja, organizer and signatory, 50 programmes at NGN 180 each, 60 water bottles at NGN 250 each, and 40 snack packs at an unknown price. The start time was deliberately omitted. No real attendee information was used.
 
-App: https://flowpoint.phoenixreborn.tech/workspace
-Original address: https://flow-point-app.onrender.com/workspace
-Service: flow-point-app (srv-dbc8labbc2fs73blobc0), free Node service, Frankfurt.
-Verified deployment: dep-dbc95cg473hc73fgrm10, commit 24937cca33def818312769c6fa18259d21f18df8.
-Model: gemma-4-26b-a4b-it through Google's Gemini API.
+The first generation returned Google HTTP 500. The UI kept the request and reported the failure without substituting the sample. A single retry succeeded with `gemma-4-26b-a4b-it` in 7.9 seconds. The generated pack preserved the date, venue, organizer, signatory, quantities and prices. It left the start time blank and asked for it. The snack-pack price remained unknown. Known subtotal was NGN 24,000, marked incomplete.
+
+A follow-up confirmed a 09:30 start time and explicitly kept the snack price unknown. The live refinement succeeded in 7.7 seconds. The details, invitation and run of show used 09:30. The three budget quantities and known prices remained intact. The sample label was absent; the UI displayed live model provenance. The resulting schedule still had `[Time]` placeholders for later sessions and required human editing. The invitation is usable as a starting draft but generic, so this is not a claim of publish-ready writing.
+
+The pack was named `Repair Day Live QA` in browser-local Saved Packs, alongside two earlier sample test packs. The direct `/workspace/pack` route and the move back to Notes were verified in a desktop browser. Notes survived navigation. The refinement consent gate was verified separately with a sample pack: without consent, no request was sent and the UI explained the requirement.
+
+## PDF export
+
+The live draft export was a two-page A4 PDF. Text extraction and page renders confirmed the draft label, event date, 09:30 start, venue, invitation, proposed schedule, task list, three budget items, NGN 9,000 and NGN 15,000 known line totals, NGN 24,000 incomplete subtotal, and unknown snack price. The run of show placeholders appeared in its review notes. The first PDF split the signatory's name and role across pages; a layout fix was made after this observation and requires a live export recheck on its deploy.
 
 ## Automated checks
 
-All 25 automated tests pass. Tests cover dates, exact integer budget arithmetic, approval fingerprints, CSV escaping, HTTP workflow, request validation, provider failures and safe model-access diagnostics. Model responses in automated tests are simulated and are distinct from the real browser runs below.
+`npm test` passed 30 tests on this version. The suite covers the sample, editing, approval and export routes, provider failure handling, exact money arithmetic, prompt-output validation, cancellation, named browser packs, PDF attachment behavior and static routes. Automated model tests use simulated HTTP responses; the run above is the separate live evidence.
 
-## Live evidence
+## Remaining gates
 
-The user configured GEMINI_API_KEY privately in Render. The server model metadata check returned HTTP 200. No private key was read or exposed.
-
-A browser submitted this test request:
-
-> Reading Day on Saturday 14 November 2026, 10:00 to 12:00, Cedar Grove hall. Organizer: Cedar Grove Club. Signatory: Ada, coordinator. Currency NGN. Budget: 10 snack packs at 1000 naira each. Prepare a short invitation, schedule and checklist. Keep every section brief.
-
-- Actual generation succeeded in 5.9 seconds in the first successful run and 6.2 seconds in a subsequent browser run.
-- The pack preserved the supplied date, weekday, time, venue, organizer and currency.
-- The generated checklist kept unspecified owners and due dates blank.
-- Budget: quantity 10, unit price NGN 1,000, total NGN 10,000; stored subtotal 1,000,000 kobo.
-- The model unnecessarily asked for currency confirmation despite NGN being supplied. A human resolved it against the original request before approval. This illustrates why review is still needed.
-- Invitation and proposed schedule were inspected, then the version was approved.
-- The browser's Download pack and Budget CSV controls both produced files. Local inspection confirmed Approved status, event details and exact CSV money values.
-- Reloading restored the request, plan and approval from browser local storage after the API check completed.
-- Editing invitation wording immediately removed approval and required a fresh review. The revised version was reviewed and approved again.
-- A desktop screenshot captured the approved version. Phone layout remains unverified.
-
-## Custom-domain verification
-
-The provider dashboard confirmed CNAME flowpoint -> flow-point-app.onrender.com (TTL Auto). After the user completed the Render domain association, the custom-domain workspace loaded successfully in the browser over HTTPS. An HTTPS GET to /healthz returned HTTP 200 and {"status":"ok"} with normal certificate validation. Render's own certificate status label was not separately observed. Drafts are stored per origin, so drafts from onrender.com do not automatically appear at the custom domain. The earlier full generation/review/export test was performed at the original address.
-
-## Earlier failures and fixes
-
-The first clean Render build exposed a test order issue. Added a pretest asset build and reproduced a passing clean build locally.
-
-Initial live attempts returned provider failures and 60-second timeouts. Added specific sanitized provider errors, minimal thinking for Gemma 4 and a bounded output size. Later short-request runs succeeded. This does not prove the earlier provider failures cannot recur, or establish reliability for long requests.
-
-The free Render service displayed its wake-up page after inactivity; the workspace loaded after startup. Cold starts remain a product limitation of the selected hosting tier.
-
-## Remaining work
-
-2. Set the optional HTTP health-check path to /healthz in the dashboard; MCP direct creation did not expose this setting.
-3. Verify phone layout and repeat broader live-model reliability evaluation. Live refinement, cancellation, sparse/conflicting requests and one 4,788-character input have now been exercised; see the reliability pass below.
-4. Measure human preparation effort against the same task using Flow Point. Generation elapsed time is not a measured time-savings percentage.
-5. Produce final demo/screenshots and the DEV submission. Do not claim category completion until its requirements are verified.
-
-## Reliability pass, 21 October 2026
-
-Source fixes: cfcca3fdca09f72eb80712b5501eaaff2970ccf6 (including model instructions from 9d8e97f5616e287804fbf0e92d4a41a8da91ecb2). Render deployment: dep-dbcd9rbncjis73957g8g.
-
-Tested missing essential facts, a conflicting weekday, a 4,788-character request, refinement that preserves a manually edited task/owner, ambiguous dates/times and untrusted quoted text. The long-request budget total was exactly NGN 22,000. Refinement updated both drafts to Maple library and 10:00 while preserving the manual task and budget. A conflicting plan was rejected by the public approval endpoint.
-
-Found and fixed ordinary draft placeholders escaping the prior [Confirm ...]-only check. Public review now flags [Date]/[Time]/[Venue]/[Signatory] in the captured sparse output even after all event fields are completed; approval rejects it. Added regression cases for these variants without rejecting the harmless [Proposed Run of Show] heading.
-
-Found and fixed cancellation during provider response-body reading returning a pack, and classified body-reading timeouts as timeouts. A separate local HTTP test confirms two cancelled clients abort both upstream requests and release concurrency slots. All 25 tests pass.
-
-Browser cancellation of a real refinement retained the edited draft and clarification text and restored controls. One preceding browser refinement received Google HTTP 500; the error was displayed and the previous draft remained intact. This is an observed provider reliability limitation, not a resolved upstream issue.
-
-The ambiguous-input run preserved uncertainty and did not invent the malicious quoted price, but omitted 12 explicitly requested notebooks from the budget. Strengthened instructions to retain known-quantity items with null prices and avoid reconfirming supplied currencies. Post-deployment retest retained the 12 notebooks with unitCostMinor null, budgetComplete false and a MISSING_PRICES issue; date/time stayed null. A second complete NGN request returned no questions and the correct NGN 10,000 total. These provider runs took 4.6 and 4.4 seconds respectively. The retest also produced a differently worded bracketed schedule placeholder: generalized the approval check to all bracketed draft text, except the exact [Proposed Run of Show] heading, and added that captured phrase to the regression test. This deliberately requires users to resolve bracketed draft text before approval.
-
-See [work chunks](contest-readiness.md) for the remaining contest work. These are small synthetic tests, not a measured success-rate study, a privacy guarantee, or evidence of human time savings.
-
-## PDF export, 22 October 2026
-
-Deployed PDF export in dep-dbcrvpgm7kps73codh50, source commit 5dc6ec981356e1943fb2b4b3ad2a10e0470dda7e. The workspace now offers PDF, Markdown and budget CSV downloads. PDFKit embeds bundled DejaVu fonts; exports are generated in memory and sent as attachments, without creating a cloud document history.
-
-All 26 automated tests pass. PDF route tests cover draft/sample and approved exports, response headers, a complete PDF byte stream and invalid-plan rejection. Local visual inspection covered approved and draft samples, a long invitation, a 40-task checklist, repeated headers/footers, wrapped budget rows, unknown prices, exact large-amount formatting, Nigerian names and the naira symbol. Fixed a header continuation issue and kept short budgets together rather than orphaning the total.
-
-The live browser displayed the new controls and initiated a PDF download from the custom domain. Separate live HTTP exports returned application/pdf for an approved plan and an edited plan using the old approval. Text extraction verified approved status on the former, draft status on the latter, the NGN 27,000 total and accented name. These checks used synthetic data, not additional model calls.
-
-Storage remains one current request/pack in localStorage per browser origin. Replacing the pack overwrites that current draft; clearing browser data removes it. The UI now explicitly states these limits. Downloaded PDFs are snapshots and cannot restore editable workspace data. Accounts, named saved packs, cross-device sync and cloud history are not implemented.
+- Recheck the PDF signatory page break after the layout fix reaches the live service.
+- Verify the full workflow at a phone-sized viewport or on a physical phone. CSS has responsive breakpoints, but desktop browser inspection alone is not mobile proof.
+- Record a short demo and make a fair manual-versus-assisted effort measurement that includes human review time. No percentage saving has been measured.
+- Update the submission narrative with the observed provider HTTP 500, the successful retry, and the remaining human edits. Do not call the generated drafts approved.
