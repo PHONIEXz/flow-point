@@ -1,16 +1,86 @@
 'use strict';
+import { legacyKey, storageKey, maxPacks, emptyWorkspace, restoreCollection, recordCurrent, saveNamed, renameNamed, openNamed, removeNamed, newWorkspace, serializeCollection } from './pack-store.mjs';
 const $ = id => document.getElementById(id);
-const storageKey = 'flow-point-workspace-v1';
-let state = { request: '', answers: '', plan: null, approval: null, provenance: null };
+let collection = { current: emptyWorkspace(), packs: [], activeId: null };
+let state = collection.current;
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
 function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
+function persist(candidate) {
+  try {
+    localStorage.setItem(storageKey, serializeCollection(candidate));
+    try { localStorage.removeItem(legacyKey); } catch { /* The new entry is already saved. */ }
+    collection = candidate;
+    $('save-state').textContent = 'Saved on this browser';
+    renderSavedPacks();
+    return true;
+  } catch {
+    $('save-state').textContent = 'Browser storage unavailable or full. Download your pack.';
+    announce('This change could not be saved in this browser. Download a copy before leaving.');
+    return false;
+  }
+}
 function save() {
   state.request = $('request').value; state.answers = $('answers').value;
-  try { localStorage.setItem(storageKey, JSON.stringify(state)); $('save-state').textContent = 'Saved on this browser'; }
-  catch { $('save-state').textContent = 'Browser storage unavailable. Download your pack.'; }
+  persist(recordCurrent(collection, state));
 }
 function node(tag, text, className) { const item = document.createElement(tag); if (text != null) item.textContent = text; if (className) item.className = className; return item; }
+function renderSavedPacks() {
+  $('saved-count').textContent = `${collection.packs.length} of ${maxPacks}`;
+  const active = collection.packs.find(item => item.id === collection.activeId);
+  $('saved-active').textContent = active ? `Editing “${active.name}”. Changes save here automatically.` : 'Your current pack has no saved name yet.';
+  $('saved-create').hidden = Boolean(active);
+  $('save-named').disabled = busy || !state.plan || collection.packs.length >= maxPacks;
+  $('saved-list').replaceChildren(...collection.packs.map(item => {
+    const row = node('li', null, item.id === collection.activeId ? 'active' : '');
+    const name = node('span', item.name, 'saved-item-name');
+    const date = node('span', `Saved ${new Date(item.updatedAt).toLocaleString()}`, 'saved-item-date');
+    const actions = node('div', null, 'saved-item-actions');
+    const open = node('button', item.id === collection.activeId ? 'Current' : 'Open', 'quiet'); open.type = 'button'; open.disabled = busy || item.id === collection.activeId;
+    open.setAttribute('aria-label', `Open ${item.name}`); open.addEventListener('click', () => openSaved(item.id));
+    const rename = node('button', 'Rename', 'quiet'); rename.type = 'button'; rename.disabled = busy;
+    rename.setAttribute('aria-label', `Rename ${item.name}`); rename.addEventListener('click', () => renameSaved(item.id));
+    const remove = node('button', 'Remove', 'quiet'); remove.type = 'button'; remove.disabled = busy;
+    remove.setAttribute('aria-label', `Remove ${item.name}`); remove.addEventListener('click', () => removeSaved(item.id));
+    actions.append(open, rename, remove); row.append(name, date, actions); return row;
+  }));
+}
+function loadCurrent(candidate, message) {
+  clearTimeout(timer); revision++; review = null; $('review-confirm').checked = false;
+  if (!persist(candidate)) return false;
+  state = collection.current; $('request').value = state.request; $('answers').value = state.answers;
+  renderPack(); renderSavedPacks(); activate(tabs[0]); announce(message);
+  if (!state.plan) { $('pack-heading').textContent = 'A clearer next step.'; $('pack-status').textContent = 'Waiting for your request'; $('pack-status').className = 'state-badge'; $('stage-capture').classList.add('current'); $('stage-review').classList.remove('current'); $('stage-approve').classList.remove('current'); }
+  return true;
+}
+async function openSaved(id) {
+  if (busy) return;
+  if ((state.plan || state.request.trim()) && !collection.activeId && !confirm('Open a saved pack? The unnamed current work will be replaced. Save it with a name first if you want to keep it.')) return;
+  try {
+    const candidate = openNamed(collection, id);
+    candidate.current.plan = (await api('/api/review', { plan: candidate.current.plan, approval: candidate.current.approval })).plan;
+    loadCurrent(candidate, `Opened “${candidate.packs.find(item => item.id === id).name}”. Review its facts and export status.`);
+  } catch (error) { announce(error.message); }
+}
+function renameSaved(id) {
+  const item = collection.packs.find(entry => entry.id === id);
+  if (!item) return;
+  const name = prompt('Name this saved pack (80 characters maximum):', item.name);
+  if (name === null) return;
+  try { if (persist(renameNamed(collection, id, name))) announce('Saved pack renamed.'); }
+  catch (error) { announce(error.message); }
+}
+function removeSaved(id) {
+  const item = collection.packs.find(entry => entry.id === id);
+  if (!item || !confirm(`Remove “${item.name}” from this browser? This cannot be undone. Download a copy first if you need it.`)) return;
+  if (persist(removeNamed(collection, id))) announce(`Removed “${item.name}”. The current workspace stays open.`);
+}
+$('save-named').addEventListener('click', () => {
+  try {
+    const candidate = saveNamed(collection, state, $('saved-name').value, crypto.randomUUID());
+    if (persist(candidate)) { $('saved-name').value = ''; announce('Named pack saved. Edits to it will save automatically on this device.'); }
+  } catch (error) { announce(error.message); }
+});
 async function api(path, data, signal) {
   const response = await fetch(path, data === undefined ? { signal } : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal });
   if (!response.ok) { const result = await response.json().catch(() => ({})); throw new Error(result.error || 'This action could not finish. Please retry.'); }
@@ -96,6 +166,7 @@ function renderRows() {
 }
 function renderPack() {
   const exists = Boolean(state.plan); $('empty-state').hidden = exists; $('pack-editor').hidden = !exists; $('clarify-section').hidden = !exists;
+  renderSavedPacks();
   if (!exists) return;
   $('pack-heading').textContent = state.plan.title;
   const p = state.provenance;
@@ -122,6 +193,7 @@ function setBusy(value) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
   $('request').disabled = value; $('answers').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('reset').disabled = value;
+  $('saved-name').disabled = value; renderSavedPacks();
   $('cancel').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
   if (!value && review) renderReview(); else $('approve').disabled = true;
 }
@@ -129,10 +201,11 @@ async function generate(refine = false) {
   if (busy) return;
   if (!$('request-form').reportValidity()) return;
   if (refine && !$('answers').value.trim()) return announce('Add the confirmations or changes you want Gemma to apply.');
-  if (!refine && state.plan && !confirm('Replace the current pack with a newly generated one? Download the current version first if you need to keep it.')) return;
+  if (!refine && state.plan && !confirm(collection.activeId ? 'Prepare a new pack? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack? Save it with a name first if you want to keep editing it.')) return;
   clearTimeout(timer); revision++; setBusy(true); announce('Gemma is preparing the pack. Your previous draft stays safe until a valid reply arrives.'); controller = new AbortController();
   try {
     const result = await api('/api/generate', { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null }, controller.signal);
+    if (!refine) collection = { ...collection, activeId: null };
     state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('answers').value = ''; save(); renderPack();
     announce('Pack prepared. Compare the details with your request, then review every section.'); activate(tabs[0]); $('pack-heading').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (error) { announce(error.name === 'AbortError' ? 'Generation cancelled. Your previous draft has been kept.' : error.message); }
@@ -143,9 +216,10 @@ $('refine').addEventListener('click', () => generate(true));
 $('cancel').addEventListener('click', () => controller?.abort());
 async function sample() {
   if (busy) return;
-  if (state.plan && !confirm('Replace the current draft with the labelled sample pack?')) return;
+  if (state.plan && !confirm(collection.activeId ? 'Open the sample? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack with the labelled sample? Save it with a name first if needed.')) return;
   try {
     const result = await api('/api/sample'); clearTimeout(timer); revision++;
+    collection = { ...collection, activeId: null };
     state = { request: 'SAMPLE: School Family Day on Friday, 23 October 2026, at the school assembly hall. Prepare invitations and a run of show, with 50 refreshment packs and 50 printed programmes. Prices and start time are not supplied.', answers: '', plan: result.plan, approval: null, provenance: result.provenance };
     $('request').value = state.request; $('answers').value = ''; $('review-confirm').checked = false; save(); renderPack(); announce('Sample workspace opened. This is hand-authored data, with no AI call. You can edit, review, and export it.'); activate(tabs[0]);
   } catch (error) { announce(error.message); }
@@ -171,21 +245,18 @@ async function download(format) {
 }
 $('export-pdf').addEventListener('click', () => download('pdf')); $('export-md').addEventListener('click', () => download('md')); $('export-csv').addEventListener('click', () => download('csv'));
 $('reset').addEventListener('click', () => {
-  if (!confirm('Clear this browser’s Flow Point request and draft? Download a copy first if you need it.')) return;
-  try { localStorage.removeItem(storageKey); } catch { /* Storage may be disabled. */ }
-  clearTimeout(timer); revision++; state = { request: '', answers: '', plan: null, approval: null, provenance: null }; review = null; $('request').value = ''; $('answers').value = ''; $('consent').checked = false; $('review-confirm').checked = false; renderPack(); $('pack-heading').textContent = 'A clearer next step.'; $('pack-status').textContent = 'Waiting for your request'; $('pack-status').className = 'state-badge'; $('stage-capture').classList.add('current'); $('stage-review').classList.remove('current'); $('stage-approve').classList.remove('current'); announce('Workspace cleared on this browser.');
+  if ((state.plan || state.request.trim()) && !collection.activeId && !confirm('Start a blank pack? The current unnamed work will be replaced. Save it with a name first if needed.')) return;
+  if (busy) return;
+  if (loadCurrent(newWorkspace(collection), 'Blank workspace ready. Your named packs remain available.')) $('consent').checked = false;
 });
 async function init() {
   try {
-    const stored = localStorage.getItem(storageKey);
-    if (stored && stored.length < 150000) {
-      const saved = JSON.parse(stored);
-      if (typeof saved.request === 'string' && saved.request.length <= 12000 && (saved.plan === null || typeof saved.plan === 'object')) {
-        if (saved.plan) saved.plan = (await api('/api/review', { plan: saved.plan, approval: saved.approval })).plan;
-        state = { request: saved.request, answers: typeof saved.answers === 'string' ? saved.answers.slice(0,8000) : '', plan: saved.plan, approval: saved.approval, provenance: saved.provenance };
-      }
-    }
+    const stored = localStorage.getItem(storageKey), legacy = localStorage.getItem(legacyKey);
+    collection = restoreCollection(stored?.length <= 1500000 ? stored : null, legacy?.length <= 150000 ? legacy : null);
+    state = collection.current;
+    if (state.plan) state.plan = (await api('/api/review', { plan: state.plan, approval: state.approval })).plan;
     $('request').value = state.request; $('answers').value = state.answers; renderPack();
+    if (!stored && legacy) save();
   } catch { announce('The saved draft could not be restored. You can start a new pack or retry after reconnecting.'); }
   try { const config = await api('/api/config'); liveAvailable = config.liveAvailable; $('model-state').textContent = liveAvailable ? `Live drafting · ${config.model}` : 'Live Gemma is not connected yet. The sample workspace is available.'; }
   catch { $('model-state').textContent = 'Cannot reach the app server. Please reconnect and reload.'; }
