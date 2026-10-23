@@ -12,19 +12,31 @@ Gemma kept that time empty and asked for it. It kept the snack price unknown, wh
 
 That distinction matters. A made-up price can travel from a draft into a real spending decision if the interface presents it as fact.
 
-![The full-page notes editor with the fictional repair-day brief](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/notes.jpg)
+![Current Notes editor close-up with a fictional School Family Day brief](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/5iqtcmmy2rzi9dhsgwey.png)
+
+*Fresh interface capture: School Family Day is a separate fictional, manually edited sample. [Open the full-size Notes image](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/5iqtcmmy2rzi9dhsgwey.png).*
 
 ## Demo
 
 **[Try Flow Point](https://flowpoint.phoenixreborn.tech/workspace)**. It runs in the browser and needs no account. The Notes page gives you room for a rough brief; the Preparation Pack page puts the Gemma update form beside the editable pack. If you just want to explore the workflow, open the clearly labelled hand-authored sample. That sample makes no AI call.
 
+### Watch: create and navigate (3:12)
+
+This edited walkthrough shows navigation, notes, consent and pack preparation using fictional event data. Sample content and earlier successful live footage are labelled, and the provider failures encountered during recording are shown.
+
+{% youtube xHEi4ybfHL0 %}
+
 For a live run, enter a fictional event, acknowledge the Google processing notice, and select **Prepare my event pack**. Check the extracted details. Add a missing time using **Update pack with Gemma**, look through the invitation, schedule, checklist and budget, then download the draft PDF. Your current work and up to 12 named packs save in this browser, on this device.
 
-![Gemma's proposed run of show, with later times labelled as suggestions](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/schedule.jpg)
+![Current sample schedule editor showing 09:30 and later timings labelled Suggested](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/sgt6tfsxxrmp8wcdl2jd.png)
 
-![The budget keeps the snack price blank and labels the subtotal incomplete](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/budget.jpg)
+*[Open the full-size schedule image](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/sgt6tfsxxrmp8wcdl2jd.png). This is a manually edited sample, not a new Gemma generation.*
 
-The screenshots show a real hosted Gemma run using fictional data. The pack has not been approved. No invitations were sent, supplies ordered, or venue booked.
+![Current sample budget with an unknown refreshment price and NGN 9,000 incomplete subtotal](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/axdvc7sv2kp3vjmjxhnb.png)
+
+*[Open the full-size budget image](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/axdvc7sv2kp3vjmjxhnb.png). A blank refreshment price keeps this sample subtotal incomplete.*
+
+The refreshed screenshots show the current interface using a labelled School Family Day sample. Its NGN 9,000 known subtotal is separate from the NGN 24,000 Community Repair Day live test described above. The videos retain the earlier hosted Gemma evidence. A fresh generation attempt during the screenshot refresh returned Google HTTP 500, so no sample is presented as new inference. The sample has not been approved. No invitations were sent, supplies ordered, or venue booked.
 
 ## Code
 
@@ -39,6 +51,12 @@ The browser sends the event note to a Node service on Render. The server sends i
 I kept the model's job focused on interpreting the rough note and writing draft language. Code handles the parts that should be predictable. A missing price stays `null`, separate from a confirmed zero. The UI only calls a sum a *known subtotal* while prices are missing. Date and weekday conflicts and unresolved questions block approval. Editing a reviewed pack invalidates its approval. PDF, Markdown and budget CSV exports remain available as clearly marked drafts.
 
 There is a human boundary too: changing an event fact does not silently rewrite the invitation. You can edit that text yourself or explicitly ask Gemma to update it. Consent is required before the original note, current pack and follow-up instructions are sent to Google.
+
+### Watch: update, review and export (3:12)
+
+This walkthrough follows an earlier live Gemma update, an explicit invitation correction and the exported draft PDF. A separately labelled sample demonstrates the manual review controls, unknown prices and saved packs.
+
+{% youtube m3PTH6_Rt2w %}
 
 ### What happened when I tested it
 
@@ -67,6 +85,12 @@ Saved packs stay in this browser rather than on a server, but browser storage ca
 ## The Lazy Payoff
 
 One rough note produced four linked draft materials, and a follow-up answer updated the affected wording without retyping the whole pack. That removes a lot of copy-and-paste work. The operation timings show how quickly the drafts were returned in those tests. No manual-writing baseline duration is recorded here, so I am not claiming a percentage saving. Reading, correcting and exporting the pack also take time.
+
+### Watch: the tools behind Flow Point (3:12)
+
+See the roles of Render, hosted Gemma, the .tech domain, GitHub, Copilot Chat, Node.js and PDFKit, with the deployment, source and review evidence behind those contributions.
+
+{% youtube p_Ob6AzwyVo %}
 
 ## Prize Categories
 
