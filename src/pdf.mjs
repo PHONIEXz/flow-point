@@ -16,7 +16,7 @@ export async function preparationPdf(input, approval, { sample = false } = {}) {
   const approved = isApproved(plan, approval);
   const status = `${sample ? 'SAMPLE DATA / ' : ''}${approved ? 'Approved version' : 'DRAFT / Review required'}`;
   const doc = new PDFDocument({ size: 'A4', margins: { top: 76, bottom: 58, left: 48, right: 48 }, autoFirstPage: false, bufferPages: true,
-    info: { Title: `${plan.title} - Preparation pack`, Author: 'Flow Point', Subject: status } });
+    info: { Title: plan.title, Author: 'Flow Point', Subject: status } });
   const chunks = [];
   const result = new Promise((resolve, reject) => { doc.on('data', chunk => chunks.push(chunk)); doc.on('end', () => resolve(Buffer.concat(chunks))); doc.on('error', reject); });
   doc.registerFont('Body', regular).registerFont('Bold', bold);
@@ -83,8 +83,11 @@ export async function preparationPdf(input, approval, { sample = false } = {}) {
     const bottom = doc.page.margins.bottom; doc.page.margins.bottom = 0;
     // Draw page furniture after flowing body text, so automatic page breaks
     // cannot overwrite the header while continuing a paragraph.
-    doc.font('Bold').fontSize(10).fillColor('#6040B4').text('FLOW POINT', 48, 30, { lineBreak: false });
-    doc.font('Body').fontSize(8).fillColor('#575065').text(status, 200, 31, { width: 347, align: 'right', lineBreak: false });
+    // Preserve the exact event title in the running header, including long titles.
+    let headerSize = 10;
+    doc.font('Bold').fontSize(headerSize);
+    while (headerSize > 6 && doc.heightOfString(plan.title, { width, lineGap: 1 }) > 28) doc.fontSize(headerSize -= 0.5);
+    doc.fillColor('#6040B4').text(plan.title, 48, 20, { width, lineGap: 1 });
     doc.moveTo(48, 52).lineTo(547, 52).strokeColor('#DDD6EA').stroke();
     doc.font('Body').fontSize(8).fillColor('#575065').text(`Flow Point • ${status} • Page ${i + 1} of ${range.count}`, 48, doc.page.height - 35, { width, lineBreak: false });
     doc.page.margins.bottom = bottom;
