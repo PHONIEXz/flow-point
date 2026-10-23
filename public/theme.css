@@ -59,11 +59,15 @@ nav{font-size:15px;gap:20px}
 :root[data-theme=dark] .quiet:hover{background:#413452}
 :root[data-theme=dark] .workspace-body textarea,:root[data-theme=dark] .workspace-body input:not([type=checkbox]),:root[data-theme=dark] .workspace-body select{background:#211d2f;border-color:#806f93;color:#f9f2ff}
 :root[data-theme=dark] .workspace-body input::placeholder,:root[data-theme=dark] .workspace-body textarea::placeholder{color:#baaac8;opacity:1}
+:root[data-theme=dark] .workspace-body .privacy-consent,:root[data-theme=dark] .workspace-body .approval-confirm{color:#e0d2eb}
 :root[data-theme=dark] .save-state,:root[data-theme=dark] .state-badge,:root[data-theme=dark] .flow-steps span,:root[data-theme=dark] .card-symbol,:root[data-theme=dark] .budget-total,:root[data-theme=dark] .workspace-jumps a{background:#46375c;color:#f0d8ff}
 :root[data-theme=dark] .flow-steps .current,:root[data-theme=dark] .budget-total{color:#f1d7ff}
 :root[data-theme=dark] .flow-steps .current span{background:#9269e2;color:#fff}
 :root[data-theme=dark] .empty-illustration{background:#342b49;border-color:#75638a;box-shadow:14px 14px 0 #3a304e}
 :root[data-theme=dark] .empty-illustration>div,:root[data-theme=dark] .empty-state p,:root[data-theme=dark] .provenance{color:#dfd0ec}
+:root[data-theme=dark] .provenance{background:#352c47}
+:root[data-theme=dark] .editor-tabs button{color:#d2bfdf}
+:root[data-theme=dark] .empty-illustration>span,:root[data-theme=dark] .empty-illustration b{color:#d5b6f5}
 :root[data-theme=dark] .saved-packs li,:root[data-theme=dark] .saved-packs li.active{background:#342b48;border-color:#76618f}
 :root[data-theme=dark] .review-box,:root[data-theme=dark] .workspace-notice{background:#493923;border-color:#9a7943;color:#ffe4ab}
 :root[data-theme=dark] .review-box h3,:root[data-theme=dark] .review-box li{color:#ffe4ab}
