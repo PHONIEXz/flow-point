@@ -6,6 +6,53 @@ let state = collection.current;
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
 function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
+// A versioned choice covers explicit Prepare and Update actions, never automatic sends.
+const consentKey = 'flow-point-google-processing-v2';
+let processingAllowed = false;
+function restoreConsent() {
+  let remembered = false;
+  try { remembered = localStorage.getItem(consentKey) === 'allowed'; } catch { /* Session choice still works. */ }
+  let session = false;
+  try { session = sessionStorage.getItem(consentKey) === 'allowed'; } catch { /* In-memory choice still works. */ }
+  processingAllowed = remembered || session;
+  $('consent').checked = processingAllowed;
+  $('remember-consent').checked = remembered;
+  renderConsent();
+}
+function renderConsent() {
+  $('processing-status').textContent = processingAllowed
+    ? 'Google processing allowed for Prepare and Update. ' + ($('remember-consent').checked ? 'Choice remembered on this browser.' : 'Choice applies to this tab session.')
+    : 'Choose whether to allow Google processing on the Notes page before updating.';
+}
+function saveConsent() {
+  processingAllowed = $('consent').checked;
+  if (!processingAllowed) $('remember-consent').checked = false;
+  let remembered = false;
+  try {
+    if (processingAllowed && $('remember-consent').checked) { localStorage.setItem(consentKey, 'allowed'); remembered = true; }
+    else localStorage.removeItem(consentKey);
+  } catch { /* Do not claim that a preference was saved when storage is blocked. */ }
+  try {
+    if (processingAllowed) sessionStorage.setItem(consentKey, 'allowed');
+    else sessionStorage.removeItem(consentKey);
+  } catch { /* Current page still remembers the choice. */ }
+  if ($('remember-consent').checked && !remembered) {
+    $('remember-consent').checked = false;
+    $('consent-help').textContent = 'This browser could not remember your choice. It applies to this open page only.';
+  } else $('consent-help').textContent = 'Otherwise, your choice lasts for this tab session. You can change it here at any time.';
+  renderConsent();
+}
+$('consent').addEventListener('change', saveConsent);
+$('remember-consent').addEventListener('change', () => {
+  if (!$('consent').checked) { $('remember-consent').checked = false; return announce('Choose whether to allow Google processing first.'); }
+  saveConsent();
+});
+$('change-consent').addEventListener('click', () => {
+  switchView('notes'); $('consent').focus(); announce('Change or forget your Google processing choice below your notes. This does not send any content.');
+});
+window.addEventListener('storage', event => { if (event.key === consentKey || event.key === null) { if (event.newValue !== 'allowed') { try { sessionStorage.removeItem(consentKey); } catch {} } restoreConsent(); } });
+restoreConsent();
+
 function renderView() {
   const wantsPack = location.pathname.startsWith('/workspace/pack');
   const pack = wantsPack && Boolean(state.plan);
@@ -69,7 +116,7 @@ function renderSavedPacks() {
 function loadCurrent(candidate, message) {
   clearTimeout(timer); revision++; review = null; $('review-confirm').checked = false;
   if (!persist(candidate)) return false;
-  state = collection.current; $('request').value = state.request; $('answers').value = state.answers; $('refine-consent').checked = false;
+  state = collection.current; $('request').value = state.request; $('answers').value = state.answers;
   renderPack(); renderSavedPacks(); activate(tabs[0]); announce(message);
   switchView(state.plan ? 'pack' : 'notes');
   if (!state.plan) { $('pack-heading').textContent = 'A clearer next step.'; $('pack-status').textContent = 'Waiting for your request'; $('pack-status').className = 'state-badge'; $('stage-capture').classList.add('current'); $('stage-review').classList.remove('current'); $('stage-approve').classList.remove('current'); }
@@ -215,7 +262,7 @@ $('add-budget').addEventListener('click', () => { if (state.plan.budget.length >
 function setBusy(value) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
-  $('request').disabled = value; $('answers').disabled = value; $('refine-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('reset').disabled = value;
+  $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; renderSavedPacks();
   $('cancel').hidden = !value; $('cancel-refine').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
   if (!value && review) renderReview(); else $('approve').disabled = true;
@@ -224,14 +271,14 @@ async function generate(refine = false) {
   if (busy) return;
   if (refine) {
     if (!$('answers').value.trim()) return announce('Add the confirmations or changes you want Gemma to apply.');
-    if (!$('refine-consent').checked) return announce('Confirm that this update can be sent to Google.');
   } else if (!$('request-form').reportValidity()) return;
+  if (!processingAllowed) { switchView('notes'); $('consent').focus(); return announce('Allow Google processing below your notes before preparing or updating a pack.'); }
   if (!refine && state.plan && !confirm(collection.activeId ? 'Prepare a new pack? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack? Save it with a name first if you want to keep editing it.')) return;
   clearTimeout(timer); revision++; setBusy(true); announce('Gemma is preparing the pack. Your previous draft stays safe until a valid reply arrives.'); controller = new AbortController();
   try {
     const result = await api('/api/generate', { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null }, controller.signal);
     if (!refine) collection = { ...collection, activeId: null };
-    state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('refine-consent').checked = false; $('answers').value = ''; save(); renderPack();
+    state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('answers').value = ''; save(); renderPack();
     announce('Pack prepared. Compare the details with your notes, then review every section.'); activate(tabs[0]); switchView('pack', false, true);
   } catch (error) { announce(error.name === 'AbortError' ? 'Generation cancelled. Your previous draft has been kept.' : error.message); }
   finally { controller = null; setBusy(false); }
@@ -247,7 +294,7 @@ async function sample() {
     const result = await api('/api/sample'); clearTimeout(timer); revision++;
     collection = { ...collection, activeId: null };
     state = { request: 'SAMPLE: School Family Day on Friday, 23 October 2026, at the school assembly hall. Prepare invitations and a run of show, with 50 refreshment packs and 50 printed programmes. Prices and start time are not supplied.', answers: '', plan: result.plan, approval: null, provenance: result.provenance };
-    $('request').value = state.request; $('answers').value = ''; $('review-confirm').checked = false; $('refine-consent').checked = false; save(); renderPack(); announce('Sample workspace opened. This is hand-authored data, with no AI call. You can edit, review, and export it.'); activate(tabs[0]); switchView('pack');
+    $('request').value = state.request; $('answers').value = ''; $('review-confirm').checked = false; save(); renderPack(); announce('Sample workspace opened. This is hand-authored data, with no AI call. You can edit, review, and export it.'); activate(tabs[0]); switchView('pack');
   } catch (error) { announce(error.message); }
 }
 $('sample').addEventListener('click', sample); $('empty-sample').addEventListener('click', sample);
@@ -264,7 +311,7 @@ async function download(format) {
   try {
     const response = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: state.plan, approval: state.approval, format, sample: state.provenance?.mode === 'sample' }) });
     if (!response.ok) { const data = await response.json(); throw new Error(data.error); }
-    const blob = await response.blob(), url = URL.createObjectURL(blob), a = node('a'); a.href = url; a.download = (state.provenance?.mode === 'sample' ? 'sample-' : '') + (format === 'csv' ? 'flow-point-budget.csv' : `flow-point-pack.${format}`); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const blob = await response.blob(), url = URL.createObjectURL(blob), a = node('a'); a.href = url; a.download = response.headers.get('Content-Disposition')?.match(/filename="([^"]+)"/)?.[1] || `flow-point-${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${format}`; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
     announce('Download started. The pack includes its review status; the CSV is a budget worksheet.');
   } catch (error) { announce(error.message || 'Download failed. Please retry.'); }
   finally { button.disabled = false; }
@@ -273,7 +320,7 @@ $('export-pdf').addEventListener('click', () => download('pdf')); $('export-md')
 $('reset').addEventListener('click', () => {
   if ((state.plan || state.request.trim()) && !collection.activeId && !confirm('Start a blank pack? The current unnamed work will be replaced. Save it with a name first if needed.')) return;
   if (busy) return;
-  if (loadCurrent(newWorkspace(collection), 'Blank workspace ready. Your named packs remain available.')) $('consent').checked = false;
+  loadCurrent(newWorkspace(collection), 'Blank workspace ready. Your named packs and AI processing choice remain available.');
 });
 async function init() {
   try {
