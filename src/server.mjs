@@ -9,7 +9,7 @@ import { preparationPdf } from './pdf.mjs';
 import { generatePack, checkModelAccess, probeGeneration, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
-const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
+const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
 const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8' };
 function json(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(body)); }
 async function body(req) {
@@ -87,7 +87,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
         const filename = `${data.sample === true ? 'sample-' : ''}${slug}-${review.plan.eventDate || 'date-to-confirm'}-${format === 'csv' ? 'budget' : 'pack'}-${status}-${stamp}-${randomUUID().slice(0, 8)}.${format}`;
         // Keep the event's capitalization and spacing in the PDF download name.
         // Windows-reserved characters and control characters cannot be file names.
-        let pdfTitle = review.plan.title.normalize('NFC').replace(/[<>:"/\\|?*\u0000-\u001f\u007f\u202a-\u202e\u2066-\u2069]/g, '-').replace(/\s+/g, ' ').trim().replace(/[. ]+$/, '');
+        let pdfTitle = review.plan.title.toWellFormed().normalize('NFC').replace(/[<>:"/\\|?*\u0000-\u001f\u007f\u202a-\u202e\u2066-\u2069]/g, '-').replace(/\s+/g, ' ').trim().replace(/[. ]+$/, '');
         if (!pdfTitle || /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(pdfTitle)) pdfTitle = 'Event ' + pdfTitle;
         let boundedTitle = '';
         for (const character of pdfTitle) { if (Buffer.byteLength(boundedTitle + character, 'utf8') > 170) break; boundedTitle += character; }
