@@ -234,3 +234,10 @@ test('minimal probes omit all generation settings, do not retry errors and never
   assert.equal(results[2].model, 'gemma-4-31b-it');
   assert.doesNotMatch(JSON.stringify(logs), /private-|Reply with|candidates/);
 });
+
+
+test('invalid model JSON and invalid plan fields have separate safe diagnostic codes', () => {
+  assert.throws(() => parseModelPlan('private-invalid-output'), error => error.code === 'MODEL_JSON_INVALID' && !error.message.includes('private'));
+  const invalid = complete(); invalid.eventDate = '2026-02-30';
+  assert.throws(() => parseModelPlan(JSON.stringify(invalid)), error => error.code === 'MODEL_PLAN_INVALID');
+});
