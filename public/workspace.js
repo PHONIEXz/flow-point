@@ -6,6 +6,27 @@ let state = collection.current;
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
 function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
+function renderView() {
+  const wantsPack = location.pathname.startsWith('/workspace/pack');
+  const pack = wantsPack && Boolean(state.plan);
+  if (wantsPack && !pack) history.replaceState(null, '', '/workspace');
+  document.body.classList.toggle('pack-page', pack);
+  if (pack) { $('pack-link').setAttribute('aria-current', 'page'); $('notes-link').removeAttribute('aria-current'); }
+  else { $('notes-link').setAttribute('aria-current', 'page'); $('pack-link').removeAttribute('aria-current'); }
+  $('pack-link').hidden = !state.plan;
+  $('review-pack').hidden = !state.plan;
+}
+function switchView(view, replace = false, internal = false) {
+  if (busy && !internal) return announce('Finish or cancel the current update before switching pages.');
+  if (view === 'pack' && !state.plan) return announce('Prepare or open a pack first.');
+  const path = view === 'pack' ? '/workspace/pack' : '/workspace';
+  if (location.pathname !== path) history[replace ? 'replaceState' : 'pushState'](null, '', path);
+  renderView(); window.scrollTo({ top: 0, behavior: 'instant' });
+}
+for (const id of ['notes-link', 'pack-link', 'edit-notes', 'review-pack']) {
+  $(id).addEventListener('click', event => { event.preventDefault(); switchView(id === 'notes-link' || id === 'edit-notes' ? 'notes' : 'pack'); });
+}
+window.addEventListener('popstate', renderView);
 function persist(candidate) {
   try {
     localStorage.setItem(storageKey, serializeCollection(candidate));
@@ -48,8 +69,9 @@ function renderSavedPacks() {
 function loadCurrent(candidate, message) {
   clearTimeout(timer); revision++; review = null; $('review-confirm').checked = false;
   if (!persist(candidate)) return false;
-  state = collection.current; $('request').value = state.request; $('answers').value = state.answers;
+  state = collection.current; $('request').value = state.request; $('answers').value = state.answers; $('refine-consent').checked = false;
   renderPack(); renderSavedPacks(); activate(tabs[0]); announce(message);
+  switchView(state.plan ? 'pack' : 'notes');
   if (!state.plan) { $('pack-heading').textContent = 'A clearer next step.'; $('pack-status').textContent = 'Waiting for your request'; $('pack-status').className = 'state-badge'; $('stage-capture').classList.add('current'); $('stage-review').classList.remove('current'); $('stage-approve').classList.remove('current'); }
   return true;
 }
@@ -166,6 +188,7 @@ function renderRows() {
 }
 function renderPack() {
   const exists = Boolean(state.plan); $('empty-state').hidden = exists; $('pack-editor').hidden = !exists; $('clarify-section').hidden = !exists;
+  renderView();
   renderSavedPacks();
   if (!exists) return;
   $('pack-heading').textContent = state.plan.title;
@@ -192,28 +215,31 @@ $('add-budget').addEventListener('click', () => { if (state.plan.budget.length >
 function setBusy(value) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
-  $('request').disabled = value; $('answers').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('reset').disabled = value;
+  $('request').disabled = value; $('answers').disabled = value; $('refine-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; renderSavedPacks();
-  $('cancel').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
+  $('cancel').hidden = !value; $('cancel-refine').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
   if (!value && review) renderReview(); else $('approve').disabled = true;
 }
 async function generate(refine = false) {
   if (busy) return;
-  if (!$('request-form').reportValidity()) return;
-  if (refine && !$('answers').value.trim()) return announce('Add the confirmations or changes you want Gemma to apply.');
+  if (refine) {
+    if (!$('answers').value.trim()) return announce('Add the confirmations or changes you want Gemma to apply.');
+    if (!$('refine-consent').checked) return announce('Confirm that this update can be sent to Google.');
+  } else if (!$('request-form').reportValidity()) return;
   if (!refine && state.plan && !confirm(collection.activeId ? 'Prepare a new pack? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack? Save it with a name first if you want to keep editing it.')) return;
   clearTimeout(timer); revision++; setBusy(true); announce('Gemma is preparing the pack. Your previous draft stays safe until a valid reply arrives.'); controller = new AbortController();
   try {
     const result = await api('/api/generate', { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null }, controller.signal);
     if (!refine) collection = { ...collection, activeId: null };
-    state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('answers').value = ''; save(); renderPack();
-    announce('Pack prepared. Compare the details with your request, then review every section.'); activate(tabs[0]); $('pack-heading').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('refine-consent').checked = false; $('answers').value = ''; save(); renderPack();
+    announce('Pack prepared. Compare the details with your notes, then review every section.'); activate(tabs[0]); switchView('pack', false, true);
   } catch (error) { announce(error.name === 'AbortError' ? 'Generation cancelled. Your previous draft has been kept.' : error.message); }
   finally { controller = null; setBusy(false); }
 }
 $('request-form').addEventListener('submit', event => { event.preventDefault(); generate(); });
 $('refine').addEventListener('click', () => generate(true));
 $('cancel').addEventListener('click', () => controller?.abort());
+$('cancel-refine').addEventListener('click', () => controller?.abort());
 async function sample() {
   if (busy) return;
   if (state.plan && !confirm(collection.activeId ? 'Open the sample? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack with the labelled sample? Save it with a name first if needed.')) return;
@@ -221,7 +247,7 @@ async function sample() {
     const result = await api('/api/sample'); clearTimeout(timer); revision++;
     collection = { ...collection, activeId: null };
     state = { request: 'SAMPLE: School Family Day on Friday, 23 October 2026, at the school assembly hall. Prepare invitations and a run of show, with 50 refreshment packs and 50 printed programmes. Prices and start time are not supplied.', answers: '', plan: result.plan, approval: null, provenance: result.provenance };
-    $('request').value = state.request; $('answers').value = ''; $('review-confirm').checked = false; save(); renderPack(); announce('Sample workspace opened. This is hand-authored data, with no AI call. You can edit, review, and export it.'); activate(tabs[0]);
+    $('request').value = state.request; $('answers').value = ''; $('review-confirm').checked = false; $('refine-consent').checked = false; save(); renderPack(); announce('Sample workspace opened. This is hand-authored data, with no AI call. You can edit, review, and export it.'); activate(tabs[0]); switchView('pack');
   } catch (error) { announce(error.message); }
 }
 $('sample').addEventListener('click', sample); $('empty-sample').addEventListener('click', sample);
