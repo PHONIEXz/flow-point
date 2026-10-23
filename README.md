@@ -6,7 +6,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 ## Current status
 
-The event workspace at `/workspace` uses a Node HTTP server and a server-only hosted Gemma adapter. It supports editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
+The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
 **Live inference and production deployment are not verified yet.** No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses, not live Gemma output. The configured model is `gemma-4-26b-a4b-it`, hosted through Google's Gemini API.
 
