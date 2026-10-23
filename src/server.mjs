@@ -8,7 +8,7 @@ import { preparationPdf } from './pdf.mjs';
 import { generatePack, checkModelAccess, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
-const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/pack-store.mjs': 'pack-store.mjs', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
+const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/pack-store.mjs': 'pack-store.mjs', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
 const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8' };
 function json(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(body)); }
 async function body(req) {
@@ -81,7 +81,8 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
       if (!['GET', 'HEAD'].includes(req.method)) throw new AppError(405, 'Method not allowed.');
       const file = routes[pathname];
       if (!file) throw new AppError(404, 'Page not found.');
-      const content = await readFile(new URL(file, publicRoot));
+      let content = await readFile(new URL(file, publicRoot));
+      if (file === 'workspace.html' && pathname.startsWith('/workspace/pack')) content = Buffer.from(content.toString().replace('class="workspace-body"', 'class="workspace-body pack-page"'));
       res.writeHead(200, { 'Content-Type': mime[file.split('.').pop()] }); res.end(req.method === 'HEAD' ? undefined : content);
     } catch (error) {
       if (res.destroyed || res.writableEnded) return;
