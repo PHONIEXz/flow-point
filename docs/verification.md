@@ -14,7 +14,7 @@ The pack was named `Repair Day Live QA` in browser-local Saved Packs, alongside 
 
 ## PDF export
 
-The live draft export was a two-page A4 PDF. Text extraction and page renders confirmed the draft label, event date, 09:30 start, venue, invitation, proposed schedule, task list, three budget items, NGN 9,000 and NGN 15,000 known line totals, NGN 24,000 incomplete subtotal, and unknown snack price. The run of show placeholders appeared in its review notes. The first PDF split the signatory's name and role across pages; a layout fix was made after this observation and requires a live export recheck on its deploy.
+The live draft export was a two-page A4 PDF. Text extraction and page renders confirmed the draft label, event date, 09:30 start, venue, invitation, proposed schedule, task list, three budget items, NGN 9,000 and NGN 15,000 known line totals, NGN 24,000 incomplete subtotal, and unknown snack price. The run of show placeholders appeared in its review notes. The first PDF split the signatory's name and role across pages. After the layout fix deployed, a second live export kept `Best regards`, the name and role together on page two. The invitation itself spans the page break.
 
 ## Automated checks
 
@@ -22,7 +22,6 @@ The live draft export was a two-page A4 PDF. Text extraction and page renders co
 
 ## Remaining gates
 
-- Recheck the PDF signatory page break after the layout fix reaches the live service.
 - Verify the full workflow at a phone-sized viewport or on a physical phone. CSS has responsive breakpoints, but desktop browser inspection alone is not mobile proof.
 - Record a short demo and make a fair manual-versus-assisted effort measurement that includes human review time. No percentage saving has been measured.
 - Update the submission narrative with the observed provider HTTP 500, the successful retry, and the remaining human edits. Do not call the generated drafts approved.
