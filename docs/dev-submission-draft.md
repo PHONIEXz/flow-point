@@ -70,8 +70,12 @@ One rough note produced four linked draft materials, and a follow-up answer upda
 
 ## Prize Categories
 
-- **Best Use of Gemma:** Gemma interprets the event note and prepares the invitation, schedule, checklist, budget entries and follow-up updates. The model's open weights are the open AI component at the core of the project.
-- **Best Use of Render:** Render hosts the Node service that keeps the Google key private, validates generated packs, serves the app and produces exports.
-- **Best Use of a .tech Domain:** The live project runs at [flowpoint.phoenixreborn.tech](https://flowpoint.phoenixreborn.tech/workspace), under a .tech domain claimed for this challenge.
+These are the challenge tools at the heart of Flow Point and the categories I am entering:
+
+- **Gemma → Best Use of Gemma.** The open-weight `gemma-4-26b-a4b-it` model, accessed through Google's hosted Gemini API, reads the rough note and proposes structured event details, an invitation, run of show, checklist, budget entries and follow-up revisions. The [prompt and adapter](https://github.com/PHONIEXz/flow-point/blob/main/src/gemma.mjs) are public. Code and human review keep suggestions from becoming confirmed facts.
+- **Render → Best Use of Render.** Render runs the [Node service](https://github.com/PHONIEXz/flow-point/blob/main/src/server.mjs) behind the public demo. It keeps the Google key on the server, validates Gemma's output, serves the workspace and produces PDF, Markdown and CSV downloads.
+- **.tech domain → Best Use of a .tech Domain.** [flowpoint.phoenixreborn.tech](https://flowpoint.phoenixreborn.tech/workspace) is the public address for the live project, under the .tech domain claimed for this challenge.
+
+The [MIT-licensed GitHub repository](https://github.com/PHONIEXz/flow-point) holds the application, tests, sample and verification notes. GitHub is how I share the work; the three entries above are the prize categories I am targeting.
 
 Flow Point is built by Paul Ayoade David. I directed the project and used AI assistance for code and for a draft of this article. I checked the live workflow, failure path, exports and test results before this submission. Gemma is developed by Google and its model and hosted service terms apply separately from the app's MIT license.
