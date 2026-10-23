@@ -104,10 +104,10 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
       res.writeHead(200, { 'Content-Type': mime[file.split('.').pop()] }); res.end(req.method === 'HEAD' ? undefined : content);
     } catch (error) {
       const status = error instanceof AppError ? error.status : error.code === 'ENOENT' ? 404 : 400;
-      if (pathname === '/api/generate') log({ event: 'generation_request_failed', requestId, action, httpStatus: status, durationMs: Date.now() - started });
+      if (pathname === '/api/generate') log({ event: 'generation_request_failed', requestId, action, httpStatus: status, code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', durationMs: Date.now() - started });
       if (res.destroyed || res.writableEnded) return;
       // Never return upstream response bodies, prompts, or credentials.
-      json(res, status, { requestId, error: error instanceof AppError ? error.message : status === 404 ? 'Page not found. Run the build before starting the server.' : 'This plan could not be validated. Check the fields and try again.' });
+      json(res, status, { requestId, code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', error: error instanceof AppError ? error.message : status === 404 ? 'Page not found. Run the build before starting the server.' : 'This plan could not be validated. Check the fields and try again.' });
     }
   });
 }
