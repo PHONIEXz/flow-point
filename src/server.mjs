@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -69,13 +70,20 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
           return json(res, 200, { approval });
         }
         const approval = data.approval && approved.get(data.approval.fingerprint);
+        const format = data.format === 'csv' ? 'csv' : data.format === 'pdf' ? 'pdf' : 'md';
+        const slug = review.plan.title.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 72).replace(/-$/, '') || 'event';
+        const status = isApproved(review.plan, approval) ? 'approved' : 'draft';
+        const stamp = new Date().toISOString().replace(/[-:.]/g, '');
+        const filename = `${data.sample === true ? 'sample-' : ''}${slug}-${review.plan.eventDate || 'date-to-confirm'}-${format === 'csv' ? 'budget' : 'pack'}-${status}-${stamp}-${randomUUID().slice(0, 8)}.${format}`;
+        const attachment = `attachment; filename="${filename}"`;
+
         if (data.format === 'pdf') {
           const pdf = await preparationPdf(review.plan, approval, { sample: data.sample === true });
-          res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition': 'attachment; filename="flow-point-pack.pdf"' });
+          res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition': attachment });
           return res.end(pdf);
         }
-        if (data.format === 'csv') { res.writeHead(200, { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': 'attachment; filename="flow-point-budget.csv"' }); return res.end(budgetCsv(review.plan)); }
-        res.writeHead(200, { 'Content-Type': 'text/markdown; charset=utf-8', 'Content-Disposition': 'attachment; filename="flow-point-pack.md"' });
+        if (data.format === 'csv') { res.writeHead(200, { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': attachment }); return res.end(budgetCsv(review.plan)); }
+        res.writeHead(200, { 'Content-Type': 'text/markdown; charset=utf-8', 'Content-Disposition': attachment });
         return res.end((data.sample === true ? 'SAMPLE DATA: no AI inference was performed.\n\n' : '') + preparationPack(review.plan, approval));
       }
       if (!['GET', 'HEAD'].includes(req.method)) throw new AppError(405, 'Method not allowed.');
