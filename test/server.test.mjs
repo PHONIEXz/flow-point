@@ -246,12 +246,12 @@ test('invalid model JSON and invalid plan fields have separate safe diagnostic c
 test('PDF download names preserve event title spelling and Unicode with safe unique suffixes', async t => {
   const client = await app(t);
   const names = [];
-  for (const title of ['Young Minds: Science, Reading and Creativity Day', 'École Ọmọ Learning Day', 'CON', 'x'.repeat(200)]) {
+  for (const title of ['Young Minds: Science, Reading and Creativity Day', 'École Ọmọ Learning Day', 'CON', 'x'.repeat(200), 'Broken \ud800 title', '🎉'.repeat(100)]) {
     for (let copy = 0; copy < 2; copy++) {
       const response = await client.post('/api/export', { plan: { ...complete(), title }, format: 'pdf' });
       const header = response.headers.get('content-disposition');
       const name = decodeURIComponent(header.match(/filename\*=UTF-8''([^;]+)/)[1]);
-      const expected = title === 'CON' ? 'Event CON' : title.replace(':', '-').slice(0, 170);
+      const expected = title === 'CON' ? 'Event CON' : title.startsWith('🎉') ? '🎉'.repeat(42) : title.toWellFormed().replace(':', '-').slice(0, 170);
       assert.ok(name.startsWith(expected + ' - '));
       assert.doesNotMatch(name, /[<>:"/\\|?*\u0000-\u001f]/);
       assert.ok(Buffer.byteLength(name) <= 255);
