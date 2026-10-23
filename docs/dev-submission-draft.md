@@ -1,8 +1,10 @@
 ---
 title: "Flow Point: one messy event note, four useful drafts, and the questions we still need to answer"
-published: false
+published: true
 tags: devchallenge, hf26challenge, gemma, hacktoberfest
 ---
+
+Published on DEV: https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8
 
 *This is a submission for the [Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady](https://dev.to/challenges/hacktoberfest-week3-2026-10-19).*
 
@@ -72,4 +74,4 @@ One rough note produced four linked draft materials, and a follow-up answer upda
 - **Best Use of Render:** Render hosts the Node service that keeps the Google key private, validates generated packs, serves the app and produces exports.
 - **Best Use of a .tech Domain:** The live project runs at [flowpoint.phoenixreborn.tech](https://flowpoint.phoenixreborn.tech/workspace), under a .tech domain claimed for this challenge.
 
-Flow Point is built by Paul Ayoade David. I used AI coding assistance during development and checked the live workflow, failure path, exports and test results before this submission. Gemma is developed by Google and its model and hosted service terms apply separately from the app's MIT license.
+Flow Point is built by Paul Ayoade David. I directed the project and used AI assistance for code and for a draft of this article. I checked the live workflow, failure path, exports and test results before this submission. Gemma is developed by Google and its model and hosted service terms apply separately from the app's MIT license.
