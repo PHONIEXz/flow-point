@@ -1,0 +1,23 @@
+{
+  "version": 4,
+  "frozenAt": "2026-10-24T14:50:09.045763+00:00",
+  "appCommit": "df2dda7f798c443bc1d24f100d2909e0141eecd5",
+  "casesSha256": "a5f9a8253147d2fd3cceb3cfbf2dc170a7e5ca38ae6a9d0d7caa747763da10ac",
+  "files": {
+    "src/gemma.mjs": "3fda300fcd6215fb730173d31b4c5d14d7cf0d1418fcf27bb2c30d9815762707",
+    "src/providers.mjs": "450945a3b79489d6f3d309278fb19de7333ddd3aecaeeb19b365dcc12d29b9b9",
+    "src/explicit-obligations.mjs": "c6a8a966a89d09c85a21f608a13663fb4af0164d867cca04bf2a34a768bfd3bb",
+    "src/content-checks.mjs": "7a55d57ff19a013cf7928c871adecb83e8b864179347d0d4ea907c5c4b2349bf",
+    "src/server.mjs": "de60bd16cebf44f0e080498b78b2c68295ba8680afe858690a7a9ede6bad3853",
+    "src/pack-schema.mjs": "559aff767816775e4c5a7656901f9531ceb76c074002e922a7ac06aee0213f77",
+    "src/plan.mjs": "a398ca30cc49f20888d0332aeeafa2cd191c02d4b8930e0b70d376be7870b556",
+    "src/source-evidence.mjs": "9e29b1fcd33a008d839b77bec1d90ea0a090b7a714b2151b475a52fe3a1d46e7",
+    "public/generation.mjs": "968f2c7d6aac833567acd4ce7c10a93cadcab0c61adc60c09d03b2fd67e7e97f",
+    "public/update-history.mjs": "79f3606581c276cbffda40233d18d858a9721cf29824eadbe4aaadea06407a66",
+    "public/source-fields.mjs": "b53252a78f7f5cc17e3431126eb9413ed1cd39720fec7f46b76b392712bd57dd",
+    "public/letter-layout.mjs": "8ef0137c6b73526b559d2c340666aa5c08e1b95097b6facc4d8882d0744182bb",
+    "evaluation/score-v4.mjs": "69d2b190c61751f2a3f44740e178b177dc5c13d05e4f50eea65131c7a60dcf43",
+    "scripts/evaluate-quality-v4.mjs": "e8ea50fda0e8b5281b7857533ae426bbdd5fb85abb2de7d1341a9332811949c5"
+  },
+  "notes": "Same twelve paired expectations as v3, including disclosed school venue adjudication. Eleven exposed cases; Willow has not had model inference. Assistant-authored, no independent blinded review. Provider minute waits stay inside existing attempt/deadline limits. v3 first-attempt failures preserved."
+}
