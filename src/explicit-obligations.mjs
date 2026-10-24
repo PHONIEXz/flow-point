@@ -35,13 +35,17 @@ export function explicitObligationIssues(plan,{request='',answers='',previousPla
  }
  // Direct assignments also appear without Mr/Mrs/Dr. Keep them through unrelated updates.
  const assignments=[];
- for(const source of [request,answers]) for(const m of source.matchAll(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\s+(?:leads?|coordinates?|manages?)\s+(?:the\s+)?([^\n.!?;]+)/g)) {
+ for(const source of [request,answers]) for(const m of source.matchAll(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\s+(?:now\s+)?(?:leads?|coordinates?|manages?)\s+(?:the\s+)?([^\n.!?;]+)/g)) {
   const row={name:m[1],role:m[2]};
   const index=assignments.findIndex(a=>overlaps(a.role,row.role));
   if(index<0)assignments.push(row);else assignments[index]=row;
  }
+ for(const m of answers.matchAll(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\s+replaces\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\s+as\s+([^\n.!?;]+)/g)) {
+  const row={name:m[1],role:m[3]};const index=assignments.findIndex(a=>a.name===m[2]||overlaps(a.role,row.role));if(index<0)assignments.push(row);else assignments[index]=row;
+ }
  for(const {name,role} of assignments) {
-  if(cancelled(answers,name)||cancelled(answers,role))continue;
+  const withdrawn=answers.split(/[\n.!?]/).some(s=>((s.includes(name)&&/\b(?:no longer|unassigned|removed)\b/i.test(s))||(/\b(?:cancel|remove|drop|omit)\b/i.test(s)&&overlaps(s,role))));
+  if(withdrawn)continue;
   if(!plan.tasks.some(t=>(t.owner||'').toLowerCase().includes(name.toLowerCase())&&overlaps(t.label,role)))issues.push(`Retain ${name} as checklist owner for the supplied duty: ${role}.`);
  }
  return issues;

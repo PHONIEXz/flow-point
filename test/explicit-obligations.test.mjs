@@ -39,3 +39,11 @@ test('both API generation paths regenerate omissions, preserve the input, and ca
   calls=0;await assert.rejects(generatePack({request:captured.request,stage},{...config,fetchImpl:async()=>{calls++;return reply(captured.rows[0].plan);}}),e=>e.code==='MODEL_CONTENT_MISSING');assert.equal(calls,3);
  }
 });
+
+test('new explicit owner replaces the old owner for now-leads and replaces-as wording',()=>{
+ const p=good();p.tasks=[{label:'Lead choir',owner:'Nora Cole',dueDate:null}];
+ for(const answers of ['Nora Cole now leads the choir instead of Musa Bello.','Nora Cole replaces Musa Bello as choir lead.']) {
+  assert.deepEqual(sourceContentIssues(p,{request:captured.request,answers}),[]);
+  assert.ok(sourceContentIssues(good(),{request:captured.request,answers}).some(x=>/Nora Cole/.test(x)));
+ }
+});
