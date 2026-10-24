@@ -36,5 +36,13 @@ export function sourceContentIssues(plan, { request = '', answers = '' } = {}) {
     if (date && !plan.tasks.some(task => /rehears/i.test(task.label) && task.dueDate === date)) issues.push('Include the explicitly dated rehearsal as a checklist task with its supplied dueDate, keeping its time approval separate.');
     if (/\btime\b[^\n.!?]{0,50}\b(?:approval|approved|pending)\b/i.test(latest) && /\b(?:needs?|await\w*|pending|unconfirmed|not approved)\b/i.test(latest) && !plan.openQuestions.some(q => /rehears/i.test(q) && /time|approv/i.test(q))) issues.push('Retain the unresolved rehearsal-time approval as a specific open question.');
   }
+  const after = source.match(/after the event[^\n]*(?:\n[^\n]+)?/i)?.[0] || '';
+  const taskText = plan.tasks.map(t=>t.label).join('\n');
+  for (const [requested, present, label] of [
+    [/clean(?:up|ing)?|clean the venue/i,/clean|tidy/i,'cleanup'],
+    [/return borrowed equipment/i,/return.*(?:equipment|borrow)|(?:equipment|borrow).*return/i,'returning borrowed equipment'],
+    [/reconcile spending/i,/reconcil|reconcile|account.*spend|spend.*account/i,'reconciling spending'],
+    [/record.*feedback|collect.*feedback/i,/feedback/i,'recording feedback']
+  ]) if (requested.test(after) && !present.test(taskText) && !/cancel.*after.event|no after.event/i.test(answers)) issues.push(`Retain the explicitly requested after-event checklist duty: ${label}.`);
   return [...new Set(issues)];
 }

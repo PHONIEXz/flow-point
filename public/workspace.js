@@ -1,5 +1,6 @@
 'use strict';
 import { previousVersion, capturePrevious, updatedWorkspace, restoredWorkspace, compareVersions, markQuestionResolved } from './update-history.mjs';
+import { letterLayout } from './letter-layout.mjs';
 import { prepareInStages } from './generation.mjs';
 import { downloadFilename } from './download-name.mjs';
 import { factFields, factSourceInfo, markManualField, confirmFact, markNotesChanged } from './source-fields.mjs';
@@ -105,7 +106,7 @@ function persist(candidate) {
   }
 }
 function save() {
-  state.request = $('request').value; state.answers = $('answers').value;
+  state.request = $('request').value; state.answers = $('answers').value; state.invitationStyle = $('invitation-style').value || 'formal';
   return persist(recordCurrent(collection, state));
 }
 function node(tag, text, className) { const item = document.createElement(tag); if (text != null) item.textContent = text; if (className) item.className = className; return item; }
@@ -416,7 +417,15 @@ async function restorePrevious() {
   finally { $('restore-previous').textContent = 'Restore previous version'; setBusy(false); }
 }
 $('restore-previous').addEventListener('click', restorePrevious);
+$('invitation-style').addEventListener('change', save);
+$('apply-letter-style').addEventListener('click', () => {
+  if (busy || !state.plan) return;
+  state.plan.drafts.invitation = letterLayout(state.plan, $('invitation-style').value || 'formal');
+  $('invitation').value = state.plan.drafts.invitation; invalidate();
+  announce('Letter layout applied locally. Review the greeting, body and closing; edit any wording below.');
+});
 function renderPack() {
+  $('invitation-style').value = state.invitationStyle || 'formal';
   const exists = Boolean(state.plan); $('empty-state').hidden = exists; $('pack-editor').hidden = !exists; $('clarify-section').hidden = !exists;
   renderView();
   renderSavedPacks(); renderComparison();
@@ -481,7 +490,7 @@ async function generate(refine = false) {
   if (refine) { try { capturePrevious(before); } catch (error) { return announce(error.message); } }
   clearTimeout(timer); revision++; setBusy(true, true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
   try {
-    const input = { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
+    const input = { invitationStyle: $('invitation-style').value || 'formal', request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
     const result = await prepareInStages(input, {
       call: (data, signal) => api('/api/generate', data, signal), saved: state.pendingGeneration, signal: controller.signal,
       checkpoint: work => { state.pendingGeneration = work; save(); },
@@ -494,7 +503,7 @@ async function generate(refine = false) {
     const checked = await api('/api/review', { plan: next.plan }, controller.signal);
     for (const field of ['plan', 'issues', 'knownTotalMinor', 'budgetComplete', 'remainingAllowanceMinor', 'allowanceProvisional']) result[field] = checked[field];
     if (controller.signal.aborted) throw new DOMException('Cancelled', 'AbortError');
-    next.plan = checked.plan;
+    next.plan = checked.plan; next.invitationStyle = input.invitationStyle;
     const candidate = recordCurrent(refine ? collection : { ...collection, activeId: null }, next);
     if (!persist(candidate)) return;
     state = collection.current; review = result; $('review-confirm').checked = false; $('source-reviewed').checked = false; $('restore-confirm').checked = false;

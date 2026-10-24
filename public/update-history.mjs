@@ -21,7 +21,7 @@ export function previousVersion(value) {
   // Select fields explicitly: snapshots cannot contain nested history, checkpoints or approvals.
   const result = { version: 1, action: value.action, capturedAt: value.capturedAt,
     carriedQuestions: questions(value.carriedQuestions).slice(0, 50),
-    workspace: { request: w.request, answers: w.answers, plan: copy(w.plan), provenance: w.provenance ? copy(w.provenance) : null, questionResolutions: questions(w.questionResolutions).slice(-50) } };
+    workspace: { invitationStyle: w.invitationStyle === 'informal' ? 'informal' : 'formal', request: w.request, answers: w.answers, plan: copy(w.plan), provenance: w.provenance ? copy(w.provenance) : null, questionResolutions: questions(w.questionResolutions).slice(-50) } };
   if (JSON.stringify(result).length > maxPreviousCharacters) return null;
   return result;
 }

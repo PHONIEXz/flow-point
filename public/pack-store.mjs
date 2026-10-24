@@ -5,7 +5,7 @@ export const maxPacks = 12;
 export const maxStoredCharacters = 1500000;
 
 export function emptyWorkspace() {
-  return { request: '', answers: '', plan: null, approval: null, provenance: null };
+  return { invitationStyle: 'formal', request: '', answers: '', plan: null, approval: null, provenance: null };
 }
 
 function copy(value) { return JSON.parse(JSON.stringify(value)); }

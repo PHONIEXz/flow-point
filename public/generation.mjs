@@ -1,6 +1,6 @@
 // Browser-local checkpoints contain event data, never credentials. They are not approvals.
 export const generationStages = ['facts', 'invitation', 'schedule'];
-export function generationKey(input) { return JSON.stringify({ version: 5, request: input.request, answers: input.answers || '', previousPlan: input.previousPlan || null }); }
+export function generationKey(input) { return JSON.stringify({ version: 6, invitationStyle: input.invitationStyle || 'formal', request: input.request, answers: input.answers || '', previousPlan: input.previousPlan || null }); }
 export async function prepareInStages(input, { call, saved = null, checkpoint = () => {}, progress = () => {}, signal } = {}) {
   const key = generationKey(input);
   let work = { key, results: [] };
