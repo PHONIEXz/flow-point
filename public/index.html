@@ -9,13 +9,13 @@
   <script src="/theme.js"></script>
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/theme.css"><link rel="stylesheet" href="/organization.css">
   <script src="/app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header wrap">
-    <a class="brand" href="/" aria-label="Flow Point home"><img src="/icon.svg" width="36" height="36" alt="">Flow Point<span class="preview-label">Preview</span></a>
+    <div class="brand-cluster"><a class="brand" href="/" aria-label="Flow Point home"><img src="/icon.svg" width="36" height="36" alt="">Flow Point</a><a class="preview-link" href="#example">Preview sample <span aria-hidden="true">↓</span></a></div>
     <nav aria-label="Main navigation"><a class="nav-home" href="/" aria-current="page">Home</a><a href="/workspace">Workspace</a><a class="nav-example" href="#example">Example pack</a><a class="source-link" href="https://github.com/PHONIEXz/flow-point">View source <span aria-hidden="true">↗</span></a><button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Dark</span></button></nav>
   </header>
   <main id="main">
@@ -40,7 +40,7 @@
     </section>
     <section class="example-section" id="example" aria-labelledby="example-title">
       <div class="wrap">
-        <div class="example-intro"><div><p class="eyebrow">TAKE A LOOK INSIDE</p><h2 id="example-title">A calmer kind of preparation.</h2><p>Explore a hand-authored school event pack. This is an example of the intended output.</p></div><span class="sample-badge">Sample data · No AI call</span></div>
+        <div class="example-intro"><div><p class="eyebrow">TAKE A LOOK INSIDE</p><h2 id="example-title">A calmer kind of preparation.</h2><p>Explore a hand-authored school event pack. This is an example of the intended output.</p></div><span class="sample-badge">Interactive sample · No AI call</span></div>
         <div class="example-workspace">
           <aside class="event-summary"><div class="calendar-icon" aria-hidden="true">23<span>OCT</span></div><h3>School Family Day</h3><p>Friday, 23 October 2026</p><dl><dt>Venue</dt><dd>School assembly hall</dd><dt>Start time</dt><dd class="missing">Needs confirmation</dd><dt>Budget</dt><dd class="missing">Prices not supplied</dd></dl><div class="review-reminder"><span aria-hidden="true">✦</span><p>A useful draft makes the unknowns easy to spot.</p></div></aside>
           <div class="example-content"><div class="tabs" role="tablist" aria-label="Example event pack"><button id="tab-invitation" role="tab" aria-selected="true" aria-controls="panel-invitation" tabindex="0">Invitation</button><button id="tab-checklist" role="tab" aria-selected="false" aria-controls="panel-checklist" tabindex="-1">Checklist</button><button id="tab-schedule" role="tab" aria-selected="false" aria-controls="panel-schedule" tabindex="-1">Run of show</button><button id="tab-budget" role="tab" aria-selected="false" aria-controls="panel-budget" tabindex="-1">Budget</button></div>
@@ -48,7 +48,7 @@
             <div class="tab-panel" id="panel-checklist" role="tabpanel" aria-labelledby="tab-checklist" hidden><div class="document-meta"><span>PREPARATION CHECKLIST</span><span>2 example tasks</span></div><h3>Give every task a place.</h3><p>Try checking these sample tasks. Changes here last until the page is refreshed.</p><label class="task"><input type="checkbox"><span>Review and distribute invitations<small>Event coordinator · Due 22 October</small></span></label><label class="task"><input type="checkbox"><span>Confirm chairs and sound equipment<small>Owner to assign · Due 22 October</small></span></label></div>
             <div class="tab-panel" id="panel-schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden><div class="document-meta"><span>PROPOSED RUN OF SHOW</span><span>Times to confirm</span></div><h3>A little structure for the day.</h3><ol class="agenda"><li><span>01</span>Welcome and opening</li><li><span>02</span>Children’s presentations</li><li><span>03</span>Family activity</li><li><span>04</span>Closing remarks</li></ol><p class="inline-notice">Confirm the start time, durations and presenters before using this schedule.</p></div>
             <div class="tab-panel" id="panel-budget" role="tabpanel" aria-labelledby="tab-budget" hidden><div class="document-meta"><span>BUDGET WORKSHEET</span><span>NGN</span></div><h3>Unknown is not the same as free.</h3><p>The request supplied quantities, but no prices. The budget stays incomplete until those are confirmed.</p><div class="table-scroll"><table><thead><tr><th scope="col">Item</th><th scope="col">Quantity</th><th scope="col">Unit price</th></tr></thead><tbody><tr><td>Refreshment packs</td><td>50</td><td>To confirm</td></tr><tr><td>Printed programmes</td><td>50</td><td>To confirm</td></tr></tbody></table></div><p class="inline-notice">Total: incomplete. No costs have been estimated.</p></div>
-            <div class="example-footer"><span>Prepared example, ready to inspect.</span><button id="download-example" class="download-button" type="button">Download sample PDF <span aria-hidden="true">↓</span></button><button id="download-example-md" class="download-button" type="button">Markdown <span aria-hidden="true">↓</span></button><span id="download-status" role="status" class="sr-only"></span></div>
+            <div class="example-footer"><span>Choose a section above, or download the complete sample.</span><button id="download-example" class="download-button" type="button">Download sample PDF <span aria-hidden="true">↓</span></button><button id="download-example-md" class="download-button" type="button">Markdown <span aria-hidden="true">↓</span></button><span id="download-status" role="status" class="sr-only"></span></div>
           </div>
         </div>
       </div>

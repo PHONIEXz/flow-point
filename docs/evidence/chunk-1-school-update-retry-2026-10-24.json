@@ -1,0 +1,38 @@
+{
+  "cooldownBeforeUpdateMs": 0,
+  "testedAt": "2026-10-24T07:47:23.333Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review, export time and the explicitly recorded cooldown between operations are excluded.",
+  "runs": [
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "update",
+      "startedAt": "2026-10-24T07:47:23.336Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 502,
+          "wallMs": 51680,
+          "requestId": "ee8e83a2-4386-425e-a5a9-f45cff0f19c8",
+          "code": "APP_ERROR"
+        }
+      ],
+      "completed": false,
+      "error": "Google generation returned HTTP 503. Please retry when the provider is available.",
+      "wallMs": 51681
+    }
+  ],
+  "preparedSource": "docs/evidence/chunk-1-school-prepare-final-2026-10-24.json",
+  "summary": {
+    "planned": 1,
+    "skipped": 0,
+    "attempted": 1,
+    "completed": 0,
+    "checksPassed": 0,
+    "medianCompletedMs": null,
+    "slowestCompletedMs": null,
+    "stoppedOnQuota": false
+  }
+}

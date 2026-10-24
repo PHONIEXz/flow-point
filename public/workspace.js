@@ -229,6 +229,7 @@ function renderReview() {
   $('stage-capture').classList.remove('current'); $('stage-review').classList.toggle('current', !approved); $('stage-approve').classList.toggle('current', approved);
   $('total-label').textContent = review.budgetComplete ? 'Total' : 'Known subtotal · incomplete';
   $('total-value').textContent = `${state.plan.currency} ${formatMinor(review.knownTotalMinor)}`;
+  $('allowance').className = review.remainingAllowanceMinor == null ? 'allowance-neutral' : review.allowanceProvisional || review.remainingAllowanceMinor < 0 ? 'allowance-warning' : '';
   $('allowance').textContent = review.remainingAllowanceMinor == null ? 'Remaining allowance unknown: no spending limit supplied.' : `${review.remainingAllowanceMinor < 0 ? 'Over budget by' : review.allowanceProvisional ? 'Provisional allowance before unknown costs' : 'Remaining allowance'}: ${state.plan.currency} ${formatMinor(Math.abs(review.remainingAllowanceMinor))}${review.allowanceProvisional ? '. Not a final available balance.' : ''}`;
 }
 function inputField(label, value, onChange, { type = 'text', maxLength = 300, min, max, step, ariaLabel, inputMode, placeholder } = {}) {
@@ -237,7 +238,7 @@ function inputField(label, value, onChange, { type = 'text', maxLength = 300, mi
   if (min != null) input.min = min; if (max != null) input.max = max; if (step != null) input.step = step;
   input.addEventListener('input', () => { onChange(input.value); invalidate(); }); wrap.append(input); return wrap;
 }
-function removeButton(label, action) { const button = node('button', label, 'quiet'); button.type = 'button'; button.addEventListener('click', action); return button; }
+function removeButton(label, action) { const button = node('button', label, label.startsWith('Resolved') ? 'quiet resolve-action' : 'quiet danger-action'); button.type = 'button'; button.addEventListener('click', action); return button; }
 function renderRows() {
   if (!state.plan) return;
   $('questions').replaceChildren(...state.plan.openQuestions.map((question, index) => {
@@ -262,6 +263,30 @@ function renderRows() {
     }, { type: 'number', min: 0, step: '0.01', inputMode: 'decimal', ariaLabel: `Item ${index + 1} unit price (${state.plan.currency})` }), removeButton('Remove item', () => { state.plan.budget.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
   }));
 }
+function renderEvidence(p) {
+  const evidence = $('generation-evidence');
+  if (p?.pipeline !== 'staged-v1' || !Array.isArray(p.steps)) {
+    evidence.replaceChildren(node('p', p?.mode === 'sample' ? 'Hand-authored sample. No model inference or live timing.' : 'Earlier generation format. See the provenance and dated verification record.', 'field-help')); return;
+  }
+  const metrics = node('div', null, 'evidence-metrics');
+  const seconds = value => Number.isFinite(value) && value >= 0 ? `${(value / 1000).toFixed(1)} s` : 'Unavailable';
+  for (const [value, label] of [[String(p.steps.length), 'Validated steps'], [seconds(p.durationMs), 'Server generation'], [String(p.reusedSteps || 0), 'Reused steps']]) {
+    const card = node('div', null, 'evidence-metric'); card.append(node('strong', value), node('span', label)); metrics.append(card);
+  }
+  const grid = node('div', null, 'evidence-grid');
+  const labels = { facts: 'Event facts & budget', invitation: 'Invitation', schedule: 'Run of show' };
+  for (const [index, step] of p.steps.entries()) {
+    const card = node('article', null, 'evidence-step');
+    card.append(node('span', `STEP ${index + 1}`, 'eyebrow'), node('h4', labels[step.stage] || 'Generation step'), node('p', step.model || 'Model unavailable', 'evidence-model'), node('p', `${seconds(step.durationMs)} · ${step.attempts ?? '?'} attempt(s)`, 'evidence-timing'));
+    const reference = node('details', null, 'reference-details'); reference.append(node('summary', 'Request reference'), node('code', step.requestId || 'Unavailable'));
+    if (step.requestId) {
+      const copy = node('button', 'Copy reference', 'quiet'); copy.type = 'button';
+      copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(step.requestId); copy.textContent = 'Copied ✓'; } catch { announce('Copy is unavailable. Select the reference shown in Generation evidence.'); } }); reference.append(copy);
+    }
+    card.append(reference); grid.append(card);
+  }
+  evidence.replaceChildren(metrics, grid, node('p', 'Server timings exclude human review and export. Completed replies save in this browser; references help investigate a failed request.', 'field-help'));
+}
 function renderPack() {
   const exists = Boolean(state.plan); $('empty-state').hidden = exists; $('pack-editor').hidden = !exists; $('clarify-section').hidden = !exists;
   renderView();
@@ -270,9 +295,7 @@ function renderPack() {
   $('spending-limit').value = state.plan.spendingLimitMinor == null ? '' : minorToDecimal(state.plan.spendingLimitMinor);
   $('pack-heading').textContent = state.plan.title;
   const p = state.provenance;
-  $('generation-evidence').textContent = p?.pipeline === 'staged-v1'
-    ? `Three validated responses; ${p.reusedSteps || 0} reused from the saved checkpoint. Server generation time across steps: ${(p.durationMs / 1000).toFixed(1)} seconds. Human review and export time excluded. ` + p.steps.map(step => `${step.stage}: ${step.model}, ${(step.durationMs / 1000).toFixed(1)} s, ${step.attempts} attempt(s), reference ${step.requestId || 'unavailable'}.`).join(' ')
-    : p?.mode === 'sample' ? 'Hand-authored sample. No model inference or live timing.' : 'Earlier generation format. See the provenance line and dated verification record.';
+  renderEvidence(p);
   $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.pipeline === 'staged-v1' ? 'Gemma in 3 steps' : p.model} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · Human edits may follow.` : 'Restored working draft · Review all details.';
   document.querySelectorAll('[data-field]').forEach(input => { input.value = state.plan[input.dataset.field] ?? ''; });
   document.querySelectorAll('[data-draft]').forEach(input => { input.value = state.plan.drafts[input.dataset.draft]; });

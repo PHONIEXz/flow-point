@@ -1,0 +1,193 @@
+{
+  "plan": {
+    "title": "Young Minds: Science, Reading and Creativity Day",
+    "eventDate": "2026-11-14",
+    "requestedWeekday": "Saturday",
+    "venue": null,
+    "startTime": null,
+    "organizer": "Sunrise Learning Centre, Abuja",
+    "signatory": "Mrs Grace Okoro, Headteacher",
+    "currency": "NGN",
+    "spendingLimitMinor": 20000000,
+    "tasks": [
+      {
+        "label": "Approve programme, invitation, venue and expenditure",
+        "owner": "Mrs Grace Okoro",
+        "dueDate": null
+      },
+      {
+        "label": "Organise science demonstrations and check materials",
+        "owner": "Mr Daniel Musa",
+        "dueDate": null
+      },
+      {
+        "label": "Prepare reading and storytelling activities",
+        "owner": "Miss Esther James",
+        "dueDate": null
+      },
+      {
+        "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+        "owner": "Mrs Ruth Adeyemi",
+        "dueDate": null
+      },
+      {
+        "label": "Select pupil presentations, supervise rehearsals and prepare project labels",
+        "owner": "Class teachers",
+        "dueDate": null
+      },
+      {
+        "label": "Rehearse the programme",
+        "owner": "Class teachers",
+        "dueDate": "2026-11-12"
+      },
+      {
+        "label": "First-aid officer availability",
+        "owner": null,
+        "dueDate": "2026-11-14"
+      }
+    ],
+    "budget": [
+      {
+        "label": "Printed programmes",
+        "quantity": 60,
+        "unitCostMinor": 25000
+      },
+      {
+        "label": "Bottled water",
+        "quantity": 150,
+        "unitCostMinor": 20000
+      },
+      {
+        "label": "Refreshment packs",
+        "quantity": 150,
+        "unitCostMinor": 35000
+      },
+      {
+        "label": "Participation certificates",
+        "quantity": 100,
+        "unitCostMinor": 10000
+      },
+      {
+        "label": "Hall decorations",
+        "quantity": 1,
+        "unitCostMinor": 1800000
+      },
+      {
+        "label": "Sound system hire",
+        "quantity": 1,
+        "unitCostMinor": 1200000
+      },
+      {
+        "label": "Event banner",
+        "quantity": 1,
+        "unitCostMinor": null
+      },
+      {
+        "label": "Recognition prizes",
+        "quantity": 10,
+        "unitCostMinor": null
+      }
+    ],
+    "drafts": {
+      "invitation": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall [Pending Confirmation]\n\nDear Parents and Guardians,\n\nWe warmly invite you to attend our upcoming \"Young Minds: Science, Reading and Creativity Day.\" This special event is designed to celebrate our pupils' achievements and provide a platform for them to demonstrate their classroom learning through engaging science projects, storytelling, reading presentations, and creative displays.\n\nOur goal is to share the wonderful progress your children have made and to encourage practical, hands-on learning within the home environment. During the programme, you can expect to see live science demonstrations, enjoy reading presentations by the pupils, and participate in a shared reading activity. \n\nAttendance is free of charge. Please note that the exact starting time and the final venue (Main Assembly Hall or School Library) are currently awaiting final approval and will be confirmed with you shortly.\n\nWe look forward to celebrating our pupils' creativity and curiosity with you.\n\nWarm regards,\n\nMrs Grace Okoro\nHeadteacher\nOn behalf of Sunrise Learning Centre",
+      "schedule": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall\n\n[Confirm start time]\nWelcome and housekeeping (10 minutes)\nSuggested [Confirm start time + 10 mins]: Opening remarks by the headteacher (10 minutes)\nSuggested [Confirm start time + 20 mins]: Pupils’ reading and storytelling presentations (15 minutes)\nSuggested [Confirm start time + 35 mins]: Science demonstrations (35 minutes)\nSuggested [Confirm start time + 70 mins]: Refreshment break (15 minutes)\nSuggested [Confirm start time + 85 mins]: Guided viewing of pupils’ project displays (30 minutes)\nSuggested [Confirm start time + 115 mins]: Parent and pupil reading activity (20 minutes)\nSuggested [Confirm start time + 135 mins]: Creativity presentations and recognition of participants (25 minutes)\nSuggested [Confirm start time + 160 mins]: Vote of thanks (10 minutes)\nSuggested [Confirm start time + 170 mins]: Closing remarks and supervised departure (10 minutes)\n\nNote: Proposed timings need confirmation.\n\nSafety and Supervision:\n- Science activities must use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools, or experiments involving hazardous chemicals.\n- Teachers must supervise all demonstrations, display areas, and pupil movement.\n- Parents should remain with younger children during the guided display tour.\n- The designated first-aid officer must be available throughout the programme."
+    },
+    "openQuestions": [
+      "Is the Main Assembly Hall confirmed as the venue?",
+      "What is the seating capacity of the school library (backup venue)?",
+      "What is the approved starting time for the programme?",
+      "Who is the designated first-aid officer?",
+      "What is the approved time for the rehearsal on 2026-11-12?",
+      "What is the unit cost for the event banner?",
+      "What is the unit cost for the recognition prizes?"
+    ]
+  },
+  "issues": [
+    {
+      "code": "MISSING_VENUE",
+      "message": "Confirm the venue."
+    },
+    {
+      "code": "MISSING_TIME",
+      "message": "Confirm the event start time."
+    },
+    {
+      "code": "OPEN_QUESTION",
+      "message": "Is the Main Assembly Hall confirmed as the venue?"
+    },
+    {
+      "code": "OPEN_QUESTION",
+      "message": "What is the seating capacity of the school library (backup venue)?"
+    },
+    {
+      "code": "OPEN_QUESTION",
+      "message": "What is the approved starting time for the programme?"
+    },
+    {
+      "code": "OPEN_QUESTION",
+      "message": "Who is the designated first-aid officer?"
+    },
+    {
+      "code": "OPEN_QUESTION",
+      "message": "What is the approved time for the rehearsal on 2026-11-12?"
+    },
+    {
+      "code": "OPEN_QUESTION",
+      "message": "What is the unit cost for the event banner?"
+    },
+    {
+      "code": "OPEN_QUESTION",
+      "message": "What is the unit cost for the recognition prizes?"
+    },
+    {
+      "code": "DRAFT_PLACEHOLDER",
+      "message": "Replace bracketed draft placeholders in the invitation and run of show."
+    },
+    {
+      "code": "MISSING_PRICES",
+      "message": "2 budget item(s) need a price."
+    }
+  ],
+  "knownTotalMinor": 13750000,
+  "budgetComplete": false,
+  "remainingAllowanceMinor": 6250000,
+  "allowanceProvisional": true,
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini API",
+    "model": "gemma-4-26b-a4b-it",
+    "requestedModel": "gemma-4-26b-a4b-it",
+    "primaryModel": "gemma-4-26b-a4b-it",
+    "attempts": 5,
+    "responseFormat": "text-json",
+    "stage": "schedule",
+    "generatedAt": "2026-10-24T07:43:34.342Z",
+    "durationMs": 68668,
+    "pipeline": "staged-v1",
+    "reusedSteps": 0,
+    "steps": [
+      {
+        "stage": "facts",
+        "model": "gemma-4-31b-it",
+        "durationMs": 54348,
+        "attempts": 3,
+        "requestId": "c0cae81a-7bd7-4800-8df0-37d78a0c36a3"
+      },
+      {
+        "stage": "invitation",
+        "model": "gemma-4-26b-a4b-it",
+        "durationMs": 6213,
+        "attempts": 1,
+        "requestId": "69d92b88-b8b5-46b0-94f5-5856280ec077"
+      },
+      {
+        "stage": "schedule",
+        "model": "gemma-4-26b-a4b-it",
+        "durationMs": 8107,
+        "attempts": 1,
+        "requestId": "462d8b51-1872-4652-bf99-5a3bff4639a3"
+      }
+    ]
+  },
+  "requestId": "462d8b51-1872-4652-bf99-5a3bff4639a3"
+}

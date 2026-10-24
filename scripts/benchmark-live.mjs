@@ -18,12 +18,17 @@ await mkdir(new URL('../docs/evidence/', import.meta.url), { recursive: true });
 const selectedCase = arg('--case', 'all');
 if (!['all', 'judge', 'detailed-school'].includes(selectedCase)) throw new Error('Choose --case all, judge or detailed-school.');
 const cases = [['judge', example], ['detailed-school', detailed]].filter(([label]) => selectedCase === 'all' || label === selectedCase);
+const preparedPath = arg('--prepared', null);
+if (preparedPath && (cases.length !== 1 || repeats !== 1)) throw new Error('--prepared requires one selected case and one repeat.');
+const prepared = preparedPath ? JSON.parse(await readFile(preparedPath, 'utf8')).plan : null;
+const actions = prepared ? ['update'] : ['prepare', 'update'];
+if (preparedPath) report.preparedSource = preparedPath;
 let stop = false;
 for (const [label, fixture] of cases) {
   for (let repeat = 1; repeat <= repeats && !stop; repeat++) {
-    let previousPlan = null;
-    for (const action of ['prepare', 'update']) {
-      if (action === 'update' && cooldownBeforeUpdateMs) await pace(cooldownBeforeUpdateMs);
+    let previousPlan = prepared;
+    for (const action of actions) {
+      if (action === 'update' && !prepared && cooldownBeforeUpdateMs) await pace(cooldownBeforeUpdateMs);
       const row = { label, repeat, action, startedAt: new Date().toISOString(), steps: [] }; const started = Date.now();
       try {
         const result = await prepareInStages({ request: fixture.request, answers: action === 'update' ? fixture.answers : '', previousPlan }, {
@@ -66,6 +71,6 @@ for (const [label, fixture] of cases) {
   }
 }
 const times = report.runs.filter(r => r.completed).map(r => r.wallMs).sort((a, b) => a - b);
-report.summary = { planned: cases.length * repeats * 2, skipped: cases.length * repeats * 2 - report.runs.length, attempted: report.runs.length, completed: times.length, checksPassed: report.runs.filter(r => r.checksPassed).length, medianCompletedMs: times.length ? (times[Math.floor((times.length - 1) / 2)] + times[Math.ceil((times.length - 1) / 2)]) / 2 : null, slowestCompletedMs: times.at(-1) ?? null, stoppedOnQuota: stop };
+report.summary = { planned: cases.length * repeats * actions.length, skipped: cases.length * repeats * actions.length - report.runs.length, attempted: report.runs.length, completed: times.length, checksPassed: report.runs.filter(r => r.checksPassed).length, medianCompletedMs: times.length ? (times[Math.floor((times.length - 1) / 2)] + times[Math.ceil((times.length - 1) / 2)]) / 2 : null, slowestCompletedMs: times.at(-1) ?? null, stoppedOnQuota: stop };
 await writeFile(output, JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify({ output, ...report.summary }));
 if (report.summary.checksPassed !== report.summary.attempted || stop) process.exitCode = 1;

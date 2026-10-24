@@ -10,7 +10,7 @@ Three-stage generation, browser-local checkpoints, seven-minute model-step deadl
 
 ## Chunk 1: fix known content omissions
 
-**Status:** verification in progress. **Priority:** critical. **Lessons:** Second Look, TwoToe, SlothSpec.
+**Status:** implemented; final paired live verification blocked by provider 500/503. **Priority:** critical. **Lessons:** Second Look, TwoToe, SlothSpec.
 
 **Goal:** a returned structure must not conceal missing essential content.
 

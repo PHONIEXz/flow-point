@@ -1,0 +1,153 @@
+{
+  "cooldownBeforeUpdateMs": 60000,
+  "testedAt": "2026-10-24T07:42:21.084Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review, export time and the explicitly recorded cooldown between operations are excluded.",
+  "runs": [
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "prepare",
+      "startedAt": "2026-10-24T07:42:21.086Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 200,
+          "wallMs": 58583,
+          "requestId": "c0cae81a-7bd7-4800-8df0-37d78a0c36a3",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-31b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 3,
+            "responseFormat": "text-json",
+            "stage": "facts",
+            "generatedAt": "2026-10-24T07:43:19.576Z",
+            "durationMs": 54348
+          }
+        },
+        {
+          "stage": "invitation",
+          "httpStatus": 200,
+          "wallMs": 6417,
+          "requestId": "69d92b88-b8b5-46b0-94f5-5856280ec077",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "invitation",
+            "generatedAt": "2026-10-24T07:43:26.005Z",
+            "durationMs": 6213
+          }
+        },
+        {
+          "stage": "schedule",
+          "httpStatus": 200,
+          "wallMs": 8367,
+          "requestId": "462d8b51-1872-4652-bf99-5a3bff4639a3",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "schedule",
+            "generatedAt": "2026-10-24T07:43:34.342Z",
+            "durationMs": 8107
+          }
+        }
+      ],
+      "completed": true,
+      "checks": {
+        "date": true,
+        "start": true,
+        "money": true,
+        "unknownPrices": true,
+        "drafts": true,
+        "invitationStart": true,
+        "scheduleStart": true,
+        "signatoryName": true,
+        "invitationSignatory": true,
+        "namedActivityLead": true,
+        "activityDurations": true,
+        "pendingVenue": true
+      },
+      "checksPassed": true,
+      "provenance": {
+        "mode": "live",
+        "provider": "Google Gemini API",
+        "model": "gemma-4-26b-a4b-it",
+        "requestedModel": "gemma-4-26b-a4b-it",
+        "primaryModel": "gemma-4-26b-a4b-it",
+        "attempts": 5,
+        "responseFormat": "text-json",
+        "stage": "schedule",
+        "generatedAt": "2026-10-24T07:43:34.342Z",
+        "durationMs": 68668,
+        "pipeline": "staged-v1",
+        "reusedSteps": 0,
+        "steps": [
+          {
+            "stage": "facts",
+            "model": "gemma-4-31b-it",
+            "durationMs": 54348,
+            "attempts": 3,
+            "requestId": "c0cae81a-7bd7-4800-8df0-37d78a0c36a3"
+          },
+          {
+            "stage": "invitation",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 6213,
+            "attempts": 1,
+            "requestId": "69d92b88-b8b5-46b0-94f5-5856280ec077"
+          },
+          {
+            "stage": "schedule",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 8107,
+            "attempts": 1,
+            "requestId": "462d8b51-1872-4652-bf99-5a3bff4639a3"
+          }
+        ]
+      },
+      "wallMs": 73375
+    },
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "update",
+      "startedAt": "2026-10-24T07:44:34.471Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 502,
+          "wallMs": 86226,
+          "requestId": "45235239-8b62-4373-9cbd-2b068c4d3dfe",
+          "code": "APP_ERROR"
+        }
+      ],
+      "completed": false,
+      "error": "Google generation returned HTTP 500. Please retry when the provider is available.",
+      "wallMs": 86227
+    }
+  ],
+  "summary": {
+    "planned": 2,
+    "skipped": 0,
+    "attempted": 2,
+    "completed": 1,
+    "checksPassed": 1,
+    "medianCompletedMs": 73375,
+    "slowestCompletedMs": 73375,
+    "stoppedOnQuota": false
+  }
+}
