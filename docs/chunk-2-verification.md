@@ -37,3 +37,9 @@ Commit `b88aac2e09da61b877f1f48b0127cf54669b3d18` became live in deployment `dep
 In the live editor, correcting the signer to Amina Bello, Club Secretary produced Manually entered / needs review with no old quote. Explicit confirmation then produced Confirmed by you and correctly stated that no supporting quote was saved. The updated budget was USD 100 total / USD 100 remaining, while the banner's missing/invalid quote still required manual source review. Approval remained blocked. The older saved packs remained available.
 
 Desktop source cards were inspected in dark mode; light styling and narrow-width wrapping rules are supplied. Browser zoom did not change the CSS viewport in this tool, so no phone-sized browser or physical-phone pass is claimed. Device verification remains open for Chunk 5.
+
+### Final saved-history release
+
+Commit `dd4ded75a289f0006589ad90ba8069a46d689a9a` is live in deployment `dep-dbe709oae00c73c4djd0`; its build passed all 88 tests. The saved signer correction and manual confirmation survived reload. Saved update 1 expanded to the actual full update, including the USD 25 banner price. Editing the original note changed its history label to changed since capture, removed its old quotes from the field cards, and reset the manual confirmation. The independent saved-update venue quote remained accessible and the pack stayed unapproved. The case was retained as Source review regression without replacing earlier saved packs.
+
+Core source-review implementation and desktop verification are delivered. Source-history access and stale-state checks are now observed, not pending. Physical-phone verification remains for Chunk 5. The recorded model semantic errors remain open; no whole-application completion or reliability rate is claimed.

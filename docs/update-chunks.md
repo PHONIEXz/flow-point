@@ -24,7 +24,7 @@ Deliverables:
 
 ## Chunk 2: show the source behind important facts
 
-**Status:** source-review implementation delivered; desktop checks pass. Saved-history UI final check and physical-phone verification are tracked separately. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
+**Status:** implemented, deployed and verified on desktop. Physical-phone verification remains in Chunk 5. Chunk 1’s semantic/provider limitations are still open. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
 
 **Goal:** let the organizer check an extracted fact without searching the entire brief.
 

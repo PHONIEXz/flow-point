@@ -97,5 +97,24 @@
     "staleQuestion": "What is the price of the banner?",
     "contentPass": false,
     "notes": "A literal quote existing in a note did not prove that it supported the displayed name/place. Follow-up adds whole-token text checks and recovery only to an actual saved update containing the full displayed value. The run is not an overall content pass. Ada Okafor's duty was omitted from the checklist in this exposed run, remaining a Chunk 1 semantic omission."
+  },
+  "correctiveVerification": {
+    "release": "dd4ded75a289f0006589ad90ba8069a46d689a9a",
+    "deploy": "dep-dbe709oae00c73c4djd0",
+    "method": "Revalidation of the same saved result plus explicit manual UI edits; no new model call or overall model content pass is claimed.",
+    "updatedVenueQuote": "The confirmed venue is now Cedar Library Hall; its booking is approved.",
+    "updatedVenueSource": "update",
+    "singleLetterSignerUnsupported": true,
+    "manualSignerCorrectionDroppedOldQuote": true,
+    "manualConfirmationNoInventedQuote": true,
+    "confirmationAndSourcesSurvivedReload": true,
+    "savedUpdateHistoryAccessible": true,
+    "notesEditInvalidatedOriginalQuotesAndManualConfirmation": true,
+    "savedUpdateQuoteRemainedAccessible": true,
+    "unsupportedBannerPriceStillBlockedApproval": true,
+    "updatedTotalMinor": 10000,
+    "updatedAllowanceMinor": 10000,
+    "oldPacksPreserved": true,
+    "physicalPhoneTested": false
   }
 }
