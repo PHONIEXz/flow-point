@@ -13,3 +13,11 @@ All 118 software tests pass, including endpoint/auth routing, strict schemas, ca
 Official API references: https://console.groq.com/docs/structured-outputs and https://console.groq.com/docs/reasoning .
 
 The first Render build was blocked because old Google HTTP tests inherited the production GROQ_API_KEY provider selection. The HTTP test harness now explicitly chooses its mocked Google provider and an empty default key; it cannot inherit a real deployment key. All 118 tests pass with fake GROQ_API_KEY and AI_PROVIDER=groq present. No production checks were disabled.
+
+## Live migration check and schedule follow-up
+
+Render deploy dep-dbebkea9lscs73ak5rb0 confirmed live for 6dcce7db97decabe95e60d7a1312ef2181c6a2b4. Startup found GROQ_API_KEY configured and GPT-OSS 120B available (HTTP 200 model listing). The exposed church case completed all six Prepare/Update stages, each with HTTP 200. Explicit budget quantities, prices and the named choir owner were correct, including the updated 100 programmes, GBP 35 flowers and changed venue. These comparison calls were spaced 65 seconds apart, so their operation wall times are not representative of normal use.
+
+A separate unpaced Prepare using the actual browser staging helper completed all three stages in 9,930 ms, without quota errors. This is one operation measurement, not a typical-latency or reliability claim. Original declared scores remain unchanged: Prepare 28 correct / 1 missing-or-wrong; Update 27 correct / 1 missing-or-wrong. The common failing check was venue absent from the schedule body. Invitation wording also included an internal unconfirmed flower-price note in the initial pack; organizers should review audience-appropriate wording.
+
+The schedule prompt now explicitly asks for event-title/venue headers, and draft validation rejects a missing known venue when that exact venue appears in the input source. This does not guess locations or force an unknown/proposed venue into confirmed facts. A regression verifies bounded correction and checkpoint immutability. The final software suite passes 119 tests with fake Groq deployment settings. Checkpoint version advances to 9. Original pre-fix results are preserved; targeted post-fix schedule checks use a separate record.

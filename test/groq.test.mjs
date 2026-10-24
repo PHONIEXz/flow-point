@@ -48,3 +48,10 @@ test('Groq HTTP surface binds processing choice to provider and renders current 
 test('Groq model availability check uses bearer auth and checks actual model presence',async()=>{
  const r=await checkGroqAccess({apiKey:'fake-test-key',model:'openai/gpt-oss-120b',fetchImpl:async(url,opts)=>{assert.equal(url,'https://api.groq.com/openai/v1/models');assert.equal(opts.headers.Authorization,'Bearer fake-test-key');return Response.json({data:[{id:'openai/gpt-oss-120b'}]});}});assert.equal(r.available,true);assert.doesNotMatch(JSON.stringify(r),/fake-test-key/);
 });
+
+test('a standalone schedule must retain a supplied venue and retries without altering the checkpoint',async()=>{
+ const p=good(),before=structuredClone(p);let calls=0;
+ const schedule='17:45 Registration\n18:00 Welcome (10 minutes)\n18:10 Choir performance (30 minutes)\n18:40 Closing (10 minutes)';
+ const r=await generatePack({request:fixture.request,stage:'schedule',checkpoint:p},{...config,fetchImpl:async()=>reply({schedule:++calls===1?schedule:`Cedar Chapel Choir Evening\nGrace Chapel\n${schedule}`})});
+ assert.equal(calls,2);assert.match(r.plan.drafts.schedule,/Grace Chapel/);assert.deepEqual(p,before);
+});
