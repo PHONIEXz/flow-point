@@ -1,0 +1,3170 @@
+{
+  "id": "known-school",
+  "cohort": "exposed",
+  "action": "prepare",
+  "casesSha256": "6d0fedd57e35f96f8e09b51a86beeec2a20068b19b27e2d640d39f37d59632d3",
+  "startedAt": "2026-10-24T12:58:19.584Z",
+  "attempted": true,
+  "completed": true,
+  "attempts": [
+    {
+      "stage": "facts",
+      "httpStatus": 200,
+      "wallMs": 101659,
+      "response": {
+        "plan": {
+          "title": "Young Minds: Science, Reading and Creativity Day",
+          "eventDate": "2026-11-14",
+          "requestedWeekday": "Saturday",
+          "venue": null,
+          "startTime": null,
+          "organizer": "Sunrise Learning Centre",
+          "signatory": "Mrs Grace Okoro, Headteacher",
+          "currency": "NGN",
+          "spendingLimitMinor": 20000000,
+          "tasks": [
+            {
+              "label": "Approve programme, invitation, venue and expenditure",
+              "owner": "Mrs Grace Okoro",
+              "dueDate": null
+            },
+            {
+              "label": "Organise science demonstrations and check materials",
+              "owner": "Mr Daniel Musa",
+              "dueDate": null
+            },
+            {
+              "label": "Prepare reading and storytelling activities",
+              "owner": "Miss Esther James",
+              "dueDate": null
+            },
+            {
+              "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+              "owner": "Mrs Ruth Adeyemi",
+              "dueDate": null
+            },
+            {
+              "label": "Rehearse the programme",
+              "owner": "Class teachers",
+              "dueDate": "2026-11-12"
+            },
+            {
+              "label": "First-aid officer availability",
+              "owner": null,
+              "dueDate": "2026-11-14"
+            }
+          ],
+          "budget": [
+            {
+              "label": "Printed programmes",
+              "quantity": 60,
+              "unitCostMinor": 25000
+            },
+            {
+              "label": "Bottled water",
+              "quantity": 150,
+              "unitCostMinor": 20000
+            },
+            {
+              "label": "Refreshment packs",
+              "quantity": 150,
+              "unitCostMinor": 35000
+            },
+            {
+              "label": "Participation certificates",
+              "quantity": 100,
+              "unitCostMinor": 10000
+            },
+            {
+              "label": "Hall decorations",
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "label": "Sound system hire",
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "label": "Event banner",
+              "quantity": 1,
+              "unitCostMinor": null
+            },
+            {
+              "label": "Recognition prizes",
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "drafts": {
+            "invitation": "",
+            "schedule": ""
+          },
+          "openQuestions": [
+            "Is the use of the school’s Main Assembly Hall confirmed?",
+            "What is the approved starting time for the programme?",
+            "Who is the designated first-aid officer?",
+            "What is the approved time for the rehearsal on 2026-11-12?",
+            "What is the unit cost for the event banner?",
+            "What is the unit cost for the recognition prizes?"
+          ],
+          "sourceEvidence": {
+            "version": 1,
+            "legacy": false,
+            "notesChanged": false,
+            "sources": [
+              {
+                "id": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "kind": "notes",
+                "text": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first “Young Minds: Science, Reading and Creativity Day” on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school’s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n• Welcome and housekeeping: 10 minutes.\n• Opening remarks by the headteacher: 10 minutes.\n• Pupils’ reading and storytelling presentations: 15 minutes.\n• Science demonstrations: 35 minutes.\n• Refreshment break: 15 minutes.\n• Guided viewing of pupils’ project displays: 30 minutes.\n• Parent and pupil reading activity: 20 minutes.\n• Creativity presentations and recognition of participants: 25 minutes.\n• Vote of thanks: 10 minutes.\n• Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school’s designated first-aid officer should be available throughout the programme. The officer’s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n• Printed programmes: 60 copies at NGN 250 each.\n• Bottled water: 150 bottles at NGN 200 each.\n• Refreshment packs: 150 packs at NGN 350 each.\n• Participation certificates: 100 copies at NGN 100 each.\n• Hall decorations: one package at NGN 18,000.\n• Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved."
+              }
+            ],
+            "records": [
+              {
+                "path": "title",
+                "binding": "[\"Young Minds: Science, Reading and Creativity Day\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 205,
+                "end": 255
+              },
+              {
+                "path": "eventDate",
+                "binding": "[\"2026-11-14\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 259,
+                "end": 285
+              },
+              {
+                "path": "startTime",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "venue",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "organizer",
+                "binding": "[\"Sunrise Learning Centre\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 149,
+                "end": 179
+              },
+              {
+                "path": "signatory",
+                "binding": "[\"Mrs Grace Okoro, Headteacher\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 1753,
+                "end": 1829
+              },
+              {
+                "path": "currency",
+                "binding": "[\"NGN\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4519,
+                "end": 4530
+              },
+              {
+                "path": "spendingLimitMinor",
+                "binding": "[20000000,\"NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4493,
+                "end": 4530
+              },
+              {
+                "path": "tasks.0.owner",
+                "binding": "[\"Mrs Grace Okoro\",\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2767,
+                "end": 2858
+              },
+              {
+                "path": "tasks.0.dueDate",
+                "binding": "[null,\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.owner",
+                "binding": "[\"Mr Daniel Musa\",\"Organise science demonstrations and check materials\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2861,
+                "end": 2958
+              },
+              {
+                "path": "tasks.1.dueDate",
+                "binding": "[null,\"Organise science demonstrations and check materials\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.owner",
+                "binding": "[\"Miss Esther James\",\"Prepare reading and storytelling activities\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2961,
+                "end": 3054
+              },
+              {
+                "path": "tasks.2.dueDate",
+                "binding": "[null,\"Prepare reading and storytelling activities\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.3.owner",
+                "binding": "[\"Mrs Ruth Adeyemi\",\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3057,
+                "end": 3179
+              },
+              {
+                "path": "tasks.3.dueDate",
+                "binding": "[null,\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.owner",
+                "binding": "[\"Class teachers\",\"Rehearse the programme\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.dueDate",
+                "binding": "[\"2026-11-12\",\"Rehearse the programme\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3872,
+                "end": 3924
+              },
+              {
+                "path": "tasks.5.owner",
+                "binding": "[null,\"First-aid officer availability\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.5.dueDate",
+                "binding": "[\"2026-11-14\",\"First-aid officer availability\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.0.quantity",
+                "binding": "[60,\"Printed programmes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4587,
+                "end": 4616
+              },
+              {
+                "path": "budget.0.unitCostMinor",
+                "binding": "[25000,\"Printed programmes\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4620,
+                "end": 4632
+              },
+              {
+                "path": "budget.1.quantity",
+                "binding": "[150,\"Bottled water\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4636,
+                "end": 4662
+              },
+              {
+                "path": "budget.1.unitCostMinor",
+                "binding": "[20000,\"Bottled water\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4666,
+                "end": 4678
+              },
+              {
+                "path": "budget.2.quantity",
+                "binding": "[150,\"Refreshment packs\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4682,
+                "end": 4710
+              },
+              {
+                "path": "budget.2.unitCostMinor",
+                "binding": "[35000,\"Refreshment packs\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4714,
+                "end": 4726
+              },
+              {
+                "path": "budget.3.quantity",
+                "binding": "[100,\"Participation certificates\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4730,
+                "end": 4768
+              },
+              {
+                "path": "budget.3.unitCostMinor",
+                "binding": "[10000,\"Participation certificates\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4772,
+                "end": 4784
+              },
+              {
+                "path": "budget.4.quantity",
+                "binding": "[1,\"Hall decorations\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4788,
+                "end": 4817
+              },
+              {
+                "path": "budget.4.unitCostMinor",
+                "binding": "[1800000,\"Hall decorations\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4821,
+                "end": 4831
+              },
+              {
+                "path": "budget.5.quantity",
+                "binding": "[1,\"Sound system hire\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4835,
+                "end": 4865
+              },
+              {
+                "path": "budget.5.unitCostMinor",
+                "binding": "[1200000,\"Sound system hire\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4869,
+                "end": 4879
+              },
+              {
+                "path": "budget.6.quantity",
+                "binding": "[1,\"Event banner\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4895,
+                "end": 4911
+              },
+              {
+                "path": "budget.6.unitCostMinor",
+                "binding": "[null,\"Event banner\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.7.quantity",
+                "binding": "[10,\"Recognition prizes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4916,
+                "end": 4937
+              },
+              {
+                "path": "budget.7.unitCostMinor",
+                "binding": "[null,\"Recognition prizes\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              }
+            ]
+          }
+        },
+        "issues": [
+          {
+            "code": "SOURCE_REVIEW",
+            "message": "2 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+          },
+          {
+            "code": "MISSING_VENUE",
+            "message": "Confirm the venue."
+          },
+          {
+            "code": "MISSING_TIME",
+            "message": "Confirm the event start time."
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Is the use of the school’s Main Assembly Hall confirmed?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the approved starting time for the programme?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Who is the designated first-aid officer?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the approved time for the rehearsal on 2026-11-12?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the unit cost for the event banner?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the unit cost for the recognition prizes?"
+          },
+          {
+            "code": "MISSING_DRAFT",
+            "message": "Complete both the invitation and run of show."
+          },
+          {
+            "code": "MISSING_PRICES",
+            "message": "2 budget item(s) need a price."
+          }
+        ],
+        "knownTotalMinor": 13750000,
+        "budgetComplete": false,
+        "remainingAllowanceMinor": 6250000,
+        "allowanceProvisional": true,
+        "provenance": {
+          "mode": "live",
+          "provider": "Google Gemini API",
+          "model": "gemma-4-31b-it",
+          "requestedModel": "gemma-4-26b-a4b-it",
+          "primaryModel": "gemma-4-26b-a4b-it",
+          "attempts": 3,
+          "responseFormat": "text-json",
+          "stage": "facts",
+          "generatedAt": "2026-10-24T13:00:01.159Z",
+          "durationMs": 101482
+        },
+        "requestId": "164608f6-4f22-4020-9b43-a615dd869d2a"
+      }
+    },
+    {
+      "stage": "invitation",
+      "httpStatus": 200,
+      "wallMs": 7695,
+      "response": {
+        "plan": {
+          "title": "Young Minds: Science, Reading and Creativity Day",
+          "eventDate": "2026-11-14",
+          "requestedWeekday": "Saturday",
+          "venue": null,
+          "startTime": null,
+          "organizer": "Sunrise Learning Centre",
+          "signatory": "Mrs Grace Okoro, Headteacher",
+          "currency": "NGN",
+          "spendingLimitMinor": 20000000,
+          "tasks": [
+            {
+              "label": "Approve programme, invitation, venue and expenditure",
+              "owner": "Mrs Grace Okoro",
+              "dueDate": null
+            },
+            {
+              "label": "Organise science demonstrations and check materials",
+              "owner": "Mr Daniel Musa",
+              "dueDate": null
+            },
+            {
+              "label": "Prepare reading and storytelling activities",
+              "owner": "Miss Esther James",
+              "dueDate": null
+            },
+            {
+              "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+              "owner": "Mrs Ruth Adeyemi",
+              "dueDate": null
+            },
+            {
+              "label": "Rehearse the programme",
+              "owner": "Class teachers",
+              "dueDate": "2026-11-12"
+            },
+            {
+              "label": "First-aid officer availability",
+              "owner": null,
+              "dueDate": "2026-11-14"
+            }
+          ],
+          "budget": [
+            {
+              "label": "Printed programmes",
+              "quantity": 60,
+              "unitCostMinor": 25000
+            },
+            {
+              "label": "Bottled water",
+              "quantity": 150,
+              "unitCostMinor": 20000
+            },
+            {
+              "label": "Refreshment packs",
+              "quantity": 150,
+              "unitCostMinor": 35000
+            },
+            {
+              "label": "Participation certificates",
+              "quantity": 100,
+              "unitCostMinor": 10000
+            },
+            {
+              "label": "Hall decorations",
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "label": "Sound system hire",
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "label": "Event banner",
+              "quantity": 1,
+              "unitCostMinor": null
+            },
+            {
+              "label": "Recognition prizes",
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "drafts": {
+            "invitation": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall [Pending Confirmation]\n\nDear Parents and Guardians,\n\nWe are delighted to invite you to Sunrise Learning Centre’s first “Young Minds: Science, Reading and Creativity Day.”\n\nThis special educational event is designed to showcase the wonderful progress our pupils have made in the classroom. You can look forward to seeing engaging science demonstrations, listening to heartfelt storytelling and reading presentations, and exploring creative project displays. Our goal is to celebrate your child's learning and provide inspiration for practical learning at home.\n\nAttendance is free of charge. We look forward to welcoming you to this celebration of curiosity and creativity.\n\nPlease note that the exact starting time and the final venue (Main Assembly Hall or School Library) are currently awaiting final approval and will be confirmed with you shortly.\n\nWarm regards,\n\nMrs Grace Okoro\nHeadteacher\nOn behalf of Sunrise Learning Centre",
+            "schedule": ""
+          },
+          "openQuestions": [
+            "Is the use of the school’s Main Assembly Hall confirmed?",
+            "What is the approved starting time for the programme?",
+            "Who is the designated first-aid officer?",
+            "What is the approved time for the rehearsal on 2026-11-12?",
+            "What is the unit cost for the event banner?",
+            "What is the unit cost for the recognition prizes?"
+          ],
+          "sourceEvidence": {
+            "version": 1,
+            "legacy": false,
+            "notesChanged": false,
+            "sources": [
+              {
+                "id": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "kind": "notes",
+                "text": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first “Young Minds: Science, Reading and Creativity Day” on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school’s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n• Welcome and housekeeping: 10 minutes.\n• Opening remarks by the headteacher: 10 minutes.\n• Pupils’ reading and storytelling presentations: 15 minutes.\n• Science demonstrations: 35 minutes.\n• Refreshment break: 15 minutes.\n• Guided viewing of pupils’ project displays: 30 minutes.\n• Parent and pupil reading activity: 20 minutes.\n• Creativity presentations and recognition of participants: 25 minutes.\n• Vote of thanks: 10 minutes.\n• Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school’s designated first-aid officer should be available throughout the programme. The officer’s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n• Printed programmes: 60 copies at NGN 250 each.\n• Bottled water: 150 bottles at NGN 200 each.\n• Refreshment packs: 150 packs at NGN 350 each.\n• Participation certificates: 100 copies at NGN 100 each.\n• Hall decorations: one package at NGN 18,000.\n• Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved."
+              }
+            ],
+            "records": [
+              {
+                "path": "title",
+                "binding": "[\"Young Minds: Science, Reading and Creativity Day\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 205,
+                "end": 255
+              },
+              {
+                "path": "eventDate",
+                "binding": "[\"2026-11-14\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 259,
+                "end": 285
+              },
+              {
+                "path": "startTime",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "venue",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "organizer",
+                "binding": "[\"Sunrise Learning Centre\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 149,
+                "end": 179
+              },
+              {
+                "path": "signatory",
+                "binding": "[\"Mrs Grace Okoro, Headteacher\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 1753,
+                "end": 1829
+              },
+              {
+                "path": "currency",
+                "binding": "[\"NGN\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4519,
+                "end": 4530
+              },
+              {
+                "path": "spendingLimitMinor",
+                "binding": "[20000000,\"NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4493,
+                "end": 4530
+              },
+              {
+                "path": "tasks.0.owner",
+                "binding": "[\"Mrs Grace Okoro\",\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2767,
+                "end": 2858
+              },
+              {
+                "path": "tasks.0.dueDate",
+                "binding": "[null,\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.owner",
+                "binding": "[\"Mr Daniel Musa\",\"Organise science demonstrations and check materials\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2861,
+                "end": 2958
+              },
+              {
+                "path": "tasks.1.dueDate",
+                "binding": "[null,\"Organise science demonstrations and check materials\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.owner",
+                "binding": "[\"Miss Esther James\",\"Prepare reading and storytelling activities\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2961,
+                "end": 3054
+              },
+              {
+                "path": "tasks.2.dueDate",
+                "binding": "[null,\"Prepare reading and storytelling activities\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.3.owner",
+                "binding": "[\"Mrs Ruth Adeyemi\",\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3057,
+                "end": 3179
+              },
+              {
+                "path": "tasks.3.dueDate",
+                "binding": "[null,\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.owner",
+                "binding": "[\"Class teachers\",\"Rehearse the programme\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.dueDate",
+                "binding": "[\"2026-11-12\",\"Rehearse the programme\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3872,
+                "end": 3924
+              },
+              {
+                "path": "tasks.5.owner",
+                "binding": "[null,\"First-aid officer availability\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.5.dueDate",
+                "binding": "[\"2026-11-14\",\"First-aid officer availability\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.0.quantity",
+                "binding": "[60,\"Printed programmes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4587,
+                "end": 4616
+              },
+              {
+                "path": "budget.0.unitCostMinor",
+                "binding": "[25000,\"Printed programmes\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4620,
+                "end": 4632
+              },
+              {
+                "path": "budget.1.quantity",
+                "binding": "[150,\"Bottled water\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4636,
+                "end": 4662
+              },
+              {
+                "path": "budget.1.unitCostMinor",
+                "binding": "[20000,\"Bottled water\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4666,
+                "end": 4678
+              },
+              {
+                "path": "budget.2.quantity",
+                "binding": "[150,\"Refreshment packs\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4682,
+                "end": 4710
+              },
+              {
+                "path": "budget.2.unitCostMinor",
+                "binding": "[35000,\"Refreshment packs\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4714,
+                "end": 4726
+              },
+              {
+                "path": "budget.3.quantity",
+                "binding": "[100,\"Participation certificates\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4730,
+                "end": 4768
+              },
+              {
+                "path": "budget.3.unitCostMinor",
+                "binding": "[10000,\"Participation certificates\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4772,
+                "end": 4784
+              },
+              {
+                "path": "budget.4.quantity",
+                "binding": "[1,\"Hall decorations\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4788,
+                "end": 4817
+              },
+              {
+                "path": "budget.4.unitCostMinor",
+                "binding": "[1800000,\"Hall decorations\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4821,
+                "end": 4831
+              },
+              {
+                "path": "budget.5.quantity",
+                "binding": "[1,\"Sound system hire\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4835,
+                "end": 4865
+              },
+              {
+                "path": "budget.5.unitCostMinor",
+                "binding": "[1200000,\"Sound system hire\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4869,
+                "end": 4879
+              },
+              {
+                "path": "budget.6.quantity",
+                "binding": "[1,\"Event banner\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4895,
+                "end": 4911
+              },
+              {
+                "path": "budget.6.unitCostMinor",
+                "binding": "[null,\"Event banner\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.7.quantity",
+                "binding": "[10,\"Recognition prizes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4916,
+                "end": 4937
+              },
+              {
+                "path": "budget.7.unitCostMinor",
+                "binding": "[null,\"Recognition prizes\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              }
+            ]
+          }
+        },
+        "issues": [
+          {
+            "code": "SOURCE_REVIEW",
+            "message": "2 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+          },
+          {
+            "code": "MISSING_VENUE",
+            "message": "Confirm the venue."
+          },
+          {
+            "code": "MISSING_TIME",
+            "message": "Confirm the event start time."
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Is the use of the school’s Main Assembly Hall confirmed?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the approved starting time for the programme?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Who is the designated first-aid officer?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the approved time for the rehearsal on 2026-11-12?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the unit cost for the event banner?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the unit cost for the recognition prizes?"
+          },
+          {
+            "code": "MISSING_DRAFT",
+            "message": "Complete both the invitation and run of show."
+          },
+          {
+            "code": "DRAFT_PLACEHOLDER",
+            "message": "Replace bracketed draft placeholders in the invitation and run of show."
+          },
+          {
+            "code": "MISSING_PRICES",
+            "message": "2 budget item(s) need a price."
+          }
+        ],
+        "knownTotalMinor": 13750000,
+        "budgetComplete": false,
+        "remainingAllowanceMinor": 6250000,
+        "allowanceProvisional": true,
+        "provenance": {
+          "mode": "live",
+          "provider": "Google Gemini API",
+          "model": "gemma-4-26b-a4b-it",
+          "requestedModel": "gemma-4-26b-a4b-it",
+          "primaryModel": "gemma-4-26b-a4b-it",
+          "attempts": 2,
+          "responseFormat": "text-json",
+          "stage": "invitation",
+          "generatedAt": "2026-10-24T13:00:08.868Z",
+          "durationMs": 7211
+        },
+        "requestId": "b6a0f591-ec8e-46c7-9ad5-4ca32366ed20"
+      }
+    },
+    {
+      "stage": "schedule",
+      "httpStatus": 200,
+      "wallMs": 9941,
+      "response": {
+        "plan": {
+          "title": "Young Minds: Science, Reading and Creativity Day",
+          "eventDate": "2026-11-14",
+          "requestedWeekday": "Saturday",
+          "venue": null,
+          "startTime": null,
+          "organizer": "Sunrise Learning Centre",
+          "signatory": "Mrs Grace Okoro, Headteacher",
+          "currency": "NGN",
+          "spendingLimitMinor": 20000000,
+          "tasks": [
+            {
+              "label": "Approve programme, invitation, venue and expenditure",
+              "owner": "Mrs Grace Okoro",
+              "dueDate": null
+            },
+            {
+              "label": "Organise science demonstrations and check materials",
+              "owner": "Mr Daniel Musa",
+              "dueDate": null
+            },
+            {
+              "label": "Prepare reading and storytelling activities",
+              "owner": "Miss Esther James",
+              "dueDate": null
+            },
+            {
+              "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+              "owner": "Mrs Ruth Adeyemi",
+              "dueDate": null
+            },
+            {
+              "label": "Rehearse the programme",
+              "owner": "Class teachers",
+              "dueDate": "2026-11-12"
+            },
+            {
+              "label": "First-aid officer availability",
+              "owner": null,
+              "dueDate": "2026-11-14"
+            }
+          ],
+          "budget": [
+            {
+              "label": "Printed programmes",
+              "quantity": 60,
+              "unitCostMinor": 25000
+            },
+            {
+              "label": "Bottled water",
+              "quantity": 150,
+              "unitCostMinor": 20000
+            },
+            {
+              "label": "Refreshment packs",
+              "quantity": 150,
+              "unitCostMinor": 35000
+            },
+            {
+              "label": "Participation certificates",
+              "quantity": 100,
+              "unitCostMinor": 10000
+            },
+            {
+              "label": "Hall decorations",
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "label": "Sound system hire",
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "label": "Event banner",
+              "quantity": 1,
+              "unitCostMinor": null
+            },
+            {
+              "label": "Recognition prizes",
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "drafts": {
+            "invitation": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall [Pending Confirmation]\n\nDear Parents and Guardians,\n\nWe are delighted to invite you to Sunrise Learning Centre’s first “Young Minds: Science, Reading and Creativity Day.”\n\nThis special educational event is designed to showcase the wonderful progress our pupils have made in the classroom. You can look forward to seeing engaging science demonstrations, listening to heartfelt storytelling and reading presentations, and exploring creative project displays. Our goal is to celebrate your child's learning and provide inspiration for practical learning at home.\n\nAttendance is free of charge. We look forward to welcoming you to this celebration of curiosity and creativity.\n\nPlease note that the exact starting time and the final venue (Main Assembly Hall or School Library) are currently awaiting final approval and will be confirmed with you shortly.\n\nWarm regards,\n\nMrs Grace Okoro\nHeadteacher\nOn behalf of Sunrise Learning Centre",
+            "schedule": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall\n\n[Confirm start time]\nWelcome and housekeeping (10 minutes)\nSuggested [Confirm start time + 10 mins]: Opening remarks by the headteacher (10 minutes)\nSuggested [Confirm start time + 20 mins]: Pupils’ reading and storytelling presentations (15 minutes)\nSuggested [Confirm start time + 35 mins]: Science demonstrations (35 minutes)\nSuggested [Confirm start time + 70 mins]: Refreshment break (15 minutes)\nSuggested [Confirm start time + 85 mins]: Guided viewing of pupils’ project displays (30 minutes)\nSuggested [Confirm start time + 115 mins]: Parent and pupil reading activity (20 minutes)\nSuggested [Confirm start time + 135 mins]: Creativity presentations and recognition of participants (25 minutes)\nSuggested [Confirm start time + 160 mins]: Vote of thanks (10 minutes)\nSuggested [Confirm start time + 170 mins]: Closing remarks and supervised departure (10 minutes)\n\nNote: Proposed timings need confirmation.\n\nSafety and Supervision:\n- Science activities must use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools, or experiments involving hazardous chemicals.\n- Teachers must supervise all demonstrations, display areas, and pupil movement.\n- Parents should remain with younger children during the display tour.\n- The designated first-aid officer must be available throughout the programme."
+          },
+          "openQuestions": [
+            "Is the use of the school’s Main Assembly Hall confirmed?",
+            "What is the approved starting time for the programme?",
+            "Who is the designated first-aid officer?",
+            "What is the approved time for the rehearsal on 2026-11-12?",
+            "What is the unit cost for the event banner?",
+            "What is the unit cost for the recognition prizes?"
+          ],
+          "sourceEvidence": {
+            "version": 1,
+            "legacy": false,
+            "notesChanged": false,
+            "sources": [
+              {
+                "id": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "kind": "notes",
+                "text": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first “Young Minds: Science, Reading and Creativity Day” on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school’s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n• Welcome and housekeeping: 10 minutes.\n• Opening remarks by the headteacher: 10 minutes.\n• Pupils’ reading and storytelling presentations: 15 minutes.\n• Science demonstrations: 35 minutes.\n• Refreshment break: 15 minutes.\n• Guided viewing of pupils’ project displays: 30 minutes.\n• Parent and pupil reading activity: 20 minutes.\n• Creativity presentations and recognition of participants: 25 minutes.\n• Vote of thanks: 10 minutes.\n• Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school’s designated first-aid officer should be available throughout the programme. The officer’s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n• Printed programmes: 60 copies at NGN 250 each.\n• Bottled water: 150 bottles at NGN 200 each.\n• Refreshment packs: 150 packs at NGN 350 each.\n• Participation certificates: 100 copies at NGN 100 each.\n• Hall decorations: one package at NGN 18,000.\n• Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved."
+              }
+            ],
+            "records": [
+              {
+                "path": "title",
+                "binding": "[\"Young Minds: Science, Reading and Creativity Day\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 205,
+                "end": 255
+              },
+              {
+                "path": "eventDate",
+                "binding": "[\"2026-11-14\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 259,
+                "end": 285
+              },
+              {
+                "path": "startTime",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "venue",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "organizer",
+                "binding": "[\"Sunrise Learning Centre\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 149,
+                "end": 179
+              },
+              {
+                "path": "signatory",
+                "binding": "[\"Mrs Grace Okoro, Headteacher\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 1753,
+                "end": 1829
+              },
+              {
+                "path": "currency",
+                "binding": "[\"NGN\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4519,
+                "end": 4530
+              },
+              {
+                "path": "spendingLimitMinor",
+                "binding": "[20000000,\"NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4493,
+                "end": 4530
+              },
+              {
+                "path": "tasks.0.owner",
+                "binding": "[\"Mrs Grace Okoro\",\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2767,
+                "end": 2858
+              },
+              {
+                "path": "tasks.0.dueDate",
+                "binding": "[null,\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.owner",
+                "binding": "[\"Mr Daniel Musa\",\"Organise science demonstrations and check materials\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2861,
+                "end": 2958
+              },
+              {
+                "path": "tasks.1.dueDate",
+                "binding": "[null,\"Organise science demonstrations and check materials\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.owner",
+                "binding": "[\"Miss Esther James\",\"Prepare reading and storytelling activities\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2961,
+                "end": 3054
+              },
+              {
+                "path": "tasks.2.dueDate",
+                "binding": "[null,\"Prepare reading and storytelling activities\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.3.owner",
+                "binding": "[\"Mrs Ruth Adeyemi\",\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3057,
+                "end": 3179
+              },
+              {
+                "path": "tasks.3.dueDate",
+                "binding": "[null,\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.owner",
+                "binding": "[\"Class teachers\",\"Rehearse the programme\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.dueDate",
+                "binding": "[\"2026-11-12\",\"Rehearse the programme\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3872,
+                "end": 3924
+              },
+              {
+                "path": "tasks.5.owner",
+                "binding": "[null,\"First-aid officer availability\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.5.dueDate",
+                "binding": "[\"2026-11-14\",\"First-aid officer availability\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.0.quantity",
+                "binding": "[60,\"Printed programmes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4587,
+                "end": 4616
+              },
+              {
+                "path": "budget.0.unitCostMinor",
+                "binding": "[25000,\"Printed programmes\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4620,
+                "end": 4632
+              },
+              {
+                "path": "budget.1.quantity",
+                "binding": "[150,\"Bottled water\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4636,
+                "end": 4662
+              },
+              {
+                "path": "budget.1.unitCostMinor",
+                "binding": "[20000,\"Bottled water\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4666,
+                "end": 4678
+              },
+              {
+                "path": "budget.2.quantity",
+                "binding": "[150,\"Refreshment packs\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4682,
+                "end": 4710
+              },
+              {
+                "path": "budget.2.unitCostMinor",
+                "binding": "[35000,\"Refreshment packs\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4714,
+                "end": 4726
+              },
+              {
+                "path": "budget.3.quantity",
+                "binding": "[100,\"Participation certificates\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4730,
+                "end": 4768
+              },
+              {
+                "path": "budget.3.unitCostMinor",
+                "binding": "[10000,\"Participation certificates\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4772,
+                "end": 4784
+              },
+              {
+                "path": "budget.4.quantity",
+                "binding": "[1,\"Hall decorations\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4788,
+                "end": 4817
+              },
+              {
+                "path": "budget.4.unitCostMinor",
+                "binding": "[1800000,\"Hall decorations\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4821,
+                "end": 4831
+              },
+              {
+                "path": "budget.5.quantity",
+                "binding": "[1,\"Sound system hire\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4835,
+                "end": 4865
+              },
+              {
+                "path": "budget.5.unitCostMinor",
+                "binding": "[1200000,\"Sound system hire\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4869,
+                "end": 4879
+              },
+              {
+                "path": "budget.6.quantity",
+                "binding": "[1,\"Event banner\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4895,
+                "end": 4911
+              },
+              {
+                "path": "budget.6.unitCostMinor",
+                "binding": "[null,\"Event banner\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.7.quantity",
+                "binding": "[10,\"Recognition prizes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4916,
+                "end": 4937
+              },
+              {
+                "path": "budget.7.unitCostMinor",
+                "binding": "[null,\"Recognition prizes\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              }
+            ]
+          }
+        },
+        "issues": [
+          {
+            "code": "SOURCE_REVIEW",
+            "message": "2 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+          },
+          {
+            "code": "MISSING_VENUE",
+            "message": "Confirm the venue."
+          },
+          {
+            "code": "MISSING_TIME",
+            "message": "Confirm the event start time."
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Is the use of the school’s Main Assembly Hall confirmed?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the approved starting time for the programme?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Who is the designated first-aid officer?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the approved time for the rehearsal on 2026-11-12?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the unit cost for the event banner?"
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "What is the unit cost for the recognition prizes?"
+          },
+          {
+            "code": "DRAFT_PLACEHOLDER",
+            "message": "Replace bracketed draft placeholders in the invitation and run of show."
+          },
+          {
+            "code": "MISSING_PRICES",
+            "message": "2 budget item(s) need a price."
+          }
+        ],
+        "knownTotalMinor": 13750000,
+        "budgetComplete": false,
+        "remainingAllowanceMinor": 6250000,
+        "allowanceProvisional": true,
+        "provenance": {
+          "mode": "live",
+          "provider": "Google Gemini API",
+          "model": "gemma-4-26b-a4b-it",
+          "requestedModel": "gemma-4-26b-a4b-it",
+          "primaryModel": "gemma-4-26b-a4b-it",
+          "attempts": 2,
+          "responseFormat": "text-json",
+          "stage": "schedule",
+          "generatedAt": "2026-10-24T13:00:18.819Z",
+          "durationMs": 9660
+        },
+        "requestId": "f124c15c-f69f-4fda-a348-74aebd252a92"
+      }
+    }
+  ],
+  "interruptedRecord": null,
+  "rawModelResult": {
+    "plan": {
+      "title": "Young Minds: Science, Reading and Creativity Day",
+      "eventDate": "2026-11-14",
+      "requestedWeekday": "Saturday",
+      "venue": null,
+      "startTime": null,
+      "organizer": "Sunrise Learning Centre",
+      "signatory": "Mrs Grace Okoro, Headteacher",
+      "currency": "NGN",
+      "spendingLimitMinor": 20000000,
+      "tasks": [
+        {
+          "label": "Approve programme, invitation, venue and expenditure",
+          "owner": "Mrs Grace Okoro",
+          "dueDate": null
+        },
+        {
+          "label": "Organise science demonstrations and check materials",
+          "owner": "Mr Daniel Musa",
+          "dueDate": null
+        },
+        {
+          "label": "Prepare reading and storytelling activities",
+          "owner": "Miss Esther James",
+          "dueDate": null
+        },
+        {
+          "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+          "owner": "Mrs Ruth Adeyemi",
+          "dueDate": null
+        },
+        {
+          "label": "Rehearse the programme",
+          "owner": "Class teachers",
+          "dueDate": "2026-11-12"
+        },
+        {
+          "label": "First-aid officer availability",
+          "owner": null,
+          "dueDate": "2026-11-14"
+        }
+      ],
+      "budget": [
+        {
+          "label": "Printed programmes",
+          "quantity": 60,
+          "unitCostMinor": 25000
+        },
+        {
+          "label": "Bottled water",
+          "quantity": 150,
+          "unitCostMinor": 20000
+        },
+        {
+          "label": "Refreshment packs",
+          "quantity": 150,
+          "unitCostMinor": 35000
+        },
+        {
+          "label": "Participation certificates",
+          "quantity": 100,
+          "unitCostMinor": 10000
+        },
+        {
+          "label": "Hall decorations",
+          "quantity": 1,
+          "unitCostMinor": 1800000
+        },
+        {
+          "label": "Sound system hire",
+          "quantity": 1,
+          "unitCostMinor": 1200000
+        },
+        {
+          "label": "Event banner",
+          "quantity": 1,
+          "unitCostMinor": null
+        },
+        {
+          "label": "Recognition prizes",
+          "quantity": 10,
+          "unitCostMinor": null
+        }
+      ],
+      "drafts": {
+        "invitation": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall [Pending Confirmation]\n\nDear Parents and Guardians,\n\nWe are delighted to invite you to Sunrise Learning Centre’s first “Young Minds: Science, Reading and Creativity Day.”\n\nThis special educational event is designed to showcase the wonderful progress our pupils have made in the classroom. You can look forward to seeing engaging science demonstrations, listening to heartfelt storytelling and reading presentations, and exploring creative project displays. Our goal is to celebrate your child's learning and provide inspiration for practical learning at home.\n\nAttendance is free of charge. We look forward to welcoming you to this celebration of curiosity and creativity.\n\nPlease note that the exact starting time and the final venue (Main Assembly Hall or School Library) are currently awaiting final approval and will be confirmed with you shortly.\n\nWarm regards,\n\nMrs Grace Okoro\nHeadteacher\nOn behalf of Sunrise Learning Centre",
+        "schedule": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall\n\n[Confirm start time]\nWelcome and housekeeping (10 minutes)\nSuggested [Confirm start time + 10 mins]: Opening remarks by the headteacher (10 minutes)\nSuggested [Confirm start time + 20 mins]: Pupils’ reading and storytelling presentations (15 minutes)\nSuggested [Confirm start time + 35 mins]: Science demonstrations (35 minutes)\nSuggested [Confirm start time + 70 mins]: Refreshment break (15 minutes)\nSuggested [Confirm start time + 85 mins]: Guided viewing of pupils’ project displays (30 minutes)\nSuggested [Confirm start time + 115 mins]: Parent and pupil reading activity (20 minutes)\nSuggested [Confirm start time + 135 mins]: Creativity presentations and recognition of participants (25 minutes)\nSuggested [Confirm start time + 160 mins]: Vote of thanks (10 minutes)\nSuggested [Confirm start time + 170 mins]: Closing remarks and supervised departure (10 minutes)\n\nNote: Proposed timings need confirmation.\n\nSafety and Supervision:\n- Science activities must use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools, or experiments involving hazardous chemicals.\n- Teachers must supervise all demonstrations, display areas, and pupil movement.\n- Parents should remain with younger children during the display tour.\n- The designated first-aid officer must be available throughout the programme."
+      },
+      "openQuestions": [
+        "Is the use of the school’s Main Assembly Hall confirmed?",
+        "What is the approved starting time for the programme?",
+        "Who is the designated first-aid officer?",
+        "What is the approved time for the rehearsal on 2026-11-12?",
+        "What is the unit cost for the event banner?",
+        "What is the unit cost for the recognition prizes?"
+      ],
+      "sourceEvidence": {
+        "version": 1,
+        "legacy": false,
+        "notesChanged": false,
+        "sources": [
+          {
+            "id": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "kind": "notes",
+            "text": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first “Young Minds: Science, Reading and Creativity Day” on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school’s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n• Welcome and housekeeping: 10 minutes.\n• Opening remarks by the headteacher: 10 minutes.\n• Pupils’ reading and storytelling presentations: 15 minutes.\n• Science demonstrations: 35 minutes.\n• Refreshment break: 15 minutes.\n• Guided viewing of pupils’ project displays: 30 minutes.\n• Parent and pupil reading activity: 20 minutes.\n• Creativity presentations and recognition of participants: 25 minutes.\n• Vote of thanks: 10 minutes.\n• Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school’s designated first-aid officer should be available throughout the programme. The officer’s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n• Printed programmes: 60 copies at NGN 250 each.\n• Bottled water: 150 bottles at NGN 200 each.\n• Refreshment packs: 150 packs at NGN 350 each.\n• Participation certificates: 100 copies at NGN 100 each.\n• Hall decorations: one package at NGN 18,000.\n• Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved."
+          }
+        ],
+        "records": [
+          {
+            "path": "title",
+            "binding": "[\"Young Minds: Science, Reading and Creativity Day\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 205,
+            "end": 255
+          },
+          {
+            "path": "eventDate",
+            "binding": "[\"2026-11-14\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 259,
+            "end": 285
+          },
+          {
+            "path": "startTime",
+            "binding": "[null,\"\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "venue",
+            "binding": "[null,\"\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "organizer",
+            "binding": "[\"Sunrise Learning Centre\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 149,
+            "end": 179
+          },
+          {
+            "path": "signatory",
+            "binding": "[\"Mrs Grace Okoro, Headteacher\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 1753,
+            "end": 1829
+          },
+          {
+            "path": "currency",
+            "binding": "[\"NGN\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4519,
+            "end": 4530
+          },
+          {
+            "path": "spendingLimitMinor",
+            "binding": "[20000000,\"NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4493,
+            "end": 4530
+          },
+          {
+            "path": "tasks.0.owner",
+            "binding": "[\"Mrs Grace Okoro\",\"Approve programme, invitation, venue and expenditure\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 2767,
+            "end": 2858
+          },
+          {
+            "path": "tasks.0.dueDate",
+            "binding": "[null,\"Approve programme, invitation, venue and expenditure\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.1.owner",
+            "binding": "[\"Mr Daniel Musa\",\"Organise science demonstrations and check materials\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 2861,
+            "end": 2958
+          },
+          {
+            "path": "tasks.1.dueDate",
+            "binding": "[null,\"Organise science demonstrations and check materials\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.2.owner",
+            "binding": "[\"Miss Esther James\",\"Prepare reading and storytelling activities\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 2961,
+            "end": 3054
+          },
+          {
+            "path": "tasks.2.dueDate",
+            "binding": "[null,\"Prepare reading and storytelling activities\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.3.owner",
+            "binding": "[\"Mrs Ruth Adeyemi\",\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 3057,
+            "end": 3179
+          },
+          {
+            "path": "tasks.3.dueDate",
+            "binding": "[null,\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.4.owner",
+            "binding": "[\"Class teachers\",\"Rehearse the programme\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.4.dueDate",
+            "binding": "[\"2026-11-12\",\"Rehearse the programme\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 3872,
+            "end": 3924
+          },
+          {
+            "path": "tasks.5.owner",
+            "binding": "[null,\"First-aid officer availability\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.5.dueDate",
+            "binding": "[\"2026-11-14\",\"First-aid officer availability\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "budget.0.quantity",
+            "binding": "[60,\"Printed programmes\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4587,
+            "end": 4616
+          },
+          {
+            "path": "budget.0.unitCostMinor",
+            "binding": "[25000,\"Printed programmes\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4620,
+            "end": 4632
+          },
+          {
+            "path": "budget.1.quantity",
+            "binding": "[150,\"Bottled water\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4636,
+            "end": 4662
+          },
+          {
+            "path": "budget.1.unitCostMinor",
+            "binding": "[20000,\"Bottled water\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4666,
+            "end": 4678
+          },
+          {
+            "path": "budget.2.quantity",
+            "binding": "[150,\"Refreshment packs\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4682,
+            "end": 4710
+          },
+          {
+            "path": "budget.2.unitCostMinor",
+            "binding": "[35000,\"Refreshment packs\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4714,
+            "end": 4726
+          },
+          {
+            "path": "budget.3.quantity",
+            "binding": "[100,\"Participation certificates\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4730,
+            "end": 4768
+          },
+          {
+            "path": "budget.3.unitCostMinor",
+            "binding": "[10000,\"Participation certificates\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4772,
+            "end": 4784
+          },
+          {
+            "path": "budget.4.quantity",
+            "binding": "[1,\"Hall decorations\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4788,
+            "end": 4817
+          },
+          {
+            "path": "budget.4.unitCostMinor",
+            "binding": "[1800000,\"Hall decorations\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4821,
+            "end": 4831
+          },
+          {
+            "path": "budget.5.quantity",
+            "binding": "[1,\"Sound system hire\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4835,
+            "end": 4865
+          },
+          {
+            "path": "budget.5.unitCostMinor",
+            "binding": "[1200000,\"Sound system hire\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4869,
+            "end": 4879
+          },
+          {
+            "path": "budget.6.quantity",
+            "binding": "[1,\"Event banner\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4895,
+            "end": 4911
+          },
+          {
+            "path": "budget.6.unitCostMinor",
+            "binding": "[null,\"Event banner\\u0000NGN\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "budget.7.quantity",
+            "binding": "[10,\"Recognition prizes\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4916,
+            "end": 4937
+          },
+          {
+            "path": "budget.7.unitCostMinor",
+            "binding": "[null,\"Recognition prizes\\u0000NGN\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          }
+        ]
+      }
+    },
+    "issues": [
+      {
+        "code": "SOURCE_REVIEW",
+        "message": "2 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+      },
+      {
+        "code": "MISSING_VENUE",
+        "message": "Confirm the venue."
+      },
+      {
+        "code": "MISSING_TIME",
+        "message": "Confirm the event start time."
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "Is the use of the school’s Main Assembly Hall confirmed?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the approved starting time for the programme?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "Who is the designated first-aid officer?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the approved time for the rehearsal on 2026-11-12?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the unit cost for the event banner?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the unit cost for the recognition prizes?"
+      },
+      {
+        "code": "DRAFT_PLACEHOLDER",
+        "message": "Replace bracketed draft placeholders in the invitation and run of show."
+      },
+      {
+        "code": "MISSING_PRICES",
+        "message": "2 budget item(s) need a price."
+      }
+    ],
+    "knownTotalMinor": 13750000,
+    "budgetComplete": false,
+    "remainingAllowanceMinor": 6250000,
+    "allowanceProvisional": true,
+    "provenance": {
+      "mode": "live",
+      "provider": "Google Gemini API",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 7,
+      "responseFormat": "text-json",
+      "stage": "schedule",
+      "generatedAt": "2026-10-24T13:00:18.819Z",
+      "durationMs": 118353,
+      "pipeline": "staged-v1",
+      "reusedSteps": 0,
+      "steps": [
+        {
+          "stage": "facts",
+          "model": "gemma-4-31b-it",
+          "durationMs": 101482,
+          "attempts": 3,
+          "requestId": "164608f6-4f22-4020-9b43-a615dd869d2a"
+        },
+        {
+          "stage": "invitation",
+          "model": "gemma-4-26b-a4b-it",
+          "durationMs": 7211,
+          "attempts": 2,
+          "requestId": "b6a0f591-ec8e-46c7-9ad5-4ca32366ed20"
+        },
+        {
+          "stage": "schedule",
+          "model": "gemma-4-26b-a4b-it",
+          "durationMs": 9660,
+          "attempts": 2,
+          "requestId": "f124c15c-f69f-4fda-a348-74aebd252a92"
+        }
+      ]
+    },
+    "requestId": "f124c15c-f69f-4fda-a348-74aebd252a92"
+  },
+  "rawModelScore": {
+    "checks": [
+      {
+        "label": "Fact: title",
+        "path": "title",
+        "expected": "Young Minds: Science, Reading and Creativity Day",
+        "actual": "Young Minds: Science, Reading and Creativity Day",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: eventDate",
+        "path": "eventDate",
+        "expected": "2026-11-14",
+        "actual": "2026-11-14",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: startTime",
+        "path": "startTime",
+        "expected": null,
+        "actual": null,
+        "status": "correct"
+      },
+      {
+        "label": "Fact: venue",
+        "path": "venue",
+        "expected": [
+          "Main Assembly Hall",
+          "school’s Main Assembly Hall"
+        ],
+        "actual": null,
+        "status": "missing"
+      },
+      {
+        "label": "Fact: organizer",
+        "path": "organizer",
+        "expected": [
+          "Sunrise Learning Centre, Abuja",
+          "Sunrise Learning Centre"
+        ],
+        "actual": "Sunrise Learning Centre",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: signatory",
+        "path": "signatory",
+        "expected": [
+          "Mrs Grace Okoro, Headteacher",
+          "Grace Okoro, Headteacher"
+        ],
+        "actual": "Mrs Grace Okoro, Headteacher",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: currency",
+        "path": "currency",
+        "expected": "NGN",
+        "actual": "NGN",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: spendingLimitMinor",
+        "path": "spendingLimitMinor",
+        "expected": 20000000,
+        "actual": 20000000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: printed programme",
+        "path": "budget.0.quantity",
+        "expected": 60,
+        "actual": 60,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: printed programme",
+        "path": "budget.0.unitCostMinor",
+        "expected": 25000,
+        "actual": 25000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: bottled water",
+        "path": "budget.1.quantity",
+        "expected": 150,
+        "actual": 150,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: bottled water",
+        "path": "budget.1.unitCostMinor",
+        "expected": 20000,
+        "actual": 20000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: refreshment",
+        "path": "budget.2.quantity",
+        "expected": 150,
+        "actual": 150,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: refreshment",
+        "path": "budget.2.unitCostMinor",
+        "expected": 35000,
+        "actual": 35000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: certificate",
+        "path": "budget.3.quantity",
+        "expected": 100,
+        "actual": 100,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: certificate",
+        "path": "budget.3.unitCostMinor",
+        "expected": 10000,
+        "actual": 10000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: decoration",
+        "path": "budget.4.quantity",
+        "expected": 1,
+        "actual": 1,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: decoration",
+        "path": "budget.4.unitCostMinor",
+        "expected": 1800000,
+        "actual": 1800000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: sound",
+        "path": "budget.5.quantity",
+        "expected": 1,
+        "actual": 1,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: sound",
+        "path": "budget.5.unitCostMinor",
+        "expected": 1200000,
+        "actual": 1200000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: banner",
+        "path": "budget.6.quantity",
+        "expected": 1,
+        "actual": 1,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: banner",
+        "path": "budget.6.unitCostMinor",
+        "expected": null,
+        "actual": null,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: prize",
+        "path": "budget.7.quantity",
+        "expected": 10,
+        "actual": 10,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: prize",
+        "path": "budget.7.unitCostMinor",
+        "expected": null,
+        "actual": null,
+        "status": "correct"
+      },
+      {
+        "label": "Arithmetic: knownTotalMinor",
+        "expected": 13750000,
+        "actual": 13750000,
+        "status": "correct"
+      },
+      {
+        "label": "Arithmetic: remainingAllowanceMinor",
+        "expected": 6250000,
+        "actual": 6250000,
+        "status": "correct"
+      },
+      {
+        "label": "Unknown price count",
+        "expected": 2,
+        "actual": 2,
+        "status": "correct"
+      },
+      {
+        "label": "Responsibility: Daniel Musa",
+        "expected": {
+          "name": "Daniel Musa",
+          "rolePattern": "science|demonstration"
+        },
+        "actual": [
+          {
+            "label": "Organise science demonstrations and check materials",
+            "owner": "Mr Daniel Musa"
+          }
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Responsibility: Esther James",
+        "expected": {
+          "name": "Esther James",
+          "rolePattern": "reading|storytelling"
+        },
+        "actual": [
+          {
+            "label": "Prepare reading and storytelling activities",
+            "owner": "Miss Esther James"
+          }
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Responsibility: Ruth Adeyemi",
+        "expected": {
+          "name": "Ruth Adeyemi",
+          "rolePattern": "seat|print|refresh|suppl"
+        },
+        "actual": [
+          {
+            "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+            "owner": "Mrs Ruth Adeyemi"
+          }
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Task date: rehears",
+        "expected": "2026-11-12",
+        "actual": [
+          "2026-11-12"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: start time",
+        "expected": "start|time",
+        "actual": [
+          "What is the approved starting time for the programme?",
+          "What is the approved time for the rehearsal on 2026-11-12?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: venue booking",
+        "expected": "hall|venue|book",
+        "actual": [
+          "Is the use of the school’s Main Assembly Hall confirmed?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: rehearsal time",
+        "expected": "rehears",
+        "actual": [
+          "What is the approved time for the rehearsal on 2026-11-12?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: first-aid assignment",
+        "expected": "first.?aid",
+        "actual": [
+          "Who is the designated first-aid officer?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: unknown price",
+        "expected": "banner|prize|price",
+        "actual": [
+          "What is the unit cost for the event banner?",
+          "What is the unit cost for the recognition prizes?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "invitation: venue",
+        "expected": [
+          "Main Assembly Hall",
+          "school’s Main Assembly Hall"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "invitation: signatory",
+        "expected": [
+          "Mrs Grace Okoro, Headteacher",
+          "Grace Okoro, Headteacher"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "schedule: venue",
+        "expected": [
+          "Main Assembly Hall",
+          "school’s Main Assembly Hall"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "schedule: document kind",
+        "expected": "programme rather than invitation prose",
+        "status": "correct"
+      }
+    ],
+    "counts": {
+      "correct": 39,
+      "missing": 1
+    },
+    "allDeclaredChecksPassed": false,
+    "wrongFactsWithoutSpecificSourceWarning": [],
+    "reviewIssues": [
+      {
+        "code": "SOURCE_REVIEW",
+        "message": "2 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+      },
+      {
+        "code": "MISSING_VENUE",
+        "message": "Confirm the venue."
+      },
+      {
+        "code": "MISSING_TIME",
+        "message": "Confirm the event start time."
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "Is the use of the school’s Main Assembly Hall confirmed?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the approved starting time for the programme?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "Who is the designated first-aid officer?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the approved time for the rehearsal on 2026-11-12?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the unit cost for the event banner?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the unit cost for the recognition prizes?"
+      },
+      {
+        "code": "DRAFT_PLACEHOLDER",
+        "message": "Replace bracketed draft placeholders in the invitation and run of show."
+      },
+      {
+        "code": "MISSING_PRICES",
+        "message": "2 budget item(s) need a price."
+      }
+    ]
+  },
+  "applied": {
+    "request": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first “Young Minds: Science, Reading and Creativity Day” on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school’s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n• Welcome and housekeeping: 10 minutes.\n• Opening remarks by the headteacher: 10 minutes.\n• Pupils’ reading and storytelling presentations: 15 minutes.\n• Science demonstrations: 35 minutes.\n• Refreshment break: 15 minutes.\n• Guided viewing of pupils’ project displays: 30 minutes.\n• Parent and pupil reading activity: 20 minutes.\n• Creativity presentations and recognition of participants: 25 minutes.\n• Vote of thanks: 10 minutes.\n• Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school’s designated first-aid officer should be available throughout the programme. The officer’s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n• Printed programmes: 60 copies at NGN 250 each.\n• Bottled water: 150 bottles at NGN 200 each.\n• Refreshment packs: 150 packs at NGN 350 each.\n• Participation certificates: 100 copies at NGN 100 each.\n• Hall decorations: one package at NGN 18,000.\n• Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved.",
+    "answers": "",
+    "plan": {
+      "title": "Young Minds: Science, Reading and Creativity Day",
+      "eventDate": "2026-11-14",
+      "requestedWeekday": "Saturday",
+      "venue": null,
+      "startTime": null,
+      "organizer": "Sunrise Learning Centre",
+      "signatory": "Mrs Grace Okoro, Headteacher",
+      "currency": "NGN",
+      "spendingLimitMinor": 20000000,
+      "tasks": [
+        {
+          "label": "Approve programme, invitation, venue and expenditure",
+          "owner": "Mrs Grace Okoro",
+          "dueDate": null
+        },
+        {
+          "label": "Organise science demonstrations and check materials",
+          "owner": "Mr Daniel Musa",
+          "dueDate": null
+        },
+        {
+          "label": "Prepare reading and storytelling activities",
+          "owner": "Miss Esther James",
+          "dueDate": null
+        },
+        {
+          "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+          "owner": "Mrs Ruth Adeyemi",
+          "dueDate": null
+        },
+        {
+          "label": "Rehearse the programme",
+          "owner": "Class teachers",
+          "dueDate": "2026-11-12"
+        },
+        {
+          "label": "First-aid officer availability",
+          "owner": null,
+          "dueDate": "2026-11-14"
+        }
+      ],
+      "budget": [
+        {
+          "label": "Printed programmes",
+          "quantity": 60,
+          "unitCostMinor": 25000
+        },
+        {
+          "label": "Bottled water",
+          "quantity": 150,
+          "unitCostMinor": 20000
+        },
+        {
+          "label": "Refreshment packs",
+          "quantity": 150,
+          "unitCostMinor": 35000
+        },
+        {
+          "label": "Participation certificates",
+          "quantity": 100,
+          "unitCostMinor": 10000
+        },
+        {
+          "label": "Hall decorations",
+          "quantity": 1,
+          "unitCostMinor": 1800000
+        },
+        {
+          "label": "Sound system hire",
+          "quantity": 1,
+          "unitCostMinor": 1200000
+        },
+        {
+          "label": "Event banner",
+          "quantity": 1,
+          "unitCostMinor": null
+        },
+        {
+          "label": "Recognition prizes",
+          "quantity": 10,
+          "unitCostMinor": null
+        }
+      ],
+      "drafts": {
+        "invitation": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall [Pending Confirmation]\n\nDear Parents and Guardians,\n\nWe are delighted to invite you to Sunrise Learning Centre’s first “Young Minds: Science, Reading and Creativity Day.”\n\nThis special educational event is designed to showcase the wonderful progress our pupils have made in the classroom. You can look forward to seeing engaging science demonstrations, listening to heartfelt storytelling and reading presentations, and exploring creative project displays. Our goal is to celebrate your child's learning and provide inspiration for practical learning at home.\n\nAttendance is free of charge. We look forward to welcoming you to this celebration of curiosity and creativity.\n\nPlease note that the exact starting time and the final venue (Main Assembly Hall or School Library) are currently awaiting final approval and will be confirmed with you shortly.\n\nWarm regards,\n\nMrs Grace Okoro\nHeadteacher\nOn behalf of Sunrise Learning Centre",
+        "schedule": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 14 November 2026\nProposed Venue: School’s Main Assembly Hall\n\n[Confirm start time]\nWelcome and housekeeping (10 minutes)\nSuggested [Confirm start time + 10 mins]: Opening remarks by the headteacher (10 minutes)\nSuggested [Confirm start time + 20 mins]: Pupils’ reading and storytelling presentations (15 minutes)\nSuggested [Confirm start time + 35 mins]: Science demonstrations (35 minutes)\nSuggested [Confirm start time + 70 mins]: Refreshment break (15 minutes)\nSuggested [Confirm start time + 85 mins]: Guided viewing of pupils’ project displays (30 minutes)\nSuggested [Confirm start time + 115 mins]: Parent and pupil reading activity (20 minutes)\nSuggested [Confirm start time + 135 mins]: Creativity presentations and recognition of participants (25 minutes)\nSuggested [Confirm start time + 160 mins]: Vote of thanks (10 minutes)\nSuggested [Confirm start time + 170 mins]: Closing remarks and supervised departure (10 minutes)\n\nNote: Proposed timings need confirmation.\n\nSafety and Supervision:\n- Science activities must use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools, or experiments involving hazardous chemicals.\n- Teachers must supervise all demonstrations, display areas, and pupil movement.\n- Parents should remain with younger children during the display tour.\n- The designated first-aid officer must be available throughout the programme."
+      },
+      "openQuestions": [
+        "Is the use of the school’s Main Assembly Hall confirmed?",
+        "What is the approved starting time for the programme?",
+        "Who is the designated first-aid officer?",
+        "What is the approved time for the rehearsal on 2026-11-12?",
+        "What is the unit cost for the event banner?",
+        "What is the unit cost for the recognition prizes?"
+      ],
+      "sourceEvidence": {
+        "version": 1,
+        "legacy": false,
+        "notesChanged": false,
+        "sources": [
+          {
+            "id": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "kind": "notes",
+            "text": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first “Young Minds: Science, Reading and Creativity Day” on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school’s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n• Welcome and housekeeping: 10 minutes.\n• Opening remarks by the headteacher: 10 minutes.\n• Pupils’ reading and storytelling presentations: 15 minutes.\n• Science demonstrations: 35 minutes.\n• Refreshment break: 15 minutes.\n• Guided viewing of pupils’ project displays: 30 minutes.\n• Parent and pupil reading activity: 20 minutes.\n• Creativity presentations and recognition of participants: 25 minutes.\n• Vote of thanks: 10 minutes.\n• Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school’s designated first-aid officer should be available throughout the programme. The officer’s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n• Printed programmes: 60 copies at NGN 250 each.\n• Bottled water: 150 bottles at NGN 200 each.\n• Refreshment packs: 150 packs at NGN 350 each.\n• Participation certificates: 100 copies at NGN 100 each.\n• Hall decorations: one package at NGN 18,000.\n• Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved."
+          }
+        ],
+        "records": [
+          {
+            "path": "title",
+            "binding": "[\"Young Minds: Science, Reading and Creativity Day\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 205,
+            "end": 255
+          },
+          {
+            "path": "eventDate",
+            "binding": "[\"2026-11-14\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 259,
+            "end": 285
+          },
+          {
+            "path": "startTime",
+            "binding": "[null,\"\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "venue",
+            "binding": "[null,\"\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "organizer",
+            "binding": "[\"Sunrise Learning Centre\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 149,
+            "end": 179
+          },
+          {
+            "path": "signatory",
+            "binding": "[\"Mrs Grace Okoro, Headteacher\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 1753,
+            "end": 1829
+          },
+          {
+            "path": "currency",
+            "binding": "[\"NGN\",\"\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4519,
+            "end": 4530
+          },
+          {
+            "path": "spendingLimitMinor",
+            "binding": "[20000000,\"NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4493,
+            "end": 4530
+          },
+          {
+            "path": "tasks.0.owner",
+            "binding": "[\"Mrs Grace Okoro\",\"Approve programme, invitation, venue and expenditure\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 2767,
+            "end": 2858
+          },
+          {
+            "path": "tasks.0.dueDate",
+            "binding": "[null,\"Approve programme, invitation, venue and expenditure\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.1.owner",
+            "binding": "[\"Mr Daniel Musa\",\"Organise science demonstrations and check materials\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 2861,
+            "end": 2958
+          },
+          {
+            "path": "tasks.1.dueDate",
+            "binding": "[null,\"Organise science demonstrations and check materials\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.2.owner",
+            "binding": "[\"Miss Esther James\",\"Prepare reading and storytelling activities\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 2961,
+            "end": 3054
+          },
+          {
+            "path": "tasks.2.dueDate",
+            "binding": "[null,\"Prepare reading and storytelling activities\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.3.owner",
+            "binding": "[\"Mrs Ruth Adeyemi\",\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 3057,
+            "end": 3179
+          },
+          {
+            "path": "tasks.3.dueDate",
+            "binding": "[null,\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.4.owner",
+            "binding": "[\"Class teachers\",\"Rehearse the programme\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.4.dueDate",
+            "binding": "[\"2026-11-12\",\"Rehearse the programme\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 3872,
+            "end": 3924
+          },
+          {
+            "path": "tasks.5.owner",
+            "binding": "[null,\"First-aid officer availability\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "tasks.5.dueDate",
+            "binding": "[\"2026-11-14\",\"First-aid officer availability\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "budget.0.quantity",
+            "binding": "[60,\"Printed programmes\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4587,
+            "end": 4616
+          },
+          {
+            "path": "budget.0.unitCostMinor",
+            "binding": "[25000,\"Printed programmes\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4620,
+            "end": 4632
+          },
+          {
+            "path": "budget.1.quantity",
+            "binding": "[150,\"Bottled water\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4636,
+            "end": 4662
+          },
+          {
+            "path": "budget.1.unitCostMinor",
+            "binding": "[20000,\"Bottled water\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4666,
+            "end": 4678
+          },
+          {
+            "path": "budget.2.quantity",
+            "binding": "[150,\"Refreshment packs\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4682,
+            "end": 4710
+          },
+          {
+            "path": "budget.2.unitCostMinor",
+            "binding": "[35000,\"Refreshment packs\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4714,
+            "end": 4726
+          },
+          {
+            "path": "budget.3.quantity",
+            "binding": "[100,\"Participation certificates\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4730,
+            "end": 4768
+          },
+          {
+            "path": "budget.3.unitCostMinor",
+            "binding": "[10000,\"Participation certificates\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4772,
+            "end": 4784
+          },
+          {
+            "path": "budget.4.quantity",
+            "binding": "[1,\"Hall decorations\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4788,
+            "end": 4817
+          },
+          {
+            "path": "budget.4.unitCostMinor",
+            "binding": "[1800000,\"Hall decorations\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4821,
+            "end": 4831
+          },
+          {
+            "path": "budget.5.quantity",
+            "binding": "[1,\"Sound system hire\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4835,
+            "end": 4865
+          },
+          {
+            "path": "budget.5.unitCostMinor",
+            "binding": "[1200000,\"Sound system hire\\u0000NGN\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4869,
+            "end": 4879
+          },
+          {
+            "path": "budget.6.quantity",
+            "binding": "[1,\"Event banner\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4895,
+            "end": 4911
+          },
+          {
+            "path": "budget.6.unitCostMinor",
+            "binding": "[null,\"Event banner\\u0000NGN\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          },
+          {
+            "path": "budget.7.quantity",
+            "binding": "[10,\"Recognition prizes\"]",
+            "origin": "extracted",
+            "confirmed": false,
+            "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+            "start": 4916,
+            "end": 4937
+          },
+          {
+            "path": "budget.7.unitCostMinor",
+            "binding": "[null,\"Recognition prizes\\u0000NGN\"]",
+            "origin": "unsupported",
+            "confirmed": false
+          }
+        ]
+      }
+    },
+    "approval": null,
+    "provenance": {
+      "mode": "live",
+      "provider": "Google Gemini API",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 7,
+      "responseFormat": "text-json",
+      "stage": "schedule",
+      "generatedAt": "2026-10-24T13:00:18.819Z",
+      "durationMs": 118353,
+      "pipeline": "staged-v1",
+      "reusedSteps": 0,
+      "steps": [
+        {
+          "stage": "facts",
+          "model": "gemma-4-31b-it",
+          "durationMs": 101482,
+          "attempts": 3,
+          "requestId": "164608f6-4f22-4020-9b43-a615dd869d2a"
+        },
+        {
+          "stage": "invitation",
+          "model": "gemma-4-26b-a4b-it",
+          "durationMs": 7211,
+          "attempts": 2,
+          "requestId": "b6a0f591-ec8e-46c7-9ad5-4ca32366ed20"
+        },
+        {
+          "stage": "schedule",
+          "model": "gemma-4-26b-a4b-it",
+          "durationMs": 9660,
+          "attempts": 2,
+          "requestId": "f124c15c-f69f-4fda-a348-74aebd252a92"
+        }
+      ]
+    }
+  },
+  "questionAudit": {
+    "raw": [
+      "Is the use of the school’s Main Assembly Hall confirmed?",
+      "What is the approved starting time for the programme?",
+      "Who is the designated first-aid officer?",
+      "What is the approved time for the rehearsal on 2026-11-12?",
+      "What is the unit cost for the event banner?",
+      "What is the unit cost for the recognition prizes?"
+    ],
+    "carriedForReview": [],
+    "totalApplicationQuestions": 6
+  },
+  "appScore": {
+    "checks": [
+      {
+        "label": "Fact: title",
+        "path": "title",
+        "expected": "Young Minds: Science, Reading and Creativity Day",
+        "actual": "Young Minds: Science, Reading and Creativity Day",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: eventDate",
+        "path": "eventDate",
+        "expected": "2026-11-14",
+        "actual": "2026-11-14",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: startTime",
+        "path": "startTime",
+        "expected": null,
+        "actual": null,
+        "status": "correct"
+      },
+      {
+        "label": "Fact: venue",
+        "path": "venue",
+        "expected": [
+          "Main Assembly Hall",
+          "school’s Main Assembly Hall"
+        ],
+        "actual": null,
+        "status": "missing"
+      },
+      {
+        "label": "Fact: organizer",
+        "path": "organizer",
+        "expected": [
+          "Sunrise Learning Centre, Abuja",
+          "Sunrise Learning Centre"
+        ],
+        "actual": "Sunrise Learning Centre",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: signatory",
+        "path": "signatory",
+        "expected": [
+          "Mrs Grace Okoro, Headteacher",
+          "Grace Okoro, Headteacher"
+        ],
+        "actual": "Mrs Grace Okoro, Headteacher",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: currency",
+        "path": "currency",
+        "expected": "NGN",
+        "actual": "NGN",
+        "status": "correct"
+      },
+      {
+        "label": "Fact: spendingLimitMinor",
+        "path": "spendingLimitMinor",
+        "expected": 20000000,
+        "actual": 20000000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: printed programme",
+        "path": "budget.0.quantity",
+        "expected": 60,
+        "actual": 60,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: printed programme",
+        "path": "budget.0.unitCostMinor",
+        "expected": 25000,
+        "actual": 25000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: bottled water",
+        "path": "budget.1.quantity",
+        "expected": 150,
+        "actual": 150,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: bottled water",
+        "path": "budget.1.unitCostMinor",
+        "expected": 20000,
+        "actual": 20000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: refreshment",
+        "path": "budget.2.quantity",
+        "expected": 150,
+        "actual": 150,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: refreshment",
+        "path": "budget.2.unitCostMinor",
+        "expected": 35000,
+        "actual": 35000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: certificate",
+        "path": "budget.3.quantity",
+        "expected": 100,
+        "actual": 100,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: certificate",
+        "path": "budget.3.unitCostMinor",
+        "expected": 10000,
+        "actual": 10000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: decoration",
+        "path": "budget.4.quantity",
+        "expected": 1,
+        "actual": 1,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: decoration",
+        "path": "budget.4.unitCostMinor",
+        "expected": 1800000,
+        "actual": 1800000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: sound",
+        "path": "budget.5.quantity",
+        "expected": 1,
+        "actual": 1,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: sound",
+        "path": "budget.5.unitCostMinor",
+        "expected": 1200000,
+        "actual": 1200000,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: banner",
+        "path": "budget.6.quantity",
+        "expected": 1,
+        "actual": 1,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: banner",
+        "path": "budget.6.unitCostMinor",
+        "expected": null,
+        "actual": null,
+        "status": "correct"
+      },
+      {
+        "label": "Budget quantity: prize",
+        "path": "budget.7.quantity",
+        "expected": 10,
+        "actual": 10,
+        "status": "correct"
+      },
+      {
+        "label": "Budget price: prize",
+        "path": "budget.7.unitCostMinor",
+        "expected": null,
+        "actual": null,
+        "status": "correct"
+      },
+      {
+        "label": "Arithmetic: knownTotalMinor",
+        "expected": 13750000,
+        "actual": 13750000,
+        "status": "correct"
+      },
+      {
+        "label": "Arithmetic: remainingAllowanceMinor",
+        "expected": 6250000,
+        "actual": 6250000,
+        "status": "correct"
+      },
+      {
+        "label": "Unknown price count",
+        "expected": 2,
+        "actual": 2,
+        "status": "correct"
+      },
+      {
+        "label": "Responsibility: Daniel Musa",
+        "expected": {
+          "name": "Daniel Musa",
+          "rolePattern": "science|demonstration"
+        },
+        "actual": [
+          {
+            "label": "Organise science demonstrations and check materials",
+            "owner": "Mr Daniel Musa"
+          }
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Responsibility: Esther James",
+        "expected": {
+          "name": "Esther James",
+          "rolePattern": "reading|storytelling"
+        },
+        "actual": [
+          {
+            "label": "Prepare reading and storytelling activities",
+            "owner": "Miss Esther James"
+          }
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Responsibility: Ruth Adeyemi",
+        "expected": {
+          "name": "Ruth Adeyemi",
+          "rolePattern": "seat|print|refresh|suppl"
+        },
+        "actual": [
+          {
+            "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+            "owner": "Mrs Ruth Adeyemi"
+          }
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Task date: rehears",
+        "expected": "2026-11-12",
+        "actual": [
+          "2026-11-12"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: start time",
+        "expected": "start|time",
+        "actual": [
+          "What is the approved starting time for the programme?",
+          "What is the approved time for the rehearsal on 2026-11-12?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: venue booking",
+        "expected": "hall|venue|book",
+        "actual": [
+          "Is the use of the school’s Main Assembly Hall confirmed?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: rehearsal time",
+        "expected": "rehears",
+        "actual": [
+          "What is the approved time for the rehearsal on 2026-11-12?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: first-aid assignment",
+        "expected": "first.?aid",
+        "actual": [
+          "Who is the designated first-aid officer?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "Pending question: unknown price",
+        "expected": "banner|prize|price",
+        "actual": [
+          "What is the unit cost for the event banner?",
+          "What is the unit cost for the recognition prizes?"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "invitation: venue",
+        "expected": [
+          "Main Assembly Hall",
+          "school’s Main Assembly Hall"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "invitation: signatory",
+        "expected": [
+          "Mrs Grace Okoro, Headteacher",
+          "Grace Okoro, Headteacher"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "schedule: venue",
+        "expected": [
+          "Main Assembly Hall",
+          "school’s Main Assembly Hall"
+        ],
+        "status": "correct"
+      },
+      {
+        "label": "schedule: document kind",
+        "expected": "programme rather than invitation prose",
+        "status": "correct"
+      }
+    ],
+    "counts": {
+      "correct": 39,
+      "missing": 1
+    },
+    "allDeclaredChecksPassed": false,
+    "wrongFactsWithoutSpecificSourceWarning": [],
+    "reviewIssues": [
+      {
+        "code": "SOURCE_REVIEW",
+        "message": "2 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+      },
+      {
+        "code": "MISSING_VENUE",
+        "message": "Confirm the venue."
+      },
+      {
+        "code": "MISSING_TIME",
+        "message": "Confirm the event start time."
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "Is the use of the school’s Main Assembly Hall confirmed?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the approved starting time for the programme?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "Who is the designated first-aid officer?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the approved time for the rehearsal on 2026-11-12?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the unit cost for the event banner?"
+      },
+      {
+        "code": "OPEN_QUESTION",
+        "message": "What is the unit cost for the recognition prizes?"
+      },
+      {
+        "code": "DRAFT_PLACEHOLDER",
+        "message": "Replace bracketed draft placeholders in the invitation and run of show."
+      },
+      {
+        "code": "MISSING_PRICES",
+        "message": "2 budget item(s) need a price."
+      }
+    ]
+  },
+  "approvalProbe": {
+    "attempted": true,
+    "blocked": true,
+    "httpStatus": 400
+  },
+  "exports": [
+    {
+      "section": "invitation",
+      "httpStatus": 200,
+      "contentType": "application/pdf",
+      "filename": "attachment; filename=\"young-minds-science-reading-and-creativity-day-2026-11-14-invitation-draft-20261024T130019567Z-1733e94a.pdf\"; filename*=UTF-8''Young%20Minds-%20Science%2C%20Reading%20and%20Creativity%20Day%20-%20Invitation%20-%20Draft%20-%2020261024T130019567Z-c803d4dc.pdf",
+      "bytes": 21668,
+      "sha256": "73d865cf483ff3404c8a76e4f7176b4c0d25b2f393b74b7ee55a8256788dba4d",
+      "pdfHeader": true
+    },
+    {
+      "section": "schedule",
+      "httpStatus": 200,
+      "contentType": "application/pdf",
+      "filename": "attachment; filename=\"young-minds-science-reading-and-creativity-day-2026-11-14-run-of-show-draft-20261024T130020856Z-c843b88e.pdf\"; filename*=UTF-8''Young%20Minds-%20Science%2C%20Reading%20and%20Creativity%20Day%20-%20Run%20of%20show%20-%20Draft%20-%2020261024T130020856Z-21ac5ec3.pdf",
+      "bytes": 23185,
+      "sha256": "5889ed052dbd367d49fa185c6ea3bc5f13d04df292c85d919901e3bea2074b90",
+      "pdfHeader": true
+    },
+    {
+      "section": "tasks",
+      "httpStatus": 200,
+      "contentType": "application/pdf",
+      "filename": "attachment; filename=\"young-minds-science-reading-and-creativity-day-2026-11-14-preparation-checklist-draft-20261024T130021739Z-540e617b.pdf\"; filename*=UTF-8''Young%20Minds-%20Science%2C%20Reading%20and%20Creativity%20Day%20-%20Preparation%20checklist%20-%20Draft%20-%2020261024T130021739Z-25a67832.pdf",
+      "bytes": 22764,
+      "sha256": "c15365ee9252702f67a4886783ac4578b39ac9a2e171f0ce6d9867fe528d0939",
+      "pdfHeader": true
+    },
+    {
+      "section": "budget",
+      "httpStatus": 200,
+      "contentType": "application/pdf",
+      "filename": "attachment; filename=\"young-minds-science-reading-and-creativity-day-2026-11-14-budget-draft-20261024T130022801Z-e13d8328.pdf\"; filename*=UTF-8''Young%20Minds-%20Science%2C%20Reading%20and%20Creativity%20Day%20-%20Budget%20-%20Draft%20-%2020261024T130022801Z-360f6488.pdf",
+      "bytes": 23263,
+      "sha256": "46fbe891567092eef4d6d63e5b1ebfb72276ec2c698ddf3873da7561eb4d64ef",
+      "pdfHeader": true
+    }
+  ],
+  "appChecksPassed": true,
+  "wallMs": 123891,
+  "finishedAt": "2026-10-24T13:00:23.475Z"
+}

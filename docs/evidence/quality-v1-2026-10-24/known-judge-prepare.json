@@ -1,0 +1,517 @@
+{
+  "id": "known-judge",
+  "cohort": "exposed",
+  "action": "prepare",
+  "casesSha256": "6d0fedd57e35f96f8e09b51a86beeec2a20068b19b27e2d640d39f37d59632d3",
+  "startedAt": "2026-10-24T12:56:57.436Z",
+  "attempted": true,
+  "completed": false,
+  "attempts": [
+    {
+      "stage": "facts",
+      "httpStatus": 200,
+      "wallMs": 15182,
+      "response": {
+        "plan": {
+          "title": "Community Reading Morning",
+          "eventDate": "2026-11-21",
+          "requestedWeekday": null,
+          "venue": null,
+          "startTime": "10:00",
+          "organizer": "Sunrise Learning Club",
+          "signatory": "Amina Bello, Coordinator",
+          "currency": "NGN",
+          "spendingLimitMinor": null,
+          "tasks": [
+            {
+              "label": "welcome",
+              "owner": null,
+              "dueDate": null
+            },
+            {
+              "label": "reading circles",
+              "owner": "Ada Okafor",
+              "dueDate": null
+            },
+            {
+              "label": "budget.1.unitCostMinor",
+              "owner": null,
+              "dueDate": null
+            }
+          ],
+          "budget": [
+            {
+              "label": "notebooks",
+              "quantity": 20,
+              "unitCostMinor": 20000
+            },
+            {
+              "label": "printed programmes",
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "drafts": {
+            "invitation": "",
+            "schedule": ""
+          },
+          "openQuestions": [
+            "Is the school library booking approved?"
+          ],
+          "sourceEvidence": {
+            "version": 1,
+            "legacy": false,
+            "notesChanged": false,
+            "sources": [
+              {
+                "id": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "kind": "notes",
+                "text": "Prepare an event pack for Community Reading Morning, organized by Sunrise Learning Club on 21 November 2026 at the school library. Start at 10:00. Sign the invitation as Amina Bello, Coordinator. Activities in order: welcome for 10 minutes, reading circles for 30 minutes, a book quiz for 20 minutes, then closing remarks for 10 minutes. Ada Okafor leads the reading circles. Budget currency is NGN. We need 20 notebooks at NGN 200 each and 10 printed programmes, whose price is still awaiting approval. Do not invent the missing price. The room booking is still awaiting approval. This is fictional testing data."
+              }
+            ],
+            "records": [
+              {
+                "path": "title",
+                "binding": "[\"Community Reading Morning\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 26,
+                "end": 51
+              },
+              {
+                "path": "eventDate",
+                "binding": "[\"2026-11-21\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 91,
+                "end": 107
+              },
+              {
+                "path": "startTime",
+                "binding": "[\"10:00\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 131,
+                "end": 145
+              },
+              {
+                "path": "venue",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "organizer",
+                "binding": "[\"Sunrise Learning Club\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 66,
+                "end": 87
+              },
+              {
+                "path": "signatory",
+                "binding": "[\"Amina Bello, Coordinator\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 170,
+                "end": 194
+              },
+              {
+                "path": "currency",
+                "binding": "[\"NGN\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 376,
+                "end": 398
+              },
+              {
+                "path": "spendingLimitMinor",
+                "binding": "[null,\"NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.0.owner",
+                "binding": "[null,\"welcome\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.0.dueDate",
+                "binding": "[null,\"welcome\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.owner",
+                "binding": "[\"Ada Okafor\",\"reading circles\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.dueDate",
+                "binding": "[null,\"reading circles\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.owner",
+                "binding": "[null,\"budget.1.unitCostMinor\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.dueDate",
+                "binding": "[null,\"budget.1.unitCostMinor\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.0.quantity",
+                "binding": "[20,\"notebooks\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 408,
+                "end": 420
+              },
+              {
+                "path": "budget.0.unitCostMinor",
+                "binding": "[20000,\"notebooks\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 424,
+                "end": 436
+              },
+              {
+                "path": "budget.1.quantity",
+                "binding": "[10,\"printed programmes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 441,
+                "end": 462
+              },
+              {
+                "path": "budget.1.unitCostMinor",
+                "binding": "[null,\"printed programmes\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              }
+            ]
+          }
+        },
+        "issues": [
+          {
+            "code": "SOURCE_REVIEW",
+            "message": "1 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+          },
+          {
+            "code": "MISSING_VENUE",
+            "message": "Confirm the venue."
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Is the school library booking approved?"
+          },
+          {
+            "code": "MISSING_DRAFT",
+            "message": "Complete both the invitation and run of show."
+          },
+          {
+            "code": "MISSING_PRICES",
+            "message": "1 budget item(s) need a price."
+          }
+        ],
+        "knownTotalMinor": 400000,
+        "budgetComplete": false,
+        "remainingAllowanceMinor": null,
+        "allowanceProvisional": false,
+        "provenance": {
+          "mode": "live",
+          "provider": "Google Gemini API",
+          "model": "gemma-4-26b-a4b-it",
+          "requestedModel": "gemma-4-26b-a4b-it",
+          "primaryModel": "gemma-4-26b-a4b-it",
+          "attempts": 1,
+          "responseFormat": "function-call",
+          "stage": "facts",
+          "generatedAt": "2026-10-24T12:57:12.539Z",
+          "durationMs": 9884
+        },
+        "requestId": "4376b0cc-66bf-4d0d-bced-29f565702ebe"
+      }
+    },
+    {
+      "stage": "invitation",
+      "httpStatus": 200,
+      "wallMs": 3965,
+      "response": {
+        "plan": {
+          "title": "Community Reading Morning",
+          "eventDate": "2026-11-21",
+          "requestedWeekday": null,
+          "venue": null,
+          "startTime": "10:00",
+          "organizer": "Sunrise Learning Club",
+          "signatory": "Amina Bello, Coordinator",
+          "currency": "NGN",
+          "spendingLimitMinor": null,
+          "tasks": [
+            {
+              "label": "welcome",
+              "owner": null,
+              "dueDate": null
+            },
+            {
+              "label": "reading circles",
+              "owner": "Ada Okafor",
+              "dueDate": null
+            },
+            {
+              "label": "budget.1.unitCostMinor",
+              "owner": null,
+              "dueDate": null
+            }
+          ],
+          "budget": [
+            {
+              "label": "notebooks",
+              "quantity": 20,
+              "unitCostMinor": 20000
+            },
+            {
+              "label": "printed programmes",
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "drafts": {
+            "invitation": "Community Reading Morning\nConfirmed Date: 21 November 2026\nProposed Venue: School Library [Confirm booking approval]\n\nDear Community Members,\n\nYou are cordially invited to attend the Community Reading Morning, organized by Sunrise Learning Club. The purpose of this event is to foster a community of readers and share the enjoyment of the following activities.\n\nPlease join us for a reading session and a book quiz.\n\nDate: 21 November 2026\nStart Time: 10:00\nVenue: School Library [Confirm booking approval]\nOrganizer: Sunrise Learning Club\nSigned by: Amina Bello, Coordinator",
+            "schedule": ""
+          },
+          "openQuestions": [
+            "Is the school library booking approved?"
+          ],
+          "sourceEvidence": {
+            "version": 1,
+            "legacy": false,
+            "notesChanged": false,
+            "sources": [
+              {
+                "id": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "kind": "notes",
+                "text": "Prepare an event pack for Community Reading Morning, organized by Sunrise Learning Club on 21 November 2026 at the school library. Start at 10:00. Sign the invitation as Amina Bello, Coordinator. Activities in order: welcome for 10 minutes, reading circles for 30 minutes, a book quiz for 20 minutes, then closing remarks for 10 minutes. Ada Okafor leads the reading circles. Budget currency is NGN. We need 20 notebooks at NGN 200 each and 10 printed programmes, whose price is still awaiting approval. Do not invent the missing price. The room booking is still awaiting approval. This is fictional testing data."
+              }
+            ],
+            "records": [
+              {
+                "path": "title",
+                "binding": "[\"Community Reading Morning\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 26,
+                "end": 51
+              },
+              {
+                "path": "eventDate",
+                "binding": "[\"2026-11-21\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 91,
+                "end": 107
+              },
+              {
+                "path": "startTime",
+                "binding": "[\"10:00\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 131,
+                "end": 145
+              },
+              {
+                "path": "venue",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "organizer",
+                "binding": "[\"Sunrise Learning Club\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 66,
+                "end": 87
+              },
+              {
+                "path": "signatory",
+                "binding": "[\"Amina Bello, Coordinator\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 170,
+                "end": 194
+              },
+              {
+                "path": "currency",
+                "binding": "[\"NGN\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 376,
+                "end": 398
+              },
+              {
+                "path": "spendingLimitMinor",
+                "binding": "[null,\"NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.0.owner",
+                "binding": "[null,\"welcome\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.0.dueDate",
+                "binding": "[null,\"welcome\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.owner",
+                "binding": "[\"Ada Okafor\",\"reading circles\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.dueDate",
+                "binding": "[null,\"reading circles\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.owner",
+                "binding": "[null,\"budget.1.unitCostMinor\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.dueDate",
+                "binding": "[null,\"budget.1.unitCostMinor\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.0.quantity",
+                "binding": "[20,\"notebooks\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 408,
+                "end": 420
+              },
+              {
+                "path": "budget.0.unitCostMinor",
+                "binding": "[20000,\"notebooks\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 424,
+                "end": 436
+              },
+              {
+                "path": "budget.1.quantity",
+                "binding": "[10,\"printed programmes\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "3ffeba1eda2b75f12e8174d17c21c93339a21f5352e777b13a6cf90a8df435bf",
+                "start": 441,
+                "end": 462
+              },
+              {
+                "path": "budget.1.unitCostMinor",
+                "binding": "[null,\"printed programmes\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              }
+            ]
+          }
+        },
+        "issues": [
+          {
+            "code": "SOURCE_REVIEW",
+            "message": "1 fact(s) need source review or manual confirmation. Open their Source cards; check missing quotes and any manual corrections before approval."
+          },
+          {
+            "code": "MISSING_VENUE",
+            "message": "Confirm the venue."
+          },
+          {
+            "code": "OPEN_QUESTION",
+            "message": "Is the school library booking approved?"
+          },
+          {
+            "code": "MISSING_DRAFT",
+            "message": "Complete both the invitation and run of show."
+          },
+          {
+            "code": "DRAFT_PLACEHOLDER",
+            "message": "Replace bracketed draft placeholders in the invitation and run of show."
+          },
+          {
+            "code": "MISSING_PRICES",
+            "message": "1 budget item(s) need a price."
+          }
+        ],
+        "knownTotalMinor": 400000,
+        "budgetComplete": false,
+        "remainingAllowanceMinor": null,
+        "allowanceProvisional": false,
+        "provenance": {
+          "mode": "live",
+          "provider": "Google Gemini API",
+          "model": "gemma-4-26b-a4b-it",
+          "requestedModel": "gemma-4-26b-a4b-it",
+          "primaryModel": "gemma-4-26b-a4b-it",
+          "attempts": 1,
+          "responseFormat": "function-call",
+          "stage": "invitation",
+          "generatedAt": "2026-10-24T12:57:16.511Z",
+          "durationMs": 3771
+        },
+        "requestId": "21b6f380-f5a3-44cd-a541-fc7ca3c03269"
+      }
+    },
+    {
+      "stage": "schedule",
+      "httpStatus": 502,
+      "wallMs": 62990,
+      "response": {
+        "requestId": "3a3b0725-2371-4934-8814-3b9f7e2fc6db",
+        "code": "APP_ERROR",
+        "error": "Google generation returned HTTP 500. Please retry when the provider is available."
+      }
+    }
+  ],
+  "interruptedRecord": null,
+  "error": "Google generation returned HTTP 500. Please retry when the provider is available.",
+  "failure": {
+    "httpStatus": 502,
+    "requestId": "3a3b0725-2371-4934-8814-3b9f7e2fc6db"
+  },
+  "wallMs": 82140,
+  "finishedAt": "2026-10-24T12:58:19.577Z"
+}

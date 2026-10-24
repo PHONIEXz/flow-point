@@ -1,0 +1,13 @@
+{
+  "id": "known-judge",
+  "cohort": "exposed",
+  "action": "update",
+  "casesSha256": "6d0fedd57e35f96f8e09b51a86beeec2a20068b19b27e2d640d39f37d59632d3",
+  "startedAt": "2026-10-24T12:58:19.581Z",
+  "attempted": false,
+  "completed": false,
+  "attempts": [],
+  "interruptedRecord": null,
+  "skipReason": "Prepare did not produce a pack; Update depends on it.",
+  "finishedAt": "2026-10-24T12:58:19.581Z"
+}

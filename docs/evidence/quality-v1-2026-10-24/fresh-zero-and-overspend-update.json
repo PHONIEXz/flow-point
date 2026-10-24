@@ -1,0 +1,13 @@
+{
+  "id": "fresh-zero-and-overspend",
+  "cohort": "fresh-before-first-inference",
+  "action": "update",
+  "casesSha256": "6d0fedd57e35f96f8e09b51a86beeec2a20068b19b27e2d640d39f37d59632d3",
+  "startedAt": "2026-10-24T13:00:25.699Z",
+  "attempted": false,
+  "completed": false,
+  "attempts": [],
+  "interruptedRecord": null,
+  "skipReason": "Stopped after quota response.",
+  "finishedAt": "2026-10-24T13:00:25.699Z"
+}

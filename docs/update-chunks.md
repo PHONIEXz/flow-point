@@ -6,7 +6,7 @@ These are planned changes, not completed features or winning probabilities. Fini
 
 ## Delivered foundation
 
-Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 100 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
+Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 104 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
 
 ## Chunk 1: fix known content omissions
 
@@ -56,7 +56,7 @@ Owner-requested addition before Chunk 4: each Invitation, Run of show, Preparati
 
 ## Chunk 4: evaluate quality on a frozen set
 
-**Status:** fixture preparation starts before Chunk 1; evaluation runs after Chunks 1–3. **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
+**Status:** frozen harness implemented; first live run interrupted by Google quota. 3 operations attempted, 1 complete, 2 failed and 17 skipped; no fresh case executed. Live quality gate remains open. See [results and limits](chunk-4-verification.md). **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
 
 **Goal:** measure the quality of the returned pack separately from valid JSON and response speed.
 

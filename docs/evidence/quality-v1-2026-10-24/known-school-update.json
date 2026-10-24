@@ -1,0 +1,29 @@
+{
+  "id": "known-school",
+  "cohort": "exposed",
+  "action": "update",
+  "casesSha256": "6d0fedd57e35f96f8e09b51a86beeec2a20068b19b27e2d640d39f37d59632d3",
+  "startedAt": "2026-10-24T13:00:23.484Z",
+  "attempted": true,
+  "completed": false,
+  "attempts": [
+    {
+      "stage": "facts",
+      "httpStatus": 429,
+      "wallMs": 2164,
+      "response": {
+        "requestId": "6c4d745c-68c5-4d03-9ee9-9ed701fdf958",
+        "code": "APP_ERROR",
+        "error": "The model quota is temporarily exhausted. Please wait and retry."
+      }
+    }
+  ],
+  "interruptedRecord": null,
+  "error": "The model quota is temporarily exhausted. Please wait and retry.",
+  "failure": {
+    "httpStatus": 429,
+    "requestId": "6c4d745c-68c5-4d03-9ee9-9ed701fdf958"
+  },
+  "wallMs": 2165,
+  "finishedAt": "2026-10-24T13:00:25.649Z"
+}
