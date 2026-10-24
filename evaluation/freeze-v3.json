@@ -1,0 +1,22 @@
+{
+  "version": 3,
+  "frozenAt": "2026-10-24T14:43:16.438958+00:00",
+  "appCommit": "2f8504568f9c48ae3741a1db66e74ff49877ee90",
+  "casesSha256": "ae2d32ac02006b51368fce10b1d260b0c18a22c7335601a05c602a2bf596993a",
+  "files": {
+    "src/gemma.mjs": "8afa5ba452896a623f20d997247587e784e45e8a343b4c7856c3b973986fec7b",
+    "src/providers.mjs": "8a78d5f19db7c7e0150b99d355859da28c888f775799c2614fb2ad45c72ea8f1",
+    "src/explicit-obligations.mjs": "c6a8a966a89d09c85a21f608a13663fb4af0164d867cca04bf2a34a768bfd3bb",
+    "src/content-checks.mjs": "7a55d57ff19a013cf7928c871adecb83e8b864179347d0d4ea907c5c4b2349bf",
+    "src/server.mjs": "d153f86300e5eeb5c9a2c329036a0637bb0b1c515f7f287c87c4ab7e1b70b05f",
+    "src/pack-schema.mjs": "559aff767816775e4c5a7656901f9531ceb76c074002e922a7ac06aee0213f77",
+    "src/plan.mjs": "a398ca30cc49f20888d0332aeeafa2cd191c02d4b8930e0b70d376be7870b556",
+    "src/source-evidence.mjs": "9e29b1fcd33a008d839b77bec1d90ea0a090b7a714b2151b475a52fe3a1d46e7",
+    "public/generation.mjs": "968f2c7d6aac833567acd4ce7c10a93cadcab0c61adc60c09d03b2fd67e7e97f",
+    "public/update-history.mjs": "79f3606581c276cbffda40233d18d858a9721cf29824eadbe4aaadea06407a66",
+    "public/letter-layout.mjs": "8ef0137c6b73526b559d2c340666aa5c08e1b95097b6facc4d8882d0744182bb",
+    "evaluation/score-v3.mjs": "69d2b190c61751f2a3f44740e178b177dc5c13d05e4f50eea65131c7a60dcf43",
+    "scripts/evaluate-quality-v3.mjs": "c9cc999e61e243e91713a29fb23fa4e1bd2623069cb979c00c34aa57715cdf70"
+  },
+  "notes": "Ten exposed regressions plus two new briefs before first model inference. Assistant-authored, no independent blinded review. School null proposed-venue adjudication is disclosed in docs/chunk-4-current-run.md."
+}
