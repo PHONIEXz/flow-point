@@ -2,11 +2,11 @@
 
 Created 24 October 2026 from the [competitor review](competitor-review-2026-10-24.md). This is the active sequence for the next updates. Historical work and observations remain in [contest readiness](contest-readiness.md) and [verification](verification.md).
 
-These are planned changes, not completed features or winning probabilities. Finish and verify one chunk before opening the next. Keep Prepare, Update, review and exports usable throughout. At the start of Chunk 1, freeze the current fixtures and results before changing prompts or behavior; reserve fresh cases for Chunk 4.
+These are planned changes, not completed features or winning probabilities. Finish and verify each chunk; explicitly record any gate deferred by the owner. On 24 October the owner authorized starting Chunk 2 while Chunk 1’s provider-blocked live gate remains open. Keep Prepare, Update, review and exports usable throughout. At the start of Chunk 1, freeze the current fixtures and results before changing prompts or behavior; reserve fresh cases for Chunk 4.
 
 ## Delivered foundation
 
-Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 79 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
+Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 87 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
 
 ## Chunk 1: fix known content omissions
 
@@ -24,7 +24,7 @@ Deliverables:
 
 ## Chunk 2: show the source behind important facts
 
-**Status:** queued after Chunk 1. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
+**Status:** implementing; automated checks pass, deployment and browser verification next. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
 
 **Goal:** let the organizer check an extracted fact without searching the entire brief.
 

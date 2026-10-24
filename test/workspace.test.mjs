@@ -6,6 +6,7 @@ import { prepareInStages } from '../public/generation.mjs';
 import * as store from '../public/pack-store.mjs';
 import { downloadFilename } from '../public/download-name.mjs';
 import { minorToDecimal, formatMinor } from '../public/money.mjs';
+import * as sourceFields from '../public/source-fields.mjs';
 import { reviewPlan } from '../src/plan.mjs';
 const source = (await readFile(new URL('../public/workspace.js', import.meta.url), 'utf8')).replace(/^import .*;$/gm, '');
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
@@ -26,7 +27,7 @@ function harness(fetchImpl, initial = null, { fastTimeouts = false } = {}) {
   const values = new Map(initial ? [[store.storageKey, JSON.stringify(initial)]] : []);
   const storage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value), removeItem: key => values.delete(key) };
   const location = { pathname: '/workspace' };
-  const context = vm.createContext({ ...store, prepareInStages, structuredClone, DOMException, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
+  const context = vm.createContext({ ...store, ...sourceFields, prepareInStages, structuredClone, DOMException, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
     document: { getElementById: get, createElement: element, body: get('body'), querySelectorAll: selector => selector === '[role=tab]' ? [tab] : selector.startsWith('#pack-editor ') ? [get('editable')] : [] },
     window: { addEventListener() {}, scrollTo() {} }, location, history: { pushState: (_, __, path) => { location.pathname = path; }, replaceState: (_, __, path) => { location.pathname = path; } },
     localStorage: storage, sessionStorage: { getItem() { return null; }, removeItem() {}, setItem() {} }, confirm: () => true, setTimeout: (fn, ms) => setTimeout(fn, fastTimeouts && ms === 15000 ? 0 : ms), clearTimeout

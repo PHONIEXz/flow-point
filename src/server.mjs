@@ -9,13 +9,13 @@ import { preparationPdf } from './pdf.mjs';
 import { generatePack, checkModelAccess, probeGeneration, fetchModelResponse, MODEL_RESPONSE_TIMEOUT_MS, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
-const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/organization.css': 'organization.css', '/judge.js': 'judge.js', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/money.mjs': 'money.mjs', '/generation.mjs': 'generation.mjs', '/judge-example.json': 'judge-example.json', '/judge': 'judge.html', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md', '/sample-pack.pdf': 'sample-pack.pdf' };
+const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/organization.css': 'organization.css', '/judge.js': 'judge.js', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/money.mjs': 'money.mjs', '/generation.mjs': 'generation.mjs', '/source-fields.mjs': 'source-fields.mjs', '/judge-example.json': 'judge-example.json', '/judge': 'judge.html', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md', '/sample-pack.pdf': 'sample-pack.pdf' };
 const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', json: 'application/json; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8', pdf: 'application/pdf' };
 function json(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(body)); }
 async function body(req) {
   if (!req.headers['content-type']?.startsWith('application/json')) throw new AppError(415, 'Send JSON data.');
   let size = 0; const chunks = [];
-  for await (const chunk of req) { size += chunk.length; if (size > 100000) throw new AppError(413, 'This pack is too large. Please shorten it.'); chunks.push(chunk); }
+  for await (const chunk of req) { size += chunk.length; if (size > 300000) throw new AppError(413, 'This pack is too large. Please shorten it.'); chunks.push(chunk); }
   try { return JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { throw new AppError(400, 'Invalid JSON data.'); }
 }
 export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it', fetchImpl = fetchModelResponse, log = entry => console.info(JSON.stringify(entry)) } = {}) {

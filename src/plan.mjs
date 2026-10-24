@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { normalizeSourceEvidence, sourceReviewIssues } from './source-evidence.mjs';
 
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export function calendarDate(value) {
@@ -56,7 +57,9 @@ export function validatePlan(input) {
   for (const key of ['invitation', 'schedule']) drafts[key] = text(input.drafts?.[key], key);
   if (!Array.isArray(input.openQuestions) || input.openQuestions.length > 50) throw new Error('Invalid open questions');
   const openQuestions = input.openQuestions.map((question) => text(question, 'open question', 500)).filter(Boolean);
-  return { title, eventDate, requestedWeekday, venue, startTime, organizer, signatory, currency, spendingLimitMinor, tasks, budget, drafts, openQuestions };
+  const plan = { title, eventDate, requestedWeekday, venue, startTime, organizer, signatory, currency, spendingLimitMinor, tasks, budget, drafts, openQuestions };
+  if (input.sourceEvidence != null) plan.sourceEvidence = normalizeSourceEvidence(input.sourceEvidence, plan);
+  return plan;
 }
 
 // Accept common 12/24-hour notation without matching a different hour or minute.
@@ -92,7 +95,7 @@ export function draftTimeIssues(plan) {
 
 export function reviewPlan(input) {
   const plan = validatePlan(input);
-  const issues = draftTimeIssues(plan);
+  const issues = [...draftTimeIssues(plan), ...sourceReviewIssues(plan)];
   if (!plan.eventDate) issues.push({ code: 'MISSING_DATE', message: 'Confirm the event date.' });
   if (!plan.venue) issues.push({ code: 'MISSING_VENUE', message: 'Confirm the venue.' });
   if (!plan.startTime) issues.push({ code: 'MISSING_TIME', message: 'Confirm the event start time.' });

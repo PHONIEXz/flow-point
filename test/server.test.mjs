@@ -57,7 +57,7 @@ test('rejects cross-site actions, malformed data, oversized requests and invalid
   assert.equal((await client.post('/api/review', { plan: complete() }, { Origin: 'https://other.test' })).status, 403);
   assert.equal((await client.post('/api/review', { plan: complete() }, { 'Sec-Fetch-Site': 'cross-site' })).status, 403);
   assert.equal((await client.post('/api/generate', { request: 'short' })).status, 400);
-  assert.equal((await client.post('/api/generate', { request: 'x'.repeat(110000) })).status, 413);
+  assert.equal((await client.post('/api/generate', { request: 'x'.repeat(310000) })).status, 413);
   const plan = complete(); plan.budget[0].unitCostMinor = 1.01;
   assert.equal((await client.post('/api/review', { plan })).status, 400);
 });

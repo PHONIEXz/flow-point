@@ -27,6 +27,7 @@ export function stageFunction(stage) {
   if (stage === 'facts') {
     const { drafts, ...properties } = packFunction.parameters.properties;
     const described = { ...properties,
+      sourceQuotes: array(object({ path: { ...string, description: 'Exact field path, e.g. venue, tasks.0.owner, budget.0.quantity or budget.0.unitCostMinor.' }, source: { type: 'STRING', enum: ['notes','update'] }, quote: { ...string, description: 'Exact short substring copied from original request (notes) or latest answers (update), maximum 320 characters. Never invent or paraphrase a quote.' } })),
       title: { ...string, description: 'Exact supplied event title, not the word title.' },
       organizer: { ...unknownString, description: 'Supplied school or organizing group name, copied accurately. Null if unknown.' },
       signatory: { ...unknownString, description: 'The actual supplied invitation signer name and role, Never the word signatory. Null only if not supplied.' },

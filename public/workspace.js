@@ -1,12 +1,14 @@
 'use strict';
 import { prepareInStages } from './generation.mjs';
 import { downloadFilename } from './download-name.mjs';
+import { factFields, factSourceInfo, markManualField, confirmFact, markNotesChanged } from './source-fields.mjs';
 import { minorToDecimal, formatMinor } from './money.mjs';
 import { legacyKey, storageKey, maxPacks, emptyWorkspace, restoreCollection, recordCurrent, saveNamed, renameNamed, openNamed, removeNamed, newWorkspace, serializeCollection } from './pack-store.mjs';
 const $ = id => document.getElementById(id);
 let collection = { current: emptyWorkspace(), packs: [], activeId: null };
 let state = collection.current;
 let lastSavedRaw = null;
+const sourceHosts = new Map();
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
 function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
@@ -199,6 +201,7 @@ function invalidate() {
   $('approve').disabled = true; $('pack-status').textContent = 'Draft · checking edits'; $('pack-status').className = 'state-badge';
   $('stage-approve').classList.remove('current'); $('stage-review').classList.add('current');
   $('approval-help').textContent = 'Your changes need a fresh review. Check affected draft wording too.';
+  $('source-reviewed').checked = false; renderSourceCards();
   save(); clearTimeout(timer); timer = setTimeout(refreshReview, 350);
 }
 async function refreshReview() {
@@ -208,6 +211,7 @@ async function refreshReview() {
     const result = await api('/api/review', { plan: state.plan, approval: state.approval });
     if (version !== revision) return;
     review = result;
+    if (JSON.stringify(state.plan.sourceEvidence) !== JSON.stringify(result.plan.sourceEvidence)) { state.plan.sourceEvidence = result.plan.sourceEvidence; save(); }
     if (state.approval && !result.approved) { state.approval = null; save(); }
     renderReview();
   } catch (error) {
@@ -227,20 +231,27 @@ function renderReview() {
   $('approve').textContent = approved ? 'Version approved ✓' : 'Approve this version';
   $('approval-help').textContent = approved ? 'Approval covers this exact version. Any edit requires a new review. Keep a downloaded copy; server restarts may require renewed approval.' : 'Draft exports are available. Review issues must be resolved before approval.';
   $('stage-capture').classList.remove('current'); $('stage-review').classList.toggle('current', !approved); $('stage-approve').classList.toggle('current', approved);
+  $('source-reviewed').disabled = busy;
+  $('confirm-source-facts').disabled = busy || !$('source-reviewed').checked;
+  renderSourceCards();
   $('total-label').textContent = review.budgetComplete ? 'Total' : 'Known subtotal · incomplete';
   $('total-value').textContent = `${state.plan.currency} ${formatMinor(review.knownTotalMinor)}`;
   $('allowance').className = review.remainingAllowanceMinor == null ? 'allowance-neutral' : review.allowanceProvisional || review.remainingAllowanceMinor < 0 ? 'allowance-warning' : '';
   $('allowance').textContent = review.remainingAllowanceMinor == null ? 'Remaining allowance unknown: no spending limit supplied.' : `${review.remainingAllowanceMinor < 0 ? 'Over budget by' : review.allowanceProvisional ? 'Provisional allowance before unknown costs' : 'Remaining allowance'}: ${state.plan.currency} ${formatMinor(Math.abs(review.remainingAllowanceMinor))}${review.allowanceProvisional ? '. Not a final available balance.' : ''}`;
 }
-function inputField(label, value, onChange, { type = 'text', maxLength = 300, min, max, step, ariaLabel, inputMode, placeholder } = {}) {
+function inputField(label, value, onChange, { type = 'text', maxLength = 300, min, max, step, ariaLabel, inputMode, placeholder, sourcePath } = {}) {
   const wrap = node('label', label), input = node('input'); input.type = type; input.value = value ?? ''; input.maxLength = maxLength;
   if (ariaLabel) input.setAttribute('aria-label', ariaLabel); if (inputMode) input.inputMode = inputMode; if (placeholder) input.placeholder = placeholder;
   if (min != null) input.min = min; if (max != null) input.max = max; if (step != null) input.step = step;
-  input.addEventListener('input', () => { onChange(input.value); invalidate(); }); wrap.append(input); return wrap;
+  input.addEventListener('input', () => { onChange(input.value); if (sourcePath) markManualField(state.plan, sourcePath); invalidate(); }); wrap.append(input);
+  if (!sourcePath) return wrap;
+  const group = node('div', null, 'fact-input'), host = node('div', null, 'source-host');
+  group.append(wrap, host); sourceHosts.set(sourcePath, host); return group;
 }
 function removeButton(label, action) { const button = node('button', label, label.startsWith('Resolved') ? 'quiet resolve-action' : 'quiet danger-action'); button.type = 'button'; button.addEventListener('click', action); return button; }
 function renderRows() {
   if (!state.plan) return;
+  for (const key of sourceHosts.keys()) if (key.startsWith('tasks.') || key.startsWith('budget.')) sourceHosts.delete(key);
   $('questions').replaceChildren(...state.plan.openQuestions.map((question, index) => {
     const row = node('div', null, 'question-row'), input = node('input'); input.value = question; input.maxLength = 500; input.setAttribute('aria-label', `Open question ${index + 1}`);
     input.addEventListener('input', () => { state.plan.openQuestions[index] = input.value; invalidate(); });
@@ -250,18 +261,59 @@ function renderRows() {
   $('tasks').replaceChildren(...state.plan.tasks.map((task, index) => {
     const row = node('div', null, 'task-row'), grid = node('div', null, 'row-grid');
     row.append(inputField(`Task ${index + 1}`, task.label, value => { task.label = value; }));
-    grid.append(inputField('Owner (optional)', task.owner, value => { task.owner = value || null; }, { maxLength: 150, ariaLabel: `Task ${index + 1} owner`, placeholder: 'Unassigned' }), inputField('Due date (optional)', task.dueDate, value => { task.dueDate = value || null; }, { type: 'date', ariaLabel: `Task ${index + 1} due date` }), removeButton('Remove task', () => { state.plan.tasks.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
+    grid.append(inputField('Owner (optional)', task.owner, value => { task.owner = value || null; }, { maxLength: 150, sourcePath: `tasks.${index}.owner`, ariaLabel: `Task ${index + 1} owner`, placeholder: 'Unassigned' }), inputField('Due date (optional)', task.dueDate, value => { task.dueDate = value || null; }, { type: 'date', sourcePath: `tasks.${index}.dueDate`, ariaLabel: `Task ${index + 1} due date` }), removeButton('Remove task', () => { state.plan.tasks.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
   }));
   $('budget').replaceChildren(...state.plan.budget.map((item, index) => {
     const row = node('div', null, 'budget-row'), grid = node('div', null, 'row-grid');
     row.append(inputField(`Item ${index + 1}`, item.label, value => { item.label = value; }, { maxLength: 200 }));
-    grid.append(inputField('Quantity', item.quantity, value => { item.quantity = /^\d+$/.test(value) ? Number(value) : null; }, { type: 'number', min: 1, step: 1, inputMode: 'numeric', ariaLabel: `Item ${index + 1} quantity` }), inputField(`Unit price (${state.plan.currency})`, item.unitCostMinor == null ? '' : Number.isSafeInteger(item.unitCostMinor) && item.unitCostMinor >= 0 ? minorToDecimal(item.unitCostMinor) : String(item.unitCostMinor / 100), value => {
+    grid.append(inputField('Quantity', item.quantity, value => { item.quantity = /^\d+$/.test(value) ? Number(value) : null; }, { type: 'number', min: 1, step: 1, inputMode: 'numeric', sourcePath: `budget.${index}.quantity`, ariaLabel: `Item ${index + 1} quantity` }), inputField(`Unit price (${state.plan.currency})`, item.unitCostMinor == null ? '' : Number.isSafeInteger(item.unitCostMinor) && item.unitCostMinor >= 0 ? minorToDecimal(item.unitCostMinor) : String(item.unitCostMinor / 100), value => {
       // Parse decimal text without floating-point currency arithmetic.
       if (value === '') item.unitCostMinor = null;
       else if (/^\d+(\.\d{1,2})?$/.test(value)) { const [whole, fraction = ''] = value.split('.'); item.unitCostMinor = Number(whole) * 100 + Number(fraction.padEnd(2, '0')); }
       else item.unitCostMinor = -1;
-    }, { type: 'number', min: 0, step: '0.01', inputMode: 'decimal', ariaLabel: `Item ${index + 1} unit price (${state.plan.currency})` }), removeButton('Remove item', () => { state.plan.budget.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
+    }, { type: 'number', min: 0, step: '0.01', inputMode: 'decimal', sourcePath: `budget.${index}.unitCostMinor`, ariaLabel: `Item ${index + 1} unit price (${state.plan.currency})` }), removeButton('Remove item', () => { state.plan.budget.splice(index, 1); invalidate(); renderRows(); })); row.append(grid); return row;
   }));
+  renderSourceCards();
+}
+function registerStaticSources() {
+  document.querySelectorAll('[data-field]').forEach(input => {
+    if (input.dataset.field === 'requestedWeekday') return;
+    attachStaticSource(input, input.dataset.field);
+  });
+  attachStaticSource($('spending-limit'), 'spendingLimitMinor');
+}
+function attachStaticSource(input, path) {
+  // Unit/UI harnesses may not expose DOM layout methods; the real inputs do.
+  if (!input?.closest) return;
+  if (sourceHosts.has(path)) return;
+  const label = input.closest('label'); if (!label) return;
+  const group=node('div',null,'fact-input'), host=node('div',null,'source-host');
+  label.replaceWith(group); group.append(label,host); sourceHosts.set(path,host);
+}
+function renderSourceCards() {
+  if (!state.plan) return;
+  const labels = {unknown:'Unknown · needs a value',legacy:'No saved source · needs review',unreviewed:'Quote found · needs review',manual:'Manually entered · needs review',unsupported:'No valid quote · needs review',confirmed:'Confirmed by you'};
+  const all = factFields(state.plan).map(f => factSourceInfo(state.plan,f.path));
+  const counts = { confirmed:0, unknown:0, review:0 };
+  for(const info of all) counts[info.status === 'confirmed' ? 'confirmed' : info.status === 'unknown' ? 'unknown' : 'review']++;
+  $('source-summary').textContent = `${counts.confirmed} confirmed by you · ${counts.review} known facts to review · ${counts.unknown} unknown values`;
+  for(const [path,host] of sourceHosts) {
+    const info=factSourceInfo(state.plan,path); if (!info) { host.replaceChildren(); continue; }
+    const open=host._sourceOpen || false;
+    const card=node('details',null,`source-card source-${info.status}`); card.open=open;
+    card.addEventListener('toggle', () => { host._sourceOpen=card.open; });
+    const summary=node('summary', labels[info.status]); summary.setAttribute('aria-label', `${info.label} source: ${labels[info.status]}`); card.append(summary);
+    const body=node('div',null,'source-card-body');
+    if(info.quote) {
+      body.append(node('span', info.sourceKind === 'update' ? 'Saved update' : 'Original notes', 'source-kind'),node('blockquote',info.quote));
+      body.append(node('p','Check that this quote supports the value. Its presence does not prove the interpretation.','field-help'));
+    } else body.append(node('p', info.status === 'legacy' ? 'This older pack has no saved quote for this fact. Check your notes or enter a correction; no historical source has been invented.' : info.status === 'manual' ? 'You changed this fact. Its previous quote and confirmation no longer apply. Check the value before confirming it.' : info.status === 'unknown' ? 'No value is supplied. Confirm it in the relevant field or through Update.' : info.status === 'confirmed' ? 'You manually confirmed this value. There is no supporting saved quote.' : 'No matching source quote is saved. A quote may be missing, invalid, or outdated. Check your notes and correct or manually confirm this fact.', 'field-help'));
+    if(info.status !== 'unknown' && info.status !== 'confirmed') {
+      const button=node('button','Confirm this fact','quiet source-confirm-button'); button.type='button'; button.disabled=busy; button.setAttribute('aria-label', `Confirm ${info.label}`);
+      button.addEventListener('click',()=> { if(busy) return; confirmFact(state.plan,path); invalidate(); }); body.append(button);
+    }
+    card.append(body); host.replaceChildren(card);
+  }
 }
 function renderEvidence(p) {
   const evidence = $('generation-evidence');
@@ -299,25 +351,33 @@ function renderPack() {
   $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.pipeline === 'staged-v1' ? 'Gemma in 3 steps' : p.model} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · Human edits may follow.` : 'Restored working draft · Review all details.';
   document.querySelectorAll('[data-field]').forEach(input => { input.value = state.plan[input.dataset.field] ?? ''; });
   document.querySelectorAll('[data-draft]').forEach(input => { input.value = state.plan.drafts[input.dataset.draft]; });
-  renderRows(); refreshReview();
+  registerStaticSources(); renderRows(); refreshReview();
 }
 document.querySelectorAll('[data-field]').forEach(input => input.addEventListener('input', () => {
   if (!state.plan) return;
   state.plan[input.dataset.field] = input.value || (input.dataset.field === 'title' || input.dataset.field === 'currency' ? '' : null);
+  markManualField(state.plan, input.dataset.field);
   if (input.dataset.field === 'currency') state.plan.currency = input.value.toUpperCase();
   if (input.dataset.field === 'title') $('pack-heading').textContent = input.value || 'Untitled event';
   invalidate();
   if (input.dataset.field === 'currency') renderRows();
 }));
 document.querySelectorAll('[data-draft]').forEach(input => input.addEventListener('input', () => { state.plan.drafts[input.dataset.draft] = input.value; invalidate(); }));
-$('request').addEventListener('input', () => { if (state.plan) invalidate(); else save(); });
+$('request').addEventListener('input', () => { if (state.plan) { markNotesChanged(state.plan); invalidate(); } else save(); });
 $('answers').addEventListener('input', save);
 $('spending-limit').addEventListener('input', () => {
   if (!state.plan) return;
   const value = $('spending-limit').value;
   const [whole, fraction = ''] = value.split('.');
   state.plan.spendingLimitMinor = value === '' ? null : /^\d+(\.\d{1,2})?$/.test(value) ? Number(whole) * 100 + Number(fraction.padEnd(2, '0')) : -1;
+  markManualField(state.plan, 'spendingLimitMinor');
   invalidate();
+});
+$('source-reviewed').addEventListener('change', () => { $('confirm-source-facts').disabled=busy || !$('source-reviewed').checked; });
+$('confirm-source-facts').addEventListener('click', () => {
+  if(busy || !state.plan || !$('source-reviewed').checked) return;
+  for(const field of factFields(state.plan)) confirmFact(state.plan,field.path);
+  invalidate(); announce('Your fact review is recorded. Check the draft wording and any remaining questions before final approval.');
 });
 $('review-confirm').addEventListener('change', () => { if (review) renderReview(); });
 $('add-question').addEventListener('click', () => { if (state.plan.openQuestions.length >= 50) return announce('This pack already has 50 questions. Resolve existing ones first.'); state.plan.openQuestions.push(''); invalidate(); renderRows(); });
