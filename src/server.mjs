@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { reviewPlan, approvePlan, isApproved } from './plan.mjs';
 import { budgetCsv, preparationPack } from './export.mjs';
-import { preparationPdf } from './pdf.mjs';
+import { preparationPdf, pdfSections } from './pdf.mjs';
 import { generatePack, checkModelAccess, probeGeneration, fetchModelResponse, MODEL_RESPONSE_TIMEOUT_MS, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
@@ -83,22 +83,26 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
         }
         const approval = data.approval && approved.get(data.approval.fingerprint);
         const format = data.format === 'csv' ? 'csv' : data.format === 'pdf' ? 'pdf' : 'md';
+        const section = data.section ?? null;
+        if (section !== null && (format !== 'pdf' || !Object.hasOwn(pdfSections, section))) throw new AppError(400, 'Choose a valid document section and PDF format.');
+        const sectionLabel = section ? pdfSections[section] : null;
+        const sectionSlug = sectionLabel?.toLowerCase().replaceAll(' ', '-');
         const slug = review.plan.title.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 72).replace(/-$/, '') || 'event';
         const status = isApproved(review.plan, approval) ? 'approved' : 'draft';
         const stamp = new Date().toISOString().replace(/[-:.]/g, '');
-        const filename = `${data.sample === true ? 'sample-' : ''}${slug}-${review.plan.eventDate || 'date-to-confirm'}-${format === 'csv' ? 'budget' : 'pack'}-${status}-${stamp}-${randomUUID().slice(0, 8)}.${format}`;
+        const filename = `${data.sample === true ? 'sample-' : ''}${slug}-${review.plan.eventDate || 'date-to-confirm'}-${sectionSlug || (format === 'csv' ? 'budget' : 'pack')}-${status}-${stamp}-${randomUUID().slice(0, 8)}.${format}`;
         // Keep the event's capitalization and spacing in the PDF download name.
         // Windows-reserved characters and control characters cannot be file names.
         let pdfTitle = review.plan.title.toWellFormed().normalize('NFC').replace(/[<>:"/\\|?*\u0000-\u001f\u007f\u202a-\u202e\u2066-\u2069]/g, '-').replace(/\s+/g, ' ').trim().replace(/[. ]+$/, '');
         if (!pdfTitle || /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(pdfTitle)) pdfTitle = 'Event ' + pdfTitle;
         let boundedTitle = '';
         for (const character of pdfTitle) { if (Buffer.byteLength(boundedTitle + character, 'utf8') > 170) break; boundedTitle += character; }
-        const pdfName = `${data.sample === true ? 'SAMPLE - ' : ''}${boundedTitle.trim().replace(/[. ]+$/, '') || 'Event'} - ${stamp}-${randomUUID().slice(0, 8)}.pdf`;
+        const pdfName = `${data.sample === true ? 'SAMPLE - ' : ''}${boundedTitle.trim().replace(/[. ]+$/, '') || 'Event'}${sectionLabel ? ' - ' + sectionLabel + (status === 'draft' ? ' - Draft' : '') : ''} - ${stamp}-${randomUUID().slice(0, 8)}.pdf`;
         const encodedPdfName = encodeURIComponent(pdfName).replace(/['()*]/g, char => '%' + char.charCodeAt(0).toString(16).toUpperCase());
         const attachment = `attachment; filename="${filename}"${format === 'pdf' ? `; filename*=UTF-8''${encodedPdfName}` : ''}`;
 
         if (data.format === 'pdf') {
-          const pdf = await preparationPdf(review.plan, approval, { sample: data.sample === true });
+          const pdf = await preparationPdf(review.plan, approval, { sample: data.sample === true, section });
           res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-Disposition': attachment });
           return res.end(pdf);
         }

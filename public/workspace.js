@@ -534,18 +534,20 @@ $('approve').addEventListener('click', async () => {
     state.approval = result.approval; save(); await refreshReview(); announce('This version is approved. You can download the reviewed preparation pack.');
   } catch (error) { announce(error.message); if (review) renderReview(); }
 });
-async function download(format) {
-  const button = $(`export-${format}`); button.disabled = true;
+async function download(format, section = null) {
+  if (busy || !state.plan) return;
+  const button = $(section ? `export-${section}-pdf` : `export-${format}`); button.disabled = true;
   try {
-    const response = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: state.plan, approval: state.approval, format, sample: state.provenance?.mode === 'sample' }) });
+    const response = await fetch('/api/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: state.plan, approval: state.approval, format, ...(section ? { section } : {}), sample: state.provenance?.mode === 'sample' }) });
     if (!response.ok) { const data = await response.json(); throw new Error(data.error); }
     const disposition = response.headers.get('Content-Disposition') || '';
     const filename = downloadFilename(disposition, format, `flow-point-${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${format}`);
     const blob = await response.blob(), url = URL.createObjectURL(blob), a = node('a'); a.href = url; a.download = filename; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-    announce('Download started. The pack includes its review status; the CSV is a budget worksheet.');
+    announce(section ? 'Document PDF download started, with its current review status.' : 'Download started. The pack includes its review status; the CSV is a budget worksheet.');
   } catch (error) { announce(error.message || 'Download failed. Please retry.'); }
   finally { button.disabled = false; }
 }
+document.querySelectorAll('[data-pdf-section]').forEach(button => button.addEventListener('click', () => download('pdf', button.dataset.pdfSection)));
 $('export-pdf').addEventListener('click', () => download('pdf')); $('export-md').addEventListener('click', () => download('md')); $('export-csv').addEventListener('click', () => download('csv'));
 $('reset').addEventListener('click', () => {
   if ((state.plan || state.request.trim()) && !collection.activeId && !confirm('Start a blank pack? The current unnamed work will be replaced. Save it with a name first if needed.')) return;

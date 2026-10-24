@@ -6,7 +6,7 @@ These are planned changes, not completed features or winning probabilities. Fini
 
 ## Delivered foundation
 
-Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 98 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
+Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 100 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
 
 ## Chunk 1: fix known content omissions
 
@@ -49,6 +49,10 @@ Deliverables:
 - Restoring or editing requires fresh review. Preserve current cancellation, failed-update protection and stale-tab warnings.
 
 **Completion checks:** a venue change and quantity increase are obvious; a rehearsal question survives unless answered; a failed or cancelled Update leaves the previous complete pack intact; Restore brings back the prior data and wording without reusing its approval. Storage failure is reported without silently erasing work.
+
+## Individual document PDFs
+
+Owner-requested addition before Chunk 4: each Invitation, Run of show, Preparation checklist and Budget has a standalone PDF download, with event-title/document-name filenames and a unique suffix. Full-pack downloads remain available. See [verification](individual-pdfs-2026-10-24.md).
 
 ## Chunk 4: evaluate quality on a frozen set
 

@@ -438,3 +438,32 @@ test('Home offers PDF and Markdown samples; static PDF downloads are labelled wi
   const second = await client.get('/sample-pack.pdf'); assert.notEqual(second.headers.get('content-disposition'), first.headers.get('content-disposition')); await second.arrayBuffer();
   const markdown = await client.get('/sample-pack.md'); assert.equal(markdown.status, 200); assert.match(await markdown.text(), /SAMPLE DATA/);
 });
+
+test('each document downloads as a labelled PDF with unique safe event-title filenames and current approval status', async t => {
+  const client = await app(t);
+  const plan = { ...complete(), title: 'École Ọmọ Reading Day' };
+  const names = [];
+  for (const [section, label] of Object.entries({ invitation: 'Invitation', schedule: 'Run of show', tasks: 'Preparation checklist', budget: 'Budget' })) {
+    for (let repeat = 0; repeat < 2; repeat++) {
+      const response = await client.post('/api/export', { plan, format: 'pdf', section });
+      assert.equal(response.status, 200); assert.equal(response.headers.get('content-type'), 'application/pdf');
+      const name = decodeURIComponent(response.headers.get('content-disposition').match(/filename\*=UTF-8''([^;]+)/)[1]);
+      assert.ok(name.startsWith(`École Ọmọ Reading Day - ${label} - Draft - `));
+      assert.ok(Buffer.byteLength(name) <= 255); names.push(name);
+      const bytes = Buffer.from(await response.arrayBuffer()); assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
+    }
+  }
+  assert.equal(new Set(names).size, 8);
+  const { approval } = await (await client.post('/api/approve', { plan, confirmed: true })).json();
+  let response = await client.post('/api/export', { plan, approval, format: 'pdf', section: 'budget' });
+  assert.match(response.headers.get('content-disposition'), /-budget-approved-/); await response.arrayBuffer();
+  response = await client.post('/api/export', { plan: { ...plan, venue: 'Changed Hall' }, approval, format: 'pdf', section: 'budget' });
+  assert.match(response.headers.get('content-disposition'), /-budget-draft-/); await response.arrayBuffer();
+});
+
+test('document downloads reject invalid section names and non-PDF section exports', async t => {
+  const client = await app(t);
+  for (const [format, section] of [['pdf', 'all'], ['md', 'budget'], ['csv', 'tasks'], ['pdf', '__proto__'], ['pdf', '../budget']]) {
+    assert.equal((await client.post('/api/export', { plan: complete(), format, section })).status, 400);
+  }
+});
