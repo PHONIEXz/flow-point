@@ -22,3 +22,9 @@ Earlier videos and the public article describe the previous Google implementatio
 ## Requested venue versus booking approval
 
 The venue field retains a single named requested/proposed location. A location name alone does not mean a room is booked. A pending booking remains an open question and drafts must label it proposed. No venue is invented when none is supplied. Earlier evaluations sometimes returned null for a proposed but unapproved location; those frozen mismatches remain in their original records. The clarified contract preserves the supplied location and its separate approval question.
+
+## Deployment verification, 24 October 2026
+
+Code `2ba1026f15d85035eeab873282d56c0b684c5d80` deployed through Render `dep-dbefif7b9u1s739iak60`. All 130 software tests passed. Desktop browser checks exercised both options, preference restoration after reload, separate remembered permission and unchanged sample-pack content after switching. Test permission was revoked after this check. No real attendee data was used.
+
+A fictional Cedar Reading Meetup Google Prepare reached the selected Gemma adapter but failed in its facts step: the application returned HTTP 502 for upstream Google HTTP 500 after bounded retries, reference `8e4fcf2f-4029-406e-a233-e5ee78105901`. The recorded request and response are in `docs/evidence/model-choice-2026-10-24/google-choice.json`. No cross-provider fallback occurred. Google being configured means its key exists, not that every generation will succeed. The Groq pack-quality retests are recorded separately.

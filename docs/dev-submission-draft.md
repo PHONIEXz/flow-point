@@ -4,7 +4,7 @@
 
 As a teacher, I know a school event can start with one rough note and turn into several jobs: write the invitation, make a schedule, list what needs doing, and work out the costs. The slow part is moving the same details between those documents while remembering what has not been confirmed.
 
-I built **Flow Point** to do that first pass. You type the event in your own words. Gemma proposes a preparation pack with an invitation, run of show, checklist and budget. Then you check the facts, answer its questions, edit the drafts and download a PDF. The pack is deliberately a *draft* until a person reviews it.
+I built **Flow Point** to do that first pass. You type the event in your own words. Your selected model, Gemma through Google or GPT-OSS through Groq, proposes a preparation pack with an invitation, run of show, checklist and budget. Then you check the facts, answer its questions, edit the drafts and download a PDF. The pack is deliberately a *draft* until a person reviews it.
 
 I tested it with a fictional Community Repair Day in Abuja. My note named the venue, organizer, signatory, 50 printed programmes at NGN 180 each, 60 water bottles at NGN 250 each, and 40 volunteer snack packs with no agreed price. I left out the start time on purpose.
 
@@ -12,9 +12,9 @@ Gemma kept that time empty and asked for it. It kept the snack price unknown, wh
 
 That distinction matters. A made-up price can travel from a draft into a real spending decision if the interface presents it as fact.
 
-![Current Notes editor close-up with a fictional School Family Day brief](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/5iqtcmmy2rzi9dhsgwey.png)
+![Earlier Notes editor close-up with a fictional School Family Day brief](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/5iqtcmmy2rzi9dhsgwey.png)
 
-*Fresh interface capture: School Family Day is a separate fictional, manually edited sample. [Open the full-size Notes image](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/5iqtcmmy2rzi9dhsgwey.png).*
+*Earlier interface capture: School Family Day is a separate fictional, manually edited sample. [Open the full-size Notes image](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/5iqtcmmy2rzi9dhsgwey.png).*
 
 ## Demo
 
@@ -22,11 +22,11 @@ That distinction matters. A made-up price can travel from a draft into a real sp
 
 [Open the judge guide](https://flowpoint.phoenixreborn.tech/judge), then load the fictional Community Reading Morning brief from Notes. The first budget should show NGN 4,000 known subtotal with an unknown programme price. After the published update, it should show NGN 6,000 and the multipurpose hall in both drafts. The guide links the exact inputs and lists what to inspect in the PDF and Saved Packs.
 
-I split generation into three smaller steps: facts and budget, invitation, then run of show. Completed steps stay in the browser's workspace when storage is available. If a later request fails, retrying the same input reuses the earlier responses. My existing pack stays intact until the replacement is fully validated. This does not make Google immune to outages or prove every sentence correct; review is still part of the product.
+I split generation into three smaller steps: facts and budget, invitation, then run of show. Completed steps stay in the browser's workspace when storage is available. If a later request fails, retrying the same input reuses the earlier responses. My existing pack stays intact until the replacement is fully validated. This does not make either provider immune to outages or prove every sentence correct; review is still part of the product.
 
 The [verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md) separates live measurements, automated simulated-provider tests and remaining limitations. I have not measured an equivalent manual-writing session, so I am not claiming a percentage time saved.
 
-**[Try Flow Point](https://flowpoint.phoenixreborn.tech/workspace)**. It runs in the browser and needs no account. The Notes page gives you room for a rough brief; the Preparation Pack page puts the Gemma update form beside the editable pack. If you just want to explore the workflow, open the clearly labelled hand-authored sample. That sample makes no AI call.
+**[Try Flow Point](https://flowpoint.phoenixreborn.tech/workspace)**. It runs in the browser and needs no account. The Notes page gives you room for a rough brief; the Preparation Pack page puts the AI update form beside the editable pack. If you just want to explore the workflow, open the clearly labelled hand-authored sample. That sample makes no AI call.
 
 ### Watch: create and navigate (3:12)
 
@@ -34,31 +34,31 @@ This edited walkthrough shows navigation, notes, consent and pack preparation us
 
 {% youtube xHEi4ybfHL0 %}
 
-For a live run, enter a fictional event, acknowledge the Google processing notice, and select **Prepare my event pack**. Check the extracted details. Add a missing time using **Update pack with Gemma**, look through the invitation, schedule, checklist and budget, then download the draft PDF. Your current work and up to 12 named packs save in this browser, on this device.
+For a live run, enter a fictional event, choose a model and acknowledge its provider-specific processing notice, and select **Prepare my event pack**. Check the extracted details. Add a missing time using **Update pack with Gemma** or **Update pack with GPT-OSS**, look through the invitation, schedule, checklist and budget, then download the draft PDF. Your current work and up to 12 named packs save in this browser, on this device.
 
-![Current sample schedule editor showing 09:30 and later timings labelled Suggested](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/sgt6tfsxxrmp8wcdl2jd.png)
+![Earlier sample schedule editor showing 09:30 and later timings labelled Suggested](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/sgt6tfsxxrmp8wcdl2jd.png)
 
 *[Open the full-size schedule image](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/sgt6tfsxxrmp8wcdl2jd.png). This is a manually edited sample, not a new Gemma generation.*
 
-![Current sample budget with an unknown refreshment price and NGN 9,000 incomplete subtotal](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/axdvc7sv2kp3vjmjxhnb.png)
+![Earlier sample budget with an unknown refreshment price and NGN 9,000 incomplete subtotal](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/axdvc7sv2kp3vjmjxhnb.png)
 
 *[Open the full-size budget image](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/axdvc7sv2kp3vjmjxhnb.png). A blank refreshment price keeps this sample subtotal incomplete.*
 
-The refreshed screenshots show the current interface using a labelled School Family Day sample. Its NGN 9,000 known subtotal is separate from the NGN 24,000 Community Repair Day live test described above. The videos retain the earlier hosted Gemma evidence. A fresh generation attempt during the screenshot refresh returned Google HTTP 500, so no sample is presented as new inference. The sample has not been approved. No invitations were sent, supplies ordered, or venue booked.
+These earlier screenshots show the interface at capture time using a labelled School Family Day sample. Its NGN 9,000 known subtotal is separate from the NGN 24,000 Community Repair Day live test described above. The videos retain the earlier hosted Gemma evidence. A fresh generation attempt during the screenshot refresh returned Google HTTP 500, so no sample is presented as new inference. The sample has not been approved. No invitations were sent, supplies ordered, or venue booked.
 
 ## Code
 
 **[Source and setup instructions](https://github.com/PHONIEXz/flow-point)** · **[Live verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md)**
 
-The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current automated suite passes **70 tests**. Provider tests use simulated responses; live results are recorded separately.
+The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without private provider keys, the labelled sample still supports editing, review and export. The current automated suite passes **130 tests**. Provider tests use simulated responses; live results are recorded separately.
 
 ## How I Built It
 
-The browser sends the event note to a Node service on Render. The server sends it to Google's Gemini API using the open-weight `gemma-4-26b-a4b-it` model. The key stays on the server. The current browser workflow makes three smaller requests: facts, checklist and budget; invitation; then run of show. Each response is validated and saved before the next step. Later draft calls cannot change the structured facts. Retries with identical input reuse completed steps; changing the input starts fresh. The old complete pack stays intact until all steps and the final checks pass. Browser storage must be available to keep those checkpoints across reloads.
+The browser sends the event note to a Node service on Render. The server routes it to the chosen provider: Google’s Gemini API with `gemma-4-26b-a4b-it`, or Groq with `openai/gpt-oss-120b`. Each key stays on the server and is used only for its own provider. The current browser workflow makes three smaller requests: facts, checklist and budget; invitation; then run of show. Each response is validated and saved before the next step. Later draft calls cannot change the structured facts. Retries with identical input reuse completed steps; changing the input starts fresh. The old complete pack stays intact until all steps and the final checks pass. Browser storage must be available to keep those checkpoints across reloads.
 
 I kept the model's job focused on interpreting the rough note and writing draft language. Code handles the parts that should be predictable. A missing price stays `null`, separate from a confirmed zero. The UI only calls a sum a *known subtotal* while prices are missing. Date and weekday conflicts and unresolved questions block approval. Editing a reviewed pack invalidates its approval. PDF, Markdown and budget CSV exports remain available as clearly marked drafts.
 
-There is a human boundary too: changing an event fact does not silently rewrite the invitation. You can edit that text yourself or explicitly ask Gemma to update it. Consent is required before the original note, current pack and follow-up instructions are sent to Google.
+There is a human boundary too: changing an event fact does not silently rewrite the invitation. You can edit that text yourself or explicitly ask the selected model to update it. Consent is required before the original note, current pack and follow-up instructions are sent to that provider. Google permission does not authorize Groq, or the reverse.
 
 ### Watch: update, review and export (3:12)
 
@@ -88,9 +88,15 @@ The uploaded result preserved the revised date, venue, 10:00 start, activity dur
 
 I also removed repeated processing checkboxes. One explicit choice covers Prepare and Update, with an optional **Remember my choice on this browser** setting and a way to revoke it. PDF download filenames now preserve the event title’s capitalization, spaces and Unicode, replacing characters forbidden in filenames and retaining a timestamp and unique suffix. The PDF itself still shows its review status.
 
+### Why I added Groq while keeping Gemma
+
+Google-hosted Gemma had intermittent HTTP 500s, timeouts and quota interruptions during development. I added GPT-OSS through Groq so users could choose another model/provider rather than depend on Google alone. The **Drafting model** control is on Notes and Preparation pack. It remembers a browser preference and uses separate permission for each provider. Switching does not rewrite a pack, and failures never silently send notes to the other provider.
+
+GPT-OSS is an OpenAI open-weight model served here by Groq, not the OpenAI API. This is an additional choice, not evidence that Groq is always faster or more accurate. Both providers can fail or omit details. A fresh Google test on 24 October still returned upstream HTTP 500; some other pack failures came from our validation code and needed separate fixes. The [provider-choice record](https://github.com/PHONIEXz/flow-point/blob/main/docs/model-choice.md) distinguishes those results. Earlier videos and timings below retain their original Google/Gemma context; replacement media is still queued.
+
 ## Why Does Open Innovation Matter?
 
-Gemma's available weights give this project a path to other inference setups later. The **current** site uses Google's hosted API, needs an internet connection for fresh generation, and sends consented notes to Google. It does not run the model locally or promise zero inference cost. I chose hosted inference so someone can open the demo without downloading a model.
+Gemma's available weights give this project a path to other inference setups later. The current site offers Google-hosted Gemma and Groq-hosted GPT-OSS. Fresh generation needs an internet connection and sends consented notes to the selected provider. It does not run the model locally or promise zero inference cost. I chose hosted inference so someone can open the demo without downloading a model.
 
 The application logic is open too. An organizer or developer can inspect the prompt, the model adapter, the validation rules and the approval checks. They can see which decisions come from the model and which come from code. That matters when a tool drafts real invitations and budgets: a smooth sentence is not proof that a date or price is correct.
 
@@ -111,10 +117,10 @@ See the roles of Render, hosted Gemma, the .tech domain, GitHub, Copilot Chat, N
 These are the challenge tools at the heart of Flow Point and the categories I am entering:
 
 - **Gemma → Best Use of Gemma.** The open-weight `gemma-4-26b-a4b-it` model, accessed through Google's hosted Gemini API, reads the rough note and proposes structured event details, an invitation, run of show, checklist, budget entries and follow-up revisions. The [prompt and adapter](https://github.com/PHONIEXz/flow-point/blob/main/src/gemma.mjs) are public. Code and human review keep suggestions from becoming confirmed facts.
-- **Render → Best Use of Render.** Render runs the [Node service](https://github.com/PHONIEXz/flow-point/blob/main/src/server.mjs) behind the public demo. It keeps the Google key on the server, validates Gemma's output, serves the workspace and produces PDF, Markdown and CSV downloads.
+- **Render → Best Use of Render.** Render runs the [Node service](https://github.com/PHONIEXz/flow-point/blob/main/src/server.mjs) behind the public demo. It keeps both provider keys on the server, validates the selected model’s output, serves the workspace and produces PDF, Markdown and CSV downloads.
 - **.tech domain → Best Use of a .tech Domain.** [flowpoint.phoenixreborn.tech](https://flowpoint.phoenixreborn.tech/workspace) is the public address for the live project, under the .tech domain claimed for this challenge.
 
-- **GitHub Copilot → Best Use of GitHub Copilot.** I used Copilot Chat to inspect the PDF download changes in [pull request #1](https://github.com/PHONIEXz/flow-point/pull/1). It identified malformed Unicode handling and recommended independent checks for decoded browser filenames. I evaluated the findings, corrected its inaccurate HTTP-status claim, and added Unicode handling plus safe filename fallbacks. The [review record](https://github.com/PHONIEXz/flow-point/blob/main/docs/copilot-review.md) explains the fixes and the 38 passing automated tests at that review stage. Gemma remains the app’s inference model.
+- **GitHub Copilot → Best Use of GitHub Copilot.** I used Copilot Chat to inspect the PDF download changes in [pull request #1](https://github.com/PHONIEXz/flow-point/pull/1). It identified malformed Unicode handling and recommended independent checks for decoded browser filenames. I evaluated the findings, corrected its inaccurate HTTP-status claim, and added Unicode handling plus safe filename fallbacks. The [review record](https://github.com/PHONIEXz/flow-point/blob/main/docs/copilot-review.md) explains the fixes and the 38 passing automated tests at that review stage. Gemma remains available alongside GPT-OSS served by Groq.
 
 The [MIT-licensed GitHub repository](https://github.com/PHONIEXz/flow-point) holds the application, tests, sample and verification notes. GitHub is how I share the work; the four entries above are the prize categories I am targeting.
 

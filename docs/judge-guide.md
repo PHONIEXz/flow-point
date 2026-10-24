@@ -1,6 +1,6 @@
 # Reproduce Flow Point's event workflow
 
-Open https://flowpoint.phoenixreborn.tech/judge for the guided test. On Notes, open **Examples & help** and choose **Load fictional judge brief**. This loads `public/judge-example.json` without inference. Read the brief and permit Google processing before live generation.
+Open https://flowpoint.phoenixreborn.tech/judge for the guided test. On Notes, open **Examples & help** and choose **Load fictional judge brief**. This loads `public/judge-example.json` without inference. Read the brief, choose **GPT-OSS · Groq** or **Gemma · Google** in **Drafting model**, and permit that provider’s processing before live generation. Each provider has a separate remembered permission. Changing the model leaves the current pack intact. Groq is the deployment default. Configured Google requests can still fail with upstream HTTP 500; see [model choice and rationale](model-choice.md).
 
 1. Prepare Community Reading Morning. Check the title, date `2026-11-21`, time `10:00`, school library, Amina Bello and Ada Okafor.
 2. Check NGN 4,000 known subtotal and one unknown programme price. Booking remains unconfirmed. A draft with unresolved issues cannot be approved.
@@ -19,9 +19,9 @@ Checkpoints live only in this browser, inside its workspace data. They are unenc
 
 ## Repeatable live measurements
 
-`node scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2`
+`node scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2 --provider groq`
 
-This deliberately makes real hosted requests. Never run it as part of tests/builds. It runs Prepare and Update on the fixed judge brief and the original detailed school brief (`docs/school-event-test.md`). Each completed case normally uses three requests. Stop on rate limits instead of retrying repeatedly. Results include every failure, per-step timings and request references, without storing private API keys or raw model output. No manual-writing or human-review time is measured.
+Use `--provider google` to test Gemma explicitly. This deliberately makes real hosted requests. Never run it as part of tests/builds. It runs Prepare and Update on the fixed judge brief and the original detailed school brief (`docs/school-event-test.md`). Each completed case normally uses three requests. Stop on rate limits instead of retrying repeatedly. Results include every failure, per-step timings and request references, without storing private API keys or raw model output. No manual-writing or human-review time is measured.
 
 The labelled sample, model-backed test, automated simulated-provider tests and edited walkthrough videos demonstrate different things. Do not present one as another. See `docs/verification.md` for dated results.
 

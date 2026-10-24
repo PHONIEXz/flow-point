@@ -1,0 +1,28 @@
+{
+  "startedAt": "2026-10-24T18:32:46.526Z",
+  "appCommit": "2ba1026f15d85035eeab873282d56c0b684c5d80",
+  "provider": "google",
+  "request": "Fictional test only. Cedar Circle organizes Cedar Reading Meetup on Saturday 12 June 2027 at 14:00 in Cedar Room. Venue booking is confirmed. Sign Ada Reed, Coordinator. Programme: Welcome 5 minutes, Reading 20 minutes, Closing 5 minutes. Ada Reed leads the reading. Currency GBP. Budget: 10 booklets at GBP 2 each. Spending limit GBP 50. After the event, clean the venue and return borrowed equipment. No invitations are sent and no bookings are made.",
+  "attempts": [
+    {
+      "stage": "facts",
+      "httpStatus": 502,
+      "wallMs": 44538,
+      "response": {
+        "requestId": "8e4fcf2f-4029-406e-a233-e5ee78105901",
+        "code": "APP_ERROR",
+        "error": "Google generation returned HTTP 500. Please retry when the provider is available."
+      }
+    }
+  ],
+  "config": {
+    "id": "google",
+    "processor": "Google",
+    "modelLabel": "Gemma",
+    "model": "gemma-4-26b-a4b-it",
+    "configured": true
+  },
+  "completed": false,
+  "error": "Google generation returned HTTP 500. Please retry when the provider is available.",
+  "finishedAt": "2026-10-24T18:33:36.095Z"
+}
