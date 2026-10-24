@@ -42,7 +42,7 @@ test('live provider adapter sends the key only in a header and validates returne
   const response = await client.post('/api/generate', { request: 'School event on 23 October 2026 at Example School.' });
   assert.equal(response.status, 200); const result = await response.json(); assert.equal(result.provenance.mode, 'live'); assert.match(result.provenance.model, /^gemma-/);
   assert.ok(!seen.url.includes('secret-fixture-key')); assert.equal(seen.options.headers['x-goog-api-key'], 'secret-fixture-key');
-  assert.match(JSON.parse(seen.options.body).contents[0].parts[0].text, /Unknown facts MUST be null/);
+  assert.match(JSON.parse(seen.options.body).systemInstruction.parts[0].text, /Unknown facts MUST be null/);
   assert.equal(JSON.parse(seen.options.body).generationConfig.thinkingConfig.thinkingLevel, 'minimal');
 });
 test('provider quota, bad output, truncated output and network failures are actionable', async () => {
@@ -361,4 +361,48 @@ test('HTTP generation recovers malformed output and reports the same reference i
   const error = await rejected.json();
   assert.equal(rejected.status, 502); assert.equal(error.code, 'MODEL_JSON_INVALID'); assert.equal(calls, 3);
   assert.equal(rejected.headers.get('x-request-id'), error.requestId);
+});
+
+test('Gemma receives one data-only pack function and native arguments preserve quotes and paragraphs', async () => {
+  let payload;
+  const plan = complete(); plan.drafts.invitation = 'Dear "Parents",\n\nJoin us at the hall.\nAda Bello';
+  const result = await generatePack({ request: 'private-note-marker event' }, { apiKey: 'test', log: () => {}, fetchImpl: async (_, options) => {
+    payload = JSON.parse(options.body);
+    return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: 'ignored model reasoning', thought: true }, { functionCall: { name: 'submit_event_pack', args: plan } }] } }] });
+  } });
+  assert.equal(result.plan.drafts.invitation, plan.drafts.invitation);
+  assert.equal(result.provenance.responseFormat, 'function-call');
+  assert.equal(payload.toolConfig.functionCallingConfig.mode, 'ANY');
+  assert.deepEqual(payload.toolConfig.functionCallingConfig.allowedFunctionNames, ['submit_event_pack']);
+  const declarations = payload.tools[0].functionDeclarations;
+  assert.equal(declarations.length, 1); assert.equal(declarations[0].name, 'submit_event_pack');
+  const schema = declarations[0].parameters;
+  assert.deepEqual([...schema.required].sort(), Object.keys(plan).sort());
+  assert.equal(schema.properties.eventDate.nullable, true);
+  assert.equal(schema.properties.budget.items.properties.unitCostMinor.nullable, true);
+  assert.doesNotMatch(payload.systemInstruction.parts[0].text, /private-note-marker/);
+  assert.match(payload.contents[0].parts[0].text, /private-note-marker/);
+});
+
+test('native pack arguments still require strict field validation before recovery', async () => {
+  let calls = 0;
+  const invalid = { ...complete(), budget: [{ label: 'Paper', quantity: 2, unitCostMinor: 1.5 }] };
+  const result = await generatePack({ request: 'Fictional event.' }, { apiKey: 'test', log: () => {}, wait: async () => {}, fetchImpl: async () => Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ functionCall: { name: 'submit_event_pack', args: ++calls === 1 ? invalid : complete() } }] } }] }) });
+  assert.equal(calls, 2); assert.equal(result.provenance.responseFormat, 'function-call');
+  assert.deepEqual(result.plan.budget, complete().budget);
+});
+
+test('unexpected or multiple function calls are rejected rather than executed or silently selected', async () => {
+  for (const functions of [[{ name: 'send_invitation', args: complete() }], [{ name: 'submit_event_pack', args: complete() }, { name: 'submit_event_pack', args: complete() }], [{ name: 'submit_event_pack', args: 'invalid string' }]]) {
+    let calls = 0;
+    await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', log: () => {}, wait: async () => {}, fetchImpl: async () => { calls++; return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: functions.map(functionCall => ({ functionCall })) } }] }); } }), error => error.code === 'MODEL_OUTPUT_INVALID');
+    assert.equal(calls, 3);
+  }
+});
+
+test('a malformed native function response can recover within the same bounded attempt budget', async () => {
+  let calls = 0;
+  const result = await generatePack({ request: 'Fictional event.' }, { apiKey: 'test', log: () => {}, wait: async () => {}, fetchImpl: async () => Response.json(++calls === 1 ? { candidates: [{ finishReason: 'MALFORMED_FUNCTION_CALL' }] } : { candidates: [{ finishReason: 'STOP', content: { parts: [{ functionCall: { name: 'submit_event_pack', args: complete() } }] } }] }) });
+  assert.equal(calls, 2); assert.equal(result.provenance.attempts, 2);
+  assert.equal(result.provenance.responseFormat, 'function-call');
 });
