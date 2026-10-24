@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {once} from 'node:events';
 import {readFile} from 'node:fs/promises';
-import {providerSettings,strictJsonSchema,checkGroqAccess} from '../src/providers.mjs';
+import {providerSettings,strictJsonSchema,checkGroqAccess,googleDiagnosticEnabled} from '../src/providers.mjs';
 import {generatePack} from '../src/gemma.mjs';
 import {stageFunction} from '../src/pack-schema.mjs';
 import {createApp} from '../src/server.mjs';
@@ -54,4 +54,11 @@ test('a standalone schedule must retain a supplied venue and retries without alt
  const schedule='17:45 Registration\n18:00 Welcome (10 minutes)\n18:10 Choir performance (30 minutes)\n18:40 Closing (10 minutes)';
  const r=await generatePack({request:fixture.request,stage:'schedule',checkpoint:p},{...config,fetchImpl:async()=>reply({schedule:++calls===1?schedule:`Cedar Chapel Choir Evening\nGrace Chapel\n${schedule}`})});
  assert.equal(calls,2);assert.match(r.plan.drafts.schedule,/Grace Chapel/);assert.deepEqual(p,before);
+});
+
+test('Google backup diagnostics expire and never change active provider selection',()=>{
+ const now=Date.parse('2026-10-24T14:00:00Z');
+ for(const until of [undefined,'invalid','2026-10-24T13:59:59Z','2026-10-24T14:16:00Z']) assert.equal(googleDiagnosticEnabled(until,now),false);
+ assert.equal(googleDiagnosticEnabled('2026-10-24T14:10:00Z',now),true);
+ const settings=providerSettings({AI_PROVIDER:'groq',GROQ_API_KEY:'fake',GEMINI_API_KEY:'other-fake',GEMMA_DIAGNOSTIC_UNTIL:'2026-10-24T14:10:00Z'});assert.equal(settings.provider,'groq');assert.equal(settings.apiKey,'fake');
 });

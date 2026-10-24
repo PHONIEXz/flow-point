@@ -23,3 +23,9 @@ export async function checkGroqAccess({apiKey,model,fetchImpl=fetch}) {
  try{const r=await fetchImpl('https://api.groq.com/openai/v1/models',{headers:{Authorization:`Bearer ${apiKey}`},signal:AbortSignal.timeout(10000)});const data=await r.json().catch(()=>({}));return {...base,httpStatus:r.status,available:r.ok&&Array.isArray(data.data)&&data.data.some(m=>m.id===model)};}
  catch{return {...base,available:false,reason:'connection_or_timeout'};}
 }
+
+// Expiring server-start diagnostic only; never enabled by a public request.
+export function googleDiagnosticEnabled(until, now=Date.now()) {
+ const deadline=Date.parse(until || '');
+ return Number.isFinite(deadline) && deadline > now && deadline - now <= 15 * 60 * 1000;
+}

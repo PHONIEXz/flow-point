@@ -1,4 +1,4 @@
-import { providerSettings, processorName, modelLabel, checkGroqAccess } from './providers.mjs';
+import { providerSettings, processorName, modelLabel, checkGroqAccess, googleDiagnosticEnabled } from './providers.mjs';
 import { randomUUID } from 'node:crypto';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -134,8 +134,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   const server = createApp();
   const settings=providerSettings();
   (settings.provider==='groq' ? checkGroqAccess({...settings,fetchImpl:fetchModelResponse}) : checkModelAccess(settings)).then(result => console.info(JSON.stringify(result)));
-  const probeUntil = Date.parse(process.env.GEMMA_DIAGNOSTIC_UNTIL || '');
-  if (settings.provider === 'google' && Number.isFinite(probeUntil) && probeUntil > Date.now() && probeUntil - Date.now() <= 3600000) {
+  if (googleDiagnosticEnabled(process.env.GEMMA_DIAGNOSTIC_UNTIL)) {
+    if(settings.provider !== 'google') checkModelAccess({apiKey:process.env.GEMINI_API_KEY,model:process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it',fetchImpl:fetchModelResponse}).then(result=>console.info(JSON.stringify(result)));
     probeGeneration({ apiKey: process.env.GEMINI_API_KEY, model: process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it' }).catch(() => console.info(JSON.stringify({ event: 'gemma_diagnostic_probe', failed: true })));
   }
   const portIndex = process.argv.indexOf('--port');
