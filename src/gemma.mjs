@@ -72,7 +72,7 @@ Return nonempty concise plain text under 6000 characters in the one declared str
       usedModel = fallbackModel && (attempt === 2 || invalidReply || attemptTimedOut) ? fallbackModel : primaryModel;
       attempts++;
       const attemptStarted = Date.now();
-      const nativeFunction = usedModel.startsWith('gemma-4-');
+      const nativeFunction = usedModel.startsWith('gemma-4-') && !(stage && (inputSize > 5000 || attempt > 0));
       const inputText = (invalidReply ? `RETRY: The previous response failed JSON or pack validation. Regenerate ${stage || 'the complete pack'} from the original input below. Follow the exact shape, keep text concise, and check JSON escaping before returning. Do not invent or discard event facts to make validation pass.\n` : '') + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan, ...(stage ? { checkpoint: base } : {}) });
       const attemptSignal = stage ? AbortSignal.any([requestSignal, AbortSignal.timeout(attemptTimeoutMs)]) : requestSignal;
       try { response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${usedModel}:generateContent`, {

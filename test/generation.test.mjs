@@ -73,3 +73,15 @@ test('a stalled staged provider call leaves time to try the fallback model', asy
   assert.equal(models.length, 2); assert.match(models[1], /gemma-4-31b-it/);
   assert.equal(result.provenance.attempts, 2);
 });
+
+test('detailed staged input uses small validated JSON responses without native tool settings', async () => {
+  let payload;
+  const result = await generatePack({ request: 'Detailed fictional notes. '.repeat(250), stage: 'facts' }, { ...quiet, fetchImpl: async (_, options) => {
+    payload = JSON.parse(options.body);
+    return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(sample) }] } }] });
+  } });
+  assert.equal(payload.tools, undefined); assert.equal(payload.systemInstruction, undefined);
+  assert.match(payload.contents[0].parts[0].text, /JSON data schema/);
+  assert.equal(result.provenance.responseFormat, 'text-json');
+  assert.equal(result.plan.title, sample.title);
+});

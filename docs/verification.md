@@ -151,3 +151,14 @@ Browser-only follow-up at 03:29 UTC completed the short brief but showed `signat
 A separate detailed-school Prepare reached the server at 03:29:24 UTC and timed out at 60 seconds, before an upstream response was logged (`0403e34c-af80-49fc-9aaa-6afb7cdbfea6`). Wall time including client/network overhead: 63.850 s. Update was skipped because no new pack existed. See [`evidence/staged-school-2026-10-24.json`](evidence/staged-school-2026-10-24.json). This is a failed replay, not a successful detailed-content regression.
 
 Follow-up code uses focused instructions for each stage and limits each staged provider attempt to 20 seconds within the shared 60-second step deadline. A timed-out first attempt can therefore reach the fallback model. It also describes named fields explicitly, rejects literal field labels, shows per-step references in the workspace and expands the opt-in benchmark's semantic checks. **68 automated tests pass**, including fallback after a stalled attempt and rejection of a literal signatory label. A subsequent live result is required to judge the detailed path.
+
+
+### Bounded-attempt live result (03:34–03:36 UTC)
+
+Render deploy `dep-dbe2e6gm7kps73c3ur9g`, app commit `d2e3620a14d6fa6b7686d8d61d541175135fe1d1`, became live. The detailed-school facts step still failed after 44.876 s wall time with an upstream HTTP 500 after bounded attempts. No pack was committed and Update was skipped. [`evidence/staged-school-bounded-2026-10-24.json`](evidence/staged-school-bounded-2026-10-24.json).
+
+The fixed judge example then passed both operations with the **expanded** checks: actual signer name, signer in invitation, named lead, explicit activity durations, date, time, exact budget and updated venue in both drafts. Prepare: **16.452 s** wall time. Update: **12.723 s**. Two attempted / two completed / two passed the recorded checks. [`evidence/staged-judge-bounded-2026-10-24.json`](evidence/staged-judge-bounded-2026-10-24.json). This remains a small sample, not proof of reliability for arbitrary notes.
+
+The latest code tests plain JSON responses for staged inputs over 5,000 serialized characters, with the same validation and no native tool settings. Staged retries also use this simpler response format. Short requests retain the successful native function path. **69 automated tests pass**. Detailed live verification for this format change is recorded next; it must not be presumed successful from the mocked tests.
+
+The browser replacement retest was stopped by automatic approval review because it would overwrite an existing browser draft. The confirmation was dismissed; no saved draft was replaced in that retest. The independent API benchmark provided the subsequent content checks.

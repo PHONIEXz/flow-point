@@ -1,0 +1,248 @@
+{
+  "testedAt": "2026-10-24T03:35:45.692Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review and export time excluded.",
+  "runs": [
+    {
+      "label": "judge",
+      "repeat": 1,
+      "action": "prepare",
+      "startedAt": "2026-10-24T03:35:45.693Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 200,
+          "wallMs": 9502,
+          "requestId": "8b458834-8b94-493e-b670-0ff4d2f91cfe",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "function-call",
+            "stage": "facts",
+            "generatedAt": "2026-10-24T03:35:55.131Z",
+            "durationMs": 5733
+          }
+        },
+        {
+          "stage": "invitation",
+          "httpStatus": 200,
+          "wallMs": 4054,
+          "requestId": "66bc452a-068a-4335-857b-ec0d25dc77d3",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "function-call",
+            "stage": "invitation",
+            "generatedAt": "2026-10-24T03:35:59.189Z",
+            "durationMs": 3917
+          }
+        },
+        {
+          "stage": "schedule",
+          "httpStatus": 200,
+          "wallMs": 2895,
+          "requestId": "1176fcfc-8e57-4eb6-812d-f8d0008054c8",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "function-call",
+            "stage": "schedule",
+            "generatedAt": "2026-10-24T03:36:02.084Z",
+            "durationMs": 2755
+          }
+        }
+      ],
+      "completed": true,
+      "checks": {
+        "date": true,
+        "start": true,
+        "money": true,
+        "unknownPrices": true,
+        "drafts": true,
+        "signatoryName": true,
+        "invitationSignatory": true,
+        "namedActivityLead": true,
+        "activityDurations": true,
+        "pendingVenue": true
+      },
+      "checksPassed": true,
+      "provenance": {
+        "mode": "live",
+        "provider": "Google Gemini API",
+        "model": "gemma-4-26b-a4b-it",
+        "requestedModel": "gemma-4-26b-a4b-it",
+        "primaryModel": "gemma-4-26b-a4b-it",
+        "attempts": 3,
+        "responseFormat": "function-call",
+        "stage": "schedule",
+        "generatedAt": "2026-10-24T03:36:02.084Z",
+        "durationMs": 12405,
+        "pipeline": "staged-v1",
+        "reusedSteps": 0,
+        "steps": [
+          {
+            "stage": "facts",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 5733,
+            "attempts": 1,
+            "requestId": "8b458834-8b94-493e-b670-0ff4d2f91cfe"
+          },
+          {
+            "stage": "invitation",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 3917,
+            "attempts": 1,
+            "requestId": "66bc452a-068a-4335-857b-ec0d25dc77d3"
+          },
+          {
+            "stage": "schedule",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 2755,
+            "attempts": 1,
+            "requestId": "1176fcfc-8e57-4eb6-812d-f8d0008054c8"
+          }
+        ]
+      },
+      "wallMs": 16452
+    },
+    {
+      "label": "judge",
+      "repeat": 1,
+      "action": "update",
+      "startedAt": "2026-10-24T03:36:02.147Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 200,
+          "wallMs": 6204,
+          "requestId": "d8f26f7b-5cce-432f-bfcd-50523eb1ef37",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "function-call",
+            "stage": "facts",
+            "generatedAt": "2026-10-24T03:36:08.293Z",
+            "durationMs": 6065
+          }
+        },
+        {
+          "stage": "invitation",
+          "httpStatus": 200,
+          "wallMs": 3767,
+          "requestId": "859c09fa-e421-43fc-a848-0e6de1ba6fc6",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "function-call",
+            "stage": "invitation",
+            "generatedAt": "2026-10-24T03:36:12.060Z",
+            "durationMs": 3629
+          }
+        },
+        {
+          "stage": "schedule",
+          "httpStatus": 200,
+          "wallMs": 2751,
+          "requestId": "8f105bf6-7a5f-4e1b-bf7b-5719fc09bfd8",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "function-call",
+            "stage": "schedule",
+            "generatedAt": "2026-10-24T03:36:14.808Z",
+            "durationMs": 2612
+          }
+        }
+      ],
+      "completed": true,
+      "checks": {
+        "date": true,
+        "start": true,
+        "money": true,
+        "unknownPrices": true,
+        "drafts": true,
+        "signatoryName": true,
+        "invitationSignatory": true,
+        "namedActivityLead": true,
+        "activityDurations": true,
+        "venue": true,
+        "invitationVenue": true,
+        "scheduleVenue": true
+      },
+      "checksPassed": true,
+      "provenance": {
+        "mode": "live",
+        "provider": "Google Gemini API",
+        "model": "gemma-4-26b-a4b-it",
+        "requestedModel": "gemma-4-26b-a4b-it",
+        "primaryModel": "gemma-4-26b-a4b-it",
+        "attempts": 3,
+        "responseFormat": "function-call",
+        "stage": "schedule",
+        "generatedAt": "2026-10-24T03:36:14.808Z",
+        "durationMs": 12306,
+        "pipeline": "staged-v1",
+        "reusedSteps": 0,
+        "steps": [
+          {
+            "stage": "facts",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 6065,
+            "attempts": 1,
+            "requestId": "d8f26f7b-5cce-432f-bfcd-50523eb1ef37"
+          },
+          {
+            "stage": "invitation",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 3629,
+            "attempts": 1,
+            "requestId": "859c09fa-e421-43fc-a848-0e6de1ba6fc6"
+          },
+          {
+            "stage": "schedule",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 2612,
+            "attempts": 1,
+            "requestId": "8f105bf6-7a5f-4e1b-bf7b-5719fc09bfd8"
+          }
+        ]
+      },
+      "wallMs": 12723
+    }
+  ],
+  "summary": {
+    "planned": 2,
+    "skipped": 0,
+    "attempted": 2,
+    "completed": 2,
+    "checksPassed": 2,
+    "medianCompletedMs": 14587.5,
+    "slowestCompletedMs": 16452,
+    "stoppedOnQuota": false
+  }
+}

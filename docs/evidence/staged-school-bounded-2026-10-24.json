@@ -1,0 +1,36 @@
+{
+  "testedAt": "2026-10-24T03:34:36.137Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review and export time excluded.",
+  "runs": [
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "prepare",
+      "startedAt": "2026-10-24T03:34:36.138Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 502,
+          "wallMs": 44876,
+          "requestId": "0abe0d6f-2d8e-48b6-89a6-25dee2bb1f3f",
+          "code": "APP_ERROR"
+        }
+      ],
+      "completed": false,
+      "error": "Google generation returned HTTP 500. Please retry when the provider is available.",
+      "wallMs": 44876
+    }
+  ],
+  "summary": {
+    "planned": 2,
+    "skipped": 1,
+    "attempted": 1,
+    "completed": 0,
+    "checksPassed": 0,
+    "medianCompletedMs": null,
+    "slowestCompletedMs": null,
+    "stoppedOnQuota": false
+  }
+}
