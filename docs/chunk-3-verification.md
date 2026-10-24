@@ -33,3 +33,13 @@ Comparison exposed the desired venue/owner/quantity/price changes and an undesir
 Restore recovered Maple Hall, Ada Okafor, 20 notebooks, unknown banner price, USD 60 known subtotal/USD 140 provisional allowance, and both original draft strings exactly. The source confirmation count returned to zero and the final-review checkbox was unchecked. The updated version remained available for switching back. The named test pack and three earlier packs were retained. [Observed UI record](evidence/chunk-3-live-2026-10-24.json).
 
 A final hardening pass rejects malformed snapshot structures without losing current work, retains explicit question-resolution records across switches, fixes singular change labels and hides model cancellation controls during Restore. Physical-phone verification remains in Chunk 5.
+
+## Deployed release and final check
+
+Initial implementation: `f15de6132582772ab2d71f74b21acbe80dc06005`, Render `dep-dbe7lf4s728c73b9shhg`. Final code: `bb2c5a77b51ad97f02cef48fac9488c4204b1dd6`, Render `dep-dbe7su3ncjis73db4bag`, live on 24 October at 10:47 WAT. The full suite passed 98 tests on this code.
+
+On the final release, reloading preserved the saved snapshot and the source-confirmation reset. Switch-back recovered Maple Library Hall, the corrected full signer, updated draft text, and the single still-open rehearsal question. The restore button displayed Restoring while the server validated the candidate, with no model-cancellation controls. Explicit resolution-record retention is covered by the automated swap test; earlier implementation snapshots do not invent resolution records they never captured.
+
+After the testing session resumed in a fresh browser context, Render first displayed its free-service wake-up page; one reload after wake-up loaded the app scripts. Browser-local test packs from the earlier automation context were not available in that fresh context. The live guide’s new comparison/restore instructions were rechecked. This does not establish cross-device persistence, uptime guarantees or physical-phone success.
+
+The owner supplied an InstaDemo style reference during this chunk. The [replacement video brief](short-video-brief-2026-10-24.md) and Chunk 6 now call for three distinct clips, each below one minute, after the remaining fixes. Existing videos and embeds were retained.

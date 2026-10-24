@@ -38,7 +38,7 @@ Deliverables:
 
 ## Chunk 3: make updates easy to compare and undo
 
-**Status:** implemented; deployment and live verification in progress. **Lessons:** Availazy, VOX, Dropzone Zero, Receipts.
+**Status:** complete for implementation and desktop verification. Deployed release `bb2c5a77b51ad97f02cef48fac9488c4204b1dd6`; live Prepare/Update, failure/resume, Restore and switch-back were checked. Physical-phone verification remains in Chunk 5. **Lessons:** Availazy, VOX, Dropzone Zero, Receipts.
 
 **Goal:** make changes and omissions visible while protecting the previous complete pack.
 
@@ -88,6 +88,7 @@ Deliverables:
 - Update the judge guide around one complete representative brief, update, review and PDF export. Keep exact inputs and expected checks accessible.
 - If adding a recorded replay, capture an actual model run, label it recorded, and disclose corrections. Keep it separate from the hand-authored sample and fresh live inference. Do not present the current captured flawed update as a passing demonstration.
 - Refresh affected screenshots, video sections/captions, README and submission draft to reflect the final behavior. Publishing external article changes is a separate action from saving its source.
+- Owner update on 24 October: after the remaining chunks and fixes, replace the three earlier long videos with three distinct videos **each less than one minute**. Use the supplied [31.816-second InstaDemo reference](https://instademo.app/share/49d92bf1-436b-47fd-b3b3-20933138a9f2) for its introduction, staged reveals and moving website framing. Follow the [short-video brief](short-video-brief-2026-10-24.md). Keep background music, visible cursor interaction, readable close-ups and actual tool evidence. Keep the current videos available until replacements are ready; no uploads or embeds were removed in this step.
 - Explain the actual jobs of Gemma, Render, .tech and Copilot, and the current hosted-processing boundary. Link the evaluation, failures, exports and source.
 
 **Completion checks:** someone can follow the evidence path without accounts, API keys or guessing which result a screenshot represents. Claims match dated artifacts and known limitations. Verify the deployed release and downloads; distinguish repository updates from published article updates.
@@ -98,4 +99,4 @@ Voice capture, mascots, additional sponsor integrations, accounts, collaboration
 
 ## Tracking rule
 
-Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. The owner authorized Chunk 2 separately; Chunk 3 is next after its source-review checks.
+Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. Chunks 2 and 3 were separately authorized and implemented. Chunk 4 is the next implementation step after Chunk 3 release verification; Chunk 1’s deferred live gate remains open.
