@@ -1,0 +1,24 @@
+{
+  "version": 5,
+  "frozenAt": "2026-10-24T18:30:53.035819+00:00",
+  "appCommit": "2ba1026f15d85035eeab873282d56c0b684c5d80",
+  "casesSha256": "54716024ad642fc40b8dca6a9d296b6650fe47fd1d1f3633b9ba76d57e7eeb36",
+  "files": {
+    "src/gemma.mjs": "b35cbce40bfe6d824522fa919956cf7cfc0ae47823bec3d19b0a0a261c7b85ac",
+    "src/providers.mjs": "450945a3b79489d6f3d309278fb19de7333ddd3aecaeeb19b365dcc12d29b9b9",
+    "src/explicit-obligations.mjs": "50ed8a21c1c5aa049ba3538857e7cd85896c6d6c745c63e3a121f604a91b22ac",
+    "src/content-checks.mjs": "6010feba72652dcc9c73880ada5af59175bd9471035da7697ce284f461f28dfa",
+    "src/server.mjs": "a6d8d08c4a4a9a8fc680d5c4c40caf6f5663d68741c43adf1aca1b3e2f3daac5",
+    "src/pack-schema.mjs": "559aff767816775e4c5a7656901f9531ceb76c074002e922a7ac06aee0213f77",
+    "src/plan.mjs": "a398ca30cc49f20888d0332aeeafa2cd191c02d4b8930e0b70d376be7870b556",
+    "src/source-evidence.mjs": "9e29b1fcd33a008d839b77bec1d90ea0a090b7a714b2151b475a52fe3a1d46e7",
+    "public/generation.mjs": "d7ffc1f414d4c1906620b18f3d517a4140b9e898fccf6494c2270bb7edf5a23c",
+    "public/update-history.mjs": "79f3606581c276cbffda40233d18d858a9721cf29824eadbe4aaadea06407a66",
+    "public/source-fields.mjs": "b53252a78f7f5cc17e3431126eb9413ed1cd39720fec7f46b76b392712bd57dd",
+    "public/letter-layout.mjs": "8ef0137c6b73526b559d2c340666aa5c08e1b95097b6facc4d8882d0744182bb",
+    "evaluation/score-v4.mjs": "69d2b190c61751f2a3f44740e178b177dc5c13d05e4f50eea65131c7a60dcf43",
+    "src/input-questions.mjs": "4e97be1c5b82536ef8fde8f1afb8602c4c93ee6535f0ce13f7db10b29fc57a2f",
+    "scripts/evaluate-quality-v5.mjs": "7f19da27c9a5a6d7cd967ecfdf49245c886589902d13014bedce0d1c62696b67"
+  },
+  "notes": "Targeted retest, not fresh evaluation. Expectations copied unchanged from v4. Eleven operations on seven cases."
+}

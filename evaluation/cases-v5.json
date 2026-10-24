@@ -1,0 +1,1233 @@
+{
+  "version": 5,
+  "authorship": "Targeted exposed regressions selected after v4. Expectations unchanged; no independent reviewer.",
+  "cases": [
+    {
+      "id": "known-school",
+      "cohort": "targeted-regression",
+      "request": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first \u201cYoung Minds: Science, Reading and Creativity Day\u201d on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school\u2019s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n\u2022 Welcome and housekeeping: 10 minutes.\n\u2022 Opening remarks by the headteacher: 10 minutes.\n\u2022 Pupils\u2019 reading and storytelling presentations: 15 minutes.\n\u2022 Science demonstrations: 35 minutes.\n\u2022 Refreshment break: 15 minutes.\n\u2022 Guided viewing of pupils\u2019 project displays: 30 minutes.\n\u2022 Parent and pupil reading activity: 20 minutes.\n\u2022 Creativity presentations and recognition of participants: 25 minutes.\n\u2022 Vote of thanks: 10 minutes.\n\u2022 Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school\u2019s designated first-aid officer should be available throughout the programme. The officer\u2019s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n\u2022 Printed programmes: 60 copies at NGN 250 each.\n\u2022 Bottled water: 150 bottles at NGN 200 each.\n\u2022 Refreshment packs: 150 packs at NGN 350 each.\n\u2022 Participation certificates: 100 copies at NGN 100 each.\n\u2022 Hall decorations: one package at NGN 18,000.\n\u2022 Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved.",
+      "answers": "We now have confirmed changes for Young Minds: Science, Reading and Creativity Day.\n\nThe event has moved from Saturday, 14 November 2026, to Saturday, 21 November 2026. The confirmed venue is the school\u2019s Multipurpose Hall, replacing the proposed Main Assembly Hall. Registration opens at 9:30 AM, and the programme runs from 10:00 AM to 1:00 PM.\n\nAttendance is now 180 people: 120 pupils, 40 parents or guardians, and 20 staff. Increase printed programmes to 80, water bottles to 180, refreshment packs to 180, and certificates to 120. Keep their existing unit prices unchanged.\n\nThe banner is confirmed at NGN 8,500. The 10 recognition prizes cost NGN 1,200 each. Decorations and sound system costs remain unchanged. The spending limit remains NGN 200,000.\n\nMove the proposed rehearsal to Thursday, 19 November 2026; its time is still awaiting approval. Mr Samuel Eze is the confirmed first-aid officer.\n\nUpdate the invitation, event details, schedule, checklist and budget consistently. Calculate the new total and remaining budget. Remove questions answered by these updates, retain genuinely unresolved questions, and keep the pack as a draft until I review it.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Young Minds: Science, Reading and Creativity Day",
+            "eventDate": "2026-11-14",
+            "startTime": null,
+            "venue": [
+              null,
+              "Main Assembly Hall",
+              "school\u2019s Main Assembly Hall"
+            ],
+            "organizer": [
+              "Sunrise Learning Centre, Abuja",
+              "Sunrise Learning Centre"
+            ],
+            "signatory": [
+              "Mrs Grace Okoro, Headteacher",
+              "Grace Okoro, Headteacher"
+            ],
+            "currency": "NGN",
+            "spendingLimitMinor": 20000000
+          },
+          "budget": [
+            {
+              "match": [
+                "printed programme",
+                "printed program"
+              ],
+              "quantity": 60,
+              "unitCostMinor": 25000
+            },
+            {
+              "match": [
+                "bottled water",
+                "water bottle",
+                "water"
+              ],
+              "quantity": 150,
+              "unitCostMinor": 20000
+            },
+            {
+              "match": [
+                "refreshment"
+              ],
+              "quantity": 150,
+              "unitCostMinor": 35000
+            },
+            {
+              "match": [
+                "certificate"
+              ],
+              "quantity": 100,
+              "unitCostMinor": 10000
+            },
+            {
+              "match": [
+                "decoration"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "match": [
+                "sound"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": null
+            },
+            {
+              "match": [
+                "prize"
+              ],
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 13750000,
+          "unknownPrices": 2,
+          "remainingAllowanceMinor": 6250000,
+          "owners": [
+            {
+              "name": "Daniel Musa",
+              "rolePattern": "science|demonstration"
+            },
+            {
+              "name": "Esther James",
+              "rolePattern": "reading|storytelling"
+            },
+            {
+              "name": "Ruth Adeyemi",
+              "rolePattern": "seat|print|refresh|suppl"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "start time",
+              "pattern": "start|time"
+            },
+            {
+              "label": "venue booking",
+              "pattern": "hall|venue|book"
+            },
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            },
+            {
+              "label": "first-aid assignment",
+              "pattern": "first.?aid"
+            },
+            {
+              "label": "unknown price",
+              "pattern": "banner|prize|price"
+            }
+          ],
+          "schedule": [],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-11-12"
+            }
+          ],
+          "requiredTasks": [
+            "clean|tidy",
+            "return.*(?:equipment|borrow)",
+            "reconcil|account.*spend",
+            "feedback"
+          ]
+        },
+        "update": {
+          "facts": {
+            "title": "Young Minds: Science, Reading and Creativity Day",
+            "eventDate": "2026-11-21",
+            "startTime": "10:00",
+            "venue": [
+              null,
+              "Multipurpose Hall",
+              "school\u2019s Multipurpose Hall"
+            ],
+            "organizer": [
+              "Sunrise Learning Centre, Abuja",
+              "Sunrise Learning Centre"
+            ],
+            "signatory": [
+              "Mrs Grace Okoro, Headteacher",
+              "Grace Okoro, Headteacher"
+            ],
+            "currency": "NGN",
+            "spendingLimitMinor": 20000000
+          },
+          "budget": [
+            {
+              "match": [
+                "printed programme",
+                "printed program"
+              ],
+              "quantity": 80,
+              "unitCostMinor": 25000
+            },
+            {
+              "match": [
+                "bottled water",
+                "water bottle",
+                "water"
+              ],
+              "quantity": 180,
+              "unitCostMinor": 20000
+            },
+            {
+              "match": [
+                "refreshment"
+              ],
+              "quantity": 180,
+              "unitCostMinor": 35000
+            },
+            {
+              "match": [
+                "certificate"
+              ],
+              "quantity": 120,
+              "unitCostMinor": 10000
+            },
+            {
+              "match": [
+                "decoration"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "match": [
+                "sound"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 850000
+            },
+            {
+              "match": [
+                "prize"
+              ],
+              "quantity": 10,
+              "unitCostMinor": 120000
+            }
+          ],
+          "knownTotalMinor": 18150000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 1850000,
+          "owners": [
+            {
+              "name": "Daniel Musa",
+              "rolePattern": "science|demonstration"
+            },
+            {
+              "name": "Esther James",
+              "rolePattern": "reading|storytelling"
+            },
+            {
+              "name": "Ruth Adeyemi",
+              "rolePattern": "seat|print|refresh|suppl"
+            },
+            {
+              "name": "Samuel Eze",
+              "rolePattern": "first.?aid"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "10:00",
+              "welcome|housekeeping",
+              10
+            ],
+            [
+              "10:10",
+              "opening",
+              10
+            ],
+            [
+              "10:20",
+              "reading|storytelling",
+              15
+            ],
+            [
+              "10:35",
+              "science",
+              35
+            ],
+            [
+              "11:10",
+              "refresh",
+              15
+            ],
+            [
+              "11:25",
+              "display|project",
+              30
+            ],
+            [
+              "11:55",
+              "reading",
+              20
+            ],
+            [
+              "12:15",
+              "creativ|recognition",
+              25
+            ],
+            [
+              "12:40",
+              "thanks",
+              10
+            ],
+            [
+              "12:50",
+              "clos|depart",
+              10
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-11-19"
+            }
+          ],
+          "requiredTasks": [
+            "clean|tidy",
+            "return.*(?:equipment|borrow)",
+            "reconcil|account.*spend",
+            "feedback"
+          ]
+        }
+      },
+      "actions": [
+        "prepare",
+        "update"
+      ]
+    },
+    {
+      "id": "fresh-school",
+      "cohort": "targeted-regression",
+      "request": "Prepare Riverside Literacy Morning for Riverside School on Saturday 5 December 2026 at 09:00 in Riverside Hall. The organizer is Riverside School. Sign Nkem Eze, Headteacher. Yemi Lawal leads the reading activity. Programme: Welcome 5 minutes, Reading activity 25 minutes, Book quiz 10 minutes, Closing 5 minutes, in that order. Currency NGN. Spending limit NGN 100000. Budget: 12 notebooks at NGN 1250 each and one banner with unknown price. Rehearsal is 4 December 2026; its time needs approval. Keep banner price and rehearsal time open. Fictional test: no sending or bookings.",
+      "answers": "Move to Riverside Library Room. Use 15 notebooks at the same NGN 1250 unit price. The banner is NGN 4500. Tola Akin replaces Yemi Lawal as reading lead. Keep date, 09:00 start, organizer, signer, spending limit and activity durations unchanged. Rehearsal time remains unapproved.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Riverside Literacy Morning",
+            "eventDate": "2026-12-05",
+            "startTime": "09:00",
+            "venue": "Riverside Hall",
+            "organizer": "Riverside School",
+            "signatory": "Nkem Eze, Headteacher",
+            "currency": "NGN",
+            "spendingLimitMinor": 10000000
+          },
+          "budget": [
+            {
+              "match": [
+                "notebook"
+              ],
+              "quantity": 12,
+              "unitCostMinor": 125000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 1500000,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 8500000,
+          "owners": [
+            {
+              "name": "Yemi Lawal",
+              "rolePattern": "read"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "banner price",
+              "pattern": "banner|price"
+            },
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "09:00",
+              "welcome",
+              5
+            ],
+            [
+              "09:05",
+              "read",
+              25
+            ],
+            [
+              "09:30",
+              "quiz",
+              10
+            ],
+            [
+              "09:40",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-04"
+            }
+          ]
+        },
+        "update": {
+          "facts": {
+            "title": "Riverside Literacy Morning",
+            "eventDate": "2026-12-05",
+            "startTime": "09:00",
+            "venue": "Riverside Library Room",
+            "organizer": "Riverside School",
+            "signatory": "Nkem Eze, Headteacher",
+            "currency": "NGN",
+            "spendingLimitMinor": 10000000
+          },
+          "budget": [
+            {
+              "match": [
+                "notebook"
+              ],
+              "quantity": 15,
+              "unitCostMinor": 125000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 450000
+            }
+          ],
+          "knownTotalMinor": 2325000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 7675000,
+          "owners": [
+            {
+              "name": "Tola Akin",
+              "rolePattern": "read"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "09:00",
+              "welcome",
+              5
+            ],
+            [
+              "09:05",
+              "read",
+              25
+            ],
+            [
+              "09:30",
+              "quiz",
+              10
+            ],
+            [
+              "09:40",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-04"
+            }
+          ]
+        }
+      },
+      "actions": [
+        "prepare",
+        "update"
+      ]
+    },
+    {
+      "id": "fresh-community",
+      "cohort": "targeted-regression",
+      "request": "Harbor Makers organizes Harbor Repair Cafe on Saturday 16 January 2027, 14:00, Workshop A. Sign Eli Cole, Coordinator. Jo Kim leads the tool tour. Activities in order: Briefing 10 minutes, Tool tour 20 minutes, Repairs 40 minutes, Closing 5 minutes. USD currency, USD 500 spending limit. Budget: 4 extension cords at USD 12.50 each and 1 poster at unknown price. Volunteer supervision for the repairs is awaiting approval and must remain a question. Do not invent poster cost. Fictional test only.",
+      "answers": "Move to Workshop B. Increase extension cords to 6 at USD 12.50 each. The poster is USD 20. Nia Fox replaces Jo Kim as tool-tour lead. Keep the other facts and exact activity timings. Volunteer supervision is still awaiting approval.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Harbor Repair Cafe",
+            "eventDate": "2027-01-16",
+            "startTime": "14:00",
+            "venue": "Workshop A",
+            "organizer": "Harbor Makers",
+            "signatory": "Eli Cole, Coordinator",
+            "currency": "USD",
+            "spendingLimitMinor": 50000
+          },
+          "budget": [
+            {
+              "match": [
+                "extension",
+                "cord"
+              ],
+              "quantity": 4,
+              "unitCostMinor": 1250
+            },
+            {
+              "match": [
+                "poster"
+              ],
+              "quantity": 1,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 5000,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 45000,
+          "owners": [
+            {
+              "name": "Jo Kim",
+              "rolePattern": "tool|tour"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "supervision approval",
+              "pattern": "supervis"
+            },
+            {
+              "label": "poster price",
+              "pattern": "poster|price"
+            }
+          ],
+          "schedule": [
+            [
+              "14:00",
+              "brief",
+              10
+            ],
+            [
+              "14:10",
+              "tool|tour",
+              20
+            ],
+            [
+              "14:30",
+              "repair",
+              40
+            ],
+            [
+              "15:10",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": []
+        },
+        "update": {
+          "facts": {
+            "title": "Harbor Repair Cafe",
+            "eventDate": "2027-01-16",
+            "startTime": "14:00",
+            "venue": "Workshop B",
+            "organizer": "Harbor Makers",
+            "signatory": "Eli Cole, Coordinator",
+            "currency": "USD",
+            "spendingLimitMinor": 50000
+          },
+          "budget": [
+            {
+              "match": [
+                "extension",
+                "cord"
+              ],
+              "quantity": 6,
+              "unitCostMinor": 1250
+            },
+            {
+              "match": [
+                "poster"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 2000
+            }
+          ],
+          "knownTotalMinor": 9500,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 40500,
+          "owners": [
+            {
+              "name": "Nia Fox",
+              "rolePattern": "tool|tour"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "supervision approval",
+              "pattern": "supervis"
+            }
+          ],
+          "schedule": [
+            [
+              "14:00",
+              "brief",
+              10
+            ],
+            [
+              "14:10",
+              "tool|tour",
+              20
+            ],
+            [
+              "14:30",
+              "repair",
+              40
+            ],
+            [
+              "15:10",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": []
+        }
+      },
+      "actions": [
+        "prepare"
+      ]
+    },
+    {
+      "id": "fresh-ambiguous-date",
+      "cohort": "targeted-regression",
+      "request": "Oak PTA organizes Oak Parent Meeting. The supplied date 11/12/2026 is ambiguous: do not choose day/month or month/day; leave event date unknown and ask which date is intended. Start is 15:30 at Oak Hall. Sign Chioma Udo, Secretary. Aba Mensah leads discussion. Programme order: Welcome 10 minutes, Discussion 30 minutes, Closing 5 minutes. Currency GHS, spending limit GHS 3000. Budget: 40 chairs at GHS 12 each and 40 refreshments with unknown unit price. Room booking remains unconfirmed. Keep date interpretation, room booking and price open. Fictional test.",
+      "answers": "The date means Thursday 12 November 2026, not 11 December. Increase chairs to 45 at the same GHS 12 each. Refreshments are GHS 8 each for 40. Keep 15:30, Oak Hall, organizer, signer, owner, durations and limit. The room booking is still unconfirmed.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Oak Parent Meeting",
+            "eventDate": null,
+            "startTime": "15:30",
+            "venue": "Oak Hall",
+            "organizer": "Oak PTA",
+            "signatory": "Chioma Udo, Secretary",
+            "currency": "GHS",
+            "spendingLimitMinor": 300000
+          },
+          "budget": [
+            {
+              "match": [
+                "chair"
+              ],
+              "quantity": 40,
+              "unitCostMinor": 1200
+            },
+            {
+              "match": [
+                "refresh"
+              ],
+              "quantity": 40,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 48000,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 252000,
+          "owners": [
+            {
+              "name": "Aba Mensah",
+              "rolePattern": "discuss"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "ambiguous date",
+              "pattern": "date|11/12"
+            },
+            {
+              "label": "booking",
+              "pattern": "book|room|venue"
+            },
+            {
+              "label": "refreshment price",
+              "pattern": "refresh|price"
+            }
+          ],
+          "schedule": [
+            [
+              "15:30",
+              "welcome",
+              10
+            ],
+            [
+              "15:40",
+              "discuss",
+              30
+            ],
+            [
+              "16:10",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": []
+        },
+        "update": {
+          "facts": {
+            "title": "Oak Parent Meeting",
+            "eventDate": "2026-11-12",
+            "startTime": "15:30",
+            "venue": "Oak Hall",
+            "organizer": "Oak PTA",
+            "signatory": "Chioma Udo, Secretary",
+            "currency": "GHS",
+            "spendingLimitMinor": 300000
+          },
+          "budget": [
+            {
+              "match": [
+                "chair"
+              ],
+              "quantity": 45,
+              "unitCostMinor": 1200
+            },
+            {
+              "match": [
+                "refresh"
+              ],
+              "quantity": 40,
+              "unitCostMinor": 800
+            }
+          ],
+          "knownTotalMinor": 86000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 214000,
+          "owners": [
+            {
+              "name": "Aba Mensah",
+              "rolePattern": "discuss"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "booking",
+              "pattern": "book|room|venue"
+            }
+          ],
+          "schedule": [
+            [
+              "15:30",
+              "welcome",
+              10
+            ],
+            [
+              "15:40",
+              "discuss",
+              30
+            ],
+            [
+              "16:10",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": []
+        }
+      },
+      "actions": [
+        "prepare"
+      ]
+    },
+    {
+      "id": "fresh-zero-and-overspend",
+      "cohort": "targeted-regression",
+      "request": "Valley Debate Society organizes Valley Debate Open on Saturday 19 December 2026 at 12:00 in Valley Hall. Sign Olu Dare, Secretary. Kemi Wale hosts the debate. Activities: Introduction 10 minutes, Debate 40 minutes, Closing 10 minutes, in that order. Currency KES. Spending limit KES 10000. Budget: 5 microphones at KES 1000 each, 2 rooms donated at KES 0 each, and 40 water packs with unknown unit price. Keep the water price and guest-judge approval as open questions. Zero for donated rooms is confirmed, not a missing price. Fictional test.",
+      "answers": "Use 8 microphones at KES 1000 each. The 40 water packs cost KES 75 each. Keep 2 donated rooms at zero. Keep all dates, times, venue, organizer, signer, owner, durations and KES 10000 limit. The guest judge is still awaiting approval. Show any overspend without inventing savings.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Valley Debate Open",
+            "eventDate": "2026-12-19",
+            "startTime": "12:00",
+            "venue": "Valley Hall",
+            "organizer": "Valley Debate Society",
+            "signatory": "Olu Dare, Secretary",
+            "currency": "KES",
+            "spendingLimitMinor": 1000000
+          },
+          "budget": [
+            {
+              "match": [
+                "microphone"
+              ],
+              "quantity": 5,
+              "unitCostMinor": 100000
+            },
+            {
+              "match": [
+                "room"
+              ],
+              "quantity": 2,
+              "unitCostMinor": 0
+            },
+            {
+              "match": [
+                "water"
+              ],
+              "quantity": 40,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 500000,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 500000,
+          "owners": [
+            {
+              "name": "Kemi Wale",
+              "rolePattern": "debate|host"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "water price",
+              "pattern": "water|price"
+            },
+            {
+              "label": "guest judge",
+              "pattern": "judge"
+            }
+          ],
+          "schedule": [
+            [
+              "12:00",
+              "intro",
+              10
+            ],
+            [
+              "12:10",
+              "debate",
+              40
+            ],
+            [
+              "12:50",
+              "clos",
+              10
+            ]
+          ],
+          "forbidden": []
+        },
+        "update": {
+          "facts": {
+            "title": "Valley Debate Open",
+            "eventDate": "2026-12-19",
+            "startTime": "12:00",
+            "venue": "Valley Hall",
+            "organizer": "Valley Debate Society",
+            "signatory": "Olu Dare, Secretary",
+            "currency": "KES",
+            "spendingLimitMinor": 1000000
+          },
+          "budget": [
+            {
+              "match": [
+                "microphone"
+              ],
+              "quantity": 8,
+              "unitCostMinor": 100000
+            },
+            {
+              "match": [
+                "room"
+              ],
+              "quantity": 2,
+              "unitCostMinor": 0
+            },
+            {
+              "match": [
+                "water"
+              ],
+              "quantity": 40,
+              "unitCostMinor": 7500
+            }
+          ],
+          "knownTotalMinor": 1100000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": -100000,
+          "owners": [
+            {
+              "name": "Kemi Wale",
+              "rolePattern": "debate|host"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "guest judge",
+              "pattern": "judge"
+            }
+          ],
+          "schedule": [
+            [
+              "12:00",
+              "intro",
+              10
+            ],
+            [
+              "12:10",
+              "debate",
+              40
+            ],
+            [
+              "12:50",
+              "clos",
+              10
+            ]
+          ],
+          "forbidden": []
+        }
+      },
+      "actions": [
+        "prepare",
+        "update"
+      ]
+    },
+    {
+      "id": "known-judge",
+      "cohort": "targeted-regression",
+      "request": "Prepare an event pack for Community Reading Morning, organized by Sunrise Learning Club on 21 November 2026 at the school library. Start at 10:00. Sign the invitation as Amina Bello, Coordinator. Activities in order: welcome for 10 minutes, reading circles for 30 minutes, a book quiz for 20 minutes, then closing remarks for 10 minutes. Ada Okafor leads the reading circles. Budget currency is NGN. We need 20 notebooks at NGN 200 each and 10 printed programmes, whose price is still awaiting approval. Do not invent the missing price. The room booking is still awaiting approval. This is fictional testing data.",
+      "answers": "The venue has changed to the multipurpose hall. The hall booking is confirmed. Printed programmes now cost NGN 100 each. Increase notebooks to 25 at the same unit price. Keep the event date, start time, activities, organizer and signatory unchanged.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Community Reading Morning",
+            "eventDate": "2026-11-21",
+            "startTime": "10:00",
+            "venue": "school library",
+            "organizer": "Sunrise Learning Club",
+            "signatory": "Amina Bello, Coordinator",
+            "currency": "NGN",
+            "spendingLimitMinor": null
+          },
+          "budget": [
+            {
+              "match": [
+                "notebook"
+              ],
+              "quantity": 20,
+              "unitCostMinor": 20000
+            },
+            {
+              "match": [
+                "programme",
+                "program"
+              ],
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 400000,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": null,
+          "owners": [
+            {
+              "name": "Ada Okafor",
+              "rolePattern": "reading|circle"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "room booking",
+              "pattern": "book|room|venue"
+            },
+            {
+              "label": "programme price",
+              "pattern": "price|cost|programme"
+            }
+          ],
+          "schedule": [
+            [
+              "10:00",
+              "welcome",
+              10
+            ],
+            [
+              "10:10",
+              "reading",
+              30
+            ],
+            [
+              "10:40",
+              "quiz",
+              20
+            ],
+            [
+              "11:00",
+              "closing",
+              10
+            ]
+          ],
+          "forbidden": []
+        },
+        "update": {
+          "facts": {
+            "title": "Community Reading Morning",
+            "eventDate": "2026-11-21",
+            "startTime": "10:00",
+            "venue": "multipurpose hall",
+            "organizer": "Sunrise Learning Club",
+            "signatory": "Amina Bello, Coordinator",
+            "currency": "NGN",
+            "spendingLimitMinor": null
+          },
+          "budget": [
+            {
+              "match": [
+                "notebook"
+              ],
+              "quantity": 25,
+              "unitCostMinor": 20000
+            },
+            {
+              "match": [
+                "programme",
+                "program"
+              ],
+              "quantity": 10,
+              "unitCostMinor": 10000
+            }
+          ],
+          "knownTotalMinor": 600000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": null,
+          "owners": [
+            {
+              "name": "Ada Okafor",
+              "rolePattern": "reading|circle"
+            }
+          ],
+          "pendingQuestions": [],
+          "schedule": [
+            [
+              "10:00",
+              "welcome",
+              10
+            ],
+            [
+              "10:10",
+              "reading",
+              30
+            ],
+            [
+              "10:40",
+              "quiz",
+              20
+            ],
+            [
+              "11:00",
+              "closing",
+              10
+            ]
+          ],
+          "forbidden": []
+        }
+      },
+      "actions": [
+        "prepare"
+      ]
+    },
+    {
+      "id": "known-community",
+      "cohort": "targeted-regression",
+      "request": "Prepare a draft for Community Book Exchange, organized by Cedar Reading Club at Cedar Hall on Saturday 12 December 2026. Programme begins at 14:15; registration is 14:00. The audience is local adult readers and attendance is free. Sign the invitation Ada Nwosu, Club Secretary. Activities in this exact order: Welcome 10 minutes; book exchange 30 minutes; Closing 5 minutes. Ada Nwosu coordinates registration. David Cole leads book exchange. Rehearsal is Friday 11 December, but its time is still awaiting approval. The currency is USD, with a maximum spending limit of USD 500. Budget: three tables at USD 107.50 each; one banner, price unknown. Preserve the unknown price and rehearsal approval. Do not send invitations or book anything.",
+      "answers": "The venue is now Cedar Library Hall. The banner price is confirmed as USD 25. The programme still begins at 14:15 and the spending limit stays USD 500. Keep both activity durations and assigned owners. The rehearsal time is still awaiting approval.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Community Book Exchange",
+            "eventDate": "2026-12-12",
+            "startTime": "14:15",
+            "venue": "Cedar Hall",
+            "organizer": "Cedar Reading Club",
+            "signatory": "Ada Nwosu, Club Secretary",
+            "currency": "USD",
+            "spendingLimitMinor": 50000
+          },
+          "budget": [
+            {
+              "match": [
+                "table"
+              ],
+              "quantity": 3,
+              "unitCostMinor": 10750
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 32250,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 17750,
+          "owners": [
+            {
+              "name": "Ada Nwosu",
+              "rolePattern": "registr"
+            },
+            {
+              "name": "David Cole",
+              "rolePattern": "book|exchange"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "banner price",
+              "pattern": "banner|price"
+            },
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "14:15",
+              "welcome",
+              10
+            ],
+            [
+              "14:25",
+              "book|exchange",
+              30
+            ],
+            [
+              "14:55",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-11"
+            }
+          ]
+        },
+        "update": {
+          "facts": {
+            "title": "Community Book Exchange",
+            "eventDate": "2026-12-12",
+            "startTime": "14:15",
+            "venue": "Cedar Library Hall",
+            "organizer": "Cedar Reading Club",
+            "signatory": "Ada Nwosu, Club Secretary",
+            "currency": "USD",
+            "spendingLimitMinor": 50000
+          },
+          "budget": [
+            {
+              "match": [
+                "table"
+              ],
+              "quantity": 3,
+              "unitCostMinor": 10750
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 2500
+            }
+          ],
+          "knownTotalMinor": 34750,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 15250,
+          "owners": [
+            {
+              "name": "Ada Nwosu",
+              "rolePattern": "registr"
+            },
+            {
+              "name": "David Cole",
+              "rolePattern": "book|exchange"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "14:15",
+              "welcome",
+              10
+            ],
+            [
+              "14:25",
+              "book|exchange",
+              30
+            ],
+            [
+              "14:55",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-11"
+            }
+          ]
+        }
+      },
+      "actions": [
+        "prepare",
+        "update"
+      ]
+    }
+  ]
+}
