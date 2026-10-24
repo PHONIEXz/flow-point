@@ -12,7 +12,8 @@ let state = collection.current;
 let lastSavedRaw = null;
 const sourceHosts = new Map();
 let renderedSourceHistoryKey = null;
-let processor = 'Google', aiModelLabel = 'Gemma', activeProvider = 'google';
+let processor = 'Google', aiModelLabel = 'Gemma', activeProvider = 'google', providerChoices = [], selectedModel = null;
+const providerChoiceKey = 'flow-point-ai-provider-v1';
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
 function announce(message) { $('notice').textContent = message.replaceAll('Google', processor).replaceAll('Gemma', aiModelLabel); $('notice').hidden = !message; }
@@ -62,6 +63,26 @@ $('change-consent').addEventListener('click', () => {
 });
 window.addEventListener('storage', event => { if (event.key === consentKey || event.key === null) { if (event.newValue !== 'allowed') { try { sessionStorage.removeItem(consentKey); } catch {} } restoreConsent(); } });
 restoreConsent();
+function chooseProvider(id, remember=false) {
+  const choice=providerChoices.find(p=>p.id===id);
+  if(!choice) return false;
+  activeProvider=choice.id;processor=choice.processor;aiModelLabel=choice.modelLabel;selectedModel=choice.model;
+  liveAvailable=choice.configured;
+  consentKey=activeProvider==='google'?'flow-point-google-processing-v2':'flow-point-groq-processing-v1';
+  restoreConsent();
+  $('ai-provider').value=activeProvider;
+  $('processing-consent-text').textContent=`I allow my event notes, current pack and follow-up changes to be sent to ${processor} for hosted ${aiModelLabel} processing when I choose Prepare or Update. I will leave out private attendee details.`;
+  $('refine').textContent=`Update pack with ${aiModelLabel}`;
+  $('model-state').textContent=liveAvailable?`Live drafting · ${processor} · ${selectedModel}`:`${aiModelLabel} is not connected. Choose another available model or explore the sample.`;
+  $('ai-choice-help').textContent=`${aiModelLabel} via ${processor} · ${selectedModel}. This choice applies to your next Prepare or Update. Each provider has its own usage limits. Your current pack stays unchanged.`;
+  if(remember)try{localStorage.setItem(providerChoiceKey,activeProvider);}catch{$('ai-choice-help').textContent+=' This browser could not save the model preference; the selection applies to this open page.';}
+  setBusy(busy);
+  return true;
+}
+$('ai-provider').addEventListener('change',()=>{
+  if(busy){$('ai-provider').value=activeProvider;return;}
+  if(chooseProvider($('ai-provider').value,true))announce(`Selected ${aiModelLabel} via ${processor}. ${processingAllowed?'Your processing choice is already saved for this provider.':'Review the processing choice on Notes before generating.'}`);
+});
 
 function renderView() {
   const wantsPack = location.pathname.startsWith('/workspace/pack');
@@ -473,7 +494,7 @@ $('add-budget').addEventListener('click', () => { if (state.plan.budget.length >
 function setBusy(value, cancellable = false) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
-  $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
+  $('ai-provider').disabled = value || !providerChoices.length; $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; $('judge-example').disabled = value; renderSavedPacks();
   $('cancel').hidden = !value || !cancellable; $('cancel-refine').hidden = !value || !cancellable; $('generate').textContent = value && cancellable ? `Preparing with ${aiModelLabel}…` : 'Prepare my event pack ↗';
   $('restore-confirm').disabled = value; $('restore-previous').disabled = value || !previousVersion(state.previousVersion) || !$('restore-confirm').checked;
@@ -491,7 +512,7 @@ async function generate(refine = false) {
   if (refine) { try { capturePrevious(before); } catch (error) { return announce(error.message); } }
   clearTimeout(timer); revision++; setBusy(true, true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
   try {
-    const input = { processingProvider: activeProvider, invitationStyle: $('invitation-style').value || 'formal', request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
+    const input = { processingProvider: activeProvider, processingModel: selectedModel, invitationStyle: $('invitation-style').value || 'formal', request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
     const result = await prepareInStages(input, {
       call: (data, signal) => api('/api/generate', data, signal), saved: state.pendingGeneration, signal: controller.signal,
       checkpoint: work => { state.pendingGeneration = work; save(); },
@@ -593,13 +614,12 @@ async function init() {
   } catch { announce('The saved draft could not be restored. You can start a new pack or retry after reconnecting.'); }
   try {
     const config = await api('/api/config');
-    activeProvider = config.provider || 'google'; processor = config.processor || 'Google'; aiModelLabel = config.modelLabel || 'Gemma';
-    consentKey = activeProvider === 'google' ? 'flow-point-google-processing-v2' : 'flow-point-groq-processing-v1';
-    restoreConsent();
-    $('processing-consent-text').textContent = `I allow my event notes, current pack and follow-up changes to be sent to ${processor} for hosted ${aiModelLabel} processing when I choose Prepare or Update. I will leave out private attendee details.`;
-    $('refine').textContent = `Update pack with ${aiModelLabel}`;
-    liveAvailable = config.liveAvailable;
-    $('model-state').textContent = liveAvailable ? `Live drafting · ${processor} · ${config.model}` : `Live ${aiModelLabel} is not connected yet. The sample workspace is available.`;
+    providerChoices = Array.isArray(config.providers)?config.providers:[{id:config.provider||'google',processor:config.processor||'Google',modelLabel:config.modelLabel||'Gemma',model:config.model,configured:config.liveAvailable}];
+    $('ai-provider').replaceChildren();
+    for(const choice of providerChoices){const option=document.createElement('option');option.value=choice.id;option.textContent=`${choice.modelLabel} · ${choice.processor}${choice.configured?'':' (not connected)'}`;option.disabled=!choice.configured;$('ai-provider').append(option);}
+    let remembered;try{remembered=localStorage.getItem(providerChoiceKey);}catch{}
+    const selected=providerChoices.find(p=>p.id===remembered&&p.configured)||providerChoices.find(p=>p.id===config.provider&&p.configured)||providerChoices.find(p=>p.configured)||providerChoices[0];
+    if(selected)chooseProvider(selected.id);
   }
   catch { $('model-state').textContent = 'Cannot reach the app server. Please reconnect and reload.'; }
   setBusy(false);

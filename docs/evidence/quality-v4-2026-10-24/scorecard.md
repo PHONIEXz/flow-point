@@ -5,7 +5,7 @@ Twelve paired fictional cases: eleven exposed regressions and one not yet execut
 
 | Cohort | Planned operations | Attempted | Completed | Failed | Skipped | All declared checks passed |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| exposed | 22 | 13 | 11 | 2 | 2 | 8 |
+| exposed | 22 | 20 | 18 | 2 | 2 | 11 |
 | fresh-before-first-inference | 2 | 2 | 2 | 0 | 0 | 2 |
 
 These are operation and declared-check counts, not an overall reliability percentage. Raw model outputs, application question preservation, safe request receipts and failures are stored separately per operation. Manual review time and a timed human baseline are unmeasured.
@@ -29,3 +29,10 @@ These are operation and declared-check counts, not an overall reliability percen
 | fresh-untrusted-quote / prepare | Completed |  |
 | fresh-untrusted-quote / update | Completed |  |
 | fresh-zero-and-overspend / prepare | Completed | Responsibility: Kemi Wale: wrong |
+| fresh-zero-and-overspend / update | Completed | Responsibility: Kemi Wale: wrong |
+| known-judge / prepare | Completed | Fact: venue: missing; invitation: venue: missing-or-wrong; schedule: venue: missing-or-wrong |
+| known-judge / update | Completed |  |
+| known-community / prepare | Completed | Budget line: banner: missing; Unknown price count: wrong; Task date: rehears: missing-or-wrong |
+| known-community / update | Completed | Task date: rehears: missing-or-wrong |
+| known-maple / prepare | Completed |  |
+| known-maple / update | Completed |  |

@@ -9,9 +9,11 @@ export function explicitObligationIssues(plan,{request='',answers='',previousPla
  const expectations=[];
  for(const source of [request,answers]) {
   // A quantity and item immediately followed by an explicit unit price or unknown price.
-  const pattern=/\b(\d+|one|two|three|four|five)\s+([A-Za-z][A-Za-z -]{0,70}?)\s+(?:at\s+(?:the\s+)?(?:same\s+)?([A-Z]{3})\s+([\d,]+(?:\.\d{1,2})?)\s*(?:each\b)?(?=[,.;\n]|$|\s+and\b)|(?:with\s+)?(?:an?\s+)?(?:unknown|unconfirmed|pending)\s+price)/g;
+  const pattern=/\b(\d+|one|two|three|four|five)\s+([A-Za-z][A-Za-z -]{0,70}?)(?:\s+|,\s*)(?:at\s+(?:the\s+)?(?:same\s+)?([A-Z]{3})\s+([\d,]+(?:\.\d{1,2})?)\s*(?:each\b)?(?=[,.;\n]|$|\s+and\b)|(?:with\s+)?(?:an?\s+)?(?:unknown|unconfirmed|pending)\s+(?:unit\s+)?price|(?:whose\s+)?(?:unit\s+)?price\s+(?:is\s+)?(?:still\s+)?(?:unknown|unconfirmed|pending|awaiting\s+approval))/g;
   for(const m of source.matchAll(pattern)) {
-   const label=m[2].trim(),quantity=counts[m[1]]||Number(m[1]);
+   let label=m[2].trim();const quantity=counts[m[1]]||Number(m[1]);
+   const prefix=source.slice(source.lastIndexOf('\n',m.index)+1,m.index).trim();
+   if(/^(?:copies|bottles|packages?|packs?|items?|pieces?|sets?)$/i.test(label)&&prefix.length<=100&&/[:—–-]$/.test(prefix)&&words(prefix).some(w=>!['budget','cost','item','total'].includes(w))) label=prefix.replace(/[:—–-]+$/,'').trim();
    if(!Number.isSafeInteger(quantity)||quantity<1)continue;
    const item={label,quantity,latest:source===answers};
    if(m[3]===plan.currency) item.unitCostMinor=Math.round(Number(m[4].replaceAll(',',''))*100);
@@ -35,7 +37,7 @@ export function explicitObligationIssues(plan,{request='',answers='',previousPla
  }
  // Direct assignments also appear without Mr/Mrs/Dr. Keep them through unrelated updates.
  const assignments=[];
- for(const source of [request,answers]) for(const m of source.matchAll(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\s+(?:now\s+)?(?:leads?|coordinates?|manages?)\s+(?:the\s+)?([^\n.!?;]+)/g)) {
+ for(const source of [request,answers]) for(const m of source.matchAll(/\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,2})\s+(?:now\s+)?(?:leads?|coordinates?|manages?|hosts?)\s+(?:the\s+)?([^\n.!?;]+)/g)) {
   const row={name:m[1],role:m[2]};
   const index=assignments.findIndex(a=>overlaps(a.role,row.role));
   if(index<0)assignments.push(row);else assignments[index]=row;

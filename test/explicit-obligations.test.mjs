@@ -47,3 +47,26 @@ test('new explicit owner replaces the old owner for now-leads and replaces-as wo
   assert.ok(sourceContentIssues(good(),{request:captured.request,answers}).some(x=>/Nora Cole/.test(x)));
  }
 });
+
+test('budget headings distinguish products sharing copies, bottles and package units',()=>{
+ const p={currency:'NGN',tasks:[],openQuestions:[],budget:[{label:'Programmes',quantity:60,unitCostMinor:25000},{label:'Certificates',quantity:100,unitCostMinor:10000},{label:'Water',quantity:150,unitCostMinor:20000},{label:'Decorations',quantity:1,unitCostMinor:1800000},{label:'Sound system',quantity:1,unitCostMinor:1200000}]};
+ const input={request:'Printed programmes: 60 copies at NGN 250 each.\nParticipation certificates: 100 copies at NGN 100 each.\nBottled water: 150 bottles at NGN 200 each.\nHall decorations: one package at NGN 18000.\nSound system hire: one package at NGN 12000.'};
+ assert.deepEqual(sourceContentIssues(p,input),[]);p.budget[0].quantity=100;assert.ok(sourceContentIssues(p,input).some(x=>/quantity.*programmes/i.test(x)));
+});
+
+test('an explicitly named debate host cannot silently lose checklist ownership',()=>{
+ const p={currency:'KES',budget:[],tasks:[{label:'Host debate',owner:null}],openQuestions:[]};
+ const input={request:'Kemi Wale hosts the debate.'};assert.ok(sourceContentIssues(p,input).some(s=>/Kemi Wale/.test(s)));p.tasks[0].owner='Kemi Wale';assert.deepEqual(sourceContentIssues(p,input),[]);
+});
+
+test('pending booking remains a question while a requested venue is retained; later confirmation resolves the requirement',()=>{
+ const p={currency:'NGN',budget:[],tasks:[],venue:'Cedar Hall',openQuestions:[]};const request='The venue is Cedar Hall. Room booking is pending.';
+ assert.ok(sourceContentIssues(p,{request}).some(x=>/venue.booking/.test(x)));
+ assert.deepEqual(sourceContentIssues({...p,openQuestions:['Is the room booking approved?']},{request}),[]);
+ assert.deepEqual(sourceContentIssues({...p,tasks:[{label:'Proposed rehearsal',owner:null,dueDate:null}]},{request,answers:'The venue booking is confirmed; the rehearsal is still pending.'}),[]);
+});
+
+test('captured community pack cannot omit a comma-style unknown-price item or its rehearsal task',async()=>{
+ const captured=JSON.parse(await readFile(new URL('./community-regression.json',import.meta.url)));const issues=sourceContentIssues(captured.plan,{request:captured.request});assert.ok(issues.some(s=>/banner/.test(s)));assert.ok(issues.some(s=>/rehearsal/.test(s)));
+ const p=structuredClone(captured.plan);p.budget.push({label:'Banner',quantity:1,unitCostMinor:null});p.tasks.push({label:'Proposed rehearsal',owner:null,dueDate:'2026-12-11'});assert.deepEqual(sourceContentIssues(p,{request:captured.request}),[]);
+});

@@ -1,0 +1,209 @@
+{
+  "request": "Prepare a draft for Community Book Exchange, organized by Cedar Reading Club at Cedar Hall on Saturday 12 December 2026. Programme begins at 14:15; registration is 14:00. The audience is local adult readers and attendance is free. Sign the invitation Ada Nwosu, Club Secretary. Activities in this exact order: Welcome 10 minutes; book exchange 30 minutes; Closing 5 minutes. Ada Nwosu coordinates registration. David Cole leads book exchange. Rehearsal is Friday 11 December, but its time is still awaiting approval. The currency is USD, with a maximum spending limit of USD 500. Budget: three tables at USD 107.50 each; one banner, price unknown. Preserve the unknown price and rehearsal approval. Do not send invitations or book anything.",
+  "plan": {
+    "title": "Community Book Exchange",
+    "eventDate": "2026-12-12",
+    "requestedWeekday": "Saturday",
+    "venue": "Cedar Hall",
+    "startTime": "14:15",
+    "organizer": "Cedar Reading Club",
+    "signatory": "Ada Nwosu, Club Secretary",
+    "currency": "USD",
+    "spendingLimitMinor": 50000,
+    "tasks": [
+      {
+        "label": "Coordinate registration",
+        "owner": "Ada Nwosu",
+        "dueDate": null
+      },
+      {
+        "label": "Lead book exchange",
+        "owner": "David Cole",
+        "dueDate": null
+      },
+      {
+        "label": "Welcome",
+        "owner": null,
+        "dueDate": null
+      },
+      {
+        "label": "Closing",
+        "owner": null,
+        "dueDate": null
+      }
+    ],
+    "budget": [
+      {
+        "label": "tables",
+        "quantity": 3,
+        "unitCostMinor": 10750
+      }
+    ],
+    "drafts": {
+      "invitation": "Dear Local Adult Readers,\n\nYou are warmly invited to the Community Book Exchange organised by the Cedar Reading Club. This free event will be held on Saturday, 12 December 2026 at Cedar Hall.\n\nThe programme will begin at 14:15, following registration from 14:00. Activities will include a brief welcome, the book exchange session, and a short closing. We look forward to your participation in sharing and discovering books within our community.\n\nYours faithfully,\n\nAda Nwosu\nClub Secretary",
+      "schedule": "Community Book Exchange\nCedar Hall\n\n14:00 Registration (Ada Nwosu coordinates registration)\n14:15 Welcome \u2013 10 minutes\n14:25 Book exchange \u2013 30 minutes (led by David Cole)\n14:55 Closing \u2013 5 minutes"
+    },
+    "openQuestions": [
+      "Rehearsal time awaiting approval (Friday 11 December).",
+      "Banner price unknown."
+    ],
+    "sourceEvidence": {
+      "version": 1,
+      "legacy": false,
+      "notesChanged": false,
+      "sources": [
+        {
+          "id": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "kind": "notes",
+          "text": "Prepare a draft for Community Book Exchange, organized by Cedar Reading Club at Cedar Hall on Saturday 12 December 2026. Programme begins at 14:15; registration is 14:00. The audience is local adult readers and attendance is free. Sign the invitation Ada Nwosu, Club Secretary. Activities in this exact order: Welcome 10 minutes; book exchange 30 minutes; Closing 5 minutes. Ada Nwosu coordinates registration. David Cole leads book exchange. Rehearsal is Friday 11 December, but its time is still awaiting approval. The currency is USD, with a maximum spending limit of USD 500. Budget: three tables at USD 107.50 each; one banner, price unknown. Preserve the unknown price and rehearsal approval. Do not send invitations or book anything."
+        }
+      ],
+      "records": [
+        {
+          "path": "title",
+          "binding": "[\"Community Book Exchange\",\"\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 0,
+          "end": 43
+        },
+        {
+          "path": "eventDate",
+          "binding": "[\"2026-12-12\",\"\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 94,
+          "end": 119
+        },
+        {
+          "path": "startTime",
+          "binding": "[\"14:15\",\"\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 121,
+          "end": 146
+        },
+        {
+          "path": "venue",
+          "binding": "[\"Cedar Hall\",\"\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 80,
+          "end": 90
+        },
+        {
+          "path": "organizer",
+          "binding": "[\"Cedar Reading Club\",\"\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 45,
+          "end": 76
+        },
+        {
+          "path": "signatory",
+          "binding": "[\"Ada Nwosu, Club Secretary\",\"\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 231,
+          "end": 276
+        },
+        {
+          "path": "currency",
+          "binding": "[\"USD\",\"\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 517,
+          "end": 536
+        },
+        {
+          "path": "spendingLimitMinor",
+          "binding": "[50000,\"USD\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 545,
+          "end": 578
+        },
+        {
+          "path": "tasks.0.owner",
+          "binding": "[\"Ada Nwosu\",\"Coordinate registration\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 375,
+          "end": 409
+        },
+        {
+          "path": "tasks.0.dueDate",
+          "binding": "[null,\"Coordinate registration\"]",
+          "origin": "unsupported",
+          "confirmed": false
+        },
+        {
+          "path": "tasks.1.owner",
+          "binding": "[\"David Cole\",\"Lead book exchange\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 411,
+          "end": 441
+        },
+        {
+          "path": "tasks.1.dueDate",
+          "binding": "[null,\"Lead book exchange\"]",
+          "origin": "unsupported",
+          "confirmed": false
+        },
+        {
+          "path": "tasks.2.owner",
+          "binding": "[null,\"Welcome\"]",
+          "origin": "unsupported",
+          "confirmed": false
+        },
+        {
+          "path": "tasks.2.dueDate",
+          "binding": "[null,\"Welcome\"]",
+          "origin": "unsupported",
+          "confirmed": false
+        },
+        {
+          "path": "tasks.3.owner",
+          "binding": "[null,\"Closing\"]",
+          "origin": "unsupported",
+          "confirmed": false
+        },
+        {
+          "path": "tasks.3.dueDate",
+          "binding": "[null,\"Closing\"]",
+          "origin": "unsupported",
+          "confirmed": false
+        },
+        {
+          "path": "budget.0.quantity",
+          "binding": "[3,\"tables\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 588,
+          "end": 619
+        },
+        {
+          "path": "budget.0.unitCostMinor",
+          "binding": "[10750,\"tables\\u0000USD\"]",
+          "origin": "extracted",
+          "confirmed": false,
+          "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+          "start": 604,
+          "end": 619
+        }
+      ]
+    }
+  }
+}

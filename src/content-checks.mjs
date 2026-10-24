@@ -30,13 +30,21 @@ export function sourceContentIssues(plan, { request = '', answers = '', previous
     if (!plan.tasks.some(task => (task.owner || '').toLowerCase().includes(name.toLowerCase()))) issues.push('Include every explicitly assigned named person as a checklist owner; do not leave a confirmed first-aid officer only in prose.');
   }
   const latest = rehearsalContext(answers) || rehearsalContext(request);
-  if (latest && !/\b(?:cancelled|canceled|no rehearsal)\b/i.test(latest)) {
+  if (latest && !/\b(?:cancel(?:led|ed)?|no rehearsal)\b/i.test(latest)) {
     const dateMatch = latest.match(/\b(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})\b/i);
     const iso = latest.match(/\b\d{4}-\d{2}-\d{2}\b/)?.[0];
     const date = dateMatch ? `${dateMatch[3]}-${String(months.indexOf(dateMatch[2].toLowerCase())+1).padStart(2,'0')}-${dateMatch[1].padStart(2,'0')}` : iso;
+    if (!date && !plan.tasks.some(task=>/rehears/i.test(task.label))) issues.push('Retain the requested rehearsal as a checklist task, keeping unknown timing or approvals open.');
     if (date && !plan.tasks.some(task => /rehears/i.test(task.label) && task.dueDate === date)) issues.push('Include the explicitly dated rehearsal as a checklist task with its supplied dueDate, keeping its time approval separate.');
     if (/\btime\b[^\n.!?]{0,50}\b(?:approval|approved|pending)\b/i.test(latest) && /\b(?:needs?|await\w*|pending|unconfirmed|not approved)\b/i.test(latest) && !plan.openQuestions.some(q => /rehears/i.test(q) && /time|approv/i.test(q))) issues.push('Retain the unresolved rehearsal-time approval as a specific open question.');
   }
+  let bookingPending=false;
+  for(const clause of source.split(/[\n.!?;]+/)) {
+    if(!/\b(?:booking|venue)\b/i.test(clause))continue;
+    if(/\b(?:pending|unconfirmed|not confirmed|not approved|awaiting approval|needs approval)\b/i.test(clause))bookingPending=true;
+    else if(/\b(?:confirmed|approved)\b|no booking (?:is )?required|booking (?:is )?cancelled/i.test(clause))bookingPending=false;
+  }
+  if(bookingPending && !plan.openQuestions.some(q=>/book|venue|room|hall|location/i.test(q))) issues.push('Retain the pending venue-booking approval as a specific open question.');
   const after = source.match(/after the event[^\n]*(?:\n[^\n]+)?/i)?.[0] || '';
   const taskText = plan.tasks.map(t=>t.label).join('\n');
   for (const [requested, present, label] of [

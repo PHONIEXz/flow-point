@@ -265,3 +265,13 @@ test('Google processing permission does not authorize Groq and Groq choice is re
  assert.equal(ui.values.get('flow-point-groq-processing-v1'),'allowed');assert.equal(ui.values.get('flow-point-google-processing-v2'),'allowed');
  assert.match(ui.get('processing-status').textContent,/Groq processing allowed/);
 });
+
+test('model choice is remembered separately, restores provider-specific consent and leaves the pack untouched',async()=>{
+ const pending=deferred();const collection={current:{...store.emptyWorkspace(),request:'Existing event notes',plan:sample},packs:[],activeId:null};
+ const ui=harness(async path=>path==='/api/config'?pending.promise:pack(),collection);
+ ui.values.set('flow-point-groq-processing-v1','allowed');
+ pending.resolve(Response.json({provider:'groq',providers:[{id:'groq',processor:'Groq',modelLabel:'GPT-OSS',model:'openai/gpt-oss-120b',configured:true},{id:'google',processor:'Google',modelLabel:'Gemma',model:'gemma-4-26b-a4b-it',configured:true}]}));await flush();
+ assert.equal(ui.get('ai-provider').value,'groq');assert.equal(ui.get('consent').checked,true);const before=ui.run('JSON.stringify(state.plan)');
+ ui.get('ai-provider').value='google';ui.get('ai-provider').handlers.change();assert.equal(ui.get('consent').checked,false);assert.match(ui.get('processing-consent-text').textContent,/sent to Google/);assert.match(ui.get('refine').textContent,/Gemma/);assert.equal(ui.values.get('flow-point-ai-provider-v1'),'google');assert.equal(ui.run('JSON.stringify(state.plan)'),before);
+ ui.get('ai-provider').value='groq';ui.get('ai-provider').handlers.change();assert.equal(ui.get('consent').checked,true);assert.equal(ui.run('JSON.stringify(state.plan)'),before);
+});
