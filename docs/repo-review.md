@@ -62,3 +62,8 @@ Application commit `470e47a1722d545e97bba26fac4d99c87803900e` is live in deploym
 [Live audit screenshot](media/audit/live-budget.jpg) shows the actual updated Gemma pack after reopening and reload. This is distinct from the hand-authored screenshot set in `media/current/`.
 
 All 49 automated checks and the build pass. The production dependency audit reports zero known vulnerabilities. These checks do not establish exhaustive security, all-device compatibility or a provider success-rate guarantee. The free Render instance can still cold-start; upstream Google failures remain real, although the fallback recovered in this live run. The manual-writing benchmark and physical-device review were excluded from this pass.
+
+
+## Subsequent malformed-output fix (24 October 2026)
+
+The author reproduced a failure after the clean key-change checks: `84d0884f-b86c-4cce-b2f6-3254b7dfb6f8` was an HTTP 200 model reply rejected as `MODEL_JSON_INVALID`, after 23.1 seconds. This exposed a recovery gap: transient HTTP errors retried, while invalid output immediately failed. The adapter now regenerates invalid output from the unchanged original input and tries the existing fallback, sharing the original three-call cap and 60-second deadline. It does not loosen validation, patch JSON or forward broken output. Safety blocks and truncation remain explicit failures. The suite passes 55 tests; see the [verification history](verification.md#invalid-json-recovery-24-october-2026). Earlier successful live checks remain small-sample observations.

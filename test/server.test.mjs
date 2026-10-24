@@ -288,3 +288,77 @@ test('a malformed request URL returns 400 and leaves the server healthy', async 
   assert.equal(response.statusCode, 400);
   assert.equal((await fetch(`http://127.0.0.1:${port}/healthz`)).status, 200);
 });
+
+test('malformed JSON regenerates from original input on fallback without forwarding broken output', async () => {
+  const input = { request: 'private-request-marker event', answers: 'private-answer-marker', previousPlan: complete() };
+  const before = structuredClone(input), calls = [], logs = [];
+  const result = await generatePack(input, { apiKey: 'private-key-marker', requestId: 'recovery-test', action: 'update', wait: async () => {}, log: entry => logs.push(entry), fetchImpl: async (url, options) => {
+    calls.push({ url, options });
+    return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: calls.length === 1 ? '{"title":"private-broken-output-marker",' : JSON.stringify(complete()) }] } }] });
+  } });
+  assert.equal(result.provenance.attempts, 2);
+  assert.equal(result.provenance.model, 'gemma-4-31b-it');
+  assert.match(calls[1].url, /gemma-4-31b-it:generateContent$/);
+  assert.equal(calls[0].options.signal, calls[1].options.signal);
+  const prompt = JSON.parse(calls[1].options.body).contents[0].parts[0].text;
+  assert.match(prompt, /RETRY:.*failed JSON or pack validation/);
+  assert.doesNotMatch(prompt, /private-broken-output-marker/);
+  assert.deepEqual(JSON.parse(prompt.split('\n\nINPUT DATA:\n')[1]), before);
+  assert.deepEqual(input, before);
+  assert.ok(logs.some(entry => entry.event === 'gemma_generation_retry' && entry.code === 'MODEL_JSON_INVALID' && entry.httpStatus === 200));
+  assert.doesNotMatch(JSON.stringify(logs), /private-(key|request|answer|broken-output)-marker/);
+});
+
+test('invalid plan fields are rejected before recovery and a regenerated pack must pass strict validation', async () => {
+  const invalid = { ...complete(), eventDate: '2026-02-30' }; let calls = 0;
+  assert.throws(() => parseModelPlan(JSON.stringify(invalid)), error => error.code === 'MODEL_PLAN_INVALID');
+  const result = await generatePack({ request: 'Fictional event.' }, { apiKey: 'test', wait: async () => {}, log: () => {}, fetchImpl: async () => Response.json({ candidates: [{ content: { parts: [{ text: JSON.stringify(++calls === 1 ? invalid : complete()) }] } }] }) });
+  assert.equal(calls, 2); assert.equal(result.plan.eventDate, complete().eventDate);
+  assert.equal(result.provenance.attempts, 2);
+});
+
+test('HTTP and invalid-output retries share one three-attempt cap and preserve the final diagnostic code', async () => {
+  const invalid = { ...complete(), budget: [{ label: 'Paper', quantity: 0, unitCostMinor: 100 }] };
+  let calls = 0;
+  await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', wait: async () => {}, log: () => {}, fetchImpl: async () => {
+    calls++;
+    if (calls === 1) return Response.json({}, { status: 500 });
+    return Response.json({ candidates: [{ content: { parts: [{ text: calls === 2 ? 'not JSON' : JSON.stringify(invalid) }] } }] });
+  } }), error => error.status === 502 && error.code === 'MODEL_PLAN_INVALID');
+  assert.equal(calls, 3);
+});
+
+test('invalid-output recovery stops on cancellation or timeout', async () => {
+  const controller = new AbortController(); let calls = 0;
+  await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', signal: controller.signal, log: () => {}, wait: async () => controller.abort(), fetchImpl: async () => { calls++; return Response.json({ candidates: [{ content: { parts: [{ text: 'broken JSON' }] } }] }); } }), error => error.status === 499);
+  assert.equal(calls, 1);
+  calls = 0;
+  await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', log: () => {}, wait: async () => {}, fetchImpl: async () => {
+    if (++calls === 2) { const error = new Error('Timeout'); error.name = 'TimeoutError'; throw error; }
+    return Response.json({ candidates: [{ content: { parts: [{ text: 'broken JSON' }] } }] });
+  } }), error => error.status === 504);
+  assert.equal(calls, 2);
+});
+
+test('safety blocks and token truncation are not retried as malformed JSON', async () => {
+  for (const payload of [{ promptFeedback: { blockReason: 'SAFETY' } }, { candidates: [{ finishReason: 'SAFETY' }] }, { candidates: [{ finishReason: 'MAX_TOKENS' }] }]) {
+    let calls = 0;
+    await assert.rejects(generatePack({ request: 'Fictional event.' }, { apiKey: 'test', log: () => {}, wait: async () => assert.fail('must not retry'), fetchImpl: async () => { calls++; return Response.json(payload); } }), error => error.status === 502);
+    assert.equal(calls, 1);
+  }
+});
+
+test('HTTP generation recovers malformed output and reports the same reference if retries exhaust', async t => {
+  let calls = 0;
+  const recovered = await app(t, { apiKey: 'test', log: () => {}, fetchImpl: async () => Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: ++calls === 1 ? '{"title":' : JSON.stringify(complete()) }] } }] }) });
+  const response = await recovered.post('/api/generate', { request: 'Fictional school event.' });
+  const data = await response.json();
+  assert.equal(response.status, 200); assert.equal(data.provenance.attempts, 2);
+  assert.equal(response.headers.get('x-request-id'), data.requestId);
+  calls = 0;
+  const failed = await app(t, { apiKey: 'test', log: () => {}, fetchImpl: async () => { calls++; return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"title":' }] } }] }); } });
+  const rejected = await failed.post('/api/generate', { request: 'Fictional school event.' });
+  const error = await rejected.json();
+  assert.equal(rejected.status, 502); assert.equal(error.code, 'MODEL_JSON_INVALID'); assert.equal(calls, 3);
+  assert.equal(rejected.headers.get('x-request-id'), error.requestId);
+});
