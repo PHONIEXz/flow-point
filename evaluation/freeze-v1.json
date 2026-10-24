@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "frozenAt": "2026-10-24T12:56:19.209497+00:00",
+  "appCommit": "a6cd07addb03bf060701bbbe21e8015f8c1c3d87",
+  "casesSha256": "6d0fedd57e35f96f8e09b51a86beeec2a20068b19b27e2d640d39f37d59632d3",
+  "files": {
+    "src/gemma.mjs": "d4f03896c40213ff5c44674e067b0a8b311f9f67d4d516396c51cdaaba30d009",
+    "src/content-checks.mjs": "5fc61539698b3c593460f687bccc0bddb2e3c6815bc2245539c8b83d517cfb80",
+    "src/pack-schema.mjs": "559aff767816775e4c5a7656901f9531ceb76c074002e922a7ac06aee0213f77",
+    "src/plan.mjs": "a398ca30cc49f20888d0332aeeafa2cd191c02d4b8930e0b70d376be7870b556",
+    "src/source-evidence.mjs": "9e29b1fcd33a008d839b77bec1d90ea0a090b7a714b2151b475a52fe3a1d46e7",
+    "public/generation.mjs": "22755d4ce2c6eeaec575c62efa17f4bc525efb84dc17db908485d91142f7ded0",
+    "public/update-history.mjs": "d1eec17452ed84d7e4ecdfd0c66dfbb86172c8acc1580d2799ea1fa63da18579",
+    "evaluation/score.mjs": "12369b8ecd2d3f0c2da142ac5314875f98af717295626767b240a2fbf976815c",
+    "scripts/evaluate-quality.mjs": "6a7f52d92f1c3bca3fd65c257e4704ceb02eec3883cecd4fe22869aadb5888dd"
+  },
+  "authorAndReview": "Assistant wrote and checked expectations and arithmetic before inference. No independent human or blind adjudication. Existing cases are exposed. Do not change prompts/expectations mid-run; keep failures and use a new set after tuning."
+}
