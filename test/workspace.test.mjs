@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFile } from 'node:fs/promises';
+import { prepareInStages } from '../public/generation.mjs';
 import * as store from '../public/pack-store.mjs';
 import { downloadFilename } from '../public/download-name.mjs';
 import { minorToDecimal, formatMinor } from '../public/money.mjs';
@@ -25,7 +26,7 @@ function harness(fetchImpl, initial = null, { fastTimeouts = false } = {}) {
   const values = new Map(initial ? [[store.storageKey, JSON.stringify(initial)]] : []);
   const storage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value), removeItem: key => values.delete(key) };
   const location = { pathname: '/workspace' };
-  const context = vm.createContext({ ...store, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
+  const context = vm.createContext({ ...store, prepareInStages, structuredClone, DOMException, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
     document: { getElementById: get, createElement: element, body: get('body'), querySelectorAll: selector => selector === '[role=tab]' ? [tab] : selector.startsWith('#pack-editor ') ? [get('editable')] : [] },
     window: { addEventListener() {}, scrollTo() {} }, location, history: { pushState: (_, __, path) => { location.pathname = path; }, replaceState: (_, __, path) => { location.pathname = path; } },
     localStorage: storage, sessionStorage: { getItem() { return null; }, removeItem() {}, setItem() {} }, confirm: () => true, setTimeout: (fn, ms) => setTimeout(fn, fastTimeouts && ms === 15000 ? 0 : ms), clearTimeout
@@ -133,4 +134,27 @@ test('a failed AI update preserves the previous plan, original notes and follow-
   assert.equal(ui.run('state.plan.title'), current.plan.title);
   assert.equal(ui.get('refine').disabled, false);
   assert.match(ui.get('notice').textContent, /Google is unavailable.*safe-reference/);
+});
+
+test('a failed later step persists progress without replacing the current pack; retry resumes and commits atomically', async () => {
+  const current = { ...store.emptyWorkspace(), request: 'Original school event notes', answers: 'Move the event to a new hall', plan: sample, provenance: { mode: 'sample' } };
+  const stages = []; let fail = true;
+  const ui = harness(async (path, options) => {
+    if (path === '/api/config') return config();
+    if (path !== '/api/generate') return pack();
+    const { stage } = JSON.parse(options.body); stages.push(stage);
+    if (stage === 'invitation' && fail) return Response.json({ error: 'Provider unavailable' }, { status: 502 });
+    return Response.json({ ...reviewPlan(sample), provenance: { mode: 'live', stage, attempts: 1, durationMs: 1 } });
+  }, { current, packs: [], activeId: null });
+  await flush(); ui.get('consent').checked = true; ui.get('consent').handlers.change();
+  await ui.run('generate(true)');
+  const stored = JSON.parse(ui.values.get(store.storageKey));
+  assert.equal(stored.current.provenance.mode, 'sample');
+  assert.equal(stored.current.pendingGeneration.results.length, 1);
+  assert.equal(ui.get('answers').value, current.answers);
+  fail = false; await ui.run('generate(true)');
+  assert.deepEqual(stages, ['facts', 'invitation', 'invitation', 'schedule']);
+  assert.equal(ui.run('state.provenance.pipeline'), 'staged-v1');
+  assert.equal(ui.run('state.pendingGeneration'), undefined);
+  assert.equal(ui.get('answers').value, '');
 });

@@ -21,3 +21,12 @@ export const packFunction = {
     openQuestions: array(string)
   })
 };
+
+export function stageFunction(stage) {
+  if (stage === 'facts') {
+    const { drafts, ...properties } = packFunction.parameters.properties;
+    return { name: 'submit_event_facts', description: 'Return event facts, checklist, budget and open questions only. No prose drafts.', parameters: object(properties) };
+  }
+  if (['invitation', 'schedule'].includes(stage)) return { name: `submit_event_${stage}`, description: `Return only the ${stage} draft, using the supplied event facts.`, parameters: object({ [stage]: string }) };
+  return packFunction;
+}

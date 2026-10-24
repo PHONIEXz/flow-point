@@ -9,8 +9,8 @@ import { preparationPdf } from './pdf.mjs';
 import { generatePack, checkModelAccess, probeGeneration, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
-const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/money.mjs': 'money.mjs', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
-const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8' };
+const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/money.mjs': 'money.mjs', '/generation.mjs': 'generation.mjs', '/judge-example.json': 'judge-example.json', '/judge': 'judge.html', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
+const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', json: 'application/json; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8' };
 function json(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(body)); }
 async function body(req) {
   if (!req.headers['content-type']?.startsWith('application/json')) throw new AppError(415, 'Send JSON data.');
@@ -66,7 +66,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
           active++;
           log({ event: 'generation_request_started', requestId, action, model });
           try {
-            const result = await generatePack({ request: data.request, answers: data.answers, previousPlan }, { apiKey, model, fetchImpl, signal: controller.signal, requestId, action, log });
+            const result = await generatePack({ request: data.request, answers: data.answers, previousPlan, stage: data.stage ?? null, checkpoint: data.checkpoint }, { apiKey, model, fetchImpl, signal: controller.signal, requestId, action, log });
             log({ event: 'generation_request_succeeded', requestId, action, model: result.provenance.model, attempts: result.provenance.attempts, durationMs: Date.now() - started });
             return json(res, 200, { ...result, requestId });
           }

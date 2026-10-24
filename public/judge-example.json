@@ -1,0 +1,14 @@
+{
+  "label": "Fictional test data. Loading this file makes no AI call.",
+  "request": "Prepare an event pack for Community Reading Morning, organized by Sunrise Learning Club on 21 November 2026 at the school library. Start at 10:00. Sign the invitation as Amina Bello, Coordinator. Activities in order: welcome for 10 minutes, reading circles for 30 minutes, a book quiz for 20 minutes, then closing remarks for 10 minutes. Ada Okafor leads the reading circles. Budget currency is NGN. We need 20 notebooks at NGN 200 each and 10 printed programmes, whose price is still awaiting approval. Do not invent the missing price. The room booking is still awaiting approval. This is fictional testing data.",
+  "answers": "The venue has changed to the multipurpose hall. The hall booking is confirmed. Printed programmes now cost NGN 100 each. Increase notebooks to 25 at the same unit price. Keep the event date, start time, activities, organizer and signatory unchanged.",
+  "expected": {
+    "initialKnownTotalMinor": 400000,
+    "initialUnknownPrices": 1,
+    "updatedKnownTotalMinor": 600000,
+    "updatedUnknownPrices": 0,
+    "eventDate": "2026-11-21",
+    "startTime": "10:00",
+    "updatedVenue": "multipurpose hall"
+  }
+}

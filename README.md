@@ -4,7 +4,7 @@
 
 Flow Point helps organizers at schools, churches and community groups prepare an invitation, run of show, checklist and budget. Built by Paul Ayoade David ([PHONIEXz](https://github.com/PHONIEXz)) for Hacktoberfest 2026 Week 3, Slow and Steady.
 
-**[Live workspace](https://flowpoint.phoenixreborn.tech/workspace)** · **[Published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8)**
+**[Judge guide and fixed example](https://flowpoint.phoenixreborn.tech/judge)** · **[Live workspace](https://flowpoint.phoenixreborn.tech/workspace)** · **[Published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8)**
 
 ![Current Flow Point Home page](docs/media/current/cover.png)
 
@@ -83,7 +83,7 @@ Entry categories: Gemma, Render, .tech Domain and GitHub Copilot, subject to eli
 
 Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 
-The 61-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
+The 66-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 
 ## License
 
@@ -93,3 +93,12 @@ The [23 October repository review](docs/repo-review.md) records the latest fixes
 
 
 Latest reliability check (24 October): the native structured-response path completed short Prepare/Update requests in 5.9/6.1 seconds on the first attempt. The detailed school-event replay still failed after upstream 503/500 errors and a fallback timeout. The 61 automated tests pass, but successful completion of detailed briefs remains an open limitation; see [the complete incident and live results](docs/verification.md#invalid-json-recovery-24-october-2026).
+
+
+## Smaller generation steps and recovery (24 October)
+
+The browser now prepares the pack through three separately validated calls: facts/checklist/budget, invitation, and run of show. Draft calls cannot change the checkpoint's structured facts. Completed responses are stored in the existing browser workspace; retries with identical notes, update text and previous plan reuse the successful prefix. Any input change starts fresh. The old pack is replaced only after all steps and a final server validation complete.
+
+Each step has a 60-second server deadline and bounded retries, so a full pack may take up to three minutes. Three requests can use more provider quota than a single call. Checkpoints require available browser storage and do not recover responses lost before receipt. This is browser-local recovery, not a durable server queue or an exactly-once billing guarantee. Model/provider failures remain possible.
+
+The [judge guide](docs/judge-guide.md) includes a small repeatable brief and expected initial NGN 4,000 subtotal / updated NGN 6,000 total. The original detailed school brief remains a separate regression case. `node scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2` records every attempted hosted run, per-step references, timings and fact checks. It is excluded from tests and builds. Live results are recorded separately from the 66 simulated-provider/unit/UI tests. Human review and a manual-writing baseline remain unmeasured.

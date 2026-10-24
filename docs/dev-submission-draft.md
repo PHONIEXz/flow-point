@@ -105,3 +105,11 @@ These are the challenge tools at the heart of Flow Point and the categories I am
 The [MIT-licensed GitHub repository](https://github.com/PHONIEXz/flow-point) holds the application, tests, sample and verification notes. GitHub is how I share the work; the four entries above are the prize categories I am targeting.
 
 Flow Point is built by Paul Ayoade David. I directed the project and used AI assistance for code and for a draft of this article. I checked the live workflow, failure path, exports and test results before this submission. Gemma is developed by Google and its model and hosted service terms apply separately from the app's MIT license.
+
+## A reproducible route through the work
+
+[Open the judge guide](https://flowpoint.phoenixreborn.tech/judge), then load the fictional Community Reading Morning brief from Notes. The first budget should show NGN 4,000 known subtotal with an unknown programme price. After the published update, it should show NGN 6,000 and the multipurpose hall in both drafts. The guide links the exact inputs and lists what to inspect in the PDF and Saved Packs.
+
+I split generation into three smaller steps: facts and budget, invitation, then run of show. Completed steps stay in the browser's workspace when storage is available. If a later request fails, retrying the same input reuses the earlier responses. My existing pack stays intact until the replacement is fully validated. This does not make Google immune to outages or prove every sentence correct; review is still part of the product.
+
+The [verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md) separates live measurements, automated simulated-provider tests and remaining limitations. I have not measured an equivalent manual-writing session, so I am not claiming a percentage time saved.

@@ -124,3 +124,10 @@ Application commit `98966788b1d7b3623baccf4ef7c3c9f135a1ea2b` is live in `dep-db
 | Update | `36c7f01e-30a0-4c3e-99d5-d624e9b653ab` | 6,101 ms | NGN 6,000 |
 
 The final 5,915-character school-event replay did **not** pass. Reference `66d7af42-1bb6-4434-a82d-8a5fbccb193c` started on 31b, which returned HTTP 503 followed by HTTP 500; the 26b fallback then reached the shared 90-second deadline. The follow-up update was not sent, and no school quality checks were claimed as passed. The original user brief behind `84d0884f-b86c-4cce-b2f6-3254b7dfb6f8` is unavailable, so that exact case cannot be asserted resolved. No raw notes, raw broken output or credentials were logged. This pass improves typed formatting and recovery but does not establish reliable completion for detailed briefs. All 61 automated tests pass; the live long-input failure remains an explicit open limitation.
+
+
+## Staged preparation and judge guide, 24 October 2026
+
+Changed the current browser path to facts/checklist/budget, invitation, and run of show. Each response is independently validated and saved in browser-local workspace data. Identical-input retries resume the completed prefix; changed notes, update text or previous plan invalidate it. Draft calls are assembled onto validated facts and cannot alter structured budget values. Final server review runs before the old complete pack is replaced. Browser storage restrictions are reported; requests lost before receipt cannot be recovered. No exactly-once provider claim.
+
+Automated suite: **66 passed**. Added recovery-after-serialization, changed-input invalidation, cancellation, immutable facts / invalid stage output, and atomic UI replacement coverage. These tests use simulated provider replies. The public `/judge` guide provides exact fictional inputs, expected totals and review/export instructions. A separate opt-in `scripts/benchmark-live.mjs` records actual hosted results, including failures. Live staged results are pending deployment at this point; see the next dated record for outcomes.

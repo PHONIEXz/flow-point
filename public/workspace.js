@@ -1,4 +1,5 @@
 'use strict';
+import { prepareInStages } from './generation.mjs';
 import { downloadFilename } from './download-name.mjs';
 import { minorToDecimal, formatMinor } from './money.mjs';
 import { legacyKey, storageKey, maxPacks, emptyWorkspace, restoreCollection, recordCurrent, saveNamed, renameNamed, openNamed, removeNamed, newWorkspace, serializeCollection } from './pack-store.mjs';
@@ -302,13 +303,24 @@ async function generate(refine = false) {
   } else if (!$('request-form').reportValidity()) return;
   if (!processingAllowed) { switchView('notes'); $('consent').focus(); return announce('Allow Google processing below your notes before preparing or updating a pack.'); }
   if (!refine && state.plan && !confirm(collection.activeId ? 'Prepare a new pack? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack? Save it with a name first if you want to keep editing it.')) return;
-  clearTimeout(timer); revision++; setBusy(true); announce('Gemma is preparing the pack. Detailed packs can take up to 90 seconds. You can cancel; your previous draft stays safe until a valid reply arrives.'); controller = new AbortController();
+  save(); clearTimeout(timer); revision++; setBusy(true); announce('Preparing three sections with Gemma. Each step can take up to a minute. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
   try {
-    const result = await api('/api/generate', { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null }, controller.signal);
+    const input = { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
+    const result = await prepareInStages(input, {
+      call: (data, signal) => api('/api/generate', data, signal), saved: state.pendingGeneration, signal: controller.signal,
+      checkpoint: work => { state.pendingGeneration = work; save(); },
+      progress: ({ stage, index, reused }) => {
+        const label = { facts: 'Event details, checklist and budget', invitation: 'Invitation draft', schedule: 'Run of show' }[stage];
+        announce(`Step ${index + 1} of 3: ${label}. ${reused ? `${reused} saved step(s) reused. ` : ''}Completed steps save in this browser. Your previous pack stays safe.`);
+      }
+    });
+    const checked = await api('/api/review', { plan: result.plan }, controller.signal);
+    result.plan = checked.plan; result.issues = checked.issues; result.knownTotalMinor = checked.knownTotalMinor; result.budgetComplete = checked.budgetComplete;
+    delete state.pendingGeneration;
     if (!refine) collection = { ...collection, activeId: null };
     state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('answers').value = ''; save(); renderPack();
     announce('Pack prepared. Compare the details with your notes, then review every section.'); activate(tabs[0]); switchView('pack', false, true);
-  } catch (error) { announce(error.name === 'AbortError' ? 'Generation cancelled. Your previous draft has been kept.' : error.message); }
+  } catch (error) { const kept = state.pendingGeneration?.results?.length || 0; announce((error.name === 'AbortError' ? 'Generation cancelled. Your previous draft has been kept.' : error.message) + (kept ? ` ${kept} completed step(s) kept. Check the browser save status above. Retry with the same notes and changes to resume.` : '')); }
   finally { controller = null; setBusy(false); }
 }
 $('request-form').addEventListener('submit', event => { event.preventDefault(); generate(); });
@@ -354,6 +366,18 @@ $('reset').addEventListener('click', () => {
   if (busy) return;
   loadCurrent(newWorkspace(collection), 'Blank workspace ready. Your named packs and AI processing choice remain available.');
 });
+$('judge-example').addEventListener('click', async () => {
+  if (busy) return;
+  if ((state.plan || state.request.trim()) && !confirm('Load the fictional judge brief? Save your current pack with a name first if you need it.')) return;
+  setBusy(true);
+  try {
+    const example = await api('/judge-example.json');
+    if (loadCurrent(newWorkspace(collection), 'Fictional judge brief loaded. No AI call yet. Read the notes, allow Google processing, then prepare the pack.')) {
+      $('request').value = example.request; save(); switchView('notes', false, true);
+    }
+  } catch (error) { announce(error.message); }
+  finally { setBusy(false); }
+});
 async function init() {
   setBusy(true);
   try {
@@ -365,6 +389,7 @@ async function init() {
     $('request').value = state.request; $('answers').value = state.answers;
     if (state.plan) state.plan = (await api('/api/review', { plan: state.plan, approval: state.approval })).plan;
     renderPack();
+    if (state.pendingGeneration?.results?.length) announce('An unfinished generation has saved progress. Use Prepare or Update again with the same notes and changes to resume.');
     if (!stored && legacy) save();
   } catch { announce('The saved draft could not be restored. You can start a new pack or retry after reconnecting.'); }
   try { const config = await api('/api/config'); liveAvailable = config.liveAvailable; $('model-state').textContent = liveAvailable ? `Live drafting · ${config.model}` : 'Live Gemma is not connected yet. The sample workspace is available.'; }
