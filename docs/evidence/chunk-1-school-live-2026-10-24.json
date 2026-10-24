@@ -1,0 +1,259 @@
+{
+  "cooldownBeforeUpdateMs": 60000,
+  "testedAt": "2026-10-24T07:33:08.568Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review, export time and the explicitly recorded cooldown between operations are excluded.",
+  "runs": [
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "prepare",
+      "startedAt": "2026-10-24T07:33:08.568Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 200,
+          "wallMs": 24442,
+          "requestId": "e025d565-ece7-405a-9d28-f2ee3cd75548",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 2,
+            "responseFormat": "text-json",
+            "stage": "facts",
+            "generatedAt": "2026-10-24T07:33:32.924Z",
+            "durationMs": 19248
+          }
+        },
+        {
+          "stage": "invitation",
+          "httpStatus": 200,
+          "wallMs": 7749,
+          "requestId": "0265d9c8-2710-44b1-92c0-eb26c9f3eb18",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 2,
+            "responseFormat": "text-json",
+            "stage": "invitation",
+            "generatedAt": "2026-10-24T07:33:40.678Z",
+            "durationMs": 7563
+          }
+        },
+        {
+          "stage": "schedule",
+          "httpStatus": 200,
+          "wallMs": 8378,
+          "requestId": "2925d826-9682-4a92-b8a9-f10d07e38489",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "schedule",
+            "generatedAt": "2026-10-24T07:33:49.053Z",
+            "durationMs": 8183
+          }
+        }
+      ],
+      "completed": true,
+      "checks": {
+        "date": true,
+        "start": true,
+        "money": true,
+        "unknownPrices": true,
+        "drafts": true,
+        "invitationStart": true,
+        "scheduleStart": true,
+        "signatoryName": true,
+        "invitationSignatory": true,
+        "namedActivityLead": true,
+        "activityDurations": true,
+        "pendingVenue": true
+      },
+      "checksPassed": true,
+      "provenance": {
+        "mode": "live",
+        "provider": "Google Gemini API",
+        "model": "gemma-4-26b-a4b-it",
+        "requestedModel": "gemma-4-26b-a4b-it",
+        "primaryModel": "gemma-4-26b-a4b-it",
+        "attempts": 5,
+        "responseFormat": "text-json",
+        "stage": "schedule",
+        "generatedAt": "2026-10-24T07:33:49.053Z",
+        "durationMs": 34994,
+        "pipeline": "staged-v1",
+        "reusedSteps": 0,
+        "steps": [
+          {
+            "stage": "facts",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 19248,
+            "attempts": 2,
+            "requestId": "e025d565-ece7-405a-9d28-f2ee3cd75548"
+          },
+          {
+            "stage": "invitation",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 7563,
+            "attempts": 2,
+            "requestId": "0265d9c8-2710-44b1-92c0-eb26c9f3eb18"
+          },
+          {
+            "stage": "schedule",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 8183,
+            "attempts": 1,
+            "requestId": "2925d826-9682-4a92-b8a9-f10d07e38489"
+          }
+        ]
+      },
+      "wallMs": 40574
+    },
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "update",
+      "startedAt": "2026-10-24T07:34:49.147Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 200,
+          "wallMs": 20884,
+          "requestId": "fb050193-920b-4e88-8258-79521120a4ce",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "facts",
+            "generatedAt": "2026-10-24T07:35:09.947Z",
+            "durationMs": 16535
+          }
+        },
+        {
+          "stage": "invitation",
+          "httpStatus": 200,
+          "wallMs": 42345,
+          "requestId": "393787fd-daf3-4ae5-99f1-5ac95ff719cd",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-31b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 2,
+            "responseFormat": "text-json",
+            "stage": "invitation",
+            "generatedAt": "2026-10-24T07:35:52.293Z",
+            "durationMs": 42146
+          }
+        },
+        {
+          "stage": "schedule",
+          "httpStatus": 200,
+          "wallMs": 7490,
+          "requestId": "51d5937f-47a4-4179-87a8-af2be9311f27",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "schedule",
+            "generatedAt": "2026-10-24T07:35:59.773Z",
+            "durationMs": 6951
+          }
+        }
+      ],
+      "completed": true,
+      "checks": {
+        "date": true,
+        "start": true,
+        "money": false,
+        "unknownPrices": true,
+        "drafts": true,
+        "invitationStart": true,
+        "scheduleStart": true,
+        "signatoryName": true,
+        "invitationSignatory": true,
+        "namedActivityLead": true,
+        "activityDurations": true,
+        "venue": true,
+        "invitationVenue": true,
+        "scheduleVenue": true,
+        "pendingRehearsalTime": true,
+        "firstAidOfficer": false,
+        "newRehearsalDate": false,
+        "noOldRehearsalDate": true,
+        "spendingLimit": true,
+        "remainingAllowance": false
+      },
+      "checksPassed": false,
+      "provenance": {
+        "mode": "live",
+        "provider": "Google Gemini API",
+        "model": "gemma-4-26b-a4b-it",
+        "requestedModel": "gemma-4-26b-a4b-it",
+        "primaryModel": "gemma-4-26b-a4b-it",
+        "attempts": 4,
+        "responseFormat": "text-json",
+        "stage": "schedule",
+        "generatedAt": "2026-10-24T07:35:59.773Z",
+        "durationMs": 65632,
+        "pipeline": "staged-v1",
+        "reusedSteps": 0,
+        "steps": [
+          {
+            "stage": "facts",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 16535,
+            "attempts": 1,
+            "requestId": "fb050193-920b-4e88-8258-79521120a4ce"
+          },
+          {
+            "stage": "invitation",
+            "model": "gemma-4-31b-it",
+            "durationMs": 42146,
+            "attempts": 2,
+            "requestId": "393787fd-daf3-4ae5-99f1-5ac95ff719cd"
+          },
+          {
+            "stage": "schedule",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 6951,
+            "attempts": 1,
+            "requestId": "51d5937f-47a4-4179-87a8-af2be9311f27"
+          }
+        ]
+      },
+      "wallMs": 70722
+    }
+  ],
+  "summary": {
+    "planned": 2,
+    "skipped": 0,
+    "attempted": 2,
+    "completed": 2,
+    "checksPassed": 1,
+    "medianCompletedMs": 55648,
+    "slowestCompletedMs": 70722,
+    "stoppedOnQuota": false
+  }
+}

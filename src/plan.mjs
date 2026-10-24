@@ -73,7 +73,7 @@ export function draftTimeIssues(plan) {
   const issues = [];
   if (plan.drafts.invitation && !clockTimes(plan.drafts.invitation).includes(plan.startTime)) issues.push({ code: 'INVITATION_TIME', message: `Include the confirmed programme start ${plan.startTime} in the invitation.` });
   // Registration can precede the programme. Require the first other timed row at the start.
-  const timedRows = plan.drafts.schedule.split(/\n|(?<=\.)\s+/).filter(line => !/registration|arrival|check.?in/i.test(line) && clockTimes(line).length);
+  const timedRows = plan.drafts.schedule.split(/\n|(?<=\.)\s+/).filter(line => /^\s*(?:[-*•]\s*)?(?:(?:Suggested|Proposed)\s+)?\d{1,2}[:.]\d{2}\b/i.test(line) && !/registration|arrival|check.?in/i.test(line) && clockTimes(line).length);
   if (plan.drafts.schedule && (!timedRows.length || clockTimes(timedRows[0])[0] !== plan.startTime)) issues.push({ code: 'SCHEDULE_TIME', message: `Anchor the first programme activity at ${plan.startTime}; list earlier registration separately. Check every activity and supplied duration against your notes.` });
   return issues;
 }

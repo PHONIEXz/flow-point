@@ -7,6 +7,7 @@ export const MODEL_RESPONSE_TIMEOUT_MS = 7 * 60 * 1000;
 const generationDispatcher = new Agent({ headersTimeout: 435000, bodyTimeout: 435000 });
 export function fetchModelResponse(url, options) { return generationFetch(url, { ...options, dispatcher: generationDispatcher }); }
 import { reviewPlan, draftTimeIssues } from './plan.mjs';
+import { sourceContentIssues } from './content-checks.mjs';
 import { stageFunction } from './pack-schema.mjs';
 
 export class AppError extends Error {
@@ -55,6 +56,7 @@ Return nonempty concise plain text under 6000 characters in the one declared str
     if (signal?.aborted) throw new AppError(499, 'Generation cancelled.');
     if (requestSignal.aborted || error?.name === 'TimeoutError' || error?.name === 'AbortError') throw new AppError(504, 'Gemma took too long to reply. Your draft is safe; please retry.');
   }
+  let contentFailures = [];
   function acceptOutput(value) {
     if (!stage) return parseModelPlan(JSON.stringify(value));
     try {
@@ -62,7 +64,10 @@ Return nonempty concise plain text under 6000 characters in the one declared str
       if (stage === 'facts') {
         for (const field of ['signatory', 'organizer', 'venue']) if (typeof value[field] === 'string' && value[field].trim().toLowerCase() === field) throw new Error();
         if (Array.isArray(value.tasks) && value.tasks.some(task => typeof task?.owner === 'string' && task.owner.trim().toLowerCase() === 'owner')) throw new Error();
-        return reviewPlan({ ...value, drafts: { invitation: '', schedule: '' } });
+        const accepted = reviewPlan({ ...value, drafts: { invitation: '', schedule: '' } });
+        contentFailures = sourceContentIssues(accepted.plan, { request, answers });
+        if (contentFailures.length) throw new AppError(502, 'Gemma missed a supplied responsibility, rehearsal detail or currency amount. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+        return accepted;
       }
       if (Object.keys(value).length !== 1 || typeof value[stage] !== 'string' || !value[stage].trim() || value[stage].length > 6000) throw new Error();
       const accepted = reviewPlan({ ...base, drafts: { ...base.drafts, [stage]: value[stage] } });
@@ -84,7 +89,7 @@ Return nonempty concise plain text under 6000 characters in the one declared str
       const baseOutputLimit = stage === 'facts' ? 8192 : stage ? 4096 : 8192;
       const outputTokenLimit = truncatedReply ? Math.min(baseOutputLimit * 2, 16384) : baseOutputLimit;
       const nativeFunction = usedModel.startsWith('gemma-4-') && !(stage && (inputSize > 5000 || attempt > 0));
-      const inputText = (invalidReply ? `RETRY: The previous response failed structure or content validation. Include the confirmed programme start explicitly in the invitation and at the start of the first programme activity row; keep registration separate. Regenerate ${stage || 'the complete pack'} from the original input below. Follow the exact shape, keep text concise, and check JSON escaping before returning. Do not invent or discard event facts to make validation pass.\n` : '') + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan, ...(stage ? { checkpoint: base } : {}) });
+      const inputText = (invalidReply ? `RETRY: The previous response failed structure or content validation. Include the confirmed programme start explicitly in the invitation and at the start of the first programme activity row; keep registration separate. Regenerate ${stage || 'the complete pack'} from the original input below. Follow the exact shape, keep text concise, and check JSON escaping before returning. Do not invent or discard event facts to make validation pass.\n` : '') + (contentFailures.length ? '\nCONTENT CHECKS TO FIX: ' + contentFailures.join(' ') : '') + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan, ...(stage ? { checkpoint: base } : {}) });
       const attemptSignal = stage ? AbortSignal.any([requestSignal, AbortSignal.timeout(attemptTimeoutMs)]) : requestSignal;
       try { response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${usedModel}:generateContent`, {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },

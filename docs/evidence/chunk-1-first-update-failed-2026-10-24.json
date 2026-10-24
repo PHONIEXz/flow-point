@@ -1,0 +1,147 @@
+{
+  "plan": {
+    "title": "Young Minds: Science, Reading and Creativity Day",
+    "eventDate": "2026-11-21",
+    "requestedWeekday": "Saturday",
+    "venue": "Multipurpose Hall",
+    "startTime": "10:00",
+    "organizer": "Sunrise Learning Centre, Abuja",
+    "signatory": "Mrs Grace Okoro, Headteacher",
+    "currency": "NGN",
+    "spendingLimitMinor": 20000000,
+    "tasks": [
+      {
+        "label": "Approve programme, invitation, venue and expenditure",
+        "owner": "Mrs Grace Okoro",
+        "dueDate": null
+      },
+      {
+        "label": "Organise science demonstrations and check materials",
+        "owner": "Mr Daniel Musa",
+        "dueDate": null
+      },
+      {
+        "label": "Prepare reading and storytelling activities",
+        "owner": "Miss Esther James",
+        "dueDate": null
+      },
+      {
+        "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+        "owner": "Mrs Ruth Adeyemi",
+        "dueDate": null
+      },
+      {
+        "label": "Select pupil presentations, supervise rehearsals and prepare project labels",
+        "owner": "Class teachers",
+        "dueDate": null
+      },
+      {
+        "label": "Supervise demonstrations, display areas and pupil movement",
+        "owner": "Teachers",
+        "dueDate": null
+      },
+      {
+        "label": "Supervise collection of pupils, clean venue, return equipment, reconcile spending and record feedback",
+        "owner": "Staff",
+        "dueDate": null
+      }
+    ],
+    "budget": [
+      {
+        "label": "Printed programmes",
+        "quantity": 80,
+        "unitCostMinor": 25000
+      },
+      {
+        "label": "Bottled water",
+        "quantity": 180,
+        "unitCostMinor": 20000
+      },
+      {
+        "label": "Refreshment packs",
+        "quantity": 180,
+        "unitCostMinor": 35000
+      },
+      {
+        "label": "Participation certificates",
+        "quantity": 120,
+        "unitCostMinor": 10000
+      },
+      {
+        "label": "Hall decorations",
+        "quantity": 1,
+        "unitCostMinor": 1800000
+      },
+      {
+        "label": "Sound system hire",
+        "quantity": 1,
+        "unitCostMinor": 1200000
+      },
+      {
+        "label": "Event banner",
+        "quantity": 1,
+        "unitCostMinor": 8500
+      },
+      {
+        "label": "Recognition prizes",
+        "quantity": 10,
+        "unitCostMinor": 120000
+      }
+    ],
+    "drafts": {
+      "invitation": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 21 November 2026\nVenue: Multipurpose Hall\n\nDear Parents and Guardians,\n\nSunrise Learning Centre, Abuja, warmly invites you to our first “Young Minds: Science, Reading and Creativity Day.”\n\nThis special educational event is designed to showcase the wonderful progress our pupils have made in the classroom. During the programme, you will have the opportunity to see live science demonstrations, enjoy storytelling and reading presentations, and explore creative project displays prepared by the children. Our goal is to celebrate their learning and provide inspiration for practical educational activities at home.\n\nAttendance for this event is free.\n\nRegistration: 09:30\nProgramme Start: 10:00\nVenue: Multipurpose Hall\nOrganizer: Sunrise Learning Centre, Abuja\n\nWarm regards,\n\nMrs Grace Okoro\nHeadteacher\nOn behalf of Sunrise Learning Centre\n\n---\n\nProgramme Schedule:\n09:30 Registration\n10:00 Welcome and housekeeping (10 minutes)\n10:10 Opening remarks by the headteacher (10 minutes)\n10:20 Pupils’ reading and storytelling presentations (15 minutes)\n10:35 Science demonstrations (35 minutes)\n11:10 Refreshment break (15 minutes)\n11:25 Guided viewing of pupils’ project displays (30 minutes)\n11:55 Parent and pupil reading activity (20 minutes)\n12:15 Creativity presentations and recognition of participants (25 minutes)\n12:40 Vote of thanks (10 minutes)\n12:50 Closing remarks and supervised departure (10 minutes)\n\nSafety and Supervision:\n- Science activities must use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools, or experiments involving hazardous chemicals.\n- Teachers must supervise all demonstrations, display areas, and pupil movement.\n- Parents should remain with younger children during the guided display tour.\n- Mr Samuel Eze (First-aid officer) will be available throughout the programme.",
+      "schedule": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 21 November 2026\nCurrent Venue: Multipurpose Hall\n\n09:30 Registration\n10:00 Welcome and housekeeping (10 minutes)\n10:10 Opening remarks by the headteacher (10 minutes)\n10:20 Pupils’ reading and storytelling presentations (15 minutes)\n10:35 Science demonstrations (35 minutes)\n11:10 Refreshment break (15 minutes)\n11:25 Guided viewing of pupils’ project displays (30 minutes)\n11:55 Parent and pupil reading activity (20 minutes)\n12:15 Creativity presentations and recognition of participants (25 minutes)\n12:40 Vote of thanks (10 minutes)\n12:50 Closing remarks and supervised departure (10 minutes)\n\nSafety and Supervision:\n- Science activities must use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools, or experiments involving hazardous chemicals.\n- Teachers must supervise all demonstrations, display areas, and pupil movement.\n- Parents should remain with younger children during the guided display tour.\n- Mr Samuel Eze (First-aid officer) will be available throughout the programme."
+    },
+    "openQuestions": [
+      "Is the rehearsal time for Thursday, 19 November 2026, approved?"
+    ]
+  },
+  "issues": [
+    {
+      "code": "OPEN_QUESTION",
+      "message": "Is the rehearsal time for Thursday, 19 November 2026, approved?"
+    }
+  ],
+  "knownTotalMinor": 17308500,
+  "budgetComplete": true,
+  "remainingAllowanceMinor": 2691500,
+  "allowanceProvisional": false,
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini API",
+    "model": "gemma-4-26b-a4b-it",
+    "requestedModel": "gemma-4-26b-a4b-it",
+    "primaryModel": "gemma-4-26b-a4b-it",
+    "attempts": 4,
+    "responseFormat": "text-json",
+    "stage": "schedule",
+    "generatedAt": "2026-10-24T07:35:59.773Z",
+    "durationMs": 65632,
+    "pipeline": "staged-v1",
+    "reusedSteps": 0,
+    "steps": [
+      {
+        "stage": "facts",
+        "model": "gemma-4-26b-a4b-it",
+        "durationMs": 16535,
+        "attempts": 1,
+        "requestId": "fb050193-920b-4e88-8258-79521120a4ce"
+      },
+      {
+        "stage": "invitation",
+        "model": "gemma-4-31b-it",
+        "durationMs": 42146,
+        "attempts": 2,
+        "requestId": "393787fd-daf3-4ae5-99f1-5ac95ff719cd"
+      },
+      {
+        "stage": "schedule",
+        "model": "gemma-4-26b-a4b-it",
+        "durationMs": 6951,
+        "attempts": 1,
+        "requestId": "51d5937f-47a4-4179-87a8-af2be9311f27"
+      }
+    ]
+  },
+  "requestId": "51d5937f-47a4-4179-87a8-af2be9311f27"
+}

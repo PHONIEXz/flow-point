@@ -39,7 +39,7 @@ test('different community event: afternoon time, registration before programme, 
   assert.throws(() => approvePlan(p)); assert.match(preparationPack(p), /Over budget by: 2250/);
   for (const value of [-1, 0.1, Number.MAX_SAFE_INTEGER + 1, '500']) { p.spendingLimitMinor = value; assert.throws(() => validatePlan(p)); }
   assert.deepEqual(clockTimes('12:00 AM; 12:00 PM; 2:15 PM; 24:00; 99:99; 110:00'), ['00:00','12:00','14:15']);
-  p.drafts.schedule = '14:00 Registration\n14:25 Welcome: 10 minutes\n14:15 Closing';
+  p.drafts.schedule = 'Programme start: 14:15\n14:00 Registration\n14:25 Welcome: 10 minutes\n14:15 Closing';
   assert.ok(draftTimeIssues(p).some(x => x.code === 'SCHEDULE_TIME'));
 });
 test('missing draft time regenerates only the affected step within three attempts and leaves checkpoint unchanged', async () => {
@@ -55,4 +55,18 @@ test('missing draft time regenerates only the affected step within three attempt
 });
 test('old saved prefixes cannot reuse responses from the earlier content contract', () => {
   assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 2);
+});
+
+test('source checks reject real currency-unit mistake, missing named assignment and dated rehearsal without mutating facts', async () => {
+  const { sourceContentIssues } = await import('../src/content-checks.mjs');
+  const p = school(); p.spendingLimitMinor = 20000000; p.budget[6].unitCostMinor = 8500;
+  p.tasks = p.tasks.filter(t => !/samuel|rehears/i.test(t.owner + ' ' + t.label)); p.openQuestions = [];
+  const source = { request: 'The spending limit is NGN 200,000.', answers: 'The banner is NGN 8,500. Mr Samuel Eze is the confirmed first-aid officer. Move the rehearsal to Thursday, 19 November 2026; its time is still awaiting approval.' };
+  const before = structuredClone(p);
+  assert.equal(sourceContentIssues(p, source).length, 4); assert.deepEqual(p, before);
+  let calls = 0; const fixed = school(); fixed.spendingLimitMinor = 20000000;
+  const result = await generatePack({ ...source, stage: 'facts' }, { ...quiet, fetchImpl: async () => reply(++calls === 1 ? p : fixed) });
+  assert.equal(calls, 2); assert.equal(result.knownTotalMinor, 18150000);
+  assert.equal(sourceContentIssues(result.plan, source).length, 0);
+  assert.equal(sourceContentIssues(fixed, { answers: 'The rehearsal is cancelled. Mr Samuel Eze is no longer assigned as first-aid officer.' }).length, 0);
 });
