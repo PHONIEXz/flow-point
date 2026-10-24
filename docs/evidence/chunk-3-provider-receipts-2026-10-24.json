@@ -1,0 +1,124 @@
+{
+  "note": "Selected safe provider diagnostics for the fictional Chunk 3 regression. Request bodies and model replies are not included.",
+  "events": [
+    {
+      "at": "2026-10-24T09:33:19.828872592Z",
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-31b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 2,
+      "responseFormat": "text-json",
+      "durationMs": 33948,
+      "requestId": "1779c6c5-88ce-4467-8ca5-7b80a1e5721c",
+      "action": "prepare",
+      "stage": "facts"
+    },
+    {
+      "at": "2026-10-24T09:33:23.844965334Z",
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 3781,
+      "requestId": "cb20931f-d0cc-444c-8dbb-ea7b61875a38",
+      "action": "prepare",
+      "stage": "invitation"
+    },
+    {
+      "at": "2026-10-24T09:33:27.018247328Z",
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 2980,
+      "requestId": "b945255c-fd11-4036-8859-cd12637596ec",
+      "action": "prepare",
+      "stage": "schedule"
+    },
+    {
+      "at": "2026-10-24T09:36:47.636367929Z",
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 11692,
+      "requestId": "abf527b3-be43-4ffc-b1b5-17822437fd6f",
+      "action": "update",
+      "stage": "facts"
+    },
+    {
+      "at": "2026-10-24T09:36:51.817835304Z",
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 3617,
+      "requestId": "cf2d7a7b-9b66-45b6-8367-ac9fdf29a430",
+      "action": "update",
+      "stage": "invitation"
+    },
+    {
+      "at": "2026-10-24T09:36:55.32359104Z",
+      "event": "gemma_generation_retry",
+      "httpStatus": 200,
+      "code": "MODEL_CONTENT_MISSING",
+      "model": "gemma-4-26b-a4b-it",
+      "attempt": 1,
+      "requestId": "7a4014b3-14c7-4cf5-af21-dfebf449b71d",
+      "action": "update",
+      "stage": "schedule"
+    },
+    {
+      "at": "2026-10-24T09:36:55.772996242Z",
+      "event": "gemma_generation_retry",
+      "httpStatus": 500,
+      "model": "gemma-4-31b-it",
+      "attempt": 2,
+      "requestId": "7a4014b3-14c7-4cf5-af21-dfebf449b71d",
+      "action": "update",
+      "stage": "schedule"
+    },
+    {
+      "at": "2026-10-24T09:36:58.529230161Z",
+      "event": "generation_request_failed",
+      "requestId": "7a4014b3-14c7-4cf5-af21-dfebf449b71d",
+      "action": "update",
+      "httpStatus": 502,
+      "code": "APP_ERROR",
+      "durationMs": 6450
+    },
+    {
+      "at": "2026-10-24T09:37:55.870721523Z",
+      "event": "gemma_generation_retry",
+      "httpStatus": 200,
+      "code": "MODEL_CONTENT_MISSING",
+      "model": "gemma-4-26b-a4b-it",
+      "attempt": 1,
+      "requestId": "9d5b616d-1c7e-4b93-900a-83a21f348ad5",
+      "action": "update",
+      "stage": "schedule"
+    },
+    {
+      "at": "2026-10-24T09:38:44.038760716Z",
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-31b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 2,
+      "responseFormat": "text-json",
+      "durationMs": 51410,
+      "requestId": "9d5b616d-1c7e-4b93-900a-83a21f348ad5",
+      "action": "update",
+      "stage": "schedule"
+    }
+  ]
+}

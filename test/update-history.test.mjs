@@ -34,12 +34,15 @@ test('retained, explicitly resolved and merely absent questions have distinct st
   assert.equal(compareVersions(next).questions.find(q => q.question.includes('booked')).status, 'Marked resolved by you');
   next.plan.openQuestions.push('Is the room booked?');
   assert.equal(compareVersions(next).questions.find(q => q.question.includes('booked')).status, 'Kept open · omitted by update');
+  markQuestionResolved(next, 'Who brings water?'); next.plan.openQuestions = next.plan.openQuestions.filter(q => q !== 'Who brings water?');
+  assert.equal(compareVersions(next).questions.find(q => q.question.includes('water')).status, 'New question · marked resolved by you');
 });
 
 test('restore recovers original notes, wording and unknowns, drops approvals/confirmations and can switch back', () => {
   const before = base(); before.plan.budget[0].unitCostMinor = null;
   before.plan.sourceEvidence = { records: [{ confirmed: true }, { confirmed: false }] };
   const next = updatedWorkspace(before, update(before));
+  markQuestionResolved(next, 'Who brings water?');
   next.approval = { fingerprint: 'new' }; next.pendingGeneration = { results: ['unfinished'] };
   const restored = restoredWorkspace(next);
   assert.equal(restored.request, before.request); assert.equal(restored.answers, before.answers);
@@ -50,7 +53,9 @@ test('restore recovers original notes, wording and unknowns, drops approvals/con
   assert.equal(next.plan.sourceEvidence.records[0].confirmed, true);
   assert.equal(restored.previousVersion.workspace.approval, undefined);
   assert.equal(restored.previousVersion.workspace.previousVersion, undefined);
-  assert.equal(restoredWorkspace(restored).plan.venue, 'Library Hall');
+  const switchedBack = restoredWorkspace(restored);
+  assert.equal(switchedBack.plan.venue, 'Library Hall');
+  assert.deepEqual(switchedBack.questionResolutions, ['Who brings water?']);
 });
 
 test('history is isolated per named pack, bounded, nonrecursive and backwards compatible', () => {
@@ -69,6 +74,7 @@ test('history is isolated per named pack, bounded, nonrecursive and backwards co
   assert.equal(restored.current.plan.title, sample.title); assert.equal(restored.current.previousVersion, null);
   assert.equal(restored.current.historyUnavailable, true);
   assert.equal(previousVersion({ ...a.previousVersion, capturedAt: 'invalid' }), null);
+  assert.equal(previousVersion({ ...a.previousVersion, workspace: { ...a.previousVersion.workspace, plan: {} } }), null);
 });
 
 test('renamed rows are removed/added rather than guessed, and unknown money is distinct from zero', () => {

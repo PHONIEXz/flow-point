@@ -359,7 +359,8 @@ function renderComparison() {
   $('restore-previous').disabled = busy || !comparison || !$('restore-confirm').checked;
   if (!comparison) return;
   $('comparison-caption').textContent = `${comparison.action === 'restore' ? 'Compared with the pack before your last restore' : 'Compared with the pack before your last successful update'} · saved ${new Date(comparison.capturedAt).toLocaleString()}. Later edits are included on the Current side.`;
-  $('comparison-summary').textContent = `${comparison.facts.length} fact changes · ${comparison.tasks.length} task changes · ${comparison.budget.length} budget changes`;
+  const changeCount = (count, label) => `${count} ${label} ${count === 1 ? 'change' : 'changes'}`;
+  $('comparison-summary').textContent = [changeCount(comparison.facts.length, 'fact'), changeCount(comparison.tasks.length, 'task'), changeCount(comparison.budget.length, 'budget')].join(' · ');
   const content = $('comparison-content');
   const opened = new Set([...content.querySelectorAll('details[data-compare-key]')].filter(item => item.open).map(item => item.dataset.compareKey));
   const disclosure = (label, id) => {
@@ -402,7 +403,7 @@ $('restore-confirm').addEventListener('change', () => { $('restore-previous').di
 async function restorePrevious() {
   if (busy || !$('restore-confirm').checked || !previousVersion(state.previousVersion)) return;
   if (!save()) return;
-  clearTimeout(timer); revision++; setBusy(true);
+  clearTimeout(timer); revision++; setBusy(true); $('restore-previous').textContent = 'Restoring…';
   try {
     const next = restoredWorkspace(state);
     next.plan = (await api('/api/review', { plan: next.plan })).plan;
@@ -412,7 +413,7 @@ async function restorePrevious() {
     renderPack(); activate(tabs[0]);
     announce('Previous version restored. The replaced pack is now saved for comparison or switching back. Approval and source confirmations are cleared. Review every section again.');
   } catch (error) { announce(`Restore did not finish. Your current pack is unchanged. ${error.message}`); }
-  finally { setBusy(false); }
+  finally { $('restore-previous').textContent = 'Restore previous version'; setBusy(false); }
 }
 $('restore-previous').addEventListener('click', restorePrevious);
 function renderPack() {
@@ -459,12 +460,12 @@ $('review-confirm').addEventListener('change', () => { if (review) renderReview(
 $('add-question').addEventListener('click', () => { if (state.plan.openQuestions.length >= 50) return announce('This pack already has 50 questions. Resolve existing ones first.'); state.plan.openQuestions.push(''); invalidate(); renderRows(); });
 $('add-task').addEventListener('click', () => { if (state.plan.tasks.length >= 100) return announce('The checklist can hold up to 100 tasks.'); state.plan.tasks.push({ label: '', owner: null, dueDate: null }); invalidate(); renderRows(); });
 $('add-budget').addEventListener('click', () => { if (state.plan.budget.length >= 100) return announce('The budget can hold up to 100 items.'); state.plan.budget.push({ label: '', quantity: 1, unitCostMinor: null }); invalidate(); renderRows(); });
-function setBusy(value) {
+function setBusy(value, cancellable = false) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
   $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; $('judge-example').disabled = value; renderSavedPacks();
-  $('cancel').hidden = !value; $('cancel-refine').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
+  $('cancel').hidden = !value || !cancellable; $('cancel-refine').hidden = !value || !cancellable; $('generate').textContent = value && cancellable ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
   $('restore-confirm').disabled = value; $('restore-previous').disabled = value || !previousVersion(state.previousVersion) || !$('restore-confirm').checked;
   if (!value && review) renderReview(); else $('approve').disabled = true;
 }
@@ -478,7 +479,7 @@ async function generate(refine = false) {
   if (!save()) return;
   const before = structuredClone(state);
   if (refine) { try { capturePrevious(before); } catch (error) { return announce(error.message); } }
-  clearTimeout(timer); revision++; setBusy(true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
+  clearTimeout(timer); revision++; setBusy(true, true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
   try {
     const input = { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
     const result = await prepareInStages(input, {

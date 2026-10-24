@@ -6,14 +6,22 @@ const copy = value => JSON.parse(JSON.stringify(value));
 const key = value => String(value ?? '').normalize('NFKC').trim().replace(/\s+/g, ' ').toLowerCase();
 const questions = values => [...new Map((Array.isArray(values) ? values : []).filter(q => typeof q === 'string' && q.trim() && q.length <= 500).map(q => [key(q), q])).values()];
 
+function usablePlan(plan) {
+  return plan && typeof plan === 'object' && !Array.isArray(plan) && typeof plan.title === 'string' && typeof plan.currency === 'string' &&
+    Array.isArray(plan.tasks) && plan.tasks.length <= 100 && plan.tasks.every(t => t && typeof t.label === 'string') &&
+    Array.isArray(plan.budget) && plan.budget.length <= 100 && plan.budget.every(b => b && typeof b.label === 'string') &&
+    Array.isArray(plan.openQuestions) && plan.openQuestions.length <= 50 && plan.openQuestions.every(q => typeof q === 'string' && q.length <= 500) &&
+    plan.drafts && typeof plan.drafts.invitation === 'string' && typeof plan.drafts.schedule === 'string';
+}
+
 export function previousVersion(value) {
   if (!value || value.version !== 1 || !['update', 'restore'].includes(value.action) || !Number.isFinite(Date.parse(value.capturedAt))) return null;
   const w = value.workspace;
-  if (!w || typeof w.request !== 'string' || w.request.length > 12000 || typeof w.answers !== 'string' || w.answers.length > 8000 || !w.plan || typeof w.plan !== 'object' || Array.isArray(w.plan)) return null;
+  if (!w || typeof w.request !== 'string' || w.request.length > 12000 || typeof w.answers !== 'string' || w.answers.length > 8000 || !usablePlan(w.plan)) return null;
   // Select fields explicitly: snapshots cannot contain nested history, checkpoints or approvals.
   const result = { version: 1, action: value.action, capturedAt: value.capturedAt,
     carriedQuestions: questions(value.carriedQuestions).slice(0, 50),
-    workspace: { request: w.request, answers: w.answers, plan: copy(w.plan), provenance: w.provenance ? copy(w.provenance) : null } };
+    workspace: { request: w.request, answers: w.answers, plan: copy(w.plan), provenance: w.provenance ? copy(w.provenance) : null, questionResolutions: questions(w.questionResolutions).slice(-50) } };
   if (JSON.stringify(result).length > maxPreviousCharacters) return null;
   return result;
 }
@@ -44,7 +52,7 @@ export function restoredWorkspace(current, now) {
   if (!prior) throw new Error('No usable previous version is saved for this pack.');
   const restored = copy(prior.workspace);
   if (restored.plan.sourceEvidence?.records) for (const record of restored.plan.sourceEvidence.records) record.confirmed = false;
-  return { ...restored, approval: null, questionResolutions: [], previousVersion: capturePrevious(current, 'restore', [], now) };
+  return { ...restored, approval: null, previousVersion: capturePrevious(current, 'restore', [], now) };
 }
 
 export function markQuestionResolved(workspace, question) {
@@ -106,6 +114,7 @@ export function compareVersions(workspace) {
   const carried = new Set(prior.carriedQuestions.map(key));
   const questionChanges = beforeQ.map(question => ({ question, status: afterKeys.has(key(question)) ? carried.has(key(question)) ? 'Kept open · omitted by update' : 'Still open' : resolved.has(key(question)) ? 'Marked resolved by you' : 'Absent · not marked resolved' }));
   for (const question of afterQ) if (!beforeKeys.has(key(question))) questionChanges.push({ question, status: 'New open question' });
+  for (const question of questions(workspace.questionResolutions)) if (!beforeKeys.has(key(question)) && !afterKeys.has(key(question))) questionChanges.push({ question, status: 'New question · marked resolved by you' });
   const drafts = ['invitation', 'schedule'].map(path => ({ path, label: path === 'invitation' ? 'Invitation' : 'Run of show', changed: a.drafts?.[path] !== b.drafts?.[path], before: a.drafts?.[path] || '', after: b.drafts?.[path] || '' }));
   return { facts, tasks, budget, questions: questionChanges, drafts, budgetBefore: budgetSummary(a), budgetAfter: budgetSummary(b), notesChanged: prior.workspace.request !== workspace.request, capturedAt: prior.capturedAt, action: prior.action, updateText: prior.workspace.answers };
 }

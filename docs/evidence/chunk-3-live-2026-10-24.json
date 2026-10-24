@@ -1,0 +1,93 @@
+{
+  "kind": "Fictional live UI regression, not independent evaluation",
+  "codeCommit": "f15de6132582772ab2d71f74b21acbe80dc06005",
+  "initial": {
+    "manualCorrection": "Gemma returned venue null for unconfirmed booking. Entered Maple Hall manually before Update; booking question remains open.",
+    "owner": "Ada Okafor",
+    "rehearsalDate": "2026-12-10",
+    "invitation": "Maple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nProposed Venue: Maple Hall [Confirm booking]\n\nDear Members,\n\nYou are cordially invited to attend the Maple Reading Morning, organized by the Maple Reading Club. The purpose of this event is to enjoy a shared reading experience and community building.\n\nPlease join us for the following programme:\n\nDate: Saturday 12 December 2026\nRegistration: 09:45\nProgramme Start: 10:00\nVenue: Maple Hall [Confirm booking]\n\nOrganizer: Maple Reading Club\nSigned by: Amina Bello, Club Secretary",
+    "schedule": "Maple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nProposed Venue: Maple Hall [Confirm booking]\n\n09:45 Registration\n10:00 Welcome (10 minutes)\n10:10 Reading circle (20 minutes) - Led by Ada Okafor\n10:30 Closing (10 minutes)\n\n[Confirm rehearsal time] on 10 December 2026",
+    "budget": {
+      "notebooks": 20,
+      "unitPrice": 3,
+      "bannerPrice": null,
+      "knownSubtotal": 60,
+      "provisionalAllowance": 140,
+      "currency": "USD",
+      "limit": 200
+    },
+    "sourceConfirmedCount": 1
+  },
+  "failedUpdate": {
+    "stage": "schedule",
+    "httpStatus": 500,
+    "reference": "7a4014b3-14c7-4cf5-af21-dfebf449b71d",
+    "completedStepsKept": 2,
+    "oldVenueStillVisible": "Maple Hall",
+    "sourceConfirmedCountStillVisible": 1,
+    "followupChangesRetained": true
+  },
+  "update": {
+    "resumeReusedSteps": 2,
+    "venue": "Maple Library Hall",
+    "owner": "Bola Ade",
+    "budget": {
+      "notebooks": 25,
+      "unitPrice": 3,
+      "bannerPrice": 25,
+      "total": 100,
+      "remainingAllowance": 100,
+      "currency": "USD"
+    },
+    "unwantedSignatory": "A",
+    "comparisonExposedSignatoryChange": true,
+    "invitation": "Maple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nCurrent Venue: Maple Library Hall\n\nDear Members,\n\nYou are cordially invited to attend the Maple Reading Morning, organized by the Maple Reading Club. The purpose of this event is to join a shared reading experience and community building.\n\nPlease join us for the following programme:\n\nDate: Saturday 12 December 2026\nRegistration: 09:45\nProgramme Start: 10:00\nVenue: Maple Library Hall\nOrganizer: Maple Reading Club\n\nSigned by: Amina Bello, Club Secretary",
+    "schedule": "Maple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nCurrent Venue: Maple Library Hall\n\nDear Members,\n\nYou are cordially invited to attend the Maple Reading Morning, organized by the Maple Reading Club. The purpose of this event is to join a shared reading experience and community building.\n\nDate: Saturday 12 December 2026\nRegistration: 09:45\nProgramme Start: 10:00\nVenue: Maple Library Hall\nOrganizer: Maple Reading Club\nSigned by: Amina Bello, Club Secretary\n\n09:45 Registration\n10:00 Welcome (10 minutes)\n10:10 Reading circle (20 minutes) - Led by Bola Ade\n10:30 Closing (10 minutes)\n\n[Confirm rehearsal time] on 10 December 2026",
+    "contentPass": false,
+    "otherObservation": "Run-of-show output includes extra invitation prose before the timed programme. Timings and Bola assignment are present."
+  },
+  "comparison": [
+    {
+      "section": "facts",
+      "text": "Facts · 2 changed\nVenue\nChanged\nPREVIOUS SAVED VERSION\n\nMaple Hall\n\nCURRENT PACK\n\nMaple Library Hall\n\nInvitation signatory\nChanged\nPREVIOUS SAVED VERSION\n\nAmina Bello, Club Secretary\n\nCURRENT PACK\n\nA"
+    },
+    {
+      "section": "tasks",
+      "text": "Responsibilities & deadlines · 1 changed\nLeading the reading circle\nChanged\nPREVIOUS SAVED VERSION\n\nOwner: Ada Okafor · Due: Unknown / not supplied\n\nCURRENT PACK\n\nOwner: Bola Ade · Due: Unknown / not supplied"
+    },
+    {
+      "section": "budget",
+      "text": "Budget lines · 2 changed\nPREVIOUS SAVED VERSION\n\nKnown subtotal, incomplete: USD 60.00. Provisional allowance before unknown costs: USD 140.00.\n\nCURRENT PACK\n\nTotal: USD 100.00. Remaining allowance: USD 100.00.\n\nnotebooks\nChanged\nPREVIOUS SAVED VERSION\n\nQuantity: 20 · Unit price: USD 3.00 · Line total: USD 60.00\n\nCURRENT PACK\n\nQuantity: 25 · Unit price: USD 3.00 · Line total: USD 75.00\n\nbanner\nChanged\nPREVIOUS SAVED VERSION\n\nQuantity: 1 · Unit price: Unknown / not supplied · Line total: Unknown / not supplied\n\nCURRENT PACK\n\nQuantity: 1 · Unit price: USD 25.00 · Line total: USD 25.00"
+    },
+    {
+      "section": "questions",
+      "text": "Questions · 3 to compare\n\nMissing from an AI update does not mean answered. Omitted questions stay open. Mark one resolved only after checking its answer in the facts and drafts. Reworded questions may appear separately.\n\nKept open · omitted by update\n\nIs the booking for Maple Hall confirmed?\n\nKept open · omitted by update\n\nWhat is the price for the banner?\n\nStill open\n\nWhat is the rehearsal time?"
+    },
+    {
+      "section": "invitation",
+      "text": "Invitation · wording changed\n\nFull text is shown for comparison. Edit the current wording in its document tab.\n\nPREVIOUS SAVED VERSION\nMaple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nProposed Venue: Maple Hall [Confirm booking]\n\nDear Members,\n\nYou are cordially invited to attend the Maple Reading Morning, organized by the Maple Reading Club. The purpose of this event is to enjoy a shared reading experience and community building.\n\nPlease join us for the following programme:\n\nDate: Saturday 12 December 2026\nRegistration: 09:45\nProgramme Start: 10:00\nVenue: Maple Hall [Confirm booking]\n\nOrganizer: Maple Reading Club\nSigned by: Amina Bello, Club Secretary\nCURRENT PACK\nMaple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nCurrent Venue: Maple Library Hall\n\nDear Members,\n\nYou are cordially invited to attend the Maple Reading Morning, organized by the Maple Reading Club. The purpose of this event is to join a shared reading experience and community building.\n\nPlease join us for the following programme:\n\nDate: Saturday 12 December 2026\nRegistration: 09:45\nProgramme Start: 10:00\nVenue: Maple Library Hall\nOrganizer: Maple Reading Club\n\nSigned by: Amina Bello, Club Secretary"
+    },
+    {
+      "section": "schedule",
+      "text": "Run of show · wording changed\n\nFull text is shown for comparison. Edit the current wording in its document tab.\n\nPREVIOUS SAVED VERSION\nMaple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nProposed Venue: Maple Hall [Confirm booking]\n\n09:45 Registration\n10:00 Welcome (10 minutes)\n10:10 Reading circle (20 minutes) - Led by Ada Okafor\n10:30 Closing (10 minutes)\n\n[Confirm rehearsal time] on 10 December 2026\nCURRENT PACK\nMaple Reading Morning\nConfirmed Date: Saturday 12 December 2026\nCurrent Venue: Maple Library Hall\n\nDear Members,\n\nYou are cordially invited to attend the Maple Reading Morning, organized by the Maple Reading Club. The purpose of this event is to join a shared reading experience and community building.\n\nDate: Saturday 12 December 2026\nRegistration: 09:45\nProgramme Start: 10:00\nVenue: Maple Library Hall\nOrganizer: Maple Reading Club\nSigned by: Amina Bello, Club Secretary\n\n09:45 Registration\n10:00 Welcome (10 minutes)\n10:10 Reading circle (20 minutes) - Led by Bola Ade\n10:30 Closing (10 minutes)\n\n[Confirm rehearsal time] on 10 December 2026"
+    }
+  ],
+  "manualReview": {
+    "signatoryCorrectedTo": "Amina Bello, Club Secretary",
+    "questionsExplicitlyResolved": [
+      "Is the booking for Maple Hall confirmed?",
+      "What is the price for the banner?"
+    ],
+    "questionStillOpen": "What is the rehearsal time?"
+  },
+  "restore": {
+    "venue": "Maple Hall",
+    "invitationExactlyRestored": true,
+    "scheduleExactlyRestored": true,
+    "sourceSummary": "0 confirmed by you · 13 known facts to review · 3 unknown values",
+    "confirmationCheckbox": false,
+    "budget": "USD 60 known subtotal, USD 140 provisional allowance, banner unknown",
+    "owner": "Ada Okafor",
+    "allOriginalQuestionsReturned": true
+  }
+}

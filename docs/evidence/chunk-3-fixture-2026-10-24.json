@@ -1,0 +1,15 @@
+{
+  "kind": "Exposed fictional integration regression, not independent evaluation",
+  "request": "Maple Reading Morning is organized by Maple Reading Club on Saturday 12 December 2026. The programme starts at 10:00, with registration at 09:45. The venue is Maple Hall; booking is unconfirmed. Sign the invitation Amina Bello, Club Secretary. Ada Okafor is responsible for leading the reading circle. Programme order: Welcome 10 minutes, Reading circle 20 minutes, Closing 10 minutes. Currency USD. Spending limit USD 200. Budget: 20 notebooks at USD 3 each and 1 banner with an unknown price. Rehearsal is on 10 December 2026, but its time is unknown. Keep booking, banner price and rehearsal time as open questions. This is fictional testing; do not send or book anything.",
+  "update": "The confirmed venue is now Maple Library Hall and its booking is approved. Increase notebooks to 25 at USD 3 each. The banner costs USD 25. Bola Ade now leads the reading circle instead of Ada Okafor. Keep the date, start time, signatory, organizer, spending limit and programme durations unchanged. Rehearsal time is still unknown; keep it as an open question.",
+  "expected": {
+    "initialKnownTotalMinor": 6000,
+    "updatedKnownTotalMinor": 10000,
+    "updatedRemainingAllowanceMinor": 10000,
+    "updatedVenue": "Maple Library Hall",
+    "updatedReadingOwner": "Bola Ade",
+    "pendingQuestion": "Rehearsal time",
+    "restoreMustRecover": ["Maple Hall", "20 notebooks", "Unknown banner price", "Original invitation and schedule text"],
+    "noOldApprovalOrSourceConfirmationsOnRestore": true
+  }
+}
