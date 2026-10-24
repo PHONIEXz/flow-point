@@ -53,7 +53,7 @@ for (const [label, fixture] of cases) {
           activityDurations: (judge ? [10, 30, 20] : [10, 15, 35, 30, 20, 25]).every(n => new RegExp(`\\b${n}\\s*(?:minutes?|mins?)\\b`, 'i').test(p.drafts.schedule)),
           ...(!updated ? { pendingVenue: p.openQuestions.some(x => /room|hall|venue|booking/i.test(x)) } : {}),
           ...(updated ? { venue: /multipurpose hall/i.test(p.venue || ''), invitationVenue: /multipurpose hall/i.test(p.drafts.invitation), scheduleVenue: /multipurpose hall/i.test(p.drafts.schedule) } : {}),
-          ...(!judge && updated ? { pendingRehearsalTime: p.openQuestions.some(x => /rehears/i.test(x) && /time/i.test(x)), firstAidOfficer: p.tasks.some(x => /samuel\s+eze/i.test(x.owner || '') && /first.?aid/i.test(x.label)), newRehearsalDate: p.tasks.some(x => /rehears/i.test(x.label) && x.dueDate === '2026-11-19'), noOldRehearsalDate: p.tasks.every(x => x.dueDate !== '2026-11-12'), spendingLimit: p.tasks.some(x => /200[,.]?000/.test(x.label)), remainingAllowance: p.tasks.some(x => /18[,.]?500/.test(x.label)) } : {})
+          ...(!judge && updated ? { pendingRehearsalTime: p.openQuestions.some(x => /rehears/i.test(x) && /time/i.test(x)), firstAidOfficer: p.tasks.some(x => /samuel\s+eze/i.test(x.owner || '') && /first.?aid/i.test(x.label)), newRehearsalDate: p.tasks.some(x => /rehears/i.test(x.label) && x.dueDate === '2026-11-19'), noOldRehearsalDate: p.tasks.every(x => x.dueDate !== '2026-11-12'), spendingLimit: p.spendingLimitMinor === 20000000, remainingAllowance: result.remainingAllowanceMinor === 1850000 && !result.allowanceProvisional } : {})
         };
         Object.assign(row, { completed: true, checks, checksPassed: Object.values(checks).every(Boolean), provenance: result.provenance });
         previousPlan = p;

@@ -15,7 +15,7 @@ export function budgetCsv(input) {
 }
 
 export function preparationPack(input, approval) {
-  const { plan, issues, knownTotalMinor, budgetComplete } = reviewPlan(input);
+  const { plan, issues, knownTotalMinor, budgetComplete, remainingAllowanceMinor, allowanceProvisional } = reviewPlan(input);
   const approved = isApproved(plan, approval);
   return [
     `# ${plan.title}`,
@@ -35,6 +35,8 @@ export function preparationPack(input, approval) {
     `Currency: ${plan.currency}. Amounts below are integer minor units (for NGN, kobo).`,
     plan.budget.map((item) => `- ${item.label}: ${item.quantity} × ${item.unitCostMinor ?? '[Confirm price]'}`).join('\n'),
     `${budgetComplete ? 'Total' : 'Known subtotal; incomplete budget'}: ${knownTotalMinor} minor units.`,
+    `Spending limit: ${plan.spendingLimitMinor === null ? 'Not supplied' : plan.spendingLimitMinor + ' minor units.'}`,
+    remainingAllowanceMinor === null ? 'Remaining allowance: unknown without a spending limit.' : `${remainingAllowanceMinor < 0 ? 'Over budget by' : allowanceProvisional ? 'Provisional allowance before unknown costs' : 'Remaining allowance'}: ${Math.abs(remainingAllowanceMinor)} minor units.${allowanceProvisional ? ' This is not a final available balance.' : ''}`,
     'Approval covers this exact plan version. Editing the plan requires a new review.'
   ].join('\n\n') + '\n';
 }

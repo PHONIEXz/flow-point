@@ -6,7 +6,7 @@ import { readFile } from 'node:fs/promises';
 import { createApp } from '../src/server.mjs';
 import { generatePack, parseModelPlan, checkModelAccess, probeGeneration } from '../src/gemma.mjs';
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
-function complete() { return { ...structuredClone(sample), startTime: '10:00', organizer: 'Example School', signatory: 'Principal', openQuestions: [], budget: [{ label: 'Paper', quantity: 3, unitCostMinor: 101 }], drafts: { invitation: 'Reviewed invitation.', schedule: '10:00 Welcome. 11:00 Closing.' } }; }
+function complete() { return { ...structuredClone(sample), spendingLimitMinor: null, startTime: '10:00', organizer: 'Example School', signatory: 'Principal', openQuestions: [], budget: [{ label: 'Paper', quantity: 3, unitCostMinor: 101 }], drafts: { invitation: 'Reviewed invitation at 10:00.', schedule: '10:00 Welcome. 11:00 Closing.' } }; }
 async function app(t, config = {}) { const server = createApp(config); server.listen(0, '127.0.0.1'); await once(server, 'listening'); t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })); const base = `http://127.0.0.1:${server.address().port}`; return { get: path => fetch(base + path), post: (path, data, headers = {}, signal) => fetch(base + path, { signal, method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data) }) }; }
 
 test('HTTP flow: sample -> edit -> approve -> export -> edit invalidates approval', async t => {
@@ -301,7 +301,7 @@ test('malformed JSON regenerates from original input on fallback without forward
   assert.match(calls[1].url, /gemma-4-31b-it:generateContent$/);
   assert.equal(calls[0].options.signal, calls[1].options.signal);
   const prompt = JSON.parse(calls[1].options.body).contents[0].parts[0].text;
-  assert.match(prompt, /RETRY:.*failed JSON or pack validation/);
+  assert.match(prompt, /RETRY:.*failed structure or content validation/);
   assert.doesNotMatch(prompt, /private-broken-output-marker/);
   assert.deepEqual(JSON.parse(prompt.split('\n\nINPUT DATA:\n')[1]), before);
   assert.deepEqual(input, before);

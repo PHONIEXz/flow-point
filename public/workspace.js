@@ -229,6 +229,7 @@ function renderReview() {
   $('stage-capture').classList.remove('current'); $('stage-review').classList.toggle('current', !approved); $('stage-approve').classList.toggle('current', approved);
   $('total-label').textContent = review.budgetComplete ? 'Total' : 'Known subtotal · incomplete';
   $('total-value').textContent = `${state.plan.currency} ${formatMinor(review.knownTotalMinor)}`;
+  $('allowance').textContent = review.remainingAllowanceMinor == null ? 'Remaining allowance unknown: no spending limit supplied.' : `${review.remainingAllowanceMinor < 0 ? 'Over budget by' : review.allowanceProvisional ? 'Provisional allowance before unknown costs' : 'Remaining allowance'}: ${state.plan.currency} ${formatMinor(Math.abs(review.remainingAllowanceMinor))}${review.allowanceProvisional ? '. Not a final available balance.' : ''}`;
 }
 function inputField(label, value, onChange, { type = 'text', maxLength = 300, min, max, step, ariaLabel, inputMode, placeholder } = {}) {
   const wrap = node('label', label), input = node('input'); input.type = type; input.value = value ?? ''; input.maxLength = maxLength;
@@ -266,6 +267,7 @@ function renderPack() {
   renderView();
   renderSavedPacks();
   if (!exists) return;
+  $('spending-limit').value = state.plan.spendingLimitMinor == null ? '' : minorToDecimal(state.plan.spendingLimitMinor);
   $('pack-heading').textContent = state.plan.title;
   const p = state.provenance;
   $('generation-evidence').textContent = p?.pipeline === 'staged-v1'
@@ -287,6 +289,13 @@ document.querySelectorAll('[data-field]').forEach(input => input.addEventListene
 document.querySelectorAll('[data-draft]').forEach(input => input.addEventListener('input', () => { state.plan.drafts[input.dataset.draft] = input.value; invalidate(); }));
 $('request').addEventListener('input', () => { if (state.plan) invalidate(); else save(); });
 $('answers').addEventListener('input', save);
+$('spending-limit').addEventListener('input', () => {
+  if (!state.plan) return;
+  const value = $('spending-limit').value;
+  const [whole, fraction = ''] = value.split('.');
+  state.plan.spendingLimitMinor = value === '' ? null : /^\d+(\.\d{1,2})?$/.test(value) ? Number(whole) * 100 + Number(fraction.padEnd(2, '0')) : -1;
+  invalidate();
+});
 $('review-confirm').addEventListener('change', () => { if (review) renderReview(); });
 $('add-question').addEventListener('click', () => { if (state.plan.openQuestions.length >= 50) return announce('This pack already has 50 questions. Resolve existing ones first.'); state.plan.openQuestions.push(''); invalidate(); renderRows(); });
 $('add-task').addEventListener('click', () => { if (state.plan.tasks.length >= 100) return announce('The checklist can hold up to 100 tasks.'); state.plan.tasks.push({ label: '', owner: null, dueDate: null }); invalidate(); renderRows(); });
@@ -318,7 +327,7 @@ async function generate(refine = false) {
       }
     });
     const checked = await api('/api/review', { plan: result.plan }, controller.signal);
-    result.plan = checked.plan; result.issues = checked.issues; result.knownTotalMinor = checked.knownTotalMinor; result.budgetComplete = checked.budgetComplete;
+    for (const field of ['plan', 'issues', 'knownTotalMinor', 'budgetComplete', 'remainingAllowanceMinor', 'allowanceProvisional']) result[field] = checked[field];
     delete state.pendingGeneration;
     if (!refine) collection = { ...collection, activeId: null };
     state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('answers').value = ''; save(); renderPack();

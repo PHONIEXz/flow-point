@@ -8,11 +8,12 @@ const bold = require.resolve('dejavu-fonts-ttf/ttf/DejaVuSans-Bold.ttf');
 
 // Keep integer arithmetic through formatting, including very large safe amounts.
 export function money(minor) {
+  if (minor < 0) return `-${money(-minor)}`;
   return `${Math.floor(minor / 100).toLocaleString('en-NG')}.${String(minor % 100).padStart(2, '0')}`;
 }
 
 export async function preparationPdf(input, approval, { sample = false } = {}) {
-  const { plan, issues, knownTotalMinor, budgetComplete } = reviewPlan(input);
+  const { plan, issues, knownTotalMinor, budgetComplete, remainingAllowanceMinor, allowanceProvisional } = reviewPlan(input);
   const approved = isApproved(plan, approval);
   const status = `${sample ? 'SAMPLE DATA / ' : ''}${approved ? 'Approved version' : 'DRAFT / Review required'}`;
   const doc = new PDFDocument({ size: 'A4', margins: { top: 76, bottom: 58, left: 48, right: 48 }, autoFirstPage: false, bufferPages: true,
@@ -76,6 +77,8 @@ export async function preparationPdf(input, approval, { sample = false } = {}) {
     for (const item of plan.budget) row([item.label, String(item.quantity), item.unitCostMinor === null ? 'Unknown' : money(item.unitCostMinor), item.unitCostMinor === null ? 'Unknown' : money(item.quantity * item.unitCostMinor)]);
   } else paragraph('No budget items recorded. Check whether costs are still missing.');
   room(65); paragraph(`${budgetComplete ? 'Total' : 'Known subtotal (incomplete)'}: ${plan.currency} ${money(knownTotalMinor)}`, { font: 'Bold', size: 12 });
+  paragraph(`Spending limit: ${plan.spendingLimitMinor === null ? 'Not supplied' : plan.currency + ' ' + money(plan.spendingLimitMinor)}`);
+  paragraph(remainingAllowanceMinor === null ? 'Remaining allowance: unknown without a spending limit.' : `${remainingAllowanceMinor < 0 ? 'Over budget by' : allowanceProvisional ? 'Provisional allowance before unknown costs' : 'Remaining allowance'}: ${plan.currency} ${money(Math.abs(remainingAllowanceMinor))}${allowanceProvisional ? '. Not a final available balance.' : ''}`);
   paragraph('Unknown prices are not zero. Suggested tasks and schedules describe proposed work, not completed actions.', { size: 9 });
   const range = doc.bufferedPageRange();
   for (let i = 0; i < range.count; i++) {

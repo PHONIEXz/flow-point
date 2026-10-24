@@ -6,11 +6,11 @@ These are planned changes, not completed features or winning probabilities. Fini
 
 ## Delivered foundation
 
-Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 72 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
+Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 77 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
 
 ## Chunk 1: fix known content omissions
 
-**Status:** next to implement. **Priority:** critical. **Lessons:** Second Look, TwoToe, SlothSpec.
+**Status:** verification in progress. **Priority:** critical. **Lessons:** Second Look, TwoToe, SlothSpec.
 
 **Goal:** a returned structure must not conceal missing essential content.
 
@@ -98,4 +98,4 @@ Voice capture, mascots, additional sponsor integrations, accounts, collaboration
 
 ## Tracking rule
 
-Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1 is next; creating this roadmap does not start or complete its implementation.
+Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1 is being verified; later chunks remain queued until its live and export checks are recorded.

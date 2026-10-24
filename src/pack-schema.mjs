@@ -15,6 +15,7 @@ export const packFunction = {
     organizer: unknownString,
     signatory: unknownString,
     currency: string,
+    spendingLimitMinor: { type: 'INTEGER', nullable: true, description: 'Explicit total spending limit in integer minor units. Null if not supplied. Preserve unchanged limits through updates. Do not calculate remaining allowance here.' },
     tasks: array(object({ label: string, owner: unknownString, dueDate: unknownString })),
     budget: array(object({ label: string, quantity: { type: 'INTEGER' }, unitCostMinor: { type: 'INTEGER', nullable: true } })),
     drafts: object({ invitation: string, schedule: string }),

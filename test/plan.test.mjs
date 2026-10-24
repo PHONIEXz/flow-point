@@ -12,7 +12,7 @@ function completePlan() {
   plan.signatory = 'Event Coordinator';
   plan.openQuestions = [];
   plan.budget.forEach((item) => { item.unitCostMinor = 10000; });
-  plan.drafts.invitation = 'Reviewed invitation with confirmed details.';
+  plan.drafts.invitation = 'Reviewed invitation with confirmed details at 10:00.';
   plan.drafts.schedule = '10:00 Welcome. 10:15 Presentations. 11:00 Closing.';
   return plan;
 }
@@ -105,7 +105,7 @@ test('blocks ordinary model placeholders even after event fields are completed',
     assert.ok(reviewPlan(plan).issues.some(issue => issue.code === 'DRAFT_PLACEHOLDER'), placeholder);
     assert.throws(() => approvePlan(plan));
   }
-  plan.drafts.invitation = 'Welcome to Reading Day.';
+  plan.drafts.invitation = 'Welcome to Reading Day at 10:00.';
   plan.drafts.schedule = '[Proposed Run of Show]\n10:00 Welcome.';
   assert.equal(reviewPlan(plan).issues.length, 0);
 });

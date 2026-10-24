@@ -1,0 +1,34 @@
+{
+  "frozenAt": "2026-10-24T07:27:57.300Z",
+  "codeCommit": "fc39cda6c53ec5b2cab29907f4f68c8ce9a1dbda",
+  "roadmapCommit": "51e02832c248b4fee7817dd9898e85e1911a5d54",
+  "scope": "Existing exposed regression cases, not unseen evaluation. Frozen before Chunk 1 code or prompt changes.",
+  "artifacts": [
+    {
+      "path": "docs/school-event-test.md",
+      "sha256": "8346764feff9c51026b3e12e9eadd07842a448ce96bc4452daa314433fbb48e0"
+    },
+    {
+      "path": "docs/evidence/school-update-captured-2026-10-24.json",
+      "sha256": "f851845f163327d31d6f5dae9df71be4e116e7b6e1c64445ba5b9fadd2123707"
+    },
+    {
+      "path": "docs/evidence/staged-school-paced-2026-10-24.json",
+      "sha256": "472722b65ae6ab85c05def2cf924af4c837fd9dbc546f9a5d06613228a064cf1"
+    }
+  ],
+  "expectedSchoolUpdate": {
+    "startTime": "10:00",
+    "spendingLimitMinor": 20000000,
+    "knownTotalMinor": 18150000,
+    "remainingAllowanceMinor": 1850000,
+    "firstAidOwner": "Mr Samuel Eze",
+    "rehearsalDate": "2026-11-19",
+    "rehearsalTime": "unresolved"
+  },
+  "observedFailures": [
+    "Confirmed start missing from invitation",
+    "Run of show lacks programme start anchor",
+    "Spending limit and remaining allowance absent"
+  ]
+}

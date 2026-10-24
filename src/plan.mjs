@@ -28,6 +28,8 @@ export function validatePlan(input) {
   const signatory = input.signatory == null ? null : text(input.signatory, 'signatory', 200) || null;
   const currency = text(input.currency, 'currency', 3).toUpperCase();
   if (!['NGN', 'USD', 'GBP', 'EUR', 'GHS', 'KES', 'ZAR', 'CAD', 'AUD', 'CHF', 'INR', 'CNY', 'SGD', 'AED'].includes(currency)) throw new Error('Choose a supported currency with 100 minor units');
+  const spendingLimitMinor = input.spendingLimitMinor ?? null;
+  if (spendingLimitMinor !== null && (!Number.isSafeInteger(spendingLimitMinor) || spendingLimitMinor < 0)) throw new Error('Invalid spending limit');
   if (!Array.isArray(input.tasks) || input.tasks.length > 100) throw new Error('Invalid tasks');
   const tasks = input.tasks.map((task) => {
     if (!task || typeof task !== 'object') throw new Error('Invalid task');
@@ -54,12 +56,31 @@ export function validatePlan(input) {
   for (const key of ['invitation', 'schedule']) drafts[key] = text(input.drafts?.[key], key);
   if (!Array.isArray(input.openQuestions) || input.openQuestions.length > 50) throw new Error('Invalid open questions');
   const openQuestions = input.openQuestions.map((question) => text(question, 'open question', 500)).filter(Boolean);
-  return { title, eventDate, requestedWeekday, venue, startTime, organizer, signatory, currency, tasks, budget, drafts, openQuestions };
+  return { title, eventDate, requestedWeekday, venue, startTime, organizer, signatory, currency, spendingLimitMinor, tasks, budget, drafts, openQuestions };
+}
+
+// Accept common 12/24-hour notation without matching a different hour or minute.
+export function clockTimes(value) {
+  return [...value.matchAll(/(?<![\d:])(\d{1,2})[:.](\d{2})\s*(a\.?m\.?|p\.?m\.?)?(?![\d:])/gi)].flatMap(match => {
+    let hour = Number(match[1]); const minute = Number(match[2]);
+    if (minute > 59 || hour > 23) return [];
+    if (match[3]) { if (hour < 1 || hour > 12) return []; hour = hour % 12 + (/p/i.test(match[3]) ? 12 : 0); }
+    return [String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0')];
+  });
+}
+export function draftTimeIssues(plan) {
+  if (!plan.startTime) return [];
+  const issues = [];
+  if (plan.drafts.invitation && !clockTimes(plan.drafts.invitation).includes(plan.startTime)) issues.push({ code: 'INVITATION_TIME', message: `Include the confirmed programme start ${plan.startTime} in the invitation.` });
+  // Registration can precede the programme. Require the first other timed row at the start.
+  const timedRows = plan.drafts.schedule.split(/\n|(?<=\.)\s+/).filter(line => !/registration|arrival|check.?in/i.test(line) && clockTimes(line).length);
+  if (plan.drafts.schedule && (!timedRows.length || clockTimes(timedRows[0])[0] !== plan.startTime)) issues.push({ code: 'SCHEDULE_TIME', message: `Anchor the first programme activity at ${plan.startTime}; list earlier registration separately. Check every activity and supplied duration against your notes.` });
+  return issues;
 }
 
 export function reviewPlan(input) {
   const plan = validatePlan(input);
-  const issues = [];
+  const issues = draftTimeIssues(plan);
   if (!plan.eventDate) issues.push({ code: 'MISSING_DATE', message: 'Confirm the event date.' });
   if (!plan.venue) issues.push({ code: 'MISSING_VENUE', message: 'Confirm the venue.' });
   if (!plan.startTime) issues.push({ code: 'MISSING_TIME', message: 'Confirm the event start time.' });
@@ -79,7 +100,9 @@ export function reviewPlan(input) {
   const unknownPrices = plan.budget.filter((item) => item.unitCostMinor === null).length;
   if (unknownPrices) issues.push({ code: 'MISSING_PRICES', message: `${unknownPrices} budget item(s) need a price.` });
   const knownTotalMinor = plan.budget.reduce((total, item) => total + item.quantity * (item.unitCostMinor ?? 0), 0);
-  return { plan, issues, knownTotalMinor, budgetComplete: unknownPrices === 0 };
+  const remainingAllowanceMinor = plan.spendingLimitMinor === null ? null : plan.spendingLimitMinor - knownTotalMinor;
+  if (remainingAllowanceMinor !== null && remainingAllowanceMinor < 0) issues.push({ code: 'OVER_BUDGET', message: 'Known costs exceed the spending limit. Revise the budget or confirm a new limit.' });
+  return { plan, issues, knownTotalMinor, budgetComplete: unknownPrices === 0, remainingAllowanceMinor, allowanceProvisional: remainingAllowanceMinor !== null && unknownPrices > 0 };
 }
 
 export function fingerprint(input) {
