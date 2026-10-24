@@ -1,3 +1,4 @@
+import { explicitObligationIssues } from './explicit-obligations.mjs';
 // Conservative checks for explicit English statements. They reject omissions;
 // they never populate facts or certify semantic truth. Human source review remains required.
 const months = ['january','february','march','april','may','june','july','august','september','october','november','december'];
@@ -11,8 +12,8 @@ function rehearsalContext(value) {
   // Sentences/paragraphs mentioning rehearsal, including a following approval sentence.
   return [...value.matchAll(/[^\n.!?]*\brehears\w*[^\n.!?]*(?:[.!?][^\n.!?]{0,160})?/gi)].map(m => m[0]).join('\n');
 }
-export function sourceContentIssues(plan, { request = '', answers = '' } = {}) {
-  const issues = [];
+export function sourceContentIssues(plan, { request = '', answers = '', previousPlan = null } = {}) {
+  const issues = explicitObligationIssues(plan, { request, answers, previousPlan });
   const source = request + '\n' + answers;
   const costs = [...source.matchAll(new RegExp(`\\b${escape(plan.currency)}\\s*([0-9]+(?:,[0-9]{3})*(?:\\.[0-9]{1,2})?)(?!\\d|,\\d|\\.\\d)`, 'gi'))].map(m => amountMinor(m[1])).filter(n => n !== null);
   const supplied = new Set(costs);

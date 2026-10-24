@@ -1,0 +1,286 @@
+{
+  "request": "River Parish organizes Cedar Chapel Choir Evening on Saturday 13 February 2027 at 18:00, registration 17:45, in Grace Chapel. Sign Ruth Alabi, Secretary. Musa Bello leads the choir. Programme order: Welcome 10 minutes, Choir performance 30 minutes, Closing 10 minutes. Currency GBP and spending limit GBP 1500. Budget: 80 printed programmes at GBP 1.25 each, one sound-system hire at GBP 250, one flower arrangement with unknown price. Minister permission for outdoor seating is still pending. Keep permission and flower price as questions. This is fictional.",
+  "answers": "The venue changes to Grace Chapel Annex. Print 100 programmes at the same GBP 1.25 each. Flowers cost GBP 35. Sound hire remains GBP 250. Keep all other confirmed facts and timings. Outdoor seating still needs minister permission.",
+  "rows": [
+    {
+      "action": "prepare",
+      "plan": {
+        "title": "Cedar Chapel Choir Evening",
+        "eventDate": "2027-02-13",
+        "requestedWeekday": "Saturday",
+        "venue": "Grace Chapel",
+        "startTime": "18:00",
+        "organizer": "River Parish",
+        "signatory": "Ruth Alabi, Secretary",
+        "currency": "GBP",
+        "spendingLimitMinor": 150000,
+        "tasks": [],
+        "budget": [
+          {
+            "label": "printed programmes",
+            "quantity": 4,
+            "unitCostMinor": 125
+          },
+          {
+            "label": "sound-system hire",
+            "quantity": 1,
+            "unitCostMinor": 25000
+          },
+          {
+            "label": "flower arrangement",
+            "quantity": 1,
+            "unitCostMinor": null
+          }
+        ],
+        "drafts": {
+          "invitation": "Dear Members of the Congregation,\n\nSubject: Invitation to the Cedar Chapel Choir Evening\n\nRiver Parish cordially invites you to attend the Cedar Chapel Choir Evening, a special musical event led by Musa Bello. The purpose of this evening is to enjoy a dedicated performance by the choir in a spirit of fellowship.\n\nThe event will take place on Saturday, 13 February 2027, at Grace Chapel. Registration will commence at 17:45, with the formal programme beginning at 18:00.\n\nPlease note that permission for outdoor seating is currently pending approval from the Minister. We will provide updates regarding this as soon as possible.\n\nWe look forward to welcoming you to this evening of music.\n\nYours faithfully,\n\nRuth Alabi\nSecretary",
+          "schedule": "Cedar Chapel Choir Evening\nConfirmed Date: Saturday 13 February 2027\nCurrent Venue: Grace Chapel\n\n17:45 Registration\n18:00 Welcome (10 minutes)\nSuggested 18:10 Choir performance (30 minutes)\nSuggested 18:40 Closing (10 minutes)\n\nNote: Proposed timings need confirmation."
+        },
+        "openQuestions": [
+          "Minister permission for outdoor seating is still pending.",
+          "What is the price of the flower arrangement?"
+        ],
+        "sourceEvidence": {
+          "version": 1,
+          "legacy": false,
+          "notesChanged": false,
+          "sources": [
+            {
+              "id": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "kind": "notes",
+              "text": "River Parish organizes Cedar Chapel Choir Evening on Saturday 13 February 2027 at 18:00, registration 17:45, in Grace Chapel. Sign Ruth Alabi, Secretary. Musa Bello leads the choir. Programme order: Welcome 10 minutes, Choir performance 30 minutes, Closing 10 minutes. Currency GBP and spending limit GBP 1500. Budget: 80 printed programmes at GBP 1.25 each, one sound-system hire at GBP 250, one flower arrangement with unknown price. Minister permission for outdoor seating is still pending. Keep permission and flower price as questions. This is fictional."
+            }
+          ],
+          "records": [
+            {
+              "path": "title",
+              "binding": "[\"Cedar Chapel Choir Evening\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 23,
+              "end": 49
+            },
+            {
+              "path": "eventDate",
+              "binding": "[\"2027-02-13\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 53,
+              "end": 78
+            },
+            {
+              "path": "startTime",
+              "binding": "[\"18:00\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 82,
+              "end": 87
+            },
+            {
+              "path": "venue",
+              "binding": "[\"Grace Chapel\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 109,
+              "end": 124
+            },
+            {
+              "path": "organizer",
+              "binding": "[\"River Parish\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 0,
+              "end": 49
+            },
+            {
+              "path": "signatory",
+              "binding": "[\"Ruth Alabi, Secretary\",\"\"]",
+              "origin": "unsupported",
+              "confirmed": false
+            },
+            {
+              "path": "currency",
+              "binding": "[\"GBP\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 269,
+              "end": 281
+            },
+            {
+              "path": "spendingLimitMinor",
+              "binding": "[150000,\"GBP\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 286,
+              "end": 309
+            },
+            {
+              "path": "budget.0.quantity",
+              "binding": "[4,\"printed programmes\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 319,
+              "end": 357
+            },
+            {
+              "path": "budget.0.unitCostMinor",
+              "binding": "[125,\"printed programmes\\u0000GBP\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 344,
+              "end": 357
+            },
+            {
+              "path": "budget.1.quantity",
+              "binding": "[1,\"sound-system hire\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 359,
+              "end": 391
+            },
+            {
+              "path": "budget.1.unitCostMinor",
+              "binding": "[25000,\"sound-system hire\\u0000GBP\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 384,
+              "end": 391
+            },
+            {
+              "path": "budget.2.quantity",
+              "binding": "[1,\"flower arrangement\"]",
+              "origin": "unsupported",
+              "confirmed": false
+            },
+            {
+              "path": "budget.2.unitCostMinor",
+              "binding": "[null,\"flower arrangement\\u0000GBP\"]",
+              "origin": "unsupported",
+              "confirmed": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "action": "update",
+      "plan": {
+        "title": "Cedar Chapel Choir Evening",
+        "eventDate": "2027-02-13",
+        "requestedWeekday": "Saturday",
+        "venue": "Grace Chapel Annex",
+        "startTime": "18:00",
+        "organizer": "River Parish",
+        "signatory": "Ruth Alabi, Secretary",
+        "currency": "GBP",
+        "spendingLimitMinor": 150000,
+        "tasks": [],
+        "budget": [],
+        "drafts": {
+          "invitation": "Dear Members of the Congregation,\n\nSubject: Invitation to the Cedar Chapel Choir Evening\n\nRiver Parish cordially invites you to attend the Cedar Chapel Choir Evening, a special musical event led by Musa Bello. The purpose of this evening is to enjoy a dedicated performance by the choir in a spirit of fellowship.\n\nThe event will take place on Saturday, 13 February 2027, at the Grace Chapel Annex. Registration will commence at 17:45, with the formal programme beginning at 18:00.\n\nPlease note that permission for outdoor seating is currently pending approval from the Minister. We will provide updates regarding this as soon as possible.\n\nWe look forward to welcoming you to this evening of music.\n\nYours faithfully,\n\nRuth Alabi\nSecretary",
+          "schedule": "Cedar Chapel Choir Evening\nConfirmed Date: Saturday 13 February 2027\nCurrent Venue: Grace Chapel Annex\n\n17:45 Registration\n18:00 Welcome (10 minutes)\nSuggested 18:10 Choir performance (30 minutes)\nSuggested 18:40 Closing (10 minutes)\n\nNote: Proposed timings need confirmation."
+        },
+        "openQuestions": [
+          "Minister permission for outdoor seating is still pending.",
+          "What is the price of the flower arrangement?"
+        ],
+        "sourceEvidence": {
+          "version": 1,
+          "legacy": false,
+          "notesChanged": false,
+          "sources": [
+            {
+              "id": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "kind": "notes",
+              "text": "River Parish organizes Cedar Chapel Choir Evening on Saturday 13 February 2027 at 18:00, registration 17:45, in Grace Chapel. Sign Ruth Alabi, Secretary. Musa Bello leads the choir. Programme order: Welcome 10 minutes, Choir performance 30 minutes, Closing 10 minutes. Currency GBP and spending limit GBP 1500. Budget: 80 printed programmes at GBP 1.25 each, one sound-system hire at GBP 250, one flower arrangement with unknown price. Minister permission for outdoor seating is still pending. Keep permission and flower price as questions. This is fictional."
+            },
+            {
+              "id": "0cc157ed9ae13bbe1ef71a565f32d5c78cbfb3c9b393e62ae2ba06205b30c2f5",
+              "kind": "update",
+              "text": "The venue changes to Grace Chapel Annex. Print 100 programmes at the same GBP 1.25 each. Flowers cost GBP 35. Sound hire remains GBP 250. Keep all other confirmed facts and timings. Outdoor seating still needs minister permission."
+            }
+          ],
+          "records": [
+            {
+              "path": "title",
+              "binding": "[\"Cedar Chapel Choir Evening\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 23,
+              "end": 49
+            },
+            {
+              "path": "eventDate",
+              "binding": "[\"2027-02-13\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 53,
+              "end": 78
+            },
+            {
+              "path": "startTime",
+              "binding": "[\"18:00\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 82,
+              "end": 87
+            },
+            {
+              "path": "venue",
+              "binding": "[\"Grace Chapel Annex\",\"\"]",
+              "origin": "unsupported",
+              "confirmed": false
+            },
+            {
+              "path": "organizer",
+              "binding": "[\"River Parish\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 0,
+              "end": 49
+            },
+            {
+              "path": "signatory",
+              "binding": "[\"Ruth Alabi, Secretary\",\"\"]",
+              "origin": "unsupported",
+              "confirmed": false
+            },
+            {
+              "path": "currency",
+              "binding": "[\"GBP\",\"\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 269,
+              "end": 281
+            },
+            {
+              "path": "spendingLimitMinor",
+              "binding": "[150000,\"GBP\"]",
+              "origin": "extracted",
+              "confirmed": false,
+              "sourceId": "adb4d46d3b3c8fa87bcaf52afb361fe6bba08dbfd1a6559e16bbb78326fee6d0",
+              "start": 286,
+              "end": 309
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

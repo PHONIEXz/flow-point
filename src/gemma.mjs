@@ -38,7 +38,7 @@ export async function generatePack({ request, answers = '', previousPlan = null,
   let base = null;
   if (stage && stage !== 'facts') {
     try { base = reviewPlan(checkpoint).plan; } catch { throw new AppError(400, 'The saved generation step is invalid. Prepare the pack again.'); }
-    if (sourceContentIssues(base, { request, answers }).length) throw new AppError(400, 'Saved facts need fresh generation under the updated checks. Reload the app and retry with the same notes.');
+    if (sourceContentIssues(base, { request, answers, previousPlan }).length) throw new AppError(400, 'Saved facts need fresh generation under the updated checks. Reload the app and retry with the same notes.');
     if (stage === 'schedule' && !base.drafts.invitation.trim()) throw new AppError(400, 'Prepare the invitation before the run of show.');
   }
   const declaration = stageFunction(stage);
@@ -54,7 +54,8 @@ The checkpoint contains validated event facts, checklist, budget and open questi
 For an invitation, address the supplied audience, explain the purpose and requested attendance terms, then include the confirmed date, programme start as HH:MM (also include registration separately if supplied), venue, organizer and actual signer's name and role. Clearly flag pending venue or time approval.
 For a schedule, preserve the welcome, every named activity in order and the close. State each supplied duration explicitly in minutes. If start time is known, begin the first programme activity row with that exact HH:MM time (not just a heading); put any earlier registration on its own row. Calculate chronological later times using supplied durations. Prefix later unconfirmed times with Suggested and state that proposed timings need confirmation. Do not use [Time] placeholders when start time is known. If start time is unknown use [Confirm start time] once, then list activities and durations without invented clock times. Include registration separately if supplied. Include safety and supervision instructions where relevant.
 Return nonempty concise plain text under 6000 characters in the one declared string. Do not return the entire pack, new facts or additional fields. Escape all JSON strings correctly.`;
-  policy += `\nINVITATION STYLE: ${invitationStyle}. Write a normal professional letter: salutation, ${invitationStyle === 'formal' ? 'clear invitation subject, respectful formal body, Yours faithfully closing' : 'warm conversational body and Warm wishes closing'}, then the supplied signatory. Use paragraph spacing. No dashboard-like Confirmed Date/Current Venue metadata preamble. Include event facts naturally in the body. Never invent postal addresses, recipient names, contact details or an issue date. Preserve audience and purpose.\nCHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and after-event work, not only named assignments. In particular retain cleanup, returning borrowed equipment, reconciling spending and recording feedback when requested. Unknown owners and dates remain null.`;
+  policy += `\nINVITATION STYLE: ${invitationStyle}. Write a normal professional letter: salutation, ${invitationStyle === 'formal' ? 'clear invitation subject, respectful formal body, Yours faithfully closing' : 'warm conversational body and Warm wishes closing'}, then the supplied signatory. Use paragraph spacing. No dashboard-like Confirmed Date/Current Venue metadata preamble. Include event facts naturally in the body. Never invent postal addresses, recipient names, contact details or an issue date. Preserve audience and purpose.\nBUDGET AND OWNER AUDIT: Never discard a budget line or checklist owner because only the venue changed. Recheck each explicitly supplied quantity against the source, including printed programmes. A direct statement that a named person leads an activity is a checklist assignment even without an honorific. Keep unchanged items and duties during Update; apply only explicit changes or removals.
+CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and after-event work, not only named assignments. In particular retain cleanup, returning borrowed equipment, reconciling spending and recording feedback when requested. Unknown owners and dates remain null.`;
   const started = Date.now();
   const requestSignal = signal ? AbortSignal.any([signal, AbortSignal.timeout(MODEL_RESPONSE_TIMEOUT_MS)]) : AbortSignal.timeout(MODEL_RESPONSE_TIMEOUT_MS);
   function checkInterrupted(error) {
@@ -63,7 +64,12 @@ Return nonempty concise plain text under 6000 characters in the one declared str
   }
   let contentFailures = [];
   function acceptOutput(value) {
-    if (!stage) return parseModelPlan(JSON.stringify(value));
+    if (!stage) {
+      const accepted = parseModelPlan(JSON.stringify(value));
+      contentFailures = sourceContentIssues(accepted.plan, { request, answers, previousPlan });
+      if (contentFailures.length) throw new AppError(502, 'Gemma omitted or changed supplied budget details or duties. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+      return accepted;
+    }
     try {
       if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error();
       if (stage === 'facts') {
@@ -71,8 +77,8 @@ Return nonempty concise plain text under 6000 characters in the one declared str
         if (Array.isArray(value.tasks) && value.tasks.some(task => typeof task?.owner === 'string' && task.owner.trim().toLowerCase() === 'owner')) throw new Error();
         const facts = reviewPlan({ ...value, sourceEvidence: undefined, drafts: { invitation: '', schedule: '' } }).plan;
         const accepted = reviewPlan(attachSourceEvidence(facts, { request, answers, previousPlan, quotes: value.sourceQuotes }));
-        contentFailures = sourceContentIssues(accepted.plan, { request, answers });
-        if (contentFailures.length) throw new AppError(502, 'Gemma missed a supplied responsibility, rehearsal detail or currency amount. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+        contentFailures = sourceContentIssues(accepted.plan, { request, answers, previousPlan });
+        if (contentFailures.length) throw new AppError(502, 'Gemma missed or changed a supplied budget detail, responsibility or rehearsal detail. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
         return accepted;
       }
       if (Object.keys(value).length !== 1 || typeof value[stage] !== 'string' || !value[stage].trim() || value[stage].length > 6000) throw new Error();
@@ -148,7 +154,11 @@ Return nonempty concise plain text under 6000 characters in the one declared str
             responseFormat = 'function-call';
           } else {
             // Retain support for validated text replies from older deployments/models.
-            if (!stage) parsed = parseModelPlan(output);
+            if (!stage) {
+              parsed = parseModelPlan(output);
+              contentFailures = sourceContentIssues(parsed.plan, { request, answers, previousPlan });
+              if (contentFailures.length) throw new AppError(502, 'Gemma omitted or changed supplied budget details or duties. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+            }
             else {
               let value;
               try { value = JSON.parse(output?.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '')); }

@@ -1,0 +1,9 @@
+# Budget and direct-owner omission guards
+
+The exposed church regression returned 4 printed programmes instead of the requested 80, omitted the choir owner, and returned an empty budget on Update. These are model extraction errors, not arithmetic bugs: totals correctly reflected the wrong extracted inputs.
+
+The server now rejects missing or altered explicitly phrased quantities/unit prices, retains previous budget lines unless explicitly removed, and checks direct named assignments without honorifics through unrelated updates. New explicit assignments override the previous duty owner. These checks run for staged facts, saved later-stage checkpoints, and both function-call/text whole-pack replies. Bounded retries include actionable validation feedback. Exhausting attempts leaves the previous browser pack safe.
+
+Scope: conservative English patterns, including quantity + item + at CURRENCY price each, and leads/coordinates/manages assignments. Semantic paraphrases remain for human source review. Numerically changed items in follow-up wording outside the supported extraction pattern are left for human review rather than forcing an obsolete quantity/price. Explicit removals remain permitted. No facts are automatically invented or repaired. The prompt now audits unchanged budgets and named duties across Update.
+
+Generation checkpoint contract advances to version 7 so old partial output cannot bypass new validation. Old completed packs remain editable; this change does not certify or silently rewrite them. The previous frozen v1/v2 evaluation and failures remain unchanged. New tests replay the captured bad church outputs and verify corrected outputs, quantity/price changes, owner reassignment, explicit removals, non-mutation and the three-attempt limit. All 111 software tests pass. Hosted inference is separate and may still stop at Google's quota or provider errors.
