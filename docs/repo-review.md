@@ -41,3 +41,24 @@ Browser money formatting now keeps the integer remainder, fixing the demonstrate
 Client JSON requests now have a deadline: 15 seconds for review/configuration/sample actions and 75 seconds for generation, allowing the server's original 60-second generation budget. Cancellation forwards to fetch and timers/listeners are cleaned up. Regression checks cover timeout recovery, cancellation, storage quota failure and preservation after a failed AI update. The suite now passes 49 tests.
 
 The existing Render build command was corrected in the dashboard to `npm ci && npm test && npm run build`; saving it started deployment `dep-dbdrrpfavr4c7396lps0` from `28dd071`. Final rollout and HTTP health-check verification are recorded separately after deployment; the earlier TCP-only observation above remains a historical finding.
+
+
+## Final deployed verification
+
+Application commit `470e47a1722d545e97bba26fac4d99c87803900e` is live in deployment `dep-dbdrtknavr4c7396s4ug` (23 October 2026, 20:09:30 UTC). The existing service now has the explicit `npm ci && npm test && npm run build` command and `/healthz` HTTP health-check path. Settings were corrected through the dashboard; no plan or secret was changed. This supersedes the baseline configuration findings above.
+
+| Live boundary | Observed result |
+| --- | --- |
+| Public routes | `/healthz` and `/api/config` returned 200; `/money.mjs` served the new module; `/.env` returned 404. |
+| Home | Example tabs and both theme directions worked; inspected desktop document width stayed within the viewport. |
+| Notes and storage | Named saving worked. A second tab with an older snapshot showed the conflict warning; reloading that tab recovered the newer brief rather than overwriting it. |
+| Live preparation | Fictional Library Reading Afternoon succeeded in 36.1 seconds. Primary returned two HTTP 500s; the 31b fallback succeeded on attempt 3. Request `08eba01d-ab4a-4f1d-8ef7-fd72692b1742`. It unnecessarily asked to confirm NGN despite the brief; the subsequent explicit update resolved that question. |
+| Live update | Primary 26b succeeded on attempt 1 in 5.5 seconds. Request `34e27b74-47f6-4661-81ff-7bdfc9a514ed`. The new venue and 14:30 start appeared in the invitation; the run of show started at 14:30 with later times labelled suggested. Chidi remained the chair-task owner. The budget changed from NGN 9,000 to 11,000. |
+| Currency labels | Switching NGN to USD updated the budget input labels; switching back restored NGN. No price conversion is performed. |
+| Approval and persistence | The fictional pack could be approved. Editing its venue cleared approval; restoring the text did not automatically restore approval. Reopening another named pack, then the live pack, and reloading retained the updated facts and NGN 11,000 total in draft state. |
+| Export API | A separately labelled synthetic sample returned PDF, Markdown and CSV with 200 responses, safe filenames and correct NGN 4,000 arithmetic. UTF-8 PDF title and metadata matched. Both PDF pages were rendered and inspected. Editing the plan invalidated approval; unrelated-origin POST returned 403. |
+| Browser downloads | PDF, Markdown and CSV each emitted a download event. The browser returned file paths, but those paths were not accessible in the shared filesystem, so those exact browser-downloaded bytes were not inspected. The separate live API exports above were inspected. |
+
+[Live audit screenshot](media/audit/live-budget.jpg) shows the actual updated Gemma pack after reopening and reload. This is distinct from the hand-authored screenshot set in `media/current/`.
+
+All 49 automated checks and the build pass. The production dependency audit reports zero known vulnerabilities. These checks do not establish exhaustive security, all-device compatibility or a provider success-rate guarantee. The free Render instance can still cold-start; upstream Google failures remain real, although the fallback recovered in this live run. The manual-writing benchmark and physical-device review were excluded from this pass.

@@ -36,3 +36,8 @@ The older `notes.jpg`, `schedule.jpg` and `budget.jpg` files in this directory a
 3. [Tools and build evidence](https://youtu.be/p_Ob6AzwyVo), 3:12.
 
 The films combine edited actual interaction capture, earlier live evidence and labelled explanatory panels. They use an original instrumental soundtrack. See [the demo guide](../demo-shot-list.md) for evidence and playback-verification limits.
+
+
+## Additional live app audit evidence
+
+[Live updated budget](audit/live-budget.jpg) is an actual Gemma-generated fictional Library Reading Afternoon pack captured after the 23 October app review. The update used the primary 26b model and was followed by a currency-label test, approval/edit invalidation, reopening and reload. The visible budget is NGN 11,000; the pack remains draft because an edit invalidated its earlier approval. The earlier `current/` images retain their documented hand-authored provenance. See [the audit record](../repo-review.md#final-deployed-verification).

@@ -81,3 +81,10 @@ All three YouTube players loaded with the expected titles in DEV preview and the
 ## Repository audit (23 October 2026)
 
 A clean checkout of `63e7ad3` was reviewed. Fixed asynchronous sample/saved-pack load races, restored notes before network validation, hardened malformed provider envelopes, and handled invalid request URLs inside the server error boundary. The Node engine floor now matches the documented 22.9 minimum. All 43 tests pass; `npm audit --omit=dev` reports zero known vulnerabilities. Current deployment discovery shows automatic deploys enabled, the older `npm test && npm run build` command and an empty HTTP health-check path, so the live service uses the default TCP check rather than the Blueprint’s declared `/healthz`. See [the detailed review](repo-review.md). No new live inference success rate was measured by this audit.
+
+
+## Deployed follow-up app check (23 October 2026)
+
+The second pass fixes stale-tab overwrites, exact browser money display, budget currency labels and stalled client requests, with 49 passing tests. App commit `470e47a` is confirmed live in `dep-dbdrtknavr4c7396s4ug`; the actual Render build command and `/healthz` HTTP path now match the Blueprint. No plan or secret changed.
+
+The fictional Library Reading Afternoon prepared successfully via the 31b fallback after two primary HTTP 500s (36.1 seconds), then updated successfully on the primary model (5.5 seconds). Browser checks confirmed updated venue, time, named task owner, NGN 11,000 budget, saved-pack reopening/reload, theme switching, currency labels, approval invalidation and a stale-tab warning that preserved the newer notes. Live export API checks passed for PDF, Markdown and CSV; the synthetic PDF was rendered and inspected. Browser download events were observed, but returned browser file paths could not be inspected locally. See [the full boundary-by-boundary record](repo-review.md#final-deployed-verification).
