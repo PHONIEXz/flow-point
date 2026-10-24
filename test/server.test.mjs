@@ -75,6 +75,7 @@ test('health and static routes use restrictive headers and never serve server fi
   assert.match(await packPage.text(), /class="workspace-body pack-page"/);
   const module = await client.get('/pack-store.mjs'); assert.equal(module.status, 200); assert.match(module.headers.get('content-type'), /text\/javascript/);
   const moneyModule = await client.get('/money.mjs'); assert.equal(moneyModule.status, 200); assert.match(await moneyModule.text(), /export function minorToDecimal/);
+  const historyModule = await client.get('/update-history.mjs'); assert.equal(historyModule.status, 200); assert.match(await historyModule.text(), /export function restoredWorkspace/);
   assert.equal((await client.get('/src/server.mjs')).status, 404);
   assert.equal((await client.get('/.env')).status, 404);
 });

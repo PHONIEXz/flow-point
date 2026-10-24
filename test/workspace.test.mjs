@@ -7,6 +7,7 @@ import * as store from '../public/pack-store.mjs';
 import { downloadFilename } from '../public/download-name.mjs';
 import { minorToDecimal, formatMinor } from '../public/money.mjs';
 import * as sourceFields from '../public/source-fields.mjs';
+import * as updateHistory from '../public/update-history.mjs';
 import { reviewPlan } from '../src/plan.mjs';
 const source = (await readFile(new URL('../public/workspace.js', import.meta.url), 'utf8')).replace(/^import .*;$/gm, '');
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
@@ -19,7 +20,7 @@ function harness(fetchImpl, initial = null, { fastTimeouts = false } = {}) {
       classList: { add() {}, remove() {}, toggle() {} },
       addEventListener(type, fn) { this.handlers[type] = fn; },
       setAttribute(key, value) { this.attributes[key] = value; }, removeAttribute(key) { delete this.attributes[key]; }, getAttribute(key) { return this.attributes[key]; },
-      append(...items) { this.children.push(...items); }, replaceChildren(...items) { this.children = items; }, focus() {}, scrollIntoView() {}, reportValidity() { return true; }
+      querySelectorAll() { return []; }, prepend(...items) { this.children.unshift(...items); }, append(...items) { this.children.push(...items); }, replaceChildren(...items) { this.children = items; }, focus() {}, scrollIntoView() {}, reportValidity() { return true; }
     };
   }
   const get = id => { if (!elements.has(id)) elements.set(id, element(id)); return elements.get(id); };
@@ -27,7 +28,7 @@ function harness(fetchImpl, initial = null, { fastTimeouts = false } = {}) {
   const values = new Map(initial ? [[store.storageKey, JSON.stringify(initial)]] : []);
   const storage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value), removeItem: key => values.delete(key) };
   const location = { pathname: '/workspace' };
-  const context = vm.createContext({ ...store, ...sourceFields, prepareInStages, structuredClone, DOMException, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
+  const context = vm.createContext({ ...store, ...sourceFields, ...updateHistory, prepareInStages, structuredClone, DOMException, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
     document: { getElementById: get, createElement: element, body: get('body'), querySelectorAll: selector => selector === '[role=tab]' ? [tab] : selector.startsWith('#pack-editor ') ? [get('editable')] : [] },
     window: { addEventListener() {}, scrollTo() {} }, location, history: { pushState: (_, __, path) => { location.pathname = path; }, replaceState: (_, __, path) => { location.pathname = path; } },
     localStorage: storage, sessionStorage: { getItem() { return null; }, removeItem() {}, setItem() {} }, confirm: () => true, setTimeout: (fn, ms) => setTimeout(fn, fastTimeouts && ms === 15000 ? 0 : ms), clearTimeout
@@ -158,4 +159,96 @@ test('a failed later step persists progress without replacing the current pack; 
   assert.equal(ui.run('state.provenance.pipeline'), 'staged-v1');
   assert.equal(ui.run('state.pendingGeneration'), undefined);
   assert.equal(ui.get('answers').value, '');
+});
+
+test('successful update commits previous version and retained questions atomically; restore clears approval and can switch back', async () => {
+  const current = { ...store.emptyWorkspace(), request: 'Original event notes with a pending rehearsal.', answers: 'Change the venue to Library Hall', plan: sample, approval: { fingerprint: 'old' }, provenance: { mode: 'sample' } };
+  const updated = { ...structuredClone(sample), venue: 'Library Hall', openQuestions: [], drafts: { invitation: 'New invitation.', schedule: 'New schedule.' } };
+  const ui = harness(async (path, options) => {
+    if (path === '/api/config') return config();
+    const body = JSON.parse(options.body);
+    if (path === '/api/generate') return Response.json({ ...reviewPlan(updated), provenance: { mode: 'live', stage: body.stage, attempts: 1, durationMs: 1 } });
+    return Response.json(reviewPlan(body.plan));
+  }, { current, packs: [], activeId: null });
+  await flush(); ui.get('consent').checked = true; ui.get('consent').handlers.change();
+  await ui.run('generate(true)'); await flush();
+  let stored = JSON.parse(ui.values.get(store.storageKey)).current;
+  assert.equal(stored.plan.venue, 'Library Hall'); assert.equal(stored.approval, null);
+  assert.equal(stored.previousVersion.workspace.plan.venue, sample.venue);
+  assert.equal(stored.previousVersion.workspace.answers, current.answers);
+  assert.deepEqual(stored.plan.openQuestions, sample.openQuestions);
+  assert.equal(ui.get('update-comparison').hidden, false);
+  assert.equal(ui.get('restore-previous').disabled, true);
+  ui.get('restore-confirm').checked = true; ui.get('restore-confirm').handlers.change();
+  assert.equal(ui.get('restore-previous').disabled, false);
+  await ui.get('restore-previous').handlers.click(); await flush();
+  stored = JSON.parse(ui.values.get(store.storageKey)).current;
+  assert.equal(stored.plan.venue, sample.venue); assert.equal(stored.plan.drafts.invitation, sample.drafts.invitation);
+  assert.equal(stored.approval, null); assert.equal(stored.pendingGeneration, undefined);
+  assert.equal(stored.previousVersion.workspace.plan.venue, 'Library Hall');
+  assert.equal(ui.get('review-confirm').checked, false); assert.equal(ui.get('restore-confirm').checked, false);
+});
+
+test('failed and cancelled updates preserve the complete pack and its existing previous-version snapshot', async () => {
+  for (const cancel of [false, true]) {
+    const before = { ...store.emptyWorkspace(), request: 'Original school notes', answers: 'Move the room', plan: sample, provenance: { mode: 'sample' } };
+    const current = updateHistory.updatedWorkspace(before, { plan: { ...sample, venue: 'New Hall' } }); current.answers = 'Try moving again';
+    const history = JSON.stringify(current.previousVersion);
+    const ui = harness(async (path, options) => {
+      if (path === '/api/config') return config();
+      if (path !== '/api/generate') return Response.json(reviewPlan(JSON.parse(options.body).plan));
+      if (!cancel) return Response.json({ error: 'Provider unavailable' }, { status: 502 });
+      return new Promise((_, reject) => options.signal.addEventListener('abort', () => reject(new DOMException('Cancelled', 'AbortError')), { once: true }));
+    }, { current, packs: [], activeId: null });
+    await flush(); ui.get('consent').checked = true; ui.get('consent').handlers.change();
+    const generating = ui.run('generate(true)');
+    if (cancel) ui.get('cancel-refine').handlers.click();
+    await generating;
+    assert.equal(ui.run('JSON.stringify(state.previousVersion)'), history);
+    assert.equal(ui.run('state.plan.venue'), 'New Hall');
+    assert.equal(ui.get('answers').value, 'Try moving again');
+  }
+});
+
+test('storage failure on final update commit keeps the previous pack, snapshot and completed checkpoints', async () => {
+  const before = { ...store.emptyWorkspace(), request: 'Original notes', answers: 'First update', plan: sample };
+  const current = updateHistory.updatedWorkspace(before, { plan: { ...sample, venue: 'First Hall' } }); current.answers = 'Second update';
+  let ui, completed = 0;
+  ui = harness(async (path, options) => {
+    if (path === '/api/config') return config();
+    const body = JSON.parse(options.body);
+    if (path === '/api/generate') { completed++; return Response.json({ ...reviewPlan({ ...sample, venue: 'Second Hall' }), provenance: { mode: 'live', stage: body.stage, attempts: 1, durationMs: 1 } }); }
+    if (completed === 3) ui.run("localStorage.setItem = () => { throw new Error('QuotaExceededError'); }");
+    return Response.json(reviewPlan(body.plan));
+  }, { current, packs: [], activeId: null });
+  await flush(); ui.get('consent').checked = true; ui.get('consent').handlers.change();
+  await ui.run('generate(true)');
+  const saved = JSON.parse(ui.values.get(store.storageKey)).current;
+  assert.equal(saved.plan.venue, 'First Hall'); assert.equal(ui.run('state.plan.venue'), 'First Hall');
+  assert.equal(saved.previousVersion.workspace.plan.venue, sample.venue);
+  assert.equal(saved.pendingGeneration.results.length, 3);
+  assert.match(ui.get('save-state').textContent, /storage unavailable or full/);
+  assert.equal(ui.get('answers').value, 'Second update');
+});
+
+test('restore failures and stale tabs cannot replace the active pack or destroy saved history', async () => {
+  for (const failure of ['network', 'quota', 'stale-tab']) {
+    const before = { ...store.emptyWorkspace(), request: 'Original notes', answers: 'Move hall', plan: sample };
+    const current = updateHistory.updatedWorkspace(before, { plan: { ...sample, venue: 'Current Hall' } });
+    let restoring = false, ui;
+    ui = harness(async (path, options) => {
+      if (path === '/api/config') return config();
+      if (restoring && failure === 'network') return Response.json({ error: 'Server unavailable' }, { status: 503 });
+      if (restoring && failure === 'quota') ui.run("localStorage.setItem = () => { throw new Error('QuotaExceededError'); }");
+      if (restoring && failure === 'stale-tab') ui.values.set(store.storageKey, 'newer saved work from another tab');
+      return Response.json(reviewPlan(JSON.parse(options.body).plan));
+    }, { current, packs: [], activeId: null });
+    await flush(); restoring = true; ui.get('restore-confirm').checked = true;
+    await ui.run('restorePrevious()');
+    assert.equal(ui.run('state.plan.venue'), 'Current Hall');
+    assert.equal(ui.run('state.previousVersion.workspace.plan.venue'), sample.venue);
+    if (failure === 'stale-tab') assert.equal(ui.values.get(store.storageKey), 'newer saved work from another tab');
+    else assert.equal(JSON.parse(ui.values.get(store.storageKey)).current.plan.venue, 'Current Hall');
+    assert.match(ui.get('notice').textContent, failure === 'network' ? /Restore did not finish/ : failure === 'quota' ? /could not be saved/ : /Another tab saved/);
+  }
 });

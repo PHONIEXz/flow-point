@@ -1,3 +1,4 @@
+import { previousVersion } from './update-history.mjs';
 export const legacyKey = 'flow-point-workspace-v1';
 export const storageKey = 'flow-point-workspace-v2';
 export const maxPacks = 12;
@@ -8,6 +9,14 @@ export function emptyWorkspace() {
 }
 
 function copy(value) { return JSON.parse(JSON.stringify(value)); }
+function restoreWorkspace(value) {
+  const result = copy(value);
+  if (result.previousVersion) {
+    result.previousVersion = previousVersion(result.previousVersion);
+    if (!result.previousVersion) result.historyUnavailable = true;
+  }
+  return result;
+}
 function validWorkspace(value) {
   return value && typeof value === 'object' && !Array.isArray(value) &&
     typeof value.request === 'string' && value.request.length <= 12000 &&
@@ -21,12 +30,12 @@ export function restoreCollection(raw, legacyRaw) {
   if (value && validWorkspace(value.current) && Array.isArray(value.packs)) {
     const packs = value.packs.filter(item => item && typeof item.id === 'string' &&
       typeof item.name === 'string' && item.name.trim() && item.name.length <= 80 &&
-      validWorkspace(item.workspace)).slice(0, maxPacks).map(copy);
+      validWorkspace(item.workspace)).slice(0, maxPacks).map(item => ({ ...copy(item), workspace: restoreWorkspace(item.workspace) }));
     const activeId = packs.some(item => item.id === value.activeId) ? value.activeId : null;
-    return { current: copy(value.current), packs, activeId };
+    return { current: restoreWorkspace(value.current), packs, activeId };
   }
   try { value = legacyRaw ? JSON.parse(legacyRaw) : null; } catch { value = null; }
-  return { current: validWorkspace(value) ? copy(value) : emptyWorkspace(), packs: [], activeId: null };
+  return { current: validWorkspace(value) ? restoreWorkspace(value) : emptyWorkspace(), packs: [], activeId: null };
 }
 
 export function recordCurrent(collection, workspace, now = new Date().toISOString()) {

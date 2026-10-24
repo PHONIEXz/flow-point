@@ -21,3 +21,23 @@ body{line-height:1.7}button,a,input,textarea,select{touch-action:manipulation}bu
 /* Warm framing surrounds the light writing surface on Notes and the pack sidebar. */
 :root[data-theme] .capture-card{background:var(--ui-frame);border-color:var(--ui-frame-border);border-top:4px solid var(--ui-accent);box-shadow:0 8px 28px rgb(75 28 43 / 6%)}
 :root[data-theme] .pack-workspace,:root[data-theme] .guide-card,:root[data-theme] .steps>li{border-top:3px solid var(--ui-frame-border)}
+
+/* Update review: summaries first, full wording only when expanded. */
+.comparison-panel{margin:24px 28px;border-color:var(--ui-frame-border)}
+.comparison-panel>.disclosure-body>.field-help:first-child{font-weight:700;color:var(--ui-accent);margin-top:0}
+.comparison-group{margin:16px 0;background:var(--ui-card)}
+.comparison-change{border:1px solid var(--ui-border);border-radius:12px;padding:18px;margin:14px 0;background:var(--ui-soft);min-width:0}
+.comparison-change h4{font-size:16px;margin:0 0 10px;overflow-wrap:anywhere}
+.comparison-status{display:inline-block;font-size:12px;font-weight:750;padding:5px 10px;border-radius:7px;background:var(--ui-tint);color:var(--ui-accent);line-height:1.5;overflow-wrap:anywhere}
+.comparison-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.comparison-side{padding:16px;border:1px solid var(--ui-border);border-radius:10px;background:var(--ui-card);min-width:0}
+.comparison-label{display:block;color:var(--ui-muted);font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.comparison-side p{font-size:14px;line-height:1.8;margin:0;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ui-text)}
+.comparison-draft{font:inherit;font-size:14px;line-height:1.8;max-height:440px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;color:var(--ui-text)}
+.comparison-question{padding:18px;border:1px solid var(--ui-warn-border);background:var(--ui-warn);border-radius:12px;margin:14px 0}
+.comparison-question p{color:var(--ui-warn-text);font-size:14px;overflow-wrap:anywhere;margin:12px 0 0}
+.restore-panel{margin-top:28px;background:var(--ui-soft)}
+.restore-panel .approval-confirm{margin:20px 0}
+.restore-panel .button{width:100%}
+@media(max-width:850px){.comparison-panel{margin:20px}.comparison-panel>.disclosure-body{padding:18px}}
+@media(max-width:650px){.comparison-pair{grid-template-columns:1fr;gap:12px}.comparison-group>.disclosure-body{padding:14px}.comparison-change{padding:14px}.comparison-side{padding:14px}}

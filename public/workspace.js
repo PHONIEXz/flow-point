@@ -1,4 +1,5 @@
 'use strict';
+import { previousVersion, capturePrevious, updatedWorkspace, restoredWorkspace, compareVersions, markQuestionResolved } from './update-history.mjs';
 import { prepareInStages } from './generation.mjs';
 import { downloadFilename } from './download-name.mjs';
 import { factFields, factSourceInfo, markManualField, confirmFact, markNotesChanged } from './source-fields.mjs';
@@ -105,7 +106,7 @@ function persist(candidate) {
 }
 function save() {
   state.request = $('request').value; state.answers = $('answers').value;
-  persist(recordCurrent(collection, state));
+  return persist(recordCurrent(collection, state));
 }
 function node(tag, text, className) { const item = document.createElement(tag); if (text != null) item.textContent = text; if (className) item.className = className; return item; }
 function renderSavedPacks() {
@@ -130,7 +131,7 @@ function renderSavedPacks() {
 }
 function loadCurrent(candidate, message) {
   if (!persist(candidate)) return false;
-  clearTimeout(timer); revision++; review = null; $('review-confirm').checked = false;
+  clearTimeout(timer); revision++; review = null; $('review-confirm').checked = false; $('restore-confirm').checked = false;
   state = collection.current; $('request').value = state.request; $('answers').value = state.answers;
   renderPack(); renderSavedPacks(); activate(tabs[0]); announce(message);
   switchView(state.plan ? 'pack' : 'notes', false, true);
@@ -202,7 +203,7 @@ function invalidate() {
   $('approve').disabled = true; $('pack-status').textContent = 'Draft · checking edits'; $('pack-status').className = 'state-badge';
   $('stage-approve').classList.remove('current'); $('stage-review').classList.add('current');
   $('approval-help').textContent = 'Your changes need a fresh review. Check affected draft wording too.';
-  $('source-reviewed').checked = false; renderSourceCards();
+  $('source-reviewed').checked = false; renderSourceCards(); renderComparison();
   save(); clearTimeout(timer); timer = setTimeout(refreshReview, 350);
 }
 async function refreshReview() {
@@ -256,7 +257,7 @@ function renderRows() {
   $('questions').replaceChildren(...state.plan.openQuestions.map((question, index) => {
     const row = node('div', null, 'question-row'), input = node('input'); input.value = question; input.maxLength = 500; input.setAttribute('aria-label', `Open question ${index + 1}`);
     input.addEventListener('input', () => { state.plan.openQuestions[index] = input.value; invalidate(); });
-    row.append(input, removeButton('Resolved ✓', () => { state.plan.openQuestions.splice(index, 1); invalidate(); renderRows(); })); return row;
+    row.append(input, removeButton('Resolved ✓', () => { markQuestionResolved(state, state.plan.openQuestions[index]); state.plan.openQuestions.splice(index, 1); invalidate(); renderRows(); })); return row;
   }));
   if (!state.plan.openQuestions.length) $('questions').append(node('p', 'No open questions recorded. Check the review notes above.', 'field-help'));
   $('tasks').replaceChildren(...state.plan.tasks.map((task, index) => {
@@ -351,10 +352,73 @@ function renderEvidence(p) {
   }
   evidence.replaceChildren(metrics, grid, node('p', 'Server timings exclude human review and export. Completed replies save in this browser; references help investigate a failed request.', 'field-help'));
 }
+function renderComparison() {
+  const panel = $('update-comparison');
+  const comparison = compareVersions(state);
+  panel.hidden = !comparison;
+  $('restore-previous').disabled = busy || !comparison || !$('restore-confirm').checked;
+  if (!comparison) return;
+  $('comparison-caption').textContent = `${comparison.action === 'restore' ? 'Compared with the pack before your last restore' : 'Compared with the pack before your last successful update'} · saved ${new Date(comparison.capturedAt).toLocaleString()}. Later edits are included on the Current side.`;
+  $('comparison-summary').textContent = `${comparison.facts.length} fact changes · ${comparison.tasks.length} task changes · ${comparison.budget.length} budget changes`;
+  const content = $('comparison-content');
+  const opened = new Set([...content.querySelectorAll('details[data-compare-key]')].filter(item => item.open).map(item => item.dataset.compareKey));
+  const disclosure = (label, id) => {
+    const details = node('details', null, 'comparison-group disclosure'); details.dataset.compareKey = id; details.open = opened.has(id);
+    const summary = node('summary', label); const body = node('div', null, 'disclosure-body'); details.append(summary, body); return { details, body };
+  };
+  const pair = (before, after) => {
+    const wrap = node('div', null, 'comparison-pair');
+    for (const [label, text] of [['Previous saved version', before], ['Current pack', after]]) {
+      const side = node('div', null, 'comparison-side'); side.append(node('span', label, 'comparison-label'), node('p', text)); wrap.append(side);
+    }
+    return wrap;
+  };
+  const sections = [];
+  for (const [label, id, changes] of [['Facts', 'facts', comparison.facts], ['Responsibilities & deadlines', 'tasks', comparison.tasks], ['Budget lines', 'budget', comparison.budget]]) {
+    const group = disclosure(`${label} · ${changes.length} changed`, id);
+    if (!changes.length) group.body.append(node('p', 'No changes in this section.', 'field-help'));
+    for (const change of changes) {
+      const item = node('article', null, 'comparison-change'); item.append(node('h4', change.label), node('span', change.status, 'comparison-status'), pair(change.before, change.after)); group.body.append(item);
+    }
+    if (id === 'budget') group.body.prepend(pair(comparison.budgetBefore, comparison.budgetAfter));
+    sections.push(group.details);
+  }
+  const questionGroup = disclosure(`Questions · ${comparison.questions.length} to compare`, 'questions');
+  questionGroup.body.append(node('p', 'Missing from an AI update does not mean answered. Omitted questions stay open. Mark one resolved only after checking its answer in the facts and drafts. Reworded questions may appear separately.', 'field-help'));
+  if (!comparison.questions.length) questionGroup.body.append(node('p', 'Neither version has open questions.', 'field-help'));
+  for (const item of comparison.questions) { const row = node('div', null, 'comparison-question'); row.append(node('span', item.status, 'comparison-status'), node('p', item.question)); questionGroup.body.append(row); }
+  sections.push(questionGroup.details);
+  for (const draft of comparison.drafts) {
+    const group = disclosure(`${draft.label} · ${draft.changed ? 'wording changed' : 'wording unchanged'}`, draft.path);
+    const columns = node('div', null, 'comparison-pair');
+    for (const [label, text] of [['Previous saved version', draft.before], ['Current pack', draft.after]]) { const side = node('div', null, 'comparison-side'); side.append(node('span', label, 'comparison-label'), node('pre', text, 'comparison-draft')); columns.append(side); }
+    group.body.append(node('p', 'Full text is shown for comparison. Edit the current wording in its document tab.', 'field-help'), columns); sections.push(group.details);
+  }
+  if (comparison.updateText) { const group = disclosure(comparison.action === 'update' ? 'Changes requested for this update' : 'Changes box before restore', 'instructions'); group.body.append(node('pre', comparison.updateText, 'comparison-draft')); sections.push(group.details); }
+  if (comparison.notesChanged) sections.push(node('p', 'Original notes changed since the saved version. Check source evidence and wording again.', 'field-help'));
+  content.replaceChildren(...sections);
+}
+$('restore-confirm').addEventListener('change', () => { $('restore-previous').disabled = busy || !previousVersion(state.previousVersion) || !$('restore-confirm').checked; });
+async function restorePrevious() {
+  if (busy || !$('restore-confirm').checked || !previousVersion(state.previousVersion)) return;
+  if (!save()) return;
+  clearTimeout(timer); revision++; setBusy(true);
+  try {
+    const next = restoredWorkspace(state);
+    next.plan = (await api('/api/review', { plan: next.plan })).plan;
+    if (!persist(recordCurrent(collection, next))) return;
+    state = collection.current; review = null; $('review-confirm').checked = false; $('source-reviewed').checked = false; $('restore-confirm').checked = false;
+    $('request').value = state.request; $('answers').value = state.answers;
+    renderPack(); activate(tabs[0]);
+    announce('Previous version restored. The replaced pack is now saved for comparison or switching back. Approval and source confirmations are cleared. Review every section again.');
+  } catch (error) { announce(`Restore did not finish. Your current pack is unchanged. ${error.message}`); }
+  finally { setBusy(false); }
+}
+$('restore-previous').addEventListener('click', restorePrevious);
 function renderPack() {
   const exists = Boolean(state.plan); $('empty-state').hidden = exists; $('pack-editor').hidden = !exists; $('clarify-section').hidden = !exists;
   renderView();
-  renderSavedPacks();
+  renderSavedPacks(); renderComparison();
   if (!exists) return;
   $('spending-limit').value = state.plan.spendingLimitMinor == null ? '' : minorToDecimal(state.plan.spendingLimitMinor);
   $('pack-heading').textContent = state.plan.title;
@@ -401,6 +465,7 @@ function setBusy(value) {
   $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; $('judge-example').disabled = value; renderSavedPacks();
   $('cancel').hidden = !value; $('cancel-refine').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
+  $('restore-confirm').disabled = value; $('restore-previous').disabled = value || !previousVersion(state.previousVersion) || !$('restore-confirm').checked;
   if (!value && review) renderReview(); else $('approve').disabled = true;
 }
 async function generate(refine = false) {
@@ -410,7 +475,10 @@ async function generate(refine = false) {
   } else if (!$('request-form').reportValidity()) return;
   if (!processingAllowed) { switchView('notes'); $('consent').focus(); return announce('Allow Google processing below your notes before preparing or updating a pack.'); }
   if (!refine && state.plan && !confirm(collection.activeId ? 'Prepare a new pack? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack? Save it with a name first if you want to keep editing it.')) return;
-  save(); clearTimeout(timer); revision++; setBusy(true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
+  if (!save()) return;
+  const before = structuredClone(state);
+  if (refine) { try { capturePrevious(before); } catch (error) { return announce(error.message); } }
+  clearTimeout(timer); revision++; setBusy(true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
   try {
     const input = { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
     const result = await prepareInStages(input, {
@@ -421,12 +489,18 @@ async function generate(refine = false) {
         announce(`Step ${index + 1} of 3: ${label}. ${reused ? `${reused} saved step(s) reused. ` : ''}Completed steps save in this browser. Your previous pack stays safe.`);
       }
     });
-    const checked = await api('/api/review', { plan: result.plan }, controller.signal);
+    const next = refine ? updatedWorkspace(before, result) : { request: before.request, answers: '', plan: result.plan, provenance: result.provenance, approval: null };
+    const checked = await api('/api/review', { plan: next.plan }, controller.signal);
     for (const field of ['plan', 'issues', 'knownTotalMinor', 'budgetComplete', 'remainingAllowanceMinor', 'allowanceProvisional']) result[field] = checked[field];
-    delete state.pendingGeneration;
-    if (!refine) collection = { ...collection, activeId: null };
-    state.plan = result.plan; state.provenance = result.provenance; state.approval = null; review = result; $('review-confirm').checked = false; $('answers').value = ''; save(); renderPack();
-    announce('Pack prepared. Compare the details with your notes, then review every section.'); activate(tabs[0]); switchView('pack', false, true);
+    if (controller.signal.aborted) throw new DOMException('Cancelled', 'AbortError');
+    next.plan = checked.plan;
+    const candidate = recordCurrent(refine ? collection : { ...collection, activeId: null }, next);
+    if (!persist(candidate)) return;
+    state = collection.current; review = result; $('review-confirm').checked = false; $('source-reviewed').checked = false; $('restore-confirm').checked = false;
+    $('request').value = state.request; $('answers').value = state.answers; renderPack();
+    $('update-comparison').open = refine;
+    const carried = state.previousVersion?.carriedQuestions?.length || 0;
+    announce(refine ? `Pack updated. Open Compare & restore to check changes and previous wording.${carried ? ` ${carried} question(s) omitted by the update were kept open for your review.` : ''}` : 'Pack prepared. Compare the details with your notes, then review every section.'); activate(tabs[0]); switchView('pack', false, true);
   } catch (error) { const kept = state.pendingGeneration?.results?.length || 0; announce((error.name === 'AbortError' ? 'Generation cancelled. Your previous draft has been kept.' : error.message) + (kept ? ` ${kept} completed step(s) kept. Check the browser save status above. Retry with the same notes and changes to resume.` : '')); }
   finally { controller = null; setBusy(false); }
 }
@@ -500,6 +574,7 @@ async function init() {
     $('request').value = state.request; $('answers').value = state.answers;
     if (state.plan) state.plan = (await api('/api/review', { plan: state.plan, approval: state.approval })).plan;
     renderPack();
+    if (state.historyUnavailable) announce('The previous-version snapshot could not be read. Your current pack is available; download a backup.');
     if (state.pendingGeneration?.results?.length) announce('An unfinished generation has saved progress. Use Prepare or Update again with the same notes and changes to resume.');
     if (!stored && legacy) save();
   } catch { announce('The saved draft could not be restored. You can start a new pack or retry after reconnecting.'); }
