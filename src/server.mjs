@@ -21,7 +21,17 @@ async function body(req) {
 }
 export function createApp(options = {}) {
   const configured = providerSettings();
-  const {provider = configured.provider, apiKey = configured.apiKey, model = options.provider && options.provider !== configured.provider ? (options.provider==='groq'?'openai/gpt-oss-120b':'gemma-4-26b-a4b-it') : configured.model, fetchImpl = fetchModelResponse, log = entry => console.info(JSON.stringify(entry))} = options;
+  const provider=options.provider || configured.provider;
+  const selectedDefaults=providerSettings({...process.env,AI_PROVIDER:provider});
+  const apiKey=options.apiKey ?? options[`${provider}ApiKey`] ?? selectedDefaults.apiKey;
+  const model=options.model || options[`${provider}Model`] || selectedDefaults.model;
+  const {fetchImpl=fetchModelResponse,log=entry=>console.info(JSON.stringify(entry))}=options;
+  const providerOptions={
+    google:{provider:'google',apiKey:options.googleApiKey ?? process.env.GEMINI_API_KEY,model:options.googleModel || process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it'},
+    groq:{provider:'groq',apiKey:options.groqApiKey ?? process.env.GROQ_API_KEY,model:options.groqModel || process.env.GROQ_MODEL || 'openai/gpt-oss-120b'}
+  };
+  providerOptions[provider]={provider,apiKey,model};
+  const publicProviders=Object.values(providerOptions).map(p=>({id:p.provider,processor:processorName(p.provider),modelLabel:modelLabel(p.provider),model:p.model,configured:Boolean(p.apiKey)}));
   let active = 0;
   const limits = new Map();
   const approved = new Map(); // Review state, not user identity. Forgotten on restart.
@@ -39,7 +49,7 @@ export function createApp(options = {}) {
       try { pathname = new URL(req.url, 'http://local').pathname; }
       catch { throw new AppError(400, 'Invalid request URL.'); }
       if (req.method === 'GET' && pathname === '/healthz') return json(res, 200, { status: 'ok' });
-      if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), provider, processor:processorName(provider), modelLabel:modelLabel(provider), model, storage: 'browser-local', generationTimeoutMs: MODEL_RESPONSE_TIMEOUT_MS });
+      if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), providers:publicProviders, provider, processor:processorName(provider), modelLabel:modelLabel(provider), model, storage: 'browser-local', generationTimeoutMs: MODEL_RESPONSE_TIMEOUT_MS });
       if (req.method === 'GET' && pathname === '/api/sample') {
         const plan = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
         return json(res, 200, { ...reviewPlan(plan), provenance: { mode: 'sample', model: null } });
@@ -57,7 +67,12 @@ export function createApp(options = {}) {
         if (pathname === '/api/generate') {
           if (typeof data?.request !== 'string' || data.request.trim().length < 10 || data.request.length > 12000) throw new AppError(400, 'Describe the event using 10 to 12,000 characters.');
           if (data.answers != null && (typeof data.answers !== 'string' || data.answers.length > 8000)) throw new AppError(400, 'Clarifications must be text under 8,000 characters.');
-          if ((provider === 'groq' || data.processingProvider) && data.processingProvider !== provider) throw new AppError(409, 'The AI processor changed. Reload the page and review the processing choice before generating.');
+          if(!data.processingProvider && provider!=='google') throw new AppError(409, 'Choose an AI model and review the processing choice before generating.');
+          const generationProvider=data.processingProvider || provider;
+          if(!Object.hasOwn(providerOptions,generationProvider)) throw new AppError(400, 'Choose Gemma or GPT-OSS.');
+          const generationOptions=providerOptions[generationProvider];
+          if(!generationOptions.apiKey) throw new AppError(503, 'The selected AI provider is not connected. Choose another available model.');
+          if(data.processingModel && data.processingModel!==generationOptions.model) throw new AppError(409, 'The configured model changed. Reload and choose the model again.');
           action = data.previousPlan ? 'update' : 'prepare';
           const previousPlan = data.previousPlan ? reviewPlan(data.previousPlan).plan : null;
           // Per-process global quota/concurrency caps also protect deployments behind a proxy.
@@ -68,9 +83,9 @@ export function createApp(options = {}) {
           const controller = new AbortController();
           res.on('close', () => { if (!res.writableEnded) controller.abort(); });
           active++;
-          log({ event: 'generation_request_started', requestId, action, provider, model });
+          log({ event: 'generation_request_started', requestId, action, provider:generationProvider, model:generationOptions.model });
           try {
-            const result = await generatePack({ request: data.request, answers: data.answers, previousPlan, invitationStyle: data.invitationStyle || 'formal', stage: data.stage ?? null, checkpoint: data.checkpoint }, { apiKey, provider, model, fetchImpl, signal: controller.signal, requestId, action, log });
+            const result = await generatePack({ request: data.request, answers: data.answers, previousPlan, invitationStyle: data.invitationStyle || 'formal', stage: data.stage ?? null, checkpoint: data.checkpoint }, { ...generationOptions, fetchImpl, signal: controller.signal, requestId, action, log });
             log({ event: 'generation_request_succeeded', requestId, action, model: result.provenance.model, attempts: result.provenance.attempts, durationMs: Date.now() - started });
             return json(res, 200, { ...result, requestId });
           }
@@ -123,11 +138,11 @@ export function createApp(options = {}) {
       res.writeHead(200, { 'Content-Type': mime[file.split('.').pop()], ...(file === 'sample-pack.pdf' ? { 'Content-Disposition': `attachment; filename="SAMPLE - School Family Day - ${Date.now()}-${randomUUID().slice(0, 8)}.pdf"` } : {}) }); res.end(req.method === 'HEAD' ? undefined : content);
     } catch (error) {
       const status = error instanceof AppError ? error.status : error.code === 'ENOENT' ? 404 : 400;
-      if (pathname === '/api/generate') log({ event: 'generation_request_failed', requestId, action, httpStatus: status, code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', durationMs: Date.now() - started });
+      if (pathname === '/api/generate') log({ event: 'generation_request_failed', requestId, action, httpStatus: status, ...(error instanceof AppError && error.contentChecks?{contentChecks:error.contentChecks}:{}), code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', durationMs: Date.now() - started });
       if (res.destroyed || res.writableEnded) return;
       // Never return upstream response bodies, prompts, or credentials.
       if(error instanceof AppError && error.code==='PROVIDER_QUOTA' && error.retryAfterSeconds) res.setHeader('Retry-After',String(error.retryAfterSeconds));
-      json(res, status, { requestId, ...(error instanceof AppError && error.code==='PROVIDER_QUOTA'?{quotaWindow:error.quotaWindow,retryAfterSeconds:error.retryAfterSeconds}:{}), code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', error: error instanceof AppError ? error.message : status === 404 ? 'Page not found. Run the build before starting the server.' : 'This plan could not be validated. Check the fields and try again.' });
+      json(res, status, { requestId, ...(error instanceof AppError && error.contentChecks?{contentChecks:error.contentChecks}:{}), ...(error instanceof AppError && error.code==='PROVIDER_QUOTA'?{quotaWindow:error.quotaWindow,retryAfterSeconds:error.retryAfterSeconds}:{}), code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', error: error instanceof AppError ? error.message : status === 404 ? 'Page not found. Run the build before starting the server.' : 'This plan could not be validated. Check the fields and try again.' });
     }
   });
 }

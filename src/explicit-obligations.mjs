@@ -11,7 +11,9 @@ export function explicitObligationIssues(plan,{request='',answers='',previousPla
   // A quantity and item immediately followed by an explicit unit price or unknown price.
   const pattern=/\b(\d+|one|two|three|four|five)\s+([A-Za-z][A-Za-z -]{0,70}?)\s+(?:at\s+(?:the\s+)?(?:same\s+)?([A-Z]{3})\s+([\d,]+(?:\.\d{1,2})?)\s*(?:each\b)?(?=[,.;\n]|$|\s+and\b)|(?:with\s+)?(?:an?\s+)?(?:unknown|unconfirmed|pending)\s+price)/g;
   for(const m of source.matchAll(pattern)) {
-   const label=m[2].trim(),quantity=counts[m[1]]||Number(m[1]);
+   let label=m[2].trim();const quantity=counts[m[1]]||Number(m[1]);
+   const prefix=source.slice(source.lastIndexOf('\n',m.index)+1,m.index).trim();
+   if(/^(?:copies|bottles|packages?|packs?|items?|pieces?|sets?)$/i.test(label)&&prefix.length<=100&&/[:—–-]$/.test(prefix)&&words(prefix).some(w=>!['budget','cost','item','total'].includes(w))) label=prefix.replace(/[:—–-]+$/,'').trim();
    if(!Number.isSafeInteger(quantity)||quantity<1)continue;
    const item={label,quantity,latest:source===answers};
    if(m[3]===plan.currency) item.unitCostMinor=Math.round(Number(m[4].replaceAll(',',''))*100);

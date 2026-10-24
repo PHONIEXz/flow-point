@@ -38,10 +38,10 @@ test('Groq quota and access errors never cause a Google fallback or leak raw ups
  }
 });
 test('Groq HTTP surface binds processing choice to provider and renders current disclosure without secrets',async t=>{
- let calls=0;const server=createApp({...config,fetchImpl:async()=>{calls++;return reply(good());}});server.listen(0,'127.0.0.1');await once(server,'listening');t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));const base=`http://127.0.0.1:${server.address().port}`;
+ let calls=0;const server=createApp({...config,googleApiKey:'',fetchImpl:async()=>{calls++;return reply(good());}});server.listen(0,'127.0.0.1');await once(server,'listening');t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));const base=`http://127.0.0.1:${server.address().port}`;
  const c=await(await fetch(base+'/api/config')).json();assert.equal(c.processor,'Groq');assert.equal(c.modelLabel,'GPT-OSS');assert.doesNotMatch(JSON.stringify(c),/fake-test-key/);
  const html=await(await fetch(base+'/workspace')).text();assert.match(html,/sent to Groq for hosted GPT-OSS/);assert.doesNotMatch(html,/__AI_PROCESSOR__/);
- for(const processingProvider of [undefined,'google']){const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider})});assert.equal(r.status,409);}
+ for(const processingProvider of [undefined]){const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider})});assert.equal(r.status,409);}
  assert.equal(calls,0);
  const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider:'groq'})});assert.equal(r.status,200);assert.equal(calls,1);
 });
@@ -71,4 +71,18 @@ test('Groq short minute throttles wait for the provider within three attempts; d
   calls=0;await assert.rejects(generatePack({request:fixture.request,stage:'facts'},{...config,fetchImpl:async()=>{calls++;return Response.json({error:{message}},{status:429,headers:{'Retry-After':'20'}});}}),e=>e.status===429&&e.quotaWindow===window);assert.equal(calls,1);
  }
  calls=0;await assert.rejects(generatePack({request:fixture.request,stage:'facts'},{...config,fetchImpl:async()=>{calls++;return Response.json({error:{message:'TPM quota'}},{status:429,headers:{'Retry-After':'1'}});}}),e=>e.status===429);assert.equal(calls,3);
+});
+
+test('explicit provider choice routes each request to its own key without changing the default',async t=>{
+ const seen=[];const server=createApp({provider:'groq',apiKey:'fake-groq-key',googleApiKey:'fake-google-key',log(){},fetchImpl:async(url,opts)=>{
+  seen.push({url,headers:opts.headers});
+  return url.includes('api.groq.com')?reply(good()):Response.json({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(good())}]}}]});
+ }});server.listen(0,'127.0.0.1');await once(server,'listening');t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));const base=`http://127.0.0.1:${server.address().port}`;
+ let c=await(await fetch(base+'/api/config')).json();assert.equal(c.providers.length,2);assert.ok(c.providers.every(p=>p.configured));assert.doesNotMatch(JSON.stringify(c),/fake-groq-key|fake-google-key/);
+ for(const [provider,model]of [['google','gemma-4-26b-a4b-it'],['groq','openai/gpt-oss-120b']]){
+  const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider:provider,processingModel:model})});assert.equal(r.status,200);const data=await r.json();assert.equal(data.provenance.provider,provider==='groq'?'Groq':'Google Gemini API');
+ }
+ assert.equal(seen[0].headers['x-goog-api-key'],'fake-google-key');assert.equal(seen[0].headers.Authorization,undefined);assert.equal(seen[1].headers.Authorization,'Bearer fake-groq-key');assert.equal(seen[1].headers['x-goog-api-key'],undefined);
+ for(const [provider,model,status]of [['__proto__',null,400],['google','arbitrary-model',409]]){const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider:provider,processingModel:model})});assert.equal(r.status,status);}
+ assert.equal(seen.length,2);c=await(await fetch(base+'/api/config')).json();assert.equal(c.provider,'groq');
 });

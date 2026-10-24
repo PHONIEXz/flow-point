@@ -44,3 +44,6 @@ body{line-height:1.7}button,a,input,textarea,select{touch-action:manipulation}bu
 
 .section-download{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-top:28px;padding:20px;border:1px solid var(--ui-border);border-radius:12px;background:var(--ui-soft)}.section-download>span{font-size:14px;color:var(--ui-muted)}
 @media(max-width:550px){.section-download{padding:16px}.section-download .button{width:100%}}
+
+/* One shared model selector stays visible on Notes and the preparation pack. */
+.ai-choice-card{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin:0 0 28px;padding:22px 26px;border:1px solid var(--ui-border);border-radius:16px;background:var(--ui-card)}.ai-choice-card>div{flex:0 1 310px;min-width:220px}.ai-choice-card label{display:block;font-size:16px;font-weight:750;margin-bottom:8px;color:var(--ui-text)}.ai-choice-card select{width:100%;min-height:48px;padding:10px 14px;border:1px solid var(--ui-border);border-radius:10px;background:var(--ui-input);color:var(--ui-text);font-size:16px;font-weight:650}.ai-choice-card .field-help{flex:1 1 270px;margin:0;font-size:15px;line-height:1.7;color:var(--ui-muted)}@media(max-width:600px){.ai-choice-card{gap:14px;padding:20px}.ai-choice-card>div{flex-basis:100%;min-width:0}}

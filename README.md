@@ -28,9 +28,15 @@ The event workspace uses a full-page notes editor at `/workspace` and a preparat
 
 ## AI provider configuration
 
-Groq: set `GROQ_API_KEY` on the server, optionally `AI_PROVIDER=groq` and `GROQ_MODEL=openai/gpt-oss-120b`. The server selects Groq automatically when its key exists, unless AI_PROVIDER explicitly selects Google. Google remains available with `AI_PROVIDER=google`, `GEMINI_API_KEY` and optional `GEMMA_MODEL`. Keys are provider-specific and never sent to a different provider. The Groq adapter supports GPT-OSS 120B/20B with strict JSON schemas and the same semantic/review checks. Its free tier has request and token limits; a key does not guarantee capacity or reliability.
+Groq: set `GROQ_API_KEY` on the server, optionally `AI_PROVIDER=groq` and `GROQ_MODEL=openai/gpt-oss-120b`. The server prefers Groq when its key exists unless AI_PROVIDER selects Google. Users can choose either configured provider in the shared Drafting model selector on Notes and the preparation pack. This changes only the next Prepare or Update, and the preference stays on that browser. Google remains available with `AI_PROVIDER=google`, `GEMINI_API_KEY` and optional `GEMMA_MODEL`. Keys are provider-specific and never sent to a different provider. The Groq adapter supports GPT-OSS 120B/20B with strict JSON schemas and the same semantic/review checks. Its free tier has request and token limits; a key does not guarantee capacity or reliability.
 
-Processor consent is remembered separately for Google and Groq. A switch requires a new choice; stale tabs cannot send Google-authorized requests to Groq. Current provider/model appear in the workspace and generation evidence. Old videos and historical measurements remain labelled as the earlier implementation. No automatic cross-provider fallback is performed.
+Processor consent is remembered separately for Google and Groq. Selecting a model restores that provider’s own saved permission; one provider’s permission never authorizes the other. A switch requires a new choice; requests explicitly bind the selected provider and configured model; stale or unavailable choices fail without switching providers. Current provider/model appear in the workspace and generation evidence. Old videos and historical measurements remain labelled as the earlier implementation. No automatic cross-provider fallback is performed.
+
+## Why we introduced Groq alongside Gemma
+
+Google-hosted Gemma generation encountered intermittent HTTP 500 errors, timeouts and quota interruptions during development and evaluation. We added an alternative provider so users can select GPT-OSS through Groq when they prefer it, while keeping Gemma through Google available. Gemma is Google’s model; GPT-OSS is an OpenAI open-weight model served here by Groq, not the OpenAI API.
+
+This is a choice between separately configured services, not a claim that Groq is always faster, more reliable or more accurate. Each has its own usage limits and may omit details. Both use the same validation, source-review, draft protection and export path. There is no automatic cross-provider retry. The current pack and its provenance remain unchanged when changing the selector; a successful generation records the actual provider/model used. See [model choice and provider rationale](docs/model-choice.md).
 
 ## Run
 
