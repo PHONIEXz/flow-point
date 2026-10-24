@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "frozenAt": "2026-10-24T13:18:19.103463+00:00",
+  "appCommit": "3c5e1b2ddd5cc6daaed567a60df5813cb8a2df23",
+  "casesSha256": "775b29ea811444a91e9561437c982922f170c4d7795670e81275e5fea20f6312",
+  "files": {
+    "src/gemma.mjs": "c6be4aad146a6aac81e1b6aaaa3ea807c0e1211ec8c158c595b30a676f98239d",
+    "src/content-checks.mjs": "b58147ee93fc380c7c60faef2198f3e0150214b21e71ede9c68bcc16f642e6e7",
+    "src/pack-schema.mjs": "559aff767816775e4c5a7656901f9531ceb76c074002e922a7ac06aee0213f77",
+    "src/plan.mjs": "a398ca30cc49f20888d0332aeeafa2cd191c02d4b8930e0b70d376be7870b556",
+    "src/source-evidence.mjs": "9e29b1fcd33a008d839b77bec1d90ea0a090b7a714b2151b475a52fe3a1d46e7",
+    "public/generation.mjs": "4941f7e2a14bc305938bd0a36fff5973a43804c494b48a340305d40991b10b62",
+    "public/update-history.mjs": "79f3606581c276cbffda40233d18d858a9721cf29824eadbe4aaadea06407a66",
+    "evaluation/score-v2.mjs": "9edb3d1b4b9d577b81cff4828320999e804eb7250669456b64c008c54e6b108b",
+    "scripts/evaluate-quality-v2.mjs": "5eecf6a6068585d0e9e58287db95cf00f870a9055f2e061d6dcc066053f9ade5",
+    "public/letter-layout.mjs": "d4ef8d002c2a35a765a99312436932aadbad720d8c584e6bf84a62a667cbc11b"
+  },
+  "notes": "Post-fix run. Four historical cases are exposed; six fresh cases were never executed in v1. Fresh cases run first. After-event duty checks added to the exposed school regression; this is not new blind evidence for that fix."
+}
