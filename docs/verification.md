@@ -131,3 +131,23 @@ The final 5,915-character school-event replay did **not** pass. Reference `66d7a
 Changed the current browser path to facts/checklist/budget, invitation, and run of show. Each response is independently validated and saved in browser-local workspace data. Identical-input retries resume the completed prefix; changed notes, update text or previous plan invalidate it. Draft calls are assembled onto validated facts and cannot alter structured budget values. Final server review runs before the old complete pack is replaced. Browser storage restrictions are reported; requests lost before receipt cannot be recovered. No exactly-once provider claim.
 
 Automated suite: **66 passed**. Added recovery-after-serialization, changed-input invalidation, cancellation, immutable facts / invalid stage output, and atomic UI replacement coverage. These tests use simulated provider replies. The public `/judge` guide provides exact fictional inputs, expected totals and review/export instructions. A separate opt-in `scripts/benchmark-live.mjs` records actual hosted results, including failures. Live staged results are pending deployment at this point; see the next dated record for outcomes.
+
+
+### First hosted staged measurements (03:27 UTC)
+
+Deployed `7e8ff61439290bf2865e40506351461e9490f587` to Render `dep-dbe2airncjis73dtu2g0`, verified live and `/judge` accessible. Ran `scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2`.
+
+- Judge brief Prepare completed in **18.606 s wall time**. Date, time, NGN 4,000 known subtotal, one unknown price and both nonempty drafts passed the recorded checks.
+- Judge brief Update completed in **13.394 s wall time**. Date, time, NGN 6,000 total, zero unknown prices and changed venue in both drafts passed.
+- Second Prepare saved its facts response, then its invitation request returned **429** (`32172129-d4bf-4a84-8d87-36595dfec946`). The runner stopped on quota, without retrying the rate-limit response. It did not attempt the detailed school case.
+
+Of the **three attempted operations**, two completed and passed the listed checks, one failed on quota. The planned eight operations were not all attempted. Median of the two completed operations is 16.000 s; this tiny, interrupted sample is not a reliability estimate or a manual time-saving measurement. Startup, review and export time are excluded. Per-step references, attempts and exact durations: [`evidence/staged-live-2026-10-24.json`](evidence/staged-live-2026-10-24.json). The narrow checks do not establish every sentence's accuracy. The detailed-school staged regression still needs its own result.
+
+Browser-only follow-up at 03:29 UTC completed the short brief but showed `signatory` instead of Amina Bello in the signatory field. Approval remained blocked by other issues, but the structural validator did not catch this semantic substitution. This run is not a content pass. Added generation-time rejection of literal field-label placeholders and clearer named-field descriptions, plus benchmark checks for signer, named activity lead and explicit durations. The earlier two benchmark passes apply only to their recorded narrower checks.
+
+
+### Detailed staged replay and bounded fallback
+
+A separate detailed-school Prepare reached the server at 03:29:24 UTC and timed out at 60 seconds, before an upstream response was logged (`0403e34c-af80-49fc-9aaa-6afb7cdbfea6`). Wall time including client/network overhead: 63.850 s. Update was skipped because no new pack existed. See [`evidence/staged-school-2026-10-24.json`](evidence/staged-school-2026-10-24.json). This is a failed replay, not a successful detailed-content regression.
+
+Follow-up code uses focused instructions for each stage and limits each staged provider attempt to 20 seconds within the shared 60-second step deadline. A timed-out first attempt can therefore reach the fallback model. It also describes named fields explicitly, rejects literal field labels, shows per-step references in the workspace and expands the opt-in benchmark's semantic checks. **68 automated tests pass**, including fallback after a stalled attempt and rejection of a literal signatory label. A subsequent live result is required to judge the detailed path.

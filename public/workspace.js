@@ -268,7 +268,10 @@ function renderPack() {
   if (!exists) return;
   $('pack-heading').textContent = state.plan.title;
   const p = state.provenance;
-  $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.model} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · Human edits may follow.` : 'Restored working draft · Review all details.';
+  $('generation-evidence').textContent = p?.pipeline === 'staged-v1'
+    ? `Three validated responses; ${p.reusedSteps || 0} reused from the saved checkpoint. Server generation time across steps: ${(p.durationMs / 1000).toFixed(1)} seconds. Human review and export time excluded. ` + p.steps.map(step => `${step.stage}: ${step.model}, ${(step.durationMs / 1000).toFixed(1)} s, ${step.attempts} attempt(s), reference ${step.requestId || 'unavailable'}.`).join(' ')
+    : p?.mode === 'sample' ? 'Hand-authored sample. No model inference or live timing.' : 'Earlier generation format. See the provenance line and dated verification record.';
+  $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.pipeline === 'staged-v1' ? 'Gemma in 3 steps' : p.model} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · Human edits may follow.` : 'Restored working draft · Review all details.';
   document.querySelectorAll('[data-field]').forEach(input => { input.value = state.plan[input.dataset.field] ?? ''; });
   document.querySelectorAll('[data-draft]').forEach(input => { input.value = state.plan.drafts[input.dataset.draft]; });
   renderRows(); refreshReview();
@@ -292,7 +295,7 @@ function setBusy(value) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
   $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
-  $('saved-name').disabled = value; renderSavedPacks();
+  $('saved-name').disabled = value; $('judge-example').disabled = value; renderSavedPacks();
   $('cancel').hidden = !value; $('cancel-refine').hidden = !value; $('generate').textContent = value ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
   if (!value && review) renderReview(); else $('approve').disabled = true;
 }

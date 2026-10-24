@@ -54,3 +54,22 @@ test('cancellation after a saved step stops the next request without discarding 
   }), error => error.name === 'AbortError');
   assert.equal(calls, 1); assert.equal(saved.results.length, 1);
 });
+
+test('generated facts reject literal field labels and retry from source input', async () => {
+  let calls = 0;
+  const result = await generatePack({ request: 'Fictional event signed by Mrs Grace Okoro.', stage: 'facts' }, { ...quiet, fetchImpl: async () => {
+    calls++; return native('submit_event_facts', { ...sample, signatory: calls === 1 ? 'signatory' : 'Mrs Grace Okoro' });
+  } });
+  assert.equal(calls, 2); assert.equal(result.plan.signatory, 'Mrs Grace Okoro');
+});
+
+test('a stalled staged provider call leaves time to try the fallback model', async () => {
+  const models = [];
+  const result = await generatePack({ request: 'A fictional event request.', stage: 'facts' }, { ...quiet, attemptTimeoutMs: 10, fetchImpl: async (url, options) => {
+    models.push(url);
+    if (models.length === 1) return new Promise((_, reject) => options.signal.addEventListener('abort', () => reject(options.signal.reason), { once: true }));
+    return native('submit_event_facts', sample);
+  } });
+  assert.equal(models.length, 2); assert.match(models[1], /gemma-4-31b-it/);
+  assert.equal(result.provenance.attempts, 2);
+});

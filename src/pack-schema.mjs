@@ -25,7 +25,13 @@ export const packFunction = {
 export function stageFunction(stage) {
   if (stage === 'facts') {
     const { drafts, ...properties } = packFunction.parameters.properties;
-    return { name: 'submit_event_facts', description: 'Return event facts, checklist, budget and open questions only. No prose drafts.', parameters: object(properties) };
+    const described = { ...properties,
+      title: { ...string, description: 'Exact supplied event title, not the word title.' },
+      organizer: { ...unknownString, description: 'Supplied school or organizing group name, copied accurately. Null if unknown.' },
+      signatory: { ...unknownString, description: 'The actual supplied invitation signer name and role, Never the word signatory. Null only if not supplied.' },
+      venue: { ...unknownString, description: 'Actual venue name. Keep an unconfirmed booking as an open question.' }
+    };
+    return { name: 'submit_event_facts', description: 'Return event facts, checklist, budget and open questions only. No prose drafts.', parameters: object(described) };
   }
   if (['invitation', 'schedule'].includes(stage)) return { name: `submit_event_${stage}`, description: `Return only the ${stage} draft, using the supplied event facts.`, parameters: object({ [stage]: string }) };
   return packFunction;

@@ -1,3 +1,4 @@
+import { prepareInStages } from '../public/generation.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 await mkdir('tmp', { recursive: true });
 const source=await readFile('docs/school-event-test.md','utf8');
@@ -6,10 +7,14 @@ const answers=source.split('## Follow-up update\n\n')[1].split('\n## Expected ch
 const record={testedAt:new Date().toISOString(),input:'docs/school-event-test.md',site:'https://flowpoint.phoenixreborn.tech',checks:{}};
 async function generate(data,label){
  const started=Date.now();
- const res=await fetch(record.site+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
- const result=await res.json();record[label]={httpStatus:res.status,wallMs:Date.now()-started,...result};
+ const result=await prepareInStages(data,{call:async input=>{
+  const res=await fetch(record.site+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input),signal:AbortSignal.timeout(75000)});
+  const value=await res.json();
+  if(!res.ok) throw new Error(label+': '+value.error+' Reference: '+value.requestId);
+  return value;
+ }});
+ record[label]={wallMs:Date.now()-started,...result};
  await writeFile('tmp/school-live-check.json',JSON.stringify(record,null,2));
- if(!res.ok) throw new Error(label+': '+result.error);
  return result;
 }
 try{

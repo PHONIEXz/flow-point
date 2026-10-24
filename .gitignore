@@ -8,3 +8,6 @@ outputs/
 .eve/
 *.log
 .openai/
+
+# Local live-test payloads are not public evidence.
+tmp/

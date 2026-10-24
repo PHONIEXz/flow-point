@@ -11,8 +11,11 @@ const detailed = { request: school.split('## Initial brief\n\n')[1].split('\n## 
 const report = { testedAt: new Date().toISOString(), site, version: 'staged-v1', scope: 'Hosted inference and deterministic facts. Startup, manual drafting, human review and export time excluded.', runs: [] };
 const output = arg('--output', `docs/evidence/live-${Date.now()}.json`);
 await mkdir(new URL('../docs/evidence/', import.meta.url), { recursive: true });
+const selectedCase = arg('--case', 'all');
+if (!['all', 'judge', 'detailed-school'].includes(selectedCase)) throw new Error('Choose --case all, judge or detailed-school.');
+const cases = [['judge', example], ['detailed-school', detailed]].filter(([label]) => selectedCase === 'all' || label === selectedCase);
 let stop = false;
-for (const [label, fixture] of [['judge', example], ['detailed-school', detailed]]) {
+for (const [label, fixture] of cases) {
   for (let repeat = 1; repeat <= repeats && !stop; repeat++) {
     let previousPlan = null;
     for (const action of ['prepare', 'update']) {
@@ -35,6 +38,11 @@ for (const [label, fixture] of [['judge', example], ['detailed-school', detailed
           money: result.knownTotalMinor === (judge ? updated ? 600000 : 400000 : updated ? 18150000 : 13750000),
           unknownPrices: p.budget.filter(x => x.unitCostMinor === null).length === (updated ? 0 : judge ? 1 : 2),
           drafts: Boolean(p.drafts.invitation.trim() && p.drafts.schedule.trim()),
+          signatoryName: (judge ? /amina\s+bello/i : /grace\s+okoro/i).test(p.signatory || ''),
+          invitationSignatory: (judge ? /amina\s+bello/i : /grace\s+okoro/i).test(p.drafts.invitation),
+          namedActivityLead: p.tasks.some(x => (judge ? /ada\s+okafor/i : /daniel\s+musa/i).test(x.owner || '')),
+          activityDurations: (judge ? [10, 30, 20] : [10, 15, 35, 30, 20, 25]).every(n => new RegExp(`\\b${n}\\s*(?:minutes?|mins?)\\b`, 'i').test(p.drafts.schedule)),
+          ...(!updated ? { pendingVenue: p.openQuestions.some(x => /room|hall|venue|booking/i.test(x)) } : {}),
           ...(updated ? { venue: /multipurpose hall/i.test(p.venue || ''), invitationVenue: /multipurpose hall/i.test(p.drafts.invitation), scheduleVenue: /multipurpose hall/i.test(p.drafts.schedule) } : {}),
           ...(!judge && updated ? { pendingRehearsalTime: p.openQuestions.some(x => /rehears/i.test(x) && /time/i.test(x)), firstAidOfficer: p.tasks.some(x => /samuel\s+eze/i.test(x.owner || '') && /first.?aid/i.test(x.label)), newRehearsalDate: p.tasks.some(x => /rehears/i.test(x.label) && x.dueDate === '2026-11-19'), noOldRehearsalDate: p.tasks.every(x => x.dueDate !== '2026-11-12'), spendingLimit: p.tasks.some(x => /200[,.]?000/.test(x.label)), remainingAllowance: p.tasks.some(x => /18[,.]?500/.test(x.label)) } : {})
         };
@@ -49,6 +57,6 @@ for (const [label, fixture] of [['judge', example], ['detailed-school', detailed
   }
 }
 const times = report.runs.filter(r => r.completed).map(r => r.wallMs).sort((a, b) => a - b);
-report.summary = { attempted: report.runs.length, completed: times.length, checksPassed: report.runs.filter(r => r.checksPassed).length, medianCompletedMs: times.length ? (times[Math.floor((times.length - 1) / 2)] + times[Math.ceil((times.length - 1) / 2)]) / 2 : null, slowestCompletedMs: times.at(-1) ?? null, stoppedOnQuota: stop };
+report.summary = { planned: cases.length * repeats * 2, skipped: cases.length * repeats * 2 - report.runs.length, attempted: report.runs.length, completed: times.length, checksPassed: report.runs.filter(r => r.checksPassed).length, medianCompletedMs: times.length ? (times[Math.floor((times.length - 1) / 2)] + times[Math.ceil((times.length - 1) / 2)]) / 2 : null, slowestCompletedMs: times.at(-1) ?? null, stoppedOnQuota: stop };
 await writeFile(output, JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify({ output, ...report.summary }));
 if (report.summary.checksPassed !== report.summary.attempted || stop) process.exitCode = 1;
