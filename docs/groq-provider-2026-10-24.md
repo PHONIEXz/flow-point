@@ -11,3 +11,5 @@ Google consent is not reused for Groq. Remembered choice is per processor; every
 All 118 software tests pass, including endpoint/auth routing, strict schemas, captured omission retry, quota/access failures without Google fallback, secret redaction, stale-processor rejection and independent remembered choices. Live inference remains a separate verification step. Free-tier token limits can reject long notes or frequent multi-stage requests; this feature cannot guarantee provider availability or unlimited usage.
 
 Official API references: https://console.groq.com/docs/structured-outputs and https://console.groq.com/docs/reasoning .
+
+The first Render build was blocked because old Google HTTP tests inherited the production GROQ_API_KEY provider selection. The HTTP test harness now explicitly chooses its mocked Google provider and an empty default key; it cannot inherit a real deployment key. All 118 tests pass with fake GROQ_API_KEY and AI_PROVIDER=groq present. No production checks were disabled.
