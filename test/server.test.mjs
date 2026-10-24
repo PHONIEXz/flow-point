@@ -425,3 +425,15 @@ test('safe response diagnostics record stop categories and token counts without 
   assert.equal(diagnostic.finishReason, 'MAX_TOKENS'); assert.equal(diagnostic.outputTokens, 4096);
   assert.doesNotMatch(JSON.stringify(logs), /private-(note|key|output)-marker/);
 });
+
+test('Home offers PDF and Markdown samples; static PDF downloads are labelled with unique filenames', async t => {
+  const client = await app(t, { apiKey: '' });
+  const home = await (await client.get('/')).text();
+  assert.match(home, /Download sample PDF/); assert.match(home, /id="download-example-md"/);
+  const first = await client.get('/sample-pack.pdf');
+  assert.equal(first.status, 200); assert.equal(first.headers.get('content-type'), 'application/pdf');
+  assert.match(first.headers.get('content-disposition'), /SAMPLE - School Family Day - .*\.pdf/);
+  const bytes = Buffer.from(await first.arrayBuffer()); assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
+  const second = await client.get('/sample-pack.pdf'); assert.notEqual(second.headers.get('content-disposition'), first.headers.get('content-disposition')); await second.arrayBuffer();
+  const markdown = await client.get('/sample-pack.md'); assert.equal(markdown.status, 200); assert.match(await markdown.text(), /SAMPLE DATA/);
+});

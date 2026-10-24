@@ -1,5 +1,6 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { preparationPack } from '../src/export.mjs';
+import { preparationPdf } from '../src/pdf.mjs';
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -17,4 +18,5 @@ await mkdir(output, { recursive: true });
 await cp(new URL('public/', root), output, { recursive: true });
 const sample = JSON.parse(await readFile(new URL('examples/school-event.json', root), 'utf8'));
 await writeFile(new URL('sample-pack.md', output), 'SAMPLE DATA: hand-authored fixture. No AI inference was performed.\n\n' + preparationPack(sample));
+await writeFile(new URL('sample-pack.pdf', output), await preparationPdf(sample, null, { sample: true }));
 console.log('Built Flow Point client assets and sample pack in dist/.');

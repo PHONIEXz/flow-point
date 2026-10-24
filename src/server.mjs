@@ -9,8 +9,8 @@ import { preparationPdf } from './pdf.mjs';
 import { generatePack, checkModelAccess, probeGeneration, fetchModelResponse, MODEL_RESPONSE_TIMEOUT_MS, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
-const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/money.mjs': 'money.mjs', '/generation.mjs': 'generation.mjs', '/judge-example.json': 'judge-example.json', '/judge': 'judge.html', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
-const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', json: 'application/json; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8' };
+const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/money.mjs': 'money.mjs', '/generation.mjs': 'generation.mjs', '/judge-example.json': 'judge-example.json', '/judge': 'judge.html', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md', '/sample-pack.pdf': 'sample-pack.pdf' };
+const mime = { html: 'text/html; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', json: 'application/json; charset=utf-8', svg: 'image/svg+xml', md: 'text/markdown; charset=utf-8', pdf: 'application/pdf' };
 function json(res, status, body) { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(body)); }
 async function body(req) {
   if (!req.headers['content-type']?.startsWith('application/json')) throw new AppError(415, 'Send JSON data.');
@@ -111,7 +111,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
       if (!file) throw new AppError(404, 'Page not found.');
       let content = await readFile(new URL(file, publicRoot));
       if (file === 'workspace.html' && pathname.startsWith('/workspace/pack')) content = Buffer.from(content.toString().replace('class="workspace-body"', 'class="workspace-body pack-page"'));
-      res.writeHead(200, { 'Content-Type': mime[file.split('.').pop()] }); res.end(req.method === 'HEAD' ? undefined : content);
+      res.writeHead(200, { 'Content-Type': mime[file.split('.').pop()], ...(file === 'sample-pack.pdf' ? { 'Content-Disposition': `attachment; filename="SAMPLE - School Family Day - ${Date.now()}-${randomUUID().slice(0, 8)}.pdf"` } : {}) }); res.end(req.method === 'HEAD' ? undefined : content);
     } catch (error) {
       const status = error instanceof AppError ? error.status : error.code === 'ENOENT' ? 404 : 400;
       if (pathname === '/api/generate') log({ event: 'generation_request_failed', requestId, action, httpStatus: status, code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', durationMs: Date.now() - started });

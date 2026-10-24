@@ -69,7 +69,7 @@ Return nonempty concise plain text under 6000 characters in the one declared str
     } catch { throw new AppError(502, 'Gemma returned an invalid step. Your saved progress is safe. Please retry.', 'MODEL_PLAN_INVALID'); }
   }
   const record = entry => log({ ...entry, requestId, action, ...(stage ? { stage } : {}) });
-  let response, parsed, attempts = 0, usedModel = model, invalidReply = false, attemptTimedOut = false, responseFormat = 'text-json';
+  let response, parsed, attempts = 0, usedModel = model, invalidReply = false, truncatedReply = false, attemptTimedOut = false, responseFormat = 'text-json';
   const inputSize = JSON.stringify({ request, answers, previousPlan }).length;
   const primaryModel = !stage && model === 'gemma-4-26b-a4b-it' && inputSize > 5000 ? 'gemma-4-31b-it' : model;
   const fallbackModel = primaryModel === 'gemma-4-26b-a4b-it' ? 'gemma-4-31b-it' : primaryModel === 'gemma-4-31b-it' ? 'gemma-4-26b-a4b-it' : null;
@@ -79,6 +79,8 @@ Return nonempty concise plain text under 6000 characters in the one declared str
       usedModel = fallbackModel && (attempt === 2 || invalidReply || attemptTimedOut) ? fallbackModel : primaryModel;
       attempts++;
       const attemptStarted = Date.now();
+      const baseOutputLimit = stage === 'facts' ? 8192 : stage ? 4096 : 8192;
+      const outputTokenLimit = truncatedReply ? Math.min(baseOutputLimit * 2, 16384) : baseOutputLimit;
       const nativeFunction = usedModel.startsWith('gemma-4-') && !(stage && (inputSize > 5000 || attempt > 0));
       const inputText = (invalidReply ? `RETRY: The previous response failed JSON or pack validation. Regenerate ${stage || 'the complete pack'} from the original input below. Follow the exact shape, keep text concise, and check JSON escaping before returning. Do not invent or discard event facts to make validation pass.\n` : '') + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan, ...(stage ? { checkpoint: base } : {}) });
       const attemptSignal = stage ? AbortSignal.any([requestSignal, AbortSignal.timeout(attemptTimeoutMs)]) : requestSignal;
@@ -92,7 +94,7 @@ Return nonempty concise plain text under 6000 characters in the one declared str
           tools: [{ functionDeclarations: [declaration] }],
           toolConfig: { functionCallingConfig: { mode: 'ANY', allowedFunctionNames: [declaration.name] } }
         } : {}),
-        generationConfig: { temperature: 0.2, maxOutputTokens: stage === 'facts' ? 3000 : stage ? 1800 : 4096, ...(nativeFunction ? { thinkingConfig: { thinkingLevel: 'minimal' } } : {}) }
+        generationConfig: { temperature: 0.2, maxOutputTokens: outputTokenLimit, ...(usedModel.startsWith('gemma-4-') ? { thinkingConfig: { thinkingLevel: 'minimal' } } : {}) }
       })
       }); } catch (error) {
         if (stage && attemptSignal.aborted && !requestSignal.aborted && !signal?.aborted && attempt < 2) {
@@ -113,9 +115,14 @@ Return nonempty concise plain text under 6000 characters in the one declared str
           const candidate = Array.isArray(result?.candidates) ? result.candidates[0] : null;
           const finishReason = ['STOP', 'MAX_TOKENS', 'SAFETY', 'RECITATION', 'BLOCKLIST', 'PROHIBITED_CONTENT', 'SPII', 'MALFORMED_FUNCTION_CALL', 'UNEXPECTED_TOOL_CALL', 'OTHER'].includes(candidate?.finishReason) ? candidate.finishReason : 'UNKNOWN';
           const outputTokens = result?.usageMetadata?.candidatesTokenCount;
-          record({ event: 'gemma_generation_response', model: usedModel, attempt: attempts, finishReason, outputTokens: Number.isSafeInteger(outputTokens) && outputTokens >= 0 ? outputTokens : null });
+          const thoughtTokens = result?.usageMetadata?.thoughtsTokenCount;
+          record({ event: 'gemma_generation_response', model: usedModel, attempt: attempts, finishReason, outputTokens: Number.isSafeInteger(outputTokens) && outputTokens >= 0 ? outputTokens : null, thoughtTokens: Number.isSafeInteger(thoughtTokens) && thoughtTokens >= 0 ? thoughtTokens : null, outputTokenLimit });
           if (candidate?.finishReason === 'MALFORMED_FUNCTION_CALL') throw new AppError(502, 'Gemma returned an invalid pack structure. Your previous draft is safe. Please retry.', 'MODEL_JSON_INVALID');
-          // Safety blocks and truncated replies remain explicit failures.
+          if (stage && candidate?.finishReason === 'MAX_TOKENS') {
+            truncatedReply = true;
+            throw new AppError(502, 'Gemma reached its response limit before finishing this step. Your previous draft and completed steps are safe. Please retry.', 'MODEL_TRUNCATED');
+          }
+          // Safety blocks remain explicit failures. Never accept or repair truncated data.
           if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'Gemma did not finish a usable pack. Try a shorter request.');
           const parts = candidate?.content?.parts;
           const output = Array.isArray(parts) ? parts.filter(part => part && !part.thought && typeof part.text === 'string').map(part => part.text).join('') : undefined;
@@ -139,7 +146,7 @@ Return nonempty concise plain text under 6000 characters in the one declared str
           break;
         } catch (error) {
           checkInterrupted(error);
-          const retryable = ['MODEL_JSON_INVALID', 'MODEL_PLAN_INVALID', 'MODEL_OUTPUT_INVALID', 'MODEL_RESPONSE_INVALID'].includes(error.code);
+          const retryable = ['MODEL_JSON_INVALID', 'MODEL_PLAN_INVALID', 'MODEL_OUTPUT_INVALID', 'MODEL_RESPONSE_INVALID', ...(stage ? ['MODEL_TRUNCATED'] : [])].includes(error.code);
           if (!retryable || attempt === 2) throw error;
           invalidReply = true;
           record({ event: 'gemma_generation_retry', httpStatus: response.status, code: error.code, model: usedModel, attempt: attempts });

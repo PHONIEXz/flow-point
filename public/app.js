@@ -19,22 +19,26 @@ tabs.forEach((tab, index) => {
   });
 });
 
-const downloadButton = document.getElementById('download-example');
-downloadButton.addEventListener('click', async () => {
-  downloadButton.disabled = true;
+async function downloadSample(format, button) {
+  button.disabled = true;
   const status = document.getElementById('download-status');
-  status.textContent = 'Preparing the sample download.';
+  status.textContent = `Preparing the sample ${format.toUpperCase()} download.`;
   try {
-    const response = await fetch('/sample-pack.md');
+    const response = await fetch(`/sample-pack.${format}`);
     if (!response.ok) throw new Error('Download unavailable');
-    const url = URL.createObjectURL(new Blob([await response.text()], { type: 'text/markdown;charset=utf-8' }));
+    const url = URL.createObjectURL(await response.blob());
     const link = document.createElement('a');
-    link.href = url; link.download = 'flow-point-sample-pack.md';
+    const stamp = new Date().toISOString().replace(/[-:.]/g, '');
+    link.href = url; link.download = `SAMPLE - School Family Day - ${stamp}-${crypto.randomUUID().slice(0, 8)}.${format}`;
     document.body.append(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
-    status.textContent = 'The sample download has started.';
+    status.textContent = `The sample ${format.toUpperCase()} download has started. This is hand-authored sample data.`;
   } catch {
     status.classList.remove('sr-only');
     status.textContent = 'The download could not start. Please try again.';
-  } finally { downloadButton.disabled = false; }
-});
+  } finally { button.disabled = false; }
+}
+const pdfButton = document.getElementById('download-example');
+const markdownButton = document.getElementById('download-example-md');
+pdfButton.addEventListener('click', () => downloadSample('pdf', pdfButton));
+markdownButton.addEventListener('click', () => downloadSample('md', markdownButton));

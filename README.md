@@ -20,7 +20,7 @@ The three videos are embedded in different sections of the published entry. They
 
 ## Current status
 
-**24 October reliability status:** resumable three-step generation and the [judge guide](https://flowpoint.phoenixreborn.tech/judge) are deployed. The short fixed brief passed the expanded Prepare/Update checks in 16.452 / 12.723 seconds on the bounded-attempt release. Detailed-school replays still failed, including the final simpler JSON path. The current 70-test automated suite passes, but detailed live reliability remains an open limitation. [All attempts and references](docs/verification.md).
+**24 October reliability status:** resumable three-step generation and the [judge guide](https://flowpoint.phoenixreborn.tech/judge) are deployed. The short fixed brief passed the expanded Prepare/Update checks in 16.452 / 12.723 seconds on the bounded-attempt release. Detailed-school replays still failed, including the final simpler JSON path. The current 72-test automated suite passes, but detailed live reliability remains an open limitation. [All attempts and references](docs/verification.md).
 
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
@@ -85,7 +85,7 @@ Entry categories: Gemma, Render, .tech Domain and GitHub Copilot, subject to eli
 
 Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 
-The 70-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
+The 72-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 
 ## License
 
@@ -103,6 +103,8 @@ The browser now prepares the pack through three separately validated calls: fact
 
 Each model step has a seven-minute server deadline shared by its bounded retries. The browser allows seven minutes and 15 seconds per step for transport overhead. With three sequential steps, a full pack can take up to about 21 minutes; you can cancel at any time. Three requests can use more provider quota than a single call. Checkpoints require available browser storage and do not recover responses lost before receipt. This is browser-local recovery, not a durable server queue or an exactly-once billing guarantee. Model/provider failures remain possible.
 
-The [judge guide](docs/judge-guide.md) includes a small repeatable brief and expected initial NGN 4,000 subtotal / updated NGN 6,000 total. The original detailed school brief remains a separate regression case. `node scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2` records every attempted hosted run, per-step references, timings and fact checks. It is excluded from tests and builds. Live results are recorded separately from the 70 simulated-provider/unit/UI tests. Human review and a manual-writing baseline remain unmeasured.
+The [judge guide](docs/judge-guide.md) includes a small repeatable brief and expected initial NGN 4,000 subtotal / updated NGN 6,000 total. The original detailed school brief remains a separate regression case. `node scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2` records every attempted hosted run, per-step references, timings and fact checks. It is excluded from tests and builds. Live results are recorded separately from the 72 simulated-provider/unit/UI tests. Human review and a manual-writing baseline remain unmeasured.
 
 First staged live measurement: the fixed judge brief prepared in 18.606 seconds and updated in 13.394 seconds, passing the listed budget/date/venue checks. The next attempt hit Google quota at its invitation step, and the runner stopped. Two completed out of three attempted operations is an interrupted small sample, not proof of overall reliability. [Raw measurement record](docs/evidence/staged-live-2026-10-24.json). The detailed-school staged regression was not reached in that batch.
+
+Home now provides separate sample PDF and Markdown downloads. The two-page sample PDF is built from the same hand-authored fixture, clearly marked SAMPLE DATA / DRAFT, with unique download names. No model call is needed.

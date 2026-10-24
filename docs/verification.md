@@ -178,3 +178,14 @@ Model generation now has a **420,000 ms (seven-minute) shared deadline per step*
 Pinned Undici 8.12.3 and used a dedicated generation dispatcher with 435,000 ms headers/body timeouts, avoiding the default five-minute HTTP client cutoff. Node 22.19.0 or newer is required by that dependency. Benchmarks use a corresponding HTTP dispatcher. This changes application-side wait limits; it does not guarantee that Google or an intermediate network will keep every request open or complete successfully. Earlier live failure records remain unchanged. No seven-minute-long provider completion is claimed from the automated checks.
 
 Verification for the timeout change: **70 automated tests passed**, including a real local HTTP request through the production fetch/dispatcher pair. The dependency's paired fetch is used instead of mixing its new dispatcher protocol with Node's bundled fetch. `/api/config` now reports `generationTimeoutMs: 420000` for read-only deployment verification. The older live runs are not rerun or relabelled as seven-minute tests.
+
+
+## Sample PDF and token-limit incident (24 October)
+
+User reference `bd14df96-5d67-44d2-b1c6-c70c7f3ed1af`: Google returned HTTP 200 after 63.306 s, but finishReason was `MAX_TOKENS` at the facts step. It did not reach the seven-minute deadline. The plain-JSON path omitted `thinkingConfig` while native function responses set `thinkingLevel: minimal`; official Gemma API documentation confirms minimal disables thinking. This inconsistency may have contributed to exhaustion of the previous 3,000-token facts allowance; the exact thought-token usage was not logged in that response.
+
+Gemma 4 now receives minimal thinking settings for both formats. Facts have an 8,192-token initial allowance and individual drafts 4,096. A truncated staged reply can regenerate from original input, with an enlarged allowance capped at 16,384, within the existing three-attempt/seven-minute step limits. Truncated partial data is never accepted or used as retry input. Safety-blocked replies remain failures. Safe diagnostics record only numeric token totals and output limit, never reasoning text or prompts.
+
+Home's sample download now offers PDF and Markdown. Build generates `/sample-pack.pdf` from the same fixture via PDFKit; the server sends `application/pdf` and a unique SAMPLE filename. The browser downloads a binary blob and adds its own unique event-title filename. The generated two-page PDF was rendered and both pages visually checked; sample/draft labels, unknown prices, invitation, schedule and checklist were readable. Automated HTTP coverage checks PDF bytes, MIME type, distinct download names and retained Markdown.
+
+**72 automated tests pass** including the truncation/minimal-thinking regression and static sample download. New detailed live inference remains to be checked after deployment; these tests do not establish its success.

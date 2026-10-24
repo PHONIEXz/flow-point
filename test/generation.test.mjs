@@ -96,3 +96,19 @@ test('production HTTP transport uses a compatible fetch/dispatcher pair', async 
   const response = await fetchModelResponse(`http://127.0.0.1:${server.address().port}/`, { signal: AbortSignal.timeout(5000) });
   assert.equal(response.status, 200); assert.deepEqual(await response.json(), { ok: true });
 });
+
+test('plain JSON Gemma 4 steps disable thinking and retry truncation with a larger bounded output budget', async () => {
+  const payloads = [];
+  const result = await generatePack({ request: 'Detailed fictional event notes. '.repeat(200), stage: 'facts' }, { ...quiet, fetchImpl: async (_, options) => {
+    const payload = JSON.parse(options.body); payloads.push(payload);
+    if (payloads.length === 1) return Response.json({ candidates: [{ finishReason: 'MAX_TOKENS', content: { parts: [{ text: '{"title":"cut off' }] } }] });
+    return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify(sample) }] } }] });
+  } });
+  assert.equal(payloads.length, 2);
+  assert.equal(payloads[0].generationConfig.thinkingConfig.thinkingLevel, 'minimal');
+  assert.equal(payloads[0].generationConfig.maxOutputTokens, 8192);
+  assert.equal(payloads[1].generationConfig.maxOutputTokens, 16384);
+  assert.equal(payloads[1].generationConfig.thinkingConfig.thinkingLevel, 'minimal');
+  assert.doesNotMatch(payloads[1].contents[0].parts[0].text, /cut off/);
+  assert.equal(result.plan.title, sample.title);
+});
