@@ -110,3 +110,5 @@ First staged live measurement: the fixed judge brief prepared in 18.606 seconds 
 Home now provides separate sample PDF and Markdown downloads. The two-page sample PDF is built from the same hand-authored fixture, clearly marked SAMPLE DATA / DRAFT, with unique download names. No model call is needed.
 
 The [24 October competitor review](docs/competitor-review-2026-10-24.md) records a broad tag screening, selected article/source inspection, specific strengths and limits, and a prioritized Flow Point roadmap. Its comparisons concern published evidence and inspected code, not independently rerun competitor benchmarks.
+
+The next implementation sequence is tracked in [Project update chunks](docs/update-chunks.md), with goals, dependencies and completion checks. Chunk 1 addresses known content omissions before source-linked review, update comparison and broader evaluation.

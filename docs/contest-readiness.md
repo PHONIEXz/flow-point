@@ -1,5 +1,7 @@
 # Contest readiness: work chunks
 
+**Active update sequence (24 October):** see [project update chunks](update-chunks.md). The older numbered sections below retain historical results; use the new roadmap for the next implementation order and its acceptance gates.
+
 These are acceptance gates, not a probability of winning.
 
 ## 1. Reliability and difficult requests
