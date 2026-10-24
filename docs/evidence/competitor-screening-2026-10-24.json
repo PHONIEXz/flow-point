@@ -1,0 +1,109 @@
+{
+  "reviewedAt": "2026-10-24T04:05:46.202Z",
+  "tag": "https://dev.to/t/hf26challenge",
+  "method": "Six public API metadata pages (1000 per page), deduplicated by ID. Date-window candidates published from 2026-10-19. Automated full-text retrieval and evidence triage, then focused article and selected-source review. Reused cached reads after API quota interruptions. Not an eligibility audit or independent model rerun.",
+  "tagMetadataUnique": 5900,
+  "dateWindowCandidates": 984,
+  "attempted": 984,
+  "retrieved": 968,
+  "unavailable": [
+    {
+      "id": 4891086,
+      "url": "https://dev.to/praneshnikhar/off-peak-the-ai-agent-whose-best-feature-is-doing-nothing-2jkp",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4889332,
+      "url": "https://dev.to/praveen_kumar_50c9892727f/pixelbreak-i-built-a-local-first-tool-that-blocks-bad-commits-before-they-break-your-frontend-569m",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4907200,
+      "url": "https://dev.to/epiccoder/sloth-notes-a-local-ai-digest-for-the-notes-you-dont-want-to-reread-1ef5",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4903344,
+      "url": "https://dev.to/madhumitha_r26/softwareunit-i-hired-8-ai-agents-so-i-could-be-a-sloth-mj6",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4904229,
+      "url": "https://dev.to/eszter_kovacs_37c655dc5e9/slothstep-a-lazy-friendly-app-that-turns-ugh-ill-do-it-later-into-three-tiny-steps-5cd3",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4903785,
+      "url": "https://dev.to/isokenjune/threadwise-a-local-first-ai-closet-that-makes-getting-dressed-easier-82k",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4906950,
+      "url": "https://dev.to/sea_deep/the-answer-was-already-in-another-thread-so-i-built-threadsherpa-khm",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4902614,
+      "url": "https://dev.to/edyvision/i-taught-my-release-checklist-to-wait-for-me-5bm0",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4900042,
+      "url": "https://dev.to/farhan_mallik/slothops-i-built-an-open-weight-ai-agent-that-rewards-developer-laziness-hacktoberfest-2026-1ca",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4896682,
+      "url": "https://dev.to/sufian_khan/messimo-an-open-source-local-ai-file-organizer-powered-by-gemma-and-ollama-21f",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4898757,
+      "url": "https://dev.to/abhinav412/sloth-tidy-the-file-organizer-that-files-like-you-and-never-repeats-a-mistake-1mgi",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4890076,
+      "url": "https://dev.to/fahadyy/sift-share-it-sleep-its-filed-on-device-gemma-no-cloud-43jc",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4895004,
+      "url": "https://dev.to/grkadam7/group-project-ghost-i-was-too-lazy-to-be-my-teams-nag-so-i-built-one-5g64",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4893660,
+      "url": "https://dev.to/hendrahend/sloth-sounds-i-was-too-lazy-to-pick-a-playlist-so-i-taught-my-laptop-to-make-the-music-57f9",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4897432,
+      "url": "https://dev.to/tgoyal63/loose-ends-keep-the-condition-with-the-task-1lcc",
+      "error": "HTTP 404"
+    },
+    {
+      "id": 4902886,
+      "url": "https://dev.to/ntsd/zerovisual-i-was-too-lazy-to-do-manual-ui-testing-so-i-made-open-source-ai-do-it-1jei",
+      "error": "HTTP 404"
+    }
+  ],
+  "mentionsWeek3OrTheme": 651,
+  "sourceInspection": [
+    "T-RexBytes/twotoe:packages/writer/src/validate.ts",
+    "bipul724/availability-ledger:evaluation/RESULTS.md",
+    "SenseiNate/slothspec:slothspec/llm.py",
+    "dragon-slayer27/ditto:eval/score.mjs",
+    "memeshee/leaveit:app/workflows.py",
+    "kotewar/receipts:app/trace.py",
+    "ANIRUDDH-001/second-look:README.md",
+    "mikey92/recall-sloth:eval/EVAL.md"
+  ],
+  "caveats": [
+    "The feed changes while pagination runs; this is a snapshot, not a guaranteed permanent census.",
+    "Mentioning Week 3 does not establish eligibility.",
+    "Automated evidence-feature detection selected candidates; it is not a product-quality score.",
+    "Competitor model results remain author-reported unless explicitly stated otherwise.",
+    "Not every repository, video or live model was exercised."
+  ]
+}

@@ -1,5 +1,5 @@
-import { Agent, fetch } from 'undici';
-const generationDispatcher = new Agent({ headersTimeout: 450000, bodyTimeout: 450000 });
+import { EnvHttpProxyAgent, fetch } from 'undici';
+const generationDispatcher = new EnvHttpProxyAgent({ headersTimeout: 450000, bodyTimeout: 450000 });
 import { prepareInStages } from '../public/generation.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 await mkdir('tmp', { recursive: true });

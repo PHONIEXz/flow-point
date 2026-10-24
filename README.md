@@ -20,7 +20,7 @@ The three videos are embedded in different sections of the published entry. They
 
 ## Current status
 
-**24 October reliability status:** resumable three-step generation and the [judge guide](https://flowpoint.phoenixreborn.tech/judge) are deployed. The short fixed brief passed the expanded Prepare/Update checks in 16.452 / 12.723 seconds on the bounded-attempt release. Detailed-school replays still failed, including the final simpler JSON path. The current 72-test automated suite passes, but detailed live reliability remains an open limitation. [All attempts and references](docs/verification.md).
+**24 October reliability status:** resumable generation, the [judge guide](https://flowpoint.phoenixreborn.tech/judge), receipts and sample PDF/Markdown downloads are deployed. After fixing an inconsistent Gemma thinking setting and a response-token limit, the detailed school Prepare completed in 39.682 seconds. A paced Prepare/Update pair completed in 42.217 / 34.381 seconds, but the Update still omitted some required content. Quota interrupted an unpaced Update. The 72 automated tests pass; semantic completeness and consistent live availability remain open. [All results and captured omissions](docs/verification.md).
 
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
@@ -108,3 +108,5 @@ The [judge guide](docs/judge-guide.md) includes a small repeatable brief and exp
 First staged live measurement: the fixed judge brief prepared in 18.606 seconds and updated in 13.394 seconds, passing the listed budget/date/venue checks. The next attempt hit Google quota at its invitation step, and the runner stopped. Two completed out of three attempted operations is an interrupted small sample, not proof of overall reliability. [Raw measurement record](docs/evidence/staged-live-2026-10-24.json). The detailed-school staged regression was not reached in that batch.
 
 Home now provides separate sample PDF and Markdown downloads. The two-page sample PDF is built from the same hand-authored fixture, clearly marked SAMPLE DATA / DRAFT, with unique download names. No model call is needed.
+
+The [24 October competitor review](docs/competitor-review-2026-10-24.md) records a broad tag screening, selected article/source inspection, specific strengths and limits, and a prioritized Flow Point roadmap. Its comparisons concern published evidence and inspected code, not independently rerun competitor benchmarks.

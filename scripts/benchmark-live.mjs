@@ -1,5 +1,6 @@
-import { Agent, fetch } from 'undici';
-const generationDispatcher = new Agent({ headersTimeout: 450000, bodyTimeout: 450000 });
+import { EnvHttpProxyAgent, fetch } from 'undici';
+import { setTimeout as pace } from 'node:timers/promises';
+const generationDispatcher = new EnvHttpProxyAgent({ headersTimeout: 450000, bodyTimeout: 450000 });
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { prepareInStages } from '../public/generation.mjs';
 if (!process.argv.includes('--live')) throw new Error('Pass --live to authorize real hosted inference requests.');
@@ -10,7 +11,8 @@ if (!Number.isInteger(repeats) || repeats < 1 || repeats > 2) throw new Error('U
 const example = JSON.parse(await readFile(new URL('../public/judge-example.json', import.meta.url), 'utf8'));
 const school = await readFile(new URL('../docs/school-event-test.md', import.meta.url), 'utf8');
 const detailed = { request: school.split('## Initial brief\n\n')[1].split('\n## Follow-up update')[0].trim(), answers: school.split('## Follow-up update\n\n')[1].split('\n## Expected checks')[0].trim() };
-const report = { testedAt: new Date().toISOString(), site, version: 'staged-v1', scope: 'Hosted inference and deterministic facts. Startup, manual drafting, human review and export time excluded.', runs: [] };
+const cooldownBeforeUpdateMs = process.argv.includes('--paced') ? 60000 : 0;
+const report = { cooldownBeforeUpdateMs, testedAt: new Date().toISOString(), site, version: 'staged-v1', scope: 'Hosted inference and deterministic facts. Startup, manual drafting, human review, export time and the explicitly recorded cooldown between operations are excluded.', runs: [] };
 const output = arg('--output', `docs/evidence/live-${Date.now()}.json`);
 await mkdir(new URL('../docs/evidence/', import.meta.url), { recursive: true });
 const selectedCase = arg('--case', 'all');
@@ -21,6 +23,7 @@ for (const [label, fixture] of cases) {
   for (let repeat = 1; repeat <= repeats && !stop; repeat++) {
     let previousPlan = null;
     for (const action of ['prepare', 'update']) {
+      if (action === 'update' && cooldownBeforeUpdateMs) await pace(cooldownBeforeUpdateMs);
       const row = { label, repeat, action, startedAt: new Date().toISOString(), steps: [] }; const started = Date.now();
       try {
         const result = await prepareInStages({ request: fixture.request, answers: action === 'update' ? fixture.answers : '', previousPlan }, {
@@ -33,6 +36,8 @@ for (const [label, fixture] of cases) {
             return value;
           }
         });
+        await mkdir('tmp', { recursive: true });
+        await writeFile(`tmp/verified-${label}-${repeat}-${action}.json`, JSON.stringify(result, null, 2));
         const p = result.plan, updated = action === 'update', judge = label === 'judge';
         const checks = {
           date: p.eventDate === (judge || updated ? '2026-11-21' : '2026-11-14'),
@@ -40,6 +45,8 @@ for (const [label, fixture] of cases) {
           money: result.knownTotalMinor === (judge ? updated ? 600000 : 400000 : updated ? 18150000 : 13750000),
           unknownPrices: p.budget.filter(x => x.unitCostMinor === null).length === (updated ? 0 : judge ? 1 : 2),
           drafts: Boolean(p.drafts.invitation.trim() && p.drafts.schedule.trim()),
+          invitationStart: !p.startTime || p.drafts.invitation.includes(p.startTime),
+          scheduleStart: !p.startTime || p.drafts.schedule.includes(p.startTime),
           signatoryName: (judge ? /amina\s+bello/i : /grace\s+okoro/i).test(p.signatory || ''),
           invitationSignatory: (judge ? /amina\s+bello/i : /grace\s+okoro/i).test(p.drafts.invitation),
           namedActivityLead: p.tasks.some(x => (judge ? /ada\s+okafor/i : /daniel\s+musa/i).test(x.owner || '')),

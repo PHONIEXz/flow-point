@@ -1,0 +1,255 @@
+{
+  "cooldownBeforeUpdateMs": 60000,
+  "testedAt": "2026-10-24T04:07:51.647Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review, export time and the explicitly recorded cooldown between operations are excluded.",
+  "runs": [
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "prepare",
+      "startedAt": "2026-10-24T04:07:51.647Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 200,
+          "wallMs": 27871,
+          "requestId": "eea011e4-de42-42f5-9cfc-8e2a1a4982c4",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "facts",
+            "generatedAt": "2026-10-24T04:08:19.456Z",
+            "durationMs": 21986
+          }
+        },
+        {
+          "stage": "invitation",
+          "httpStatus": 200,
+          "wallMs": 6157,
+          "requestId": "2e3a4534-f564-4b2f-9efa-3bf105f7b828",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "invitation",
+            "generatedAt": "2026-10-24T04:08:25.619Z",
+            "durationMs": 6011
+          }
+        },
+        {
+          "stage": "schedule",
+          "httpStatus": 200,
+          "wallMs": 8185,
+          "requestId": "e96d8f30-1d10-4d69-808e-ba27f939ec13",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 2,
+            "responseFormat": "text-json",
+            "stage": "schedule",
+            "generatedAt": "2026-10-24T04:08:33.802Z",
+            "durationMs": 8047
+          }
+        }
+      ],
+      "completed": true,
+      "checks": {
+        "date": true,
+        "start": true,
+        "money": true,
+        "unknownPrices": true,
+        "drafts": true,
+        "signatoryName": true,
+        "invitationSignatory": true,
+        "namedActivityLead": true,
+        "activityDurations": true,
+        "pendingVenue": true
+      },
+      "checksPassed": true,
+      "provenance": {
+        "mode": "live",
+        "provider": "Google Gemini API",
+        "model": "gemma-4-26b-a4b-it",
+        "requestedModel": "gemma-4-26b-a4b-it",
+        "primaryModel": "gemma-4-26b-a4b-it",
+        "attempts": 4,
+        "responseFormat": "text-json",
+        "stage": "schedule",
+        "generatedAt": "2026-10-24T04:08:33.802Z",
+        "durationMs": 36044,
+        "pipeline": "staged-v1",
+        "reusedSteps": 0,
+        "steps": [
+          {
+            "stage": "facts",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 21986,
+            "attempts": 1,
+            "requestId": "eea011e4-de42-42f5-9cfc-8e2a1a4982c4"
+          },
+          {
+            "stage": "invitation",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 6011,
+            "attempts": 1,
+            "requestId": "2e3a4534-f564-4b2f-9efa-3bf105f7b828"
+          },
+          {
+            "stage": "schedule",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 8047,
+            "attempts": 2,
+            "requestId": "e96d8f30-1d10-4d69-808e-ba27f939ec13"
+          }
+        ]
+      },
+      "wallMs": 42217
+    },
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "update",
+      "startedAt": "2026-10-24T04:09:33.870Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 200,
+          "wallMs": 22368,
+          "requestId": "0ace4c1b-ffad-44d7-8881-09524cad558d",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "facts",
+            "generatedAt": "2026-10-24T04:09:56.139Z",
+            "durationMs": 17983
+          }
+        },
+        {
+          "stage": "invitation",
+          "httpStatus": 200,
+          "wallMs": 5401,
+          "requestId": "9fd0601a-e4d9-418b-b690-49186bacfec8",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "invitation",
+            "generatedAt": "2026-10-24T04:10:01.576Z",
+            "durationMs": 5041
+          }
+        },
+        {
+          "stage": "schedule",
+          "httpStatus": 200,
+          "wallMs": 6610,
+          "requestId": "21837c2f-2f99-4ca2-b233-87eb389f8b52",
+          "provenance": {
+            "mode": "live",
+            "provider": "Google Gemini API",
+            "model": "gemma-4-26b-a4b-it",
+            "requestedModel": "gemma-4-26b-a4b-it",
+            "primaryModel": "gemma-4-26b-a4b-it",
+            "attempts": 1,
+            "responseFormat": "text-json",
+            "stage": "schedule",
+            "generatedAt": "2026-10-24T04:10:08.186Z",
+            "durationMs": 6457
+          }
+        }
+      ],
+      "completed": true,
+      "checks": {
+        "date": true,
+        "start": true,
+        "money": true,
+        "unknownPrices": true,
+        "drafts": true,
+        "signatoryName": true,
+        "invitationSignatory": true,
+        "namedActivityLead": true,
+        "activityDurations": true,
+        "venue": true,
+        "invitationVenue": true,
+        "scheduleVenue": true,
+        "pendingRehearsalTime": true,
+        "firstAidOfficer": true,
+        "newRehearsalDate": true,
+        "noOldRehearsalDate": true,
+        "spendingLimit": false,
+        "remainingAllowance": false
+      },
+      "checksPassed": false,
+      "provenance": {
+        "mode": "live",
+        "provider": "Google Gemini API",
+        "model": "gemma-4-26b-a4b-it",
+        "requestedModel": "gemma-4-26b-a4b-it",
+        "primaryModel": "gemma-4-26b-a4b-it",
+        "attempts": 3,
+        "responseFormat": "text-json",
+        "stage": "schedule",
+        "generatedAt": "2026-10-24T04:10:08.186Z",
+        "durationMs": 29481,
+        "pipeline": "staged-v1",
+        "reusedSteps": 0,
+        "steps": [
+          {
+            "stage": "facts",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 17983,
+            "attempts": 1,
+            "requestId": "0ace4c1b-ffad-44d7-8881-09524cad558d"
+          },
+          {
+            "stage": "invitation",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 5041,
+            "attempts": 1,
+            "requestId": "9fd0601a-e4d9-418b-b690-49186bacfec8"
+          },
+          {
+            "stage": "schedule",
+            "model": "gemma-4-26b-a4b-it",
+            "durationMs": 6457,
+            "attempts": 1,
+            "requestId": "21837c2f-2f99-4ca2-b233-87eb389f8b52"
+          }
+        ]
+      },
+      "wallMs": 34381
+    }
+  ],
+  "summary": {
+    "planned": 2,
+    "skipped": 0,
+    "attempted": 2,
+    "completed": 2,
+    "checksPassed": 1,
+    "medianCompletedMs": 38299,
+    "slowestCompletedMs": 42217,
+    "stoppedOnQuota": false
+  }
+}

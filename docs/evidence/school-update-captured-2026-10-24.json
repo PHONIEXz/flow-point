@@ -1,0 +1,155 @@
+{
+  "plan": {
+    "title": "Young Minds: Science, Reading and Creativity Day",
+    "eventDate": "2026-11-21",
+    "requestedWeekday": "Saturday",
+    "venue": "Multipurpose Hall",
+    "startTime": "10:00",
+    "organizer": "Sunrise Learning Centre, Abuja",
+    "signatory": "Mrs Grace Okoro, Headteacher",
+    "currency": "NGN",
+    "tasks": [
+      {
+        "label": "Approve programme, invitation, venue and expenditure",
+        "owner": "Mrs Grace Okoro",
+        "dueDate": null
+      },
+      {
+        "label": "Organise science demonstrations and check materials",
+        "owner": "Mr Daniel Musa",
+        "dueDate": null
+      },
+      {
+        "label": "Prepare reading and storytelling activities",
+        "owner": "Miss Esther James",
+        "dueDate": null
+      },
+      {
+        "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+        "owner": "Mrs Ruth Adeyemi",
+        "dueDate": null
+      },
+      {
+        "label": "Select pupil presentations, supervise rehearsals and prepare project labels",
+        "owner": "Class teachers",
+        "dueDate": null
+      },
+      {
+        "label": "Ensure designated first-aid officer is available",
+        "owner": "Mr Samuel Eze",
+        "dueDate": null
+      },
+      {
+        "label": "Check venue, test sound system, organise registration, position drinking water, check emergency exits and supervise pupils",
+        "owner": "Staff",
+        "dueDate": null
+      },
+      {
+        "label": "Supervise collection of pupils, clean venue, return borrowed equipment, reconcile spending and record feedback",
+        "owner": "Staff",
+        "dueDate": null
+      },
+      {
+        "label": "Rehearse the programme",
+        "owner": "Class teachers",
+        "dueDate": "2026-11-19"
+      }
+    ],
+    "budget": [
+      {
+        "label": "Printed programmes",
+        "quantity": 80,
+        "unitCostMinor": 25000
+      },
+      {
+        "label": "Bottled water",
+        "quantity": 180,
+        "unitCostMinor": 20000
+      },
+      {
+        "label": "Refreshment packs",
+        "quantity": 180,
+        "unitCostMinor": 35000
+      },
+      {
+        "label": "Participation certificates",
+        "quantity": 120,
+        "unitCostMinor": 10000
+      },
+      {
+        "label": "Hall decorations",
+        "quantity": 1,
+        "unitCostMinor": 1800000
+      },
+      {
+        "label": "Sound system hire",
+        "quantity": 1,
+        "unitCostMinor": 1200000
+      },
+      {
+        "label": "Event banner",
+        "quantity": 1,
+        "unitCostMinor": 850000
+      },
+      {
+        "label": "Recognition prizes",
+        "quantity": 10,
+        "unitCostMinor": 120000
+      }
+    ],
+    "drafts": {
+      "invitation": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 21 November 2026\nCurrent Venue: Multipurpose Hall\n\nDear Parents and Guardians,\n\nWe warmly invite you to attend our upcoming \"Young Minds: Science, Reading and Creativity Day\" at Sunrise Learning Centre, Abuja.\n\nThis special educational programme is designed to showcase the wonderful progress our pupils have made in the classroom. It will be a day filled with engaging activities, including simple science demonstrations, storytelling, reading presentations, and creative displays. Our goal is to provide a platform for pupils to demonstrate their learning and to offer parents a deeper insight into our curriculum, encouraging practical learning experiences at home.\n\nAttendance for this event is free. We look forward to celebrating our pupils' achievements with you.\n\nWarm regards,\n\nMrs Grace Okoro\nHeadteacher\nOn behalf of Sunrise Learning Centre",
+      "schedule": "Young Minds: Science, Reading and Creativity Day\nConfirmed Date: Saturday, 21 November 2026\nCurrent Venue: Multipurpose Hall\n\nRegistration: 9:30 AM\n\nWelcome and housekeeping: 10 minutes\nOpening remarks by the headteacher: 10 minutes\nPupils’ reading and storytelling presentations: 15 minutes\nScience demonstrations: 35 minutes\nRefreshment break: 15 minutes\nGuided viewing of pupils’ project displays: 30 minutes\nParent and pupil reading activity: 20 minutes\nCreativity presentations and recognition of participants: 25 minutes\nVote of thanks: 10 minutes\nClosing remarks and supervised departure: 10 minutes\n\nSafety and Supervision:\n• Science activities must use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools, or experiments involving hazardous chemicals.\n• Teachers must supervise all demonstrations, display areas, and pupil movement.\n• Parents should remain with younger children during the display tour.\n• The designated first-aid officer, Mr Samuel Eze, should be available throughout the programme."
+    },
+    "openQuestions": [
+      "Approved time for rehearsal on 2026-11-19?"
+    ]
+  },
+  "issues": [
+    {
+      "code": "OPEN_QUESTION",
+      "message": "Approved time for rehearsal on 2026-11-19?"
+    }
+  ],
+  "knownTotalMinor": 18150000,
+  "budgetComplete": true,
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini API",
+    "model": "gemma-4-26b-a4b-it",
+    "requestedModel": "gemma-4-26b-a4b-it",
+    "primaryModel": "gemma-4-26b-a4b-it",
+    "attempts": 3,
+    "responseFormat": "text-json",
+    "stage": "schedule",
+    "generatedAt": "2026-10-24T04:10:08.186Z",
+    "durationMs": 29481,
+    "pipeline": "staged-v1",
+    "reusedSteps": 0,
+    "steps": [
+      {
+        "stage": "facts",
+        "model": "gemma-4-26b-a4b-it",
+        "durationMs": 17983,
+        "attempts": 1,
+        "requestId": "0ace4c1b-ffad-44d7-8881-09524cad558d"
+      },
+      {
+        "stage": "invitation",
+        "model": "gemma-4-26b-a4b-it",
+        "durationMs": 5041,
+        "attempts": 1,
+        "requestId": "9fd0601a-e4d9-418b-b690-49186bacfec8"
+      },
+      {
+        "stage": "schedule",
+        "model": "gemma-4-26b-a4b-it",
+        "durationMs": 6457,
+        "attempts": 1,
+        "requestId": "21837c2f-2f99-4ca2-b233-87eb389f8b52"
+      }
+    ]
+  },
+  "requestId": "21837c2f-2f99-4ca2-b233-87eb389f8b52",
+  "captureNote": "Actual normalized hosted output from the paced run. Not a content pass: manual review found the main start time absent from both draft texts, and the spending limit and remaining allowance absent from tasks. Pending rehearsal approval correctly remains unresolved."
+}

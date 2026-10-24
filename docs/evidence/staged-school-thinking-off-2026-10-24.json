@@ -1,0 +1,28 @@
+{
+  "testedAt": "2026-10-24T03:58:42.518Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review and export time excluded.",
+  "runs": [
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "prepare",
+      "startedAt": "2026-10-24T03:58:42.519Z",
+      "steps": [],
+      "completed": false,
+      "error": "fetch failed",
+      "wallMs": 18
+    }
+  ],
+  "summary": {
+    "planned": 2,
+    "skipped": 1,
+    "attempted": 1,
+    "completed": 0,
+    "checksPassed": 0,
+    "medianCompletedMs": null,
+    "slowestCompletedMs": null,
+    "stoppedOnQuota": false
+  }
+}

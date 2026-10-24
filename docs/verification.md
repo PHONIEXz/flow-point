@@ -189,3 +189,18 @@ Gemma 4 now receives minimal thinking settings for both formats. Facts have an 8
 Home's sample download now offers PDF and Markdown. Build generates `/sample-pack.pdf` from the same fixture via PDFKit; the server sends `application/pdf` and a unique SAMPLE filename. The browser downloads a binary blob and adds its own unique event-title filename. The generated two-page PDF was rendered and both pages visually checked; sample/draft labels, unknown prices, invitation, schedule and checklist were readable. Automated HTTP coverage checks PDF bytes, MIME type, distinct download names and retained Markdown.
 
 **72 automated tests pass** including the truncation/minimal-thinking regression and static sample download. New detailed live inference remains to be checked after deployment; these tests do not establish its success.
+
+
+### Live checks after the response-limit fix
+
+Render deployment `dep-dbe2p2brjlhs738raihg` made app commit `fc39cda6c53ec5b2cab29907f4f68c8ce9a1dbda` live at 03:57:36 UTC. The Home sample PDF was downloaded with its actual browser control, identified as a valid two-page PDF with SAMPLE/DRAFT metadata, and both pre-deployment rendered pages were visually inspected. Markdown remains available separately.
+
+The first CLI replay attempt could not resolve the host from this workspace when using a direct dispatcher; it made no app request (`staged-school-thinking-off-2026-10-24.json`). This is a local network-tool failure, not a model failure. Benchmark clients now respect the existing HTTP(S) proxy environment without exposing its values.
+
+With that transport corrected, the exact detailed school Prepare completed in **39.682 s** and passed the recorded checks. Its Update completed facts and invitation, then received Google HTTP 429 at schedule (`e0f2ce3d-b265-410c-8064-45f5f2f05791`), so that operation did not finish. [`evidence/staged-school-response-limit-2026-10-24.json`](evidence/staged-school-response-limit-2026-10-24.json).
+
+A separately recorded paced replay deliberately waited **60 seconds between Prepare and Update**, excluded from each operation's wall time. Prepare completed in **42.217 s** and Update in **34.381 s**. Both returned complete validated structures; **only Prepare passed every recorded content check**. Update preserved NGN 181,500, correct date/venue, Mr Samuel Eze, the revised rehearsal date and unresolved rehearsal-time question, but omitted the NGN 200,000 spending limit and NGN 18,500 remaining allowance from its tasks. [`evidence/staged-school-paced-2026-10-24.json`](evidence/staged-school-paced-2026-10-24.json).
+
+Manual inspection of the [actual captured Update](evidence/school-update-captured-2026-10-24.json) found two additional omissions: the invitation did not state 10:00, and the schedule listed durations without anchoring the welcome at 10:00. These facts were present in the structured fields, and rehearsal approval still blocked approval, but both draft texts need correction. The benchmark now checks start-time presence too. Those checks were added after observing the output; do not retrofit them into the frozen earlier results or call them independent evaluation.
+
+The specific MAX_TOKENS failure now has a successful detailed Prepare and a completed Update structure after the fix. **Semantic completeness is not solved**, and provider quota still interrupts unpaced runs. The public-facing sample remains hand-authored. `--paced` is an explicit test option, not automatic product delay, and its cooldown is recorded. No human time-saving or overall reliability percentage is claimed.
