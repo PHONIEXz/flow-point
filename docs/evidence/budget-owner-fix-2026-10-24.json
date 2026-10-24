@@ -1,0 +1,26 @@
+{
+  "startedAt": "2026-10-24T13:44:08.169Z",
+  "appCommit": "f5813a941d1d16c76f53f6edef4a4334b074048b",
+  "scope": "Exposed church regression only, facts stage Prepare and Update. Not a new blind evaluation or full-pack test.",
+  "fixtureSha256": "fbbf58f05e8ee65bcfb68e83a1849890ec6598706750bc870078cae08f6ab60a",
+  "runs": [
+    {
+      "action": "prepare",
+      "startedAt": "2026-10-24T13:44:08.173Z",
+      "httpStatus": 502,
+      "response": {
+        "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+        "code": "APP_ERROR",
+        "error": "Google generation returned HTTP 500. Please retry when the provider is available."
+      },
+      "finishedAt": "2026-10-24T13:45:06.635Z"
+    }
+  ],
+  "files": {
+    "src/gemma.mjs": "a340170517944aeda8657565d67308abdcaf35aa5272c969940792297dfb546f",
+    "src/content-checks.mjs": "7a55d57ff19a013cf7928c871adecb83e8b864179347d0d4ea907c5c4b2349bf",
+    "src/explicit-obligations.mjs": "51ca5a3c89e19c4649a8e9475e6961acf645a635263e02ba6b2d7d17eacb2119"
+  },
+  "stoppedReason": "Prepare/update did not return usable facts; no more requests attempted.",
+  "finishedAt": "2026-10-24T13:45:06.638Z"
+}

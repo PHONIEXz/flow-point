@@ -1,0 +1,96 @@
+[
+  {
+    "timestamp": "2026-10-24T13:44:15.675717841Z",
+    "event": "generation_request_started",
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "model": "gemma-4-26b-a4b-it"
+  },
+  {
+    "timestamp": "2026-10-24T13:44:33.19815775Z",
+    "event": "gemma_generation_attempt",
+    "model": "gemma-4-26b-a4b-it",
+    "attempt": 1,
+    "httpStatus": 200,
+    "durationMs": 17521,
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "stage": "facts"
+  },
+  {
+    "timestamp": "2026-10-24T13:44:33.201349928Z",
+    "event": "gemma_generation_response",
+    "model": "gemma-4-26b-a4b-it",
+    "attempt": 1,
+    "finishReason": "STOP",
+    "outputTokens": 520,
+    "thoughtTokens": null,
+    "outputTokenLimit": 8192,
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "stage": "facts"
+  },
+  {
+    "timestamp": "2026-10-24T13:44:33.210771686Z",
+    "event": "gemma_generation_retry",
+    "httpStatus": 200,
+    "code": "MODEL_CONTENT_MISSING",
+    "model": "gemma-4-26b-a4b-it",
+    "attempt": 1,
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "stage": "facts"
+  },
+  {
+    "timestamp": "2026-10-24T13:44:33.765018197Z",
+    "event": "gemma_generation_attempt",
+    "model": "gemma-4-31b-it",
+    "attempt": 2,
+    "httpStatus": 500,
+    "durationMs": 550,
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "stage": "facts"
+  },
+  {
+    "timestamp": "2026-10-24T13:44:33.765040588Z",
+    "event": "gemma_generation_retry",
+    "httpStatus": 500,
+    "model": "gemma-4-31b-it",
+    "attempt": 2,
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "stage": "facts"
+  },
+  {
+    "timestamp": "2026-10-24T13:45:06.551055138Z",
+    "event": "gemma_generation_attempt",
+    "model": "gemma-4-31b-it",
+    "attempt": 3,
+    "httpStatus": 500,
+    "durationMs": 30658,
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "stage": "facts"
+  },
+  {
+    "timestamp": "2026-10-24T13:45:06.55446302Z",
+    "event": "gemma_generation_failed",
+    "httpStatus": 500,
+    "model": "gemma-4-31b-it",
+    "attempts": 3,
+    "durationMs": 50878,
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "stage": "facts"
+  },
+  {
+    "timestamp": "2026-10-24T13:45:06.554564883Z",
+    "event": "generation_request_failed",
+    "requestId": "c7686593-a56e-4244-bfe4-7f7690c30dd0",
+    "action": "prepare",
+    "httpStatus": 502,
+    "code": "APP_ERROR",
+    "durationMs": 50880
+  }
+]
