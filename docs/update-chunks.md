@@ -6,7 +6,7 @@ These are planned changes, not completed features or winning probabilities. Fini
 
 ## Delivered foundation
 
-Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 133 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
+Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 139 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
 
 ## Chunk 1: fix known content omissions
 
@@ -56,7 +56,7 @@ Owner-requested addition before Chunk 4: each Invitation, Run of show, Preparati
 
 ## Chunk 4: evaluate quality on a frozen set
 
-**Status:** verification open. Frozen v4 recorded 24 planned operations: 22 attempted, 20 complete, two failed and two skipped; 13 complete operations passed all declared checks. Targeted v5 completed ten of eleven operations, six passing all declared checks; its final Update hit Groq daily quota. Five post-fix v6 operations are frozen but unexecuted. All 133 software tests pass. See [current results, corrections and pending gate](chunk-4-current-run.md). **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
+**Status:** verification open. Frozen v4 recorded 24 planned operations: 22 attempted, 20 complete, two failed and two skipped; 13 complete operations passed all declared checks. Targeted v5 completed ten of eleven operations, six passing all declared checks; its final Update hit Groq daily quota. Five post-fix v7 operations are frozen but unexecuted, superseding unexecuted v6 for the block-letter release. All 139 software tests pass. See [current results, corrections and pending gate](chunk-4-current-run.md). **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
 
 **Goal:** measure the quality of the returned pack separately from valid JSON and response speed.
 

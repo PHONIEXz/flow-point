@@ -1,0 +1,27 @@
+{
+  "version": 7,
+  "frozenAt": "2026-10-24T19:09:10.475323+00:00",
+  "appCommit": "f6b6a2f5bf1d3bba98e18451b911db1b36b39f5f",
+  "casesSha256": "b66dd2380733050a96f80fdbe3a05ee1af0d5496406f65d676ba83205615e954",
+  "files": {
+    "src/gemma.mjs": "c8c2b6da65ba457225fdc7253d35dc99980877a0a37b167bd098131e1058384b",
+    "src/providers.mjs": "450945a3b79489d6f3d309278fb19de7333ddd3aecaeeb19b365dcc12d29b9b9",
+    "src/explicit-obligations.mjs": "50ed8a21c1c5aa049ba3538857e7cd85896c6d6c745c63e3a121f604a91b22ac",
+    "src/content-checks.mjs": "a4e4aaf9300fac892b5e76201837117f37865d1341b2de573445aad37f677ec9",
+    "src/server.mjs": "9daf860ed5e253c66b2fe284c53d1aa96c8a3e549bf446e91901e924249d784b",
+    "src/pack-schema.mjs": "d67091b6eb06ae467c07195a6391b0a3a2608bf38d7e0a87948d405170de69d0",
+    "src/plan.mjs": "a398ca30cc49f20888d0332aeeafa2cd191c02d4b8930e0b70d376be7870b556",
+    "src/source-evidence.mjs": "9e29b1fcd33a008d839b77bec1d90ea0a090b7a714b2151b475a52fe3a1d46e7",
+    "public/generation.mjs": "90dd50d74f9613c2ba781dcc2be797933d380594faee219082f567a78498cfee",
+    "public/update-history.mjs": "c4be37b38e7c84efdf9a0431e0e8a9ce6b8a2cf2c2b4ed374913cda5bacfc834",
+    "public/source-fields.mjs": "b53252a78f7f5cc17e3431126eb9413ed1cd39720fec7f46b76b392712bd57dd",
+    "public/letter-layout.mjs": "01e03e3ad28c6db22d504e1f3aa6ca67652c9a04b1ec5f611f2b6b8ca39cec9b",
+    "evaluation/score-v4.mjs": "69d2b190c61751f2a3f44740e178b177dc5c13d05e4f50eea65131c7a60dcf43",
+    "src/input-questions.mjs": "4e97be1c5b82536ef8fde8f1afb8602c4c93ee6535f0ce13f7db10b29fc57a2f",
+    "scripts/evaluate-quality-v7.mjs": "9d1ce0004ed6a9863f6036998d3e030a1b6d413d2382fd4678abce6accf2c1ac",
+    "public/workspace.js": "fb16aaae6fad53a7bdc0f8a6946eb4961f16b2ee960208240f8e118c1fcebbe0",
+    "public/pack-store.mjs": "e8e40e16ff20add5877c5f8f6dba49959e03dfc9abe6dd645f5707af5b549914",
+    "src/pdf.mjs": "6e66e8bd7373f431c4ca93d33300f22b746ada40ce5983abcdb378ddb333cb5c"
+  },
+  "notes": "Supersedes unexecuted v6 for the current letter-template release. Five exposed operations, expectations unchanged, no inference attempted. The same local letter layout as the browser is applied before application scoring/export. Fictional contact fields are not prefilled in these cases."
+}

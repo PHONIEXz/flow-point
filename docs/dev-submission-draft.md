@@ -50,7 +50,7 @@ These earlier screenshots show the interface at capture time using a labelled Sc
 
 **[Source and setup instructions](https://github.com/PHONIEXz/flow-point)** · **[Live verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md)**
 
-The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without private provider keys, the labelled sample still supports editing, review and export. The current automated suite passes **133 tests**. Provider tests use simulated responses; live results are recorded separately.
+The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without private provider keys, the labelled sample still supports editing, review and export. The current automated suite passes **139 tests**. Provider tests use simulated responses; live results are recorded separately.
 
 ## How I Built It
 
@@ -93,6 +93,8 @@ I also removed repeated processing checkboxes. One explicit choice covers Prepar
 Google-hosted Gemma had intermittent HTTP 500s, timeouts and quota interruptions during development. I added GPT-OSS through Groq so users could choose another model/provider rather than depend on Google alone. The **Drafting model** control is on Notes and Preparation pack. It remembers a browser preference and uses separate permission for each provider. Switching does not rewrite a pack, and failures never silently send notes to the other provider.
 
 GPT-OSS is an OpenAI open-weight model served here by Groq, not the OpenAI API. This is an additional choice, not evidence that Groq is always faster or more accurate. Both providers can fail or omit details. A fresh Google test on 24 October still returned upstream HTTP 500; some other pack failures came from our validation code and needed separate fixes. The [provider-choice record](https://github.com/PHONIEXz/flow-point/blob/main/docs/model-choice.md) distinguishes those results. Earlier videos and timings below retain their original Google/Gemma context; replacement media is still queued.
+
+The Invitation editor now supports conventional formal and informal letter layouts, including a separate letter date, optional addresses and contact lines, recipient details, standard closings and signature fields. Formal letters use a subject and optional enclosures; informal letters omit the subject and can include a P.S. Applying the layout works locally and preserves body wording. The standalone invitation PDF follows the letter layout, with review status retained in the footer.
 
 ## Why Does Open Innovation Matter?
 

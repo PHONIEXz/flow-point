@@ -1,12 +1,15 @@
 # Chunk 4: quality evaluation status, 24 October 2026
 
+**Current letter-template release:** `f6b6a2f5bf1d3bba98e18451b911db1b36b39f5f`, with 139 passing software tests and local PDF visual checks. The [five pending v7 retests](evidence/quality-v7-2026-10-24/README.md) supersede unexecuted v6 for this runtime. v7 includes the browser’s deterministic letter formatter before application scoring/export. No new inference was attempted.
+
 **Status: verification remains open.** The model selector and post-run fixes are implemented, but the last live operation exhausted Groq daily quota. No further inference was attempted. Do not mark Chunk 4 complete or start Chunk 5 as though the quality gate passed.
 
 | Run | Planned operations | Attempted | Completed | Failed | Skipped | Completed operations passing all declared checks |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Frozen v4 | 24 | 22 | 20 | 2 | 2 | 13 |
 | Exposed post-fix v5 | 11 | 11 | 10 | 1 | 0 | 6 |
-| Frozen post-fix v6 | 5 | 0 | 0 | 0 | 0 | Not run |
+| Superseded v6 | 5 | 0 | 0 | 0 | 0 | Not run |
+| Current pending v7 | 5 | 0 | 0 | 0 | 0 | Not run |
 
 v4 contains eleven exposed briefs and one brief not previously executed, Willow, which ran first. Both Willow operations passed all 54 declared checks combined. Cases and answer keys were assistant-authored; there was no independent reviewer. This is not an estimate of general reliability. v5 is deliberately a targeted regression run, not a new unseen evaluation.
 
@@ -22,7 +25,7 @@ Code `0bba82442b9a48874534a828914fbd5bd9edd35f` adds conservative checks rejecti
 
 ## Pending gate
 
-[v6 is frozen but unexecuted](evidence/quality-v6-2026-10-24/README.md): detailed school Update, Riverside Prepare/Update, ambiguous-date Oak Prepare and the quota-blocked community Update. Successful v5 school/community Prepare baselines are embedded and hash-protected, avoiding redundant initial generations. Once provider capacity is available, run the committed v6 command on the matching source. Preserve every outcome. Do not claim corrected live behavior until it is observed.
+[v7 is frozen but unexecuted](evidence/quality-v7-2026-10-24/README.md): detailed school Update, Riverside Prepare/Update, ambiguous-date Oak Prepare and the quota-blocked community Update. Successful v5 school/community Prepare baselines are embedded and hash-protected, avoiding redundant initial generations. Once provider capacity is available, run the committed v7 command on the matching source. Preserve every outcome. Do not claim corrected live behavior until it is observed.
 
 Separately, a selected Google Gemma request still returned upstream HTTP 500, reference `8e4fcf2f-4029-406e-a233-e5ee78105901`; [record and model-choice rationale](model-choice.md). This is distinct from Groq daily quota and the application/model omissions above. Neither provider is described as universally reliable. Physical-device checks, human review effort and a timed human-writing baseline remain Chunk 5 and are unmeasured.
 

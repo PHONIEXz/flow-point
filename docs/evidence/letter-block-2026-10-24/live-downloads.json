@@ -1,0 +1,19 @@
+{
+  "formal": {
+    "status": 200,
+    "bytes": 20984,
+    "sha256": "de8450da9b119eee7f0195dfcad7c0f0f723bcd7cf2c5f582ccb24a3bd41e583",
+    "pages": 1,
+    "filenameHeader": "attachment; filename=\"community-reading-morning-2026-11-21-invitation-draft-20261024T191255807Z-a356ea64.pdf\"; filename*=UTF-8''Community%20Reading%20Morning%20-%20Invitation%20-%20Draft%20-%2020261024T191255807Z-29d9f92b.pdf",
+    "checks": "passed"
+  },
+  "informal": {
+    "status": 200,
+    "bytes": 12610,
+    "sha256": "9cb3f1bd35250760501bbd842b156c03b0b7fa69b97c840b33582f96ab1b3fd8",
+    "pages": 1,
+    "filenameHeader": "attachment; filename=\"community-reading-morning-2026-11-21-invitation-draft-20261024T191256593Z-e52c2a68.pdf\"; filename*=UTF-8''Community%20Reading%20Morning%20-%20Invitation%20-%20Draft%20-%2020261024T191256593Z-85a0c68b.pdf",
+    "checks": "passed"
+  },
+  "method": "Actual deployed /api/export responses using hand-authored fictional fixtures; no generation call. Browser also triggered both download events, but remote browser paths were unavailable for filesystem readback, so byte/text verification uses these direct HTTP responses."
+}
