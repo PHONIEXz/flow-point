@@ -12,11 +12,12 @@ let state = collection.current;
 let lastSavedRaw = null;
 const sourceHosts = new Map();
 let renderedSourceHistoryKey = null;
+let processor = 'Google', aiModelLabel = 'Gemma', activeProvider = 'google';
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
-function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
+function announce(message) { $('notice').textContent = message.replaceAll('Google', processor).replaceAll('Gemma', aiModelLabel); $('notice').hidden = !message; }
 // A versioned choice covers explicit Prepare and Update actions, never automatic sends.
-const consentKey = 'flow-point-google-processing-v2';
+let consentKey = 'flow-point-google-processing-v2';
 let processingAllowed = false;
 function restoreConsent() {
   let remembered = false;
@@ -30,8 +31,8 @@ function restoreConsent() {
 }
 function renderConsent() {
   $('processing-status').textContent = processingAllowed
-    ? 'Google processing allowed for Prepare and Update. ' + ($('remember-consent').checked ? 'Choice remembered on this browser.' : 'Choice applies to this tab session.')
-    : 'Choose whether to allow Google processing on the Notes page before updating.';
+    ? processor + ' processing allowed for Prepare and Update. ' + ($('remember-consent').checked ? 'Choice remembered on this browser.' : 'Choice applies to this tab session.')
+    : `Choose whether to allow ${processor} processing on the Notes page before updating.`;
 }
 function saveConsent() {
   processingAllowed = $('consent').checked;
@@ -434,7 +435,7 @@ function renderPack() {
   $('pack-heading').textContent = state.plan.title;
   const p = state.provenance;
   renderEvidence(p);
-  $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.pipeline === 'staged-v1' ? 'Gemma in 3 steps' : p.model} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · Human edits may follow.` : 'Restored working draft · Review all details.';
+  $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.provider || 'AI'} · ${p.model}${p.pipeline === 'staged-v1' ? ' in 3 steps' : ''} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · Human edits may follow.` : 'Restored working draft · Review all details.';
   document.querySelectorAll('[data-field]').forEach(input => { input.value = state.plan[input.dataset.field] ?? ''; });
   document.querySelectorAll('[data-draft]').forEach(input => { input.value = state.plan.drafts[input.dataset.draft]; });
   registerStaticSources(); renderRows(); refreshReview();
@@ -474,7 +475,7 @@ function setBusy(value, cancellable = false) {
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
   $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; $('judge-example').disabled = value; renderSavedPacks();
-  $('cancel').hidden = !value || !cancellable; $('cancel-refine').hidden = !value || !cancellable; $('generate').textContent = value && cancellable ? 'Preparing with Gemma…' : 'Prepare my event pack ↗';
+  $('cancel').hidden = !value || !cancellable; $('cancel-refine').hidden = !value || !cancellable; $('generate').textContent = value && cancellable ? `Preparing with ${aiModelLabel}…` : 'Prepare my event pack ↗';
   $('restore-confirm').disabled = value; $('restore-previous').disabled = value || !previousVersion(state.previousVersion) || !$('restore-confirm').checked;
   if (!value && review) renderReview(); else $('approve').disabled = true;
 }
@@ -490,7 +491,7 @@ async function generate(refine = false) {
   if (refine) { try { capturePrevious(before); } catch (error) { return announce(error.message); } }
   clearTimeout(timer); revision++; setBusy(true, true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
   try {
-    const input = { invitationStyle: $('invitation-style').value || 'formal', request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
+    const input = { processingProvider: activeProvider, invitationStyle: $('invitation-style').value || 'formal', request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
     const result = await prepareInStages(input, {
       call: (data, signal) => api('/api/generate', data, signal), saved: state.pendingGeneration, signal: controller.signal,
       checkpoint: work => { state.pendingGeneration = work; save(); },
@@ -590,7 +591,16 @@ async function init() {
     if (state.pendingGeneration?.results?.length) announce('An unfinished generation has saved progress. Use Prepare or Update again with the same notes and changes to resume.');
     if (!stored && legacy) save();
   } catch { announce('The saved draft could not be restored. You can start a new pack or retry after reconnecting.'); }
-  try { const config = await api('/api/config'); liveAvailable = config.liveAvailable; $('model-state').textContent = liveAvailable ? `Live drafting · ${config.model}` : 'Live Gemma is not connected yet. The sample workspace is available.'; }
+  try {
+    const config = await api('/api/config');
+    activeProvider = config.provider || 'google'; processor = config.processor || 'Google'; aiModelLabel = config.modelLabel || 'Gemma';
+    consentKey = activeProvider === 'google' ? 'flow-point-google-processing-v2' : 'flow-point-groq-processing-v1';
+    restoreConsent();
+    $('processing-consent-text').textContent = `I allow my event notes, current pack and follow-up changes to be sent to ${processor} for hosted ${aiModelLabel} processing when I choose Prepare or Update. I will leave out private attendee details.`;
+    $('refine').textContent = `Update pack with ${aiModelLabel}`;
+    liveAvailable = config.liveAvailable;
+    $('model-state').textContent = liveAvailable ? `Live drafting · ${processor} · ${config.model}` : `Live ${aiModelLabel} is not connected yet. The sample workspace is available.`;
+  }
   catch { $('model-state').textContent = 'Cannot reach the app server. Please reconnect and reload.'; }
   setBusy(false);
 }

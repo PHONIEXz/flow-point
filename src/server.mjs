@@ -1,3 +1,4 @@
+import { providerSettings, processorName, modelLabel, checkGroqAccess } from './providers.mjs';
 import { randomUUID } from 'node:crypto';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
@@ -18,7 +19,9 @@ async function body(req) {
   for await (const chunk of req) { size += chunk.length; if (size > 300000) throw new AppError(413, 'This pack is too large. Please shorten it.'); chunks.push(chunk); }
   try { return JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { throw new AppError(400, 'Invalid JSON data.'); }
 }
-export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it', fetchImpl = fetchModelResponse, log = entry => console.info(JSON.stringify(entry)) } = {}) {
+export function createApp(options = {}) {
+  const configured = providerSettings();
+  const {provider = configured.provider, apiKey = configured.apiKey, model = options.provider && options.provider !== configured.provider ? (options.provider==='groq'?'openai/gpt-oss-120b':'gemma-4-26b-a4b-it') : configured.model, fetchImpl = fetchModelResponse, log = entry => console.info(JSON.stringify(entry))} = options;
   let active = 0;
   const limits = new Map();
   const approved = new Map(); // Review state, not user identity. Forgotten on restart.
@@ -36,7 +39,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
       try { pathname = new URL(req.url, 'http://local').pathname; }
       catch { throw new AppError(400, 'Invalid request URL.'); }
       if (req.method === 'GET' && pathname === '/healthz') return json(res, 200, { status: 'ok' });
-      if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), model, storage: 'browser-local', generationTimeoutMs: MODEL_RESPONSE_TIMEOUT_MS });
+      if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), provider, processor:processorName(provider), modelLabel:modelLabel(provider), model, storage: 'browser-local', generationTimeoutMs: MODEL_RESPONSE_TIMEOUT_MS });
       if (req.method === 'GET' && pathname === '/api/sample') {
         const plan = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
         return json(res, 200, { ...reviewPlan(plan), provenance: { mode: 'sample', model: null } });
@@ -54,6 +57,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
         if (pathname === '/api/generate') {
           if (typeof data?.request !== 'string' || data.request.trim().length < 10 || data.request.length > 12000) throw new AppError(400, 'Describe the event using 10 to 12,000 characters.');
           if (data.answers != null && (typeof data.answers !== 'string' || data.answers.length > 8000)) throw new AppError(400, 'Clarifications must be text under 8,000 characters.');
+          if ((provider === 'groq' || data.processingProvider) && data.processingProvider !== provider) throw new AppError(409, 'The AI processor changed. Reload the page and review the processing choice before generating.');
           action = data.previousPlan ? 'update' : 'prepare';
           const previousPlan = data.previousPlan ? reviewPlan(data.previousPlan).plan : null;
           // Per-process global quota/concurrency caps also protect deployments behind a proxy.
@@ -64,9 +68,9 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
           const controller = new AbortController();
           res.on('close', () => { if (!res.writableEnded) controller.abort(); });
           active++;
-          log({ event: 'generation_request_started', requestId, action, model });
+          log({ event: 'generation_request_started', requestId, action, provider, model });
           try {
-            const result = await generatePack({ request: data.request, answers: data.answers, previousPlan, invitationStyle: data.invitationStyle || 'formal', stage: data.stage ?? null, checkpoint: data.checkpoint }, { apiKey, model, fetchImpl, signal: controller.signal, requestId, action, log });
+            const result = await generatePack({ request: data.request, answers: data.answers, previousPlan, invitationStyle: data.invitationStyle || 'formal', stage: data.stage ?? null, checkpoint: data.checkpoint }, { apiKey, provider, model, fetchImpl, signal: controller.signal, requestId, action, log });
             log({ event: 'generation_request_succeeded', requestId, action, model: result.provenance.model, attempts: result.provenance.attempts, durationMs: Date.now() - started });
             return json(res, 200, { ...result, requestId });
           }
@@ -115,6 +119,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
       if (!file) throw new AppError(404, 'Page not found.');
       let content = await readFile(new URL(file, publicRoot));
       if (file === 'workspace.html' && pathname.startsWith('/workspace/pack')) content = Buffer.from(content.toString().replace('class="workspace-body"', 'class="workspace-body pack-page"'));
+      if(file.endsWith('.html')) content = Buffer.from(content.toString().replaceAll('__AI_PROCESSOR__',processorName(provider)).replaceAll('__AI_MODEL_LABEL__',modelLabel(provider)));
       res.writeHead(200, { 'Content-Type': mime[file.split('.').pop()], ...(file === 'sample-pack.pdf' ? { 'Content-Disposition': `attachment; filename="SAMPLE - School Family Day - ${Date.now()}-${randomUUID().slice(0, 8)}.pdf"` } : {}) }); res.end(req.method === 'HEAD' ? undefined : content);
     } catch (error) {
       const status = error instanceof AppError ? error.status : error.code === 'ENOENT' ? 404 : 400;
@@ -127,9 +132,10 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const server = createApp();
-  checkModelAccess({ apiKey: process.env.GEMINI_API_KEY, model: process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it' }).then(result => console.info(JSON.stringify(result)));
+  const settings=providerSettings();
+  (settings.provider==='groq' ? checkGroqAccess({...settings,fetchImpl:fetchModelResponse}) : checkModelAccess(settings)).then(result => console.info(JSON.stringify(result)));
   const probeUntil = Date.parse(process.env.GEMMA_DIAGNOSTIC_UNTIL || '');
-  if (Number.isFinite(probeUntil) && probeUntil > Date.now() && probeUntil - Date.now() <= 3600000) {
+  if (settings.provider === 'google' && Number.isFinite(probeUntil) && probeUntil > Date.now() && probeUntil - Date.now() <= 3600000) {
     probeGeneration({ apiKey: process.env.GEMINI_API_KEY, model: process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it' }).catch(() => console.info(JSON.stringify({ event: 'gemma_diagnostic_probe', failed: true })));
   }
   const portIndex = process.argv.indexOf('--port');

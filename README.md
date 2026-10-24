@@ -22,9 +22,15 @@ The three videos are embedded in different sections of the published entry. They
 
 **24 October status:** the interface now groups evidence, event details, review items, saved packs and exports into cards, with a working Home sample preview. There are 104 passing automated tests. Chunk 1 adds spending-limit/allowance arithmetic, source-omission guards and programme-time checks; its complete school Prepare/Update verification remains open after provider HTTP 500/503. A smaller community run revealed a clock-arithmetic issue now covered by validation. [UI checks](docs/ui-organization-2026-10-24.md) · [Chunk 1 results and limits](docs/chunk-1-verification.md). Chunk 2 adds exact source quotes, manual confirmation and stale-evidence checks; [its live results](docs/chunk-2-verification.md) retain the observed semantic failures.
 
-The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
+The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the AI update form beside the pack. A Node HTTP server and server-only Google Gemma and Groq GPT-OSS adapters support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
 **Earlier live inference and production deployment were verified on 23 October 2026.** A fictional event pack and a follow-up update were generated with `gemma-4-26b-a4b-it` on the deployed site. One provider HTTP 500 preceded the successful retry; the request was preserved. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses; see the separate [live verification record](docs/verification.md).
+
+## AI provider configuration
+
+Groq: set `GROQ_API_KEY` on the server, optionally `AI_PROVIDER=groq` and `GROQ_MODEL=openai/gpt-oss-120b`. The server selects Groq automatically when its key exists, unless AI_PROVIDER explicitly selects Google. Google remains available with `AI_PROVIDER=google`, `GEMINI_API_KEY` and optional `GEMMA_MODEL`. Keys are provider-specific and never sent to a different provider. The Groq adapter supports GPT-OSS 120B/20B with strict JSON schemas and the same semantic/review checks. Its free tier has request and token limits; a key does not guarantee capacity or reliability.
+
+Processor consent is remembered separately for Google and Groq. A switch requires a new choice; stale tabs cannot send Google-authorized requests to Groq. Current provider/model appear in the workspace and generation evidence. Old videos and historical measurements remain labelled as the earlier implementation. No automatic cross-provider fallback is performed.
 
 ## Run
 
@@ -32,7 +38,7 @@ Requires Node.js 22.19.0 or newer (Node 24 recommended). Run `npm ci` to install
 
 ```sh
 cp .env.example .env
-# Add GEMINI_API_KEY to .env using your editor, for live generation.
+# Add GROQ_API_KEY to .env using your editor, for live generation.
 npm ci
 npm test
 npm run build
@@ -43,19 +49,19 @@ Open `http://localhost:3000/workspace`. Without a key, the sample still supports
 
 ## Workflow
 
-1. Describe your event and acknowledge that live requests are sent to Google.
-2. Generate the pack with Gemma, or explicitly open the sample.
-3. Compare extracted facts with the original request. Fill missing details, resolve questions and edit both drafts, tasks and prices. Refine with Gemma when you want the draft wording updated from new confirmations.
+1. Describe your event and review the named processor and allow live processing.
+2. Generate the pack with the configured open-weight model, or explicitly open the sample.
+3. Compare extracted facts with the original request. Fill missing details, resolve questions and edit both drafts, tasks and prices. Refine with the configured model when you want the draft wording updated from new confirmations.
 4. Review all sections and approve the exact version. Date/weekday conflicts, missing date, venue, start time, organizer, signatory, unresolved questions, confirmation placeholders and unknown prices block approval.
 5. Download the preparation pack or budget worksheet. Draft downloads are allowed and marked as draft. The sample pack is labelled as sample data.
 
-The current pack saves automatically in browser local storage. Name a pack in Saved Packs to keep it when starting another. Up to 12 named packs can be reopened, renamed and removed, and the previous single-draft format is migrated on first load. Named packs also save edits automatically. These browser copies are not synced across devices, encrypted by the app or backed up on a server. Browser storage may be cleared or fill up, so download a PDF or Markdown copy for backup. Editing a plan or its original request clears approval. Changing event facts does not silently rewrite the invitation: update the wording yourself or refine with Gemma.
+The current pack saves automatically in browser local storage. Name a pack in Saved Packs to keep it when starting another. Up to 12 named packs can be reopened, renamed and removed, and the previous single-draft format is migrated on first load. Named packs also save edits automatically. These browser copies are not synced across devices, encrypted by the app or backed up on a server. Browser storage may be cleared or fill up, so download a PDF or Markdown copy for backup. Editing a plan or its original request clears approval. Changing event facts does not silently rewrite the invitation: update the wording yourself or refine with the configured model.
 
 Approval is a human review state, not authentication, permission to act externally or a guarantee of factual correctness. The server remembers approval fingerprints in a bounded in-memory cache. A restart or cache eviction may require renewed approval, while the browser-local draft remains. Export rechecks the fingerprint; a changed pack cannot inherit the previous approval.
 
 ## AI and validation boundary
 
-Gemma interprets the request and proposes draft wording. It is instructed to keep unknown facts null and use confirmation placeholders. Code validates the returned structure, dates, quantities, integer money arithmetic and export safety before accepting a result. Those checks cannot prove that extracted facts match the original text; human review is essential. Suggested checklist items and run-of-show entries are proposals, not completed work.
+The configured open-weight model interprets the request and proposes draft wording. It is instructed to keep unknown facts null and use confirmation placeholders. Code validates the returned structure, dates, quantities, integer money arithmetic and export safety before accepting a result. Those checks cannot prove that extracted facts match the original text; human review is essential. Suggested checklist items and run-of-show entries are proposals, not completed work.
 
 Budget editing currently uses currencies with 100 minor units (for example NGN, USD, GBP and EUR). Enter main units in the UI; the core stores integer minor units, such as kobo. Unknown prices remain blank, distinct from a confirmed zero. Currency conversions and currencies with other minor-unit scales are not implemented.
 
@@ -81,7 +87,7 @@ Challenge: https://dev.to/challenges/hacktoberfest-week3-2026-10-19
 
 The [published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8) contains three video embeds and fresh UI captures. Original PNGs are in [`docs/media/current/`](docs/media/current/). Its [Markdown source](docs/dev-submission-draft.md), [media provenance](docs/media/README.md) and [winner comparison](docs/submission-review.md) record the evidence and presentation choices.
 
-Entry categories: Gemma, Render, .tech Domain and GitHub Copilot, subject to eligibility. [Copilot Chat's evaluated contribution](docs/copilot-review.md) covers PDF download filenames; it was not a registered formal PR review.
+Earlier implementation and recordings used Gemma. The current runtime supports Groq GPT-OSS as an alternative; partner-category claims must match actual use. Render, .tech Domain and GitHub Copilot credits remain subject to eligibility. [Copilot Chat's evaluated contribution](docs/copilot-review.md) covers PDF download filenames; it was not a registered formal PR review.
 
 Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 

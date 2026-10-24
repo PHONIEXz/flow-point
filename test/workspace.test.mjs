@@ -253,3 +253,15 @@ test('restore failures and stale tabs cannot replace the active pack or destroy 
     assert.match(ui.get('notice').textContent, failure === 'network' ? /Restore did not finish/ : failure === 'quota' ? /could not be saved/ : /Another tab saved/);
   }
 });
+
+test('Google processing permission does not authorize Groq and Groq choice is remembered separately',async()=>{
+ const pending=deferred();let requests=0;
+ const ui=harness(async path=>path==='/api/config'?pending.promise:(requests++,pack()));
+ ui.values.set('flow-point-google-processing-v2','allowed');
+ pending.resolve(Response.json({provider:'groq',processor:'Groq',modelLabel:'GPT-OSS',model:'openai/gpt-oss-120b',liveAvailable:true}));await flush();
+ assert.equal(ui.get('consent').checked,false);assert.match(ui.get('processing-consent-text').textContent,/sent to Groq/);
+ await ui.run('generate()');assert.equal(requests,0);assert.match(ui.get('notice').textContent,/Allow Groq/);
+ ui.get('consent').checked=true;ui.get('remember-consent').checked=true;ui.get('consent').handlers.change();
+ assert.equal(ui.values.get('flow-point-groq-processing-v1'),'allowed');assert.equal(ui.values.get('flow-point-google-processing-v2'),'allowed');
+ assert.match(ui.get('processing-status').textContent,/Groq processing allowed/);
+});

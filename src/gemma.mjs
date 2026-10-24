@@ -1,3 +1,4 @@
+import { groqPayload, normalizeGroqResponse } from './providers.mjs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { Agent, fetch as generationFetch } from 'undici';
 
@@ -30,9 +31,11 @@ Return the complete pack through the submit_event_pack function when that functi
 {"title":"Event name","eventDate":null,"requestedWeekday":null,"venue":null,"startTime":null,"organizer":null,"signatory":null,"currency":"NGN","spendingLimitMinor":null,"tasks":[{"label":"Suggested task","owner":null,"dueDate":null}],"budget":[{"label":"Requested item","quantity":1,"unitCostMinor":null}],"drafts":{"invitation":"Plain text invitation","schedule":"Plain text proposed run of show"},"openQuestions":["Specific unresolved question?"]}
 Rules: Unknown facts MUST be null. Dates use YYYY-MM-DD only when unambiguous; ask about ambiguous numeric or relative dates. Preserve a supplied weekday even if it conflicts with the date. Weekdays must be full English names. startTime is 24-hour HH:MM, in the organizer's local time; ask if ambiguous. Never invent venues, people, prices, quantities, dates or confirmations. Supported currencies: NGN, USD, GBP, EUR, GHS, KES, ZAR, CAD, AUD, CHF, INR, CNY, SGD, AED. For an unsupported currency ask the organizer to choose a supported currency and leave prices unknown; never convert them. Use NGN only as the default working currency when none is supplied and add a question asking to confirm it. Budget quantities must be positive integers. Include every requested budget item whose quantity is supplied, even when its price is unknown: set unitCostMinor to null. Example: "12 notebooks, price not agreed" means {"label":"notebooks","quantity":12,"unitCostMinor":null}; never omit this item or make it free. Omit items only when their quantities are unknown and ask. Unit costs are integer MINOR UNITS: NGN 1500 = 150000 kobo. Only populate prices explicitly supplied by the organizer. Never present estimates as facts. Suggested tasks and run of show are proposals, not completed actions. Use placeholders like [Confirm venue] in drafts for missing facts. Add open questions for missing essential information and ambiguities, but do not repeat questions already resolved by supplied facts. A supplied supported currency is confirmed input: currency NGN means use NGN without asking to confirm NGN again. For the run of show, state each supplied activity duration explicitly in minutes and include the welcome, each activity the organizer named, and the close in order. If startTime is confirmed, anchor the welcome at that time and give the later activities reasonable, chronological suggested times based on approximate durations. Prefix each unconfirmed later time with "Suggested" and explicitly say the timings and durations need confirmation. Do not put [Time] placeholders in a schedule with a confirmed startTime, and never present suggested times as confirmed event facts. If startTime is unknown, use [Confirm start time] once and list the remaining activities in sequence without clock times. For detailed briefs, preserve every named responsibility including the first-aid officer in the tasks, with the supplied person as owner. A proposed rehearsal date or venue is not a confirmation. Explicit statements such as "its time is still awaiting approval" MUST remain as a specific open question, even after other facts are supplied. Before returning, audit the latest answers sentence by sentence for unresolved approvals, changed owners, quantities, dates and locations. Retain any previous unanswered questions unless the latest facts actually answer them. Do not remove questions merely because the event's main start time is now known. Do not carry a superseded venue, date or quantity into tasks or either draft. If all activity durations are supplied, preserve their exact durations and compute chronological times from the confirmed start; do not replace the organiser's durations with estimates. Keep safety and supervision duties in the checklist. Extract an explicitly supplied spending limit into spendingLimitMinor in integer minor units; otherwise null. Preserve unchanged limits through updates. The application calculates remaining allowance; do not guess it. Do not claim those duties have been completed. When refining, preserve the previous plan and human edits unless the organizer explicitly changes them; refresh wording in both drafts to match confirmed facts. Keep each draft concise and under 3000 characters, tasks and budget under 30 items each, and questions under 20. Preserve supplied facts and activity durations; shorten prose rather than dropping details. Do not say invitations were sent or bookings made.`;
 
-export async function generatePack({ request, answers = '', previousPlan = null, invitationStyle = 'formal', stage = null, checkpoint = null }, { apiKey, model = 'gemma-4-26b-a4b-it', fetchImpl = fetchModelResponse, signal, requestId = null, action = 'prepare', log = entry => console.info(JSON.stringify(entry)), attemptTimeoutMs = MODEL_RESPONSE_TIMEOUT_MS, wait = (ms, abortSignal) => delay(ms, undefined, { signal: abortSignal }) } = {}) {
+export async function generatePack({ request, answers = '', previousPlan = null, invitationStyle = 'formal', stage = null, checkpoint = null }, { apiKey, provider = 'google', model = provider === 'groq' ? 'openai/gpt-oss-120b' : 'gemma-4-26b-a4b-it', fetchImpl = fetchModelResponse, signal, requestId = null, action = 'prepare', log = entry => console.info(JSON.stringify(entry)), attemptTimeoutMs = MODEL_RESPONSE_TIMEOUT_MS, wait = (ms, abortSignal) => delay(ms, undefined, { signal: abortSignal }) } = {}) {
+  if (!['google','groq'].includes(provider)) throw new AppError(503, 'The server AI provider setting is invalid.');
+  const groq = provider === 'groq';
   if (!apiKey) throw new AppError(503, 'Live generation is not connected yet. Try the labelled sample workspace, or configure the server API key.');
-  if (!/^gemma-[a-zA-Z0-9.-]+$/.test(model)) throw new AppError(503, 'The server Gemma model setting is invalid.');
+  if (groq ? !['openai/gpt-oss-120b','openai/gpt-oss-20b'].includes(model) : !/^gemma-[a-zA-Z0-9.-]+$/.test(model)) throw new AppError(503, 'The server AI model setting is invalid.');
   if (stage !== null && !['facts', 'invitation', 'schedule'].includes(stage)) throw new AppError(400, 'Unknown generation step.');
   if (!['formal','informal'].includes(invitationStyle)) throw new AppError(400, 'Choose formal or informal invitation style.');
   let base = null;
@@ -60,14 +63,14 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
   const requestSignal = signal ? AbortSignal.any([signal, AbortSignal.timeout(MODEL_RESPONSE_TIMEOUT_MS)]) : AbortSignal.timeout(MODEL_RESPONSE_TIMEOUT_MS);
   function checkInterrupted(error) {
     if (signal?.aborted) throw new AppError(499, 'Generation cancelled.');
-    if (requestSignal.aborted || error?.name === 'TimeoutError' || error?.name === 'AbortError') throw new AppError(504, 'Gemma took too long to reply. Your draft is safe; please retry.');
+    if (requestSignal.aborted || error?.name === 'TimeoutError' || error?.name === 'AbortError') throw new AppError(504, 'AI generation took too long to reply. Your draft is safe; please retry.');
   }
   let contentFailures = [];
   function acceptOutput(value) {
     if (!stage) {
       const accepted = parseModelPlan(JSON.stringify(value));
       contentFailures = sourceContentIssues(accepted.plan, { request, answers, previousPlan });
-      if (contentFailures.length) throw new AppError(502, 'Gemma omitted or changed supplied budget details or duties. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+      if (contentFailures.length) throw new AppError(502, 'The model omitted or changed supplied budget details or duties. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
       return accepted;
     }
     try {
@@ -78,21 +81,21 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
         const facts = reviewPlan({ ...value, sourceEvidence: undefined, drafts: { invitation: '', schedule: '' } }).plan;
         const accepted = reviewPlan(attachSourceEvidence(facts, { request, answers, previousPlan, quotes: value.sourceQuotes }));
         contentFailures = sourceContentIssues(accepted.plan, { request, answers, previousPlan });
-        if (contentFailures.length) throw new AppError(502, 'Gemma missed or changed a supplied budget detail, responsibility or rehearsal detail. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+        if (contentFailures.length) throw new AppError(502, 'The model missed or changed a supplied budget detail, responsibility or rehearsal detail. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
         return accepted;
       }
       if (Object.keys(value).length !== 1 || typeof value[stage] !== 'string' || !value[stage].trim() || value[stage].length > 6000) throw new Error();
       const accepted = reviewPlan({ ...base, drafts: { ...base.drafts, [stage]: value[stage] } });
       contentFailures = draftTimeIssues(accepted.plan).filter(issue => issue.code.startsWith(stage === 'invitation' ? 'INVITATION_' : 'SCHEDULE_')).map(issue => issue.message);
-      if (contentFailures.length) throw new AppError(502, 'Gemma returned inconsistent programme times. Your saved progress is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+      if (contentFailures.length) throw new AppError(502, 'The model returned inconsistent programme times. Your saved progress is safe. Please retry.', 'MODEL_CONTENT_MISSING');
       return accepted;
-    } catch (error) { if (error.code === 'MODEL_CONTENT_MISSING') throw error; throw new AppError(502, 'Gemma returned an invalid step. Your saved progress is safe. Please retry.', 'MODEL_PLAN_INVALID'); }
+    } catch (error) { if (error.code === 'MODEL_CONTENT_MISSING') throw error; throw new AppError(502, 'The model returned an invalid step. Your saved progress is safe. Please retry.', 'MODEL_PLAN_INVALID'); }
   }
-  const record = entry => log({ ...entry, requestId, action, ...(stage ? { stage } : {}) });
-  let response, parsed, attempts = 0, usedModel = model, invalidReply = false, truncatedReply = false, attemptTimedOut = false, responseFormat = 'text-json';
+  const record = entry => log({ ...entry, ...(groq ? {event:entry.event.replace(/^gemma_/, 'groq_'),provider:'Groq'} : {}), requestId, action, ...(stage ? { stage } : {}) });
+  let response, parsed, attempts = 0, usedModel = model, invalidReply = false, truncatedReply = false, attemptTimedOut = false, responseFormat = groq ? 'json-schema' : 'text-json';
   const inputSize = JSON.stringify({ request, answers, previousPlan: modelFacts(previousPlan) }).length;
-  const primaryModel = !stage && model === 'gemma-4-26b-a4b-it' && inputSize > 5000 ? 'gemma-4-31b-it' : model;
-  const fallbackModel = primaryModel === 'gemma-4-26b-a4b-it' ? 'gemma-4-31b-it' : primaryModel === 'gemma-4-31b-it' ? 'gemma-4-26b-a4b-it' : null;
+  const primaryModel = !groq && !stage && model === 'gemma-4-26b-a4b-it' && inputSize > 5000 ? 'gemma-4-31b-it' : model;
+  const fallbackModel = groq ? null : primaryModel === 'gemma-4-26b-a4b-it' ? 'gemma-4-31b-it' : primaryModel === 'gemma-4-31b-it' ? 'gemma-4-26b-a4b-it' : null;
   try {
     for (let attempt = 0; attempt < 3; attempt++) {
       checkInterrupted();
@@ -101,13 +104,13 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
       const attemptStarted = Date.now();
       const baseOutputLimit = stage === 'facts' ? 8192 : stage ? 4096 : 8192;
       const outputTokenLimit = truncatedReply ? Math.min(baseOutputLimit * 2, 16384) : baseOutputLimit;
-      const nativeFunction = usedModel.startsWith('gemma-4-') && !(stage && (inputSize > 5000 || attempt > 0));
+      const nativeFunction = !groq && usedModel.startsWith('gemma-4-') && !(stage && (inputSize > 5000 || attempt > 0));
       const inputText = (invalidReply ? `RETRY: The previous response failed structure or content validation. Include the confirmed programme start explicitly in the invitation and at the start of the first programme activity row; keep registration separate. Regenerate ${stage || 'the complete pack'} from the original input below. Follow the exact shape, keep text concise, and check JSON escaping before returning. Do not invent or discard event facts to make validation pass.\n` : '') + (contentFailures.length ? '\nCONTENT CHECKS TO FIX: ' + contentFailures.join(' ') : '') + '\n\nINPUT DATA:\n' + JSON.stringify({ request, answers, previousPlan: modelFacts(previousPlan), ...(stage ? { checkpoint: modelFacts(base) } : {}) });
       const attemptSignal = stage ? AbortSignal.any([requestSignal, AbortSignal.timeout(attemptTimeoutMs)]) : requestSignal;
-      try { response = await fetchImpl(`https://generativelanguage.googleapis.com/v1beta/models/${usedModel}:generateContent`, {
-      method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+      try { response = await fetchImpl(groq ? 'https://api.groq.com/openai/v1/chat/completions' : `https://generativelanguage.googleapis.com/v1beta/models/${usedModel}:generateContent`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', ...(groq ? { Authorization: `Bearer ${apiKey}` } : { 'x-goog-api-key': apiKey }) },
       signal: attemptSignal,
-      body: JSON.stringify({
+      body: JSON.stringify(groq ? groqPayload({model:usedModel,policy,inputText,declaration,outputTokenLimit}) : {
         contents: [{ role: 'user', parts: [{ text: (nativeFunction ? '' : policy + (stage ? '\nJSON data schema: ' + JSON.stringify(declaration.parameters) : '')) + inputText }] }],
         ...(nativeFunction ? {
           systemInstruction: { parts: [{ text: policy }] },
@@ -128,28 +131,28 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
       if (response.ok) {
         try {
           let result;
-          try { result = await response.json(); }
-          catch (error) { checkInterrupted(error); throw new AppError(502, 'Gemma returned an unreadable response. Your previous draft is safe. Please retry.', 'MODEL_RESPONSE_INVALID'); }
+          try { result = await response.json(); if(groq) result = normalizeGroqResponse(result); }
+          catch (error) { checkInterrupted(error); throw new AppError(502, 'The model returned an unreadable response. Your previous draft is safe. Please retry.', 'MODEL_RESPONSE_INVALID'); }
           checkInterrupted();
-          if (result?.promptFeedback?.blockReason) throw new AppError(502, 'Gemma could not produce a usable pack for this request. Review the wording before retrying.', 'MODEL_BLOCKED');
+          if (result?.promptFeedback?.blockReason) throw new AppError(502, 'The model could not produce a usable pack for this request. Review the wording before retrying.', 'MODEL_BLOCKED');
           const candidate = Array.isArray(result?.candidates) ? result.candidates[0] : null;
           const finishReason = ['STOP', 'MAX_TOKENS', 'SAFETY', 'RECITATION', 'BLOCKLIST', 'PROHIBITED_CONTENT', 'SPII', 'MALFORMED_FUNCTION_CALL', 'UNEXPECTED_TOOL_CALL', 'OTHER'].includes(candidate?.finishReason) ? candidate.finishReason : 'UNKNOWN';
           const outputTokens = result?.usageMetadata?.candidatesTokenCount;
           const thoughtTokens = result?.usageMetadata?.thoughtsTokenCount;
           record({ event: 'gemma_generation_response', model: usedModel, attempt: attempts, finishReason, outputTokens: Number.isSafeInteger(outputTokens) && outputTokens >= 0 ? outputTokens : null, thoughtTokens: Number.isSafeInteger(thoughtTokens) && thoughtTokens >= 0 ? thoughtTokens : null, outputTokenLimit });
-          if (candidate?.finishReason === 'MALFORMED_FUNCTION_CALL') throw new AppError(502, 'Gemma returned an invalid pack structure. Your previous draft is safe. Please retry.', 'MODEL_JSON_INVALID');
+          if (candidate?.finishReason === 'MALFORMED_FUNCTION_CALL') throw new AppError(502, 'The model returned an invalid pack structure. Your previous draft is safe. Please retry.', 'MODEL_JSON_INVALID');
           if (stage && candidate?.finishReason === 'MAX_TOKENS') {
             truncatedReply = true;
-            throw new AppError(502, 'Gemma reached its response limit before finishing this step. Your previous draft and completed steps are safe. Please retry.', 'MODEL_TRUNCATED');
+            throw new AppError(502, 'The model reached its response limit before finishing this step. Your previous draft and completed steps are safe. Please retry.', 'MODEL_TRUNCATED');
           }
           // Safety blocks remain explicit failures. Never accept or repair truncated data.
-          if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'Gemma did not finish a usable pack. Try a shorter request.');
+          if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'The model did not finish a usable pack. Try a shorter request.');
           const parts = candidate?.content?.parts;
           const output = Array.isArray(parts) ? parts.filter(part => part && !part.thought && typeof part.text === 'string').map(part => part.text).join('') : undefined;
           const calls = Array.isArray(parts) ? parts.filter(part => part && !part.thought && part.functionCall).map(part => part.functionCall) : [];
           if (calls.length) {
             const call = calls[0];
-            if (calls.length !== 1 || call.name !== declaration.name || !call.args || typeof call.args !== 'object' || Array.isArray(call.args)) throw new AppError(502, 'Gemma returned an unreadable pack. Your previous draft is safe. Please retry.', 'MODEL_OUTPUT_INVALID');
+            if (calls.length !== 1 || call.name !== declaration.name || !call.args || typeof call.args !== 'object' || Array.isArray(call.args)) throw new AppError(502, 'The model returned an unreadable pack. Your previous draft is safe. Please retry.', 'MODEL_OUTPUT_INVALID');
             parsed = acceptOutput(call.args);
             responseFormat = 'function-call';
           } else {
@@ -157,15 +160,15 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
             if (!stage) {
               parsed = parseModelPlan(output);
               contentFailures = sourceContentIssues(parsed.plan, { request, answers, previousPlan });
-              if (contentFailures.length) throw new AppError(502, 'Gemma omitted or changed supplied budget details or duties. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+              if (contentFailures.length) throw new AppError(502, 'The model omitted or changed supplied budget details or duties. Your saved pack is safe. Please retry.', 'MODEL_CONTENT_MISSING');
             }
             else {
               let value;
               try { value = JSON.parse(output?.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '')); }
-              catch { throw new AppError(502, 'Gemma returned an invalid step. Your saved progress is safe. Please retry.', 'MODEL_JSON_INVALID'); }
+              catch { throw new AppError(502, 'The model returned an invalid step. Your saved progress is safe. Please retry.', 'MODEL_JSON_INVALID'); }
               parsed = acceptOutput(value);
             }
-            responseFormat = 'text-json';
+            responseFormat = groq ? 'json-schema' : 'text-json';
           }
           break;
         } catch (error) {
@@ -188,9 +191,16 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
   } catch (error) {
     checkInterrupted(error);
     if (error instanceof AppError) throw error;
-    throw new AppError(502, 'Could not reach Gemma. Please retry when the connection is available.');
+    throw new AppError(502, 'Could not reach the AI provider. Please retry when the connection is available.');
   }
   if (!response.ok) {
+    if (groq) {
+      await response.body?.cancel();
+      if(response.status===429) throw new AppError(429, 'Groq rate or token quota reached. Please wait before retrying; your saved pack is safe.');
+      if([401,403].includes(response.status)) throw new AppError(503, 'Groq rejected access. Check GROQ_API_KEY and model access in Render.');
+      if([400,404,413].includes(response.status)) throw new AppError(502, 'Groq rejected the request or its size. Try shorter notes and check GROQ_MODEL and account token limits.');
+      throw new AppError(502, `Groq returned HTTP ${response.status}. Your saved pack is safe. Please retry later.`);
+    }
     // Inspect only known error categories. Never forward Google's raw body or key.
     const failure = await response.json().catch(() => ({}));
     checkInterrupted();
@@ -206,7 +216,7 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
     throw new AppError(502, `Google generation returned HTTP ${response.status}. Please retry when the provider is available.`);
   }
   record({ event: 'gemma_generation_succeeded', model: usedModel, requestedModel: model, primaryModel, attempts, responseFormat, durationMs: Date.now() - started });
-  return { ...parsed, provenance: { mode: 'live', provider: 'Google Gemini API', model: usedModel, requestedModel: model, primaryModel, attempts, responseFormat, ...(stage ? { stage } : {}), generatedAt: new Date().toISOString(), durationMs: Date.now() - started } };
+  return { ...parsed, provenance: { mode: 'live', provider: groq ? 'Groq' : 'Google Gemini API', model: usedModel, requestedModel: model, primaryModel, attempts, responseFormat, ...(stage ? { stage } : {}), generatedAt: new Date().toISOString(), durationMs: Date.now() - started } };
 }
 
 // One metadata check per server start, with no event content or credentials in logs.
