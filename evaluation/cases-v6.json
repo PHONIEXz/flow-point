@@ -1,0 +1,1576 @@
+{
+  "version": 6,
+  "authorship": "Five exposed targeted operations selected after v5; same expectations, no independent reviewer. Not run because Groq daily quota is exhausted.",
+  "cases": [
+    {
+      "id": "known-school",
+      "cohort": "targeted-regression",
+      "request": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first \u201cYoung Minds: Science, Reading and Creativity Day\u201d on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school\u2019s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n\u2022 Welcome and housekeeping: 10 minutes.\n\u2022 Opening remarks by the headteacher: 10 minutes.\n\u2022 Pupils\u2019 reading and storytelling presentations: 15 minutes.\n\u2022 Science demonstrations: 35 minutes.\n\u2022 Refreshment break: 15 minutes.\n\u2022 Guided viewing of pupils\u2019 project displays: 30 minutes.\n\u2022 Parent and pupil reading activity: 20 minutes.\n\u2022 Creativity presentations and recognition of participants: 25 minutes.\n\u2022 Vote of thanks: 10 minutes.\n\u2022 Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school\u2019s designated first-aid officer should be available throughout the programme. The officer\u2019s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n\u2022 Printed programmes: 60 copies at NGN 250 each.\n\u2022 Bottled water: 150 bottles at NGN 200 each.\n\u2022 Refreshment packs: 150 packs at NGN 350 each.\n\u2022 Participation certificates: 100 copies at NGN 100 each.\n\u2022 Hall decorations: one package at NGN 18,000.\n\u2022 Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved.",
+      "answers": "We now have confirmed changes for Young Minds: Science, Reading and Creativity Day.\n\nThe event has moved from Saturday, 14 November 2026, to Saturday, 21 November 2026. The confirmed venue is the school\u2019s Multipurpose Hall, replacing the proposed Main Assembly Hall. Registration opens at 9:30 AM, and the programme runs from 10:00 AM to 1:00 PM.\n\nAttendance is now 180 people: 120 pupils, 40 parents or guardians, and 20 staff. Increase printed programmes to 80, water bottles to 180, refreshment packs to 180, and certificates to 120. Keep their existing unit prices unchanged.\n\nThe banner is confirmed at NGN 8,500. The 10 recognition prizes cost NGN 1,200 each. Decorations and sound system costs remain unchanged. The spending limit remains NGN 200,000.\n\nMove the proposed rehearsal to Thursday, 19 November 2026; its time is still awaiting approval. Mr Samuel Eze is the confirmed first-aid officer.\n\nUpdate the invitation, event details, schedule, checklist and budget consistently. Calculate the new total and remaining budget. Remove questions answered by these updates, retain genuinely unresolved questions, and keep the pack as a draft until I review it.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Young Minds: Science, Reading and Creativity Day",
+            "eventDate": "2026-11-14",
+            "startTime": null,
+            "venue": [
+              null,
+              "Main Assembly Hall",
+              "school\u2019s Main Assembly Hall"
+            ],
+            "organizer": [
+              "Sunrise Learning Centre, Abuja",
+              "Sunrise Learning Centre"
+            ],
+            "signatory": [
+              "Mrs Grace Okoro, Headteacher",
+              "Grace Okoro, Headteacher"
+            ],
+            "currency": "NGN",
+            "spendingLimitMinor": 20000000
+          },
+          "budget": [
+            {
+              "match": [
+                "printed programme",
+                "printed program"
+              ],
+              "quantity": 60,
+              "unitCostMinor": 25000
+            },
+            {
+              "match": [
+                "bottled water",
+                "water bottle",
+                "water"
+              ],
+              "quantity": 150,
+              "unitCostMinor": 20000
+            },
+            {
+              "match": [
+                "refreshment"
+              ],
+              "quantity": 150,
+              "unitCostMinor": 35000
+            },
+            {
+              "match": [
+                "certificate"
+              ],
+              "quantity": 100,
+              "unitCostMinor": 10000
+            },
+            {
+              "match": [
+                "decoration"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "match": [
+                "sound"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": null
+            },
+            {
+              "match": [
+                "prize"
+              ],
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 13750000,
+          "unknownPrices": 2,
+          "remainingAllowanceMinor": 6250000,
+          "owners": [
+            {
+              "name": "Daniel Musa",
+              "rolePattern": "science|demonstration"
+            },
+            {
+              "name": "Esther James",
+              "rolePattern": "reading|storytelling"
+            },
+            {
+              "name": "Ruth Adeyemi",
+              "rolePattern": "seat|print|refresh|suppl"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "start time",
+              "pattern": "start|time"
+            },
+            {
+              "label": "venue booking",
+              "pattern": "hall|venue|book"
+            },
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            },
+            {
+              "label": "first-aid assignment",
+              "pattern": "first.?aid"
+            },
+            {
+              "label": "unknown price",
+              "pattern": "banner|prize|price"
+            }
+          ],
+          "schedule": [],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-11-12"
+            }
+          ],
+          "requiredTasks": [
+            "clean|tidy",
+            "return.*(?:equipment|borrow)",
+            "reconcil|account.*spend",
+            "feedback"
+          ]
+        },
+        "update": {
+          "facts": {
+            "title": "Young Minds: Science, Reading and Creativity Day",
+            "eventDate": "2026-11-21",
+            "startTime": "10:00",
+            "venue": [
+              null,
+              "Multipurpose Hall",
+              "school\u2019s Multipurpose Hall"
+            ],
+            "organizer": [
+              "Sunrise Learning Centre, Abuja",
+              "Sunrise Learning Centre"
+            ],
+            "signatory": [
+              "Mrs Grace Okoro, Headteacher",
+              "Grace Okoro, Headteacher"
+            ],
+            "currency": "NGN",
+            "spendingLimitMinor": 20000000
+          },
+          "budget": [
+            {
+              "match": [
+                "printed programme",
+                "printed program"
+              ],
+              "quantity": 80,
+              "unitCostMinor": 25000
+            },
+            {
+              "match": [
+                "bottled water",
+                "water bottle",
+                "water"
+              ],
+              "quantity": 180,
+              "unitCostMinor": 20000
+            },
+            {
+              "match": [
+                "refreshment"
+              ],
+              "quantity": 180,
+              "unitCostMinor": 35000
+            },
+            {
+              "match": [
+                "certificate"
+              ],
+              "quantity": 120,
+              "unitCostMinor": 10000
+            },
+            {
+              "match": [
+                "decoration"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "match": [
+                "sound"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 850000
+            },
+            {
+              "match": [
+                "prize"
+              ],
+              "quantity": 10,
+              "unitCostMinor": 120000
+            }
+          ],
+          "knownTotalMinor": 18150000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 1850000,
+          "owners": [
+            {
+              "name": "Daniel Musa",
+              "rolePattern": "science|demonstration"
+            },
+            {
+              "name": "Esther James",
+              "rolePattern": "reading|storytelling"
+            },
+            {
+              "name": "Ruth Adeyemi",
+              "rolePattern": "seat|print|refresh|suppl"
+            },
+            {
+              "name": "Samuel Eze",
+              "rolePattern": "first.?aid"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "10:00",
+              "welcome|housekeeping",
+              10
+            ],
+            [
+              "10:10",
+              "opening",
+              10
+            ],
+            [
+              "10:20",
+              "reading|storytelling",
+              15
+            ],
+            [
+              "10:35",
+              "science",
+              35
+            ],
+            [
+              "11:10",
+              "refresh",
+              15
+            ],
+            [
+              "11:25",
+              "display|project",
+              30
+            ],
+            [
+              "11:55",
+              "reading",
+              20
+            ],
+            [
+              "12:15",
+              "creativ|recognition",
+              25
+            ],
+            [
+              "12:40",
+              "thanks",
+              10
+            ],
+            [
+              "12:50",
+              "clos|depart",
+              10
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-11-19"
+            }
+          ],
+          "requiredTasks": [
+            "clean|tidy",
+            "return.*(?:equipment|borrow)",
+            "reconcil|account.*spend",
+            "feedback"
+          ]
+        }
+      },
+      "actions": [
+        "update"
+      ],
+      "prepared": {
+        "request": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first \u201cYoung Minds: Science, Reading and Creativity Day\u201d on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school\u2019s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n\u2022 Welcome and housekeeping: 10 minutes.\n\u2022 Opening remarks by the headteacher: 10 minutes.\n\u2022 Pupils\u2019 reading and storytelling presentations: 15 minutes.\n\u2022 Science demonstrations: 35 minutes.\n\u2022 Refreshment break: 15 minutes.\n\u2022 Guided viewing of pupils\u2019 project displays: 30 minutes.\n\u2022 Parent and pupil reading activity: 20 minutes.\n\u2022 Creativity presentations and recognition of participants: 25 minutes.\n\u2022 Vote of thanks: 10 minutes.\n\u2022 Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school\u2019s designated first-aid officer should be available throughout the programme. The officer\u2019s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n\u2022 Printed programmes: 60 copies at NGN 250 each.\n\u2022 Bottled water: 150 bottles at NGN 200 each.\n\u2022 Refreshment packs: 150 packs at NGN 350 each.\n\u2022 Participation certificates: 100 copies at NGN 100 each.\n\u2022 Hall decorations: one package at NGN 18,000.\n\u2022 Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved.",
+        "answers": "",
+        "plan": {
+          "title": "Young Minds: Science, Reading and Creativity Day",
+          "eventDate": "2026-11-14",
+          "requestedWeekday": "Saturday",
+          "venue": "Main Assembly Hall",
+          "startTime": null,
+          "organizer": "Sunrise Learning Centre",
+          "signatory": "Mrs Grace Okoro, Headteacher",
+          "currency": "NGN",
+          "spendingLimitMinor": 20000000,
+          "tasks": [
+            {
+              "label": "Approve programme, invitation, venue and expenditure",
+              "owner": "Mrs Grace Okoro",
+              "dueDate": null
+            },
+            {
+              "label": "Organise science demonstrations and check materials",
+              "owner": "Mr Daniel Musa",
+              "dueDate": null
+            },
+            {
+              "label": "Prepare reading and storytelling activities",
+              "owner": "Miss Esther James",
+              "dueDate": null
+            },
+            {
+              "label": "Coordinate seating, printed materials, refreshments and supplier quotations",
+              "owner": "Mrs Ruth Adeyemi",
+              "dueDate": null
+            },
+            {
+              "label": "Select pupil presentations, supervise rehearsals and prepare project labels",
+              "owner": "Class teachers",
+              "dueDate": null
+            },
+            {
+              "label": "First\u2011aid officer availability throughout programme",
+              "owner": "First\u2011aid officer",
+              "dueDate": null
+            },
+            {
+              "label": "Rehearsal",
+              "owner": "Class teachers",
+              "dueDate": "2026-11-12"
+            },
+            {
+              "label": "Supervise collection of pupils and clean venue after event",
+              "owner": null,
+              "dueDate": null
+            },
+            {
+              "label": "Return borrowed equipment",
+              "owner": null,
+              "dueDate": null
+            },
+            {
+              "label": "Reconcile spending and record feedback",
+              "owner": null,
+              "dueDate": null
+            }
+          ],
+          "budget": [
+            {
+              "label": "Printed programmes",
+              "quantity": 60,
+              "unitCostMinor": 25000
+            },
+            {
+              "label": "Bottled water",
+              "quantity": 150,
+              "unitCostMinor": 20000
+            },
+            {
+              "label": "Refreshment packs",
+              "quantity": 150,
+              "unitCostMinor": 35000
+            },
+            {
+              "label": "Participation certificates",
+              "quantity": 100,
+              "unitCostMinor": 10000
+            },
+            {
+              "label": "Hall decorations",
+              "quantity": 1,
+              "unitCostMinor": 1800000
+            },
+            {
+              "label": "Sound system hire",
+              "quantity": 1,
+              "unitCostMinor": 1200000
+            },
+            {
+              "label": "Event banner",
+              "quantity": 1,
+              "unitCostMinor": null
+            },
+            {
+              "label": "Recognition prizes",
+              "quantity": 10,
+              "unitCostMinor": null
+            }
+          ],
+          "drafts": {
+            "invitation": "Dear Parents and Guardians,\n\nYou are warmly invited to Sunrise Learning Centre\u2019s first \u201cYoung Minds: Science, Reading and Creativity Day\u201d on Saturday, 14 November 2026. This educational event will showcase our pupils\u2019 learning through simple science projects, storytelling, reading presentations and creative displays, and will give you the opportunity to see how your children are developing their skills at school.\n\nThe programme is free of charge and will be held in the school\u2019s Main Assembly Hall (venue confirmation pending). The exact start time is yet to be approved by the Headteacher and will be communicated to you as soon as it is confirmed.\n\nWe look forward to welcoming you and sharing a day of discovery and creativity.\n\nYours faithfully,\n\nMrs Grace Okoro\nHeadteacher, on behalf of Sunrise Learning Centre",
+            "schedule": "Young Minds: Science, Reading and Creativity Day\nMain Assembly Hall\n\n[Confirm start time]\n- Welcome and housekeeping \u2013 10 minutes\n- Opening remarks by the Headteacher \u2013 10 minutes\n- Pupils\u2019 reading and storytelling presentations \u2013 15 minutes\n- Science demonstrations \u2013 35 minutes\n- Refreshment break \u2013 15 minutes\n- Guided viewing of pupils\u2019 project displays \u2013 30 minutes\n- Parent and pupil reading activity \u2013 20 minutes\n- Creativity presentations and recognition of participants \u2013 25 minutes\n- Vote of thanks \u2013 10 minutes\n- Closing remarks and supervised departure \u2013 10 minutes"
+          },
+          "openQuestions": [
+            "Is the Main Assembly Hall confirmed as the venue?",
+            "What is the final start time for the programme?",
+            "Has the rehearsal time on Thursday 12 November been approved?",
+            "Who is the designated first\u2011aid officer?",
+            "What is the price for the event banner?",
+            "What are the prices for the 10 recognition prizes?"
+          ],
+          "sourceEvidence": {
+            "version": 1,
+            "legacy": false,
+            "notesChanged": false,
+            "sources": [
+              {
+                "id": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "kind": "notes",
+                "text": "Please prepare a complete event preparation pack for our upcoming school programme using the information below.\n\nEVENT NAME AND PURPOSE\n\nOur school, Sunrise Learning Centre, Abuja, is organising its first \u201cYoung Minds: Science, Reading and Creativity Day\u201d on Saturday, 14 November 2026.\n\nThe programme will allow pupils to demonstrate classroom learning through simple science projects, storytelling, reading presentations and creative displays. We also want parents to understand what their children have been learning and encourage practical learning at home.\n\nThis is an educational school event, not a fundraising programme. Attendance is free. Do not include ticket sales, compulsory donations or sponsorship promises.\n\nATTENDANCE AND VENUE\n\nWe expect 150 people altogether: 100 pupils, 30 parents or guardians, and 20 teachers and support staff.\n\nThe proposed venue is the school\u2019s Main Assembly Hall. Its use has not yet been confirmed. The school library is our backup venue, but its seating capacity still needs checking.\n\nWe intend to hold a three-hour programme. The exact starting time has not been approved by the headteacher. Please leave the start time unconfirmed and use relative timings or clearly labelled proposals when preparing the programme. Do not present a suggested time as an approved decision.\n\nINVITATION DETAILS\n\nThe invitation should address parents and guardians warmly and professionally. Explain the purpose of the event, the activities they can expect and that attendance is free.\n\nInclude the event date and proposed venue, but clearly indicate that the starting time and final venue will be confirmed later. Do not invent a telephone number, email address, RSVP deadline or contact person.\n\nThe invitation should be signed by Mrs Grace Okoro, Headteacher, on behalf of Sunrise Learning Centre.\n\nPROGRAMME CONTENT\n\nPlease organise the following activities into a practical three-hour programme:\n\n\u2022 Welcome and housekeeping: 10 minutes.\n\u2022 Opening remarks by the headteacher: 10 minutes.\n\u2022 Pupils\u2019 reading and storytelling presentations: 15 minutes.\n\u2022 Science demonstrations: 35 minutes.\n\u2022 Refreshment break: 15 minutes.\n\u2022 Guided viewing of pupils\u2019 project displays: 30 minutes.\n\u2022 Parent and pupil reading activity: 20 minutes.\n\u2022 Creativity presentations and recognition of participants: 25 minutes.\n\u2022 Vote of thanks: 10 minutes.\n\u2022 Closing remarks and supervised departure: 10 minutes.\n\nScience activities should use simple, low-risk classroom materials. Avoid flames, exposed electrical connections, sharp tools or experiments involving hazardous chemicals.\n\nTeachers should supervise demonstrations, display areas and pupil movement. Parents should remain with younger children during the display tour.\n\nPLANNING RESPONSIBILITIES\n\nMrs Grace Okoro, Headteacher, will approve the programme, invitation, venue and expenditure.\n\nMr Daniel Musa, Science Coordinator, will organise the science demonstrations and check materials.\n\nMiss Esther James, Literacy Coordinator, will prepare the reading and storytelling activities.\n\nMrs Ruth Adeyemi, Administrative Officer, will coordinate seating, printed materials, refreshments and supplier quotations.\n\nClass teachers will select pupil presentations, supervise rehearsals and prepare project labels.\n\nThe school\u2019s designated first-aid officer should be available throughout the programme. The officer\u2019s name has not been confirmed, so include this as an outstanding assignment.\n\nPLANNING AND PREPARATION\n\nPlease create a useful checklist covering preparation before the event, responsibilities on the day and work after the event.\n\nBefore the event, we need to confirm the venue and starting time, approve the invitation, notify parents, select presentations, check demonstration safety, arrange seating, obtain outstanding quotations, prepare printed materials and rehearse the programme.\n\nA rehearsal is proposed for Thursday, 12 November 2026, during the final school period. The rehearsal time still needs approval.\n\nOn the day, staff should check the venue, test the sound system, organise registration, position drinking water, check emergency exits and supervise pupils.\n\nRegistration should collect only the minimum information the school needs. Do not put pupil names, photographs or private family information into the public invitation.\n\nAfter the event, staff should supervise collection of pupils, clean the venue, return borrowed equipment, reconcile spending and record brief feedback.\n\nBUDGET\n\nOur maximum spending limit is NGN 200,000.\n\nThe following quantities and prices are confirmed:\n\n\u2022 Printed programmes: 60 copies at NGN 250 each.\n\u2022 Bottled water: 150 bottles at NGN 200 each.\n\u2022 Refreshment packs: 150 packs at NGN 350 each.\n\u2022 Participation certificates: 100 copies at NGN 100 each.\n\u2022 Hall decorations: one package at NGN 18,000.\n\u2022 Sound system hire: one package at NGN 12,000.\n\nWe also need one event banner and 10 recognition prizes, but their prices are not confirmed.\n\nCalculate each known line total and the known subtotal. Keep the banner and prize prices unknown. Do not enter zero for an unknown price, estimate supplier costs or describe the known subtotal as the complete event cost.\n\nShow that the final budget cannot be confirmed until the missing prices are supplied. Any amount left after subtracting the known subtotal from the spending limit is still needed to cover those unpriced items.\n\nWHAT I NEED\n\nPrepare:\n\n1. A polished invitation for parents and guardians.\n2. A proposed three-hour run of show.\n3. A practical checklist with suggested responsibilities.\n4. An itemised budget with accurate calculations.\n5. Clear questions about every important detail that remains unconfirmed.\n\nKeep confirmed facts separate from suggestions. Present the entire pack as a draft requiring school approval. Do not claim that invitations have been sent, suppliers booked, payments made or the venue reserved."
+              }
+            ],
+            "records": [
+              {
+                "path": "title",
+                "binding": "[\"Young Minds: Science, Reading and Creativity Day\",\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "eventDate",
+                "binding": "[\"2026-11-14\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 256,
+                "end": 285
+              },
+              {
+                "path": "startTime",
+                "binding": "[null,\"\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "venue",
+                "binding": "[\"Main Assembly Hall\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 853,
+                "end": 907
+              },
+              {
+                "path": "organizer",
+                "binding": "[\"Sunrise Learning Centre\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 137,
+                "end": 179
+              },
+              {
+                "path": "signatory",
+                "binding": "[\"Mrs Grace Okoro, Headteacher\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 1753,
+                "end": 1829
+              },
+              {
+                "path": "currency",
+                "binding": "[\"NGN\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4519,
+                "end": 4522
+              },
+              {
+                "path": "spendingLimitMinor",
+                "binding": "[20000000,\"NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4489,
+                "end": 4531
+              },
+              {
+                "path": "tasks.0.owner",
+                "binding": "[\"Mrs Grace Okoro\",\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2767,
+                "end": 2859
+              },
+              {
+                "path": "tasks.0.dueDate",
+                "binding": "[null,\"Approve programme, invitation, venue and expenditure\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.owner",
+                "binding": "[\"Mr Daniel Musa\",\"Organise science demonstrations and check materials\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2861,
+                "end": 2959
+              },
+              {
+                "path": "tasks.1.dueDate",
+                "binding": "[null,\"Organise science demonstrations and check materials\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.owner",
+                "binding": "[\"Miss Esther James\",\"Prepare reading and storytelling activities\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 2961,
+                "end": 3055
+              },
+              {
+                "path": "tasks.2.dueDate",
+                "binding": "[null,\"Prepare reading and storytelling activities\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.3.owner",
+                "binding": "[\"Mrs Ruth Adeyemi\",\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3057,
+                "end": 3180
+              },
+              {
+                "path": "tasks.3.dueDate",
+                "binding": "[null,\"Coordinate seating, printed materials, refreshments and supplier quotations\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.owner",
+                "binding": "[\"Class teachers\",\"Select pupil presentations, supervise rehearsals and prepare project labels\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3182,
+                "end": 3278
+              },
+              {
+                "path": "tasks.4.dueDate",
+                "binding": "[null,\"Select pupil presentations, supervise rehearsals and prepare project labels\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.5.owner",
+                "binding": "[\"First\u2011aid officer\",\"First\u2011aid officer availability throughout programme\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3280,
+                "end": 3367
+              },
+              {
+                "path": "tasks.5.dueDate",
+                "binding": "[null,\"First\u2011aid officer availability throughout programme\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.6.owner",
+                "binding": "[\"Class teachers\",\"Rehearsal\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.6.dueDate",
+                "binding": "[\"2026-11-12\",\"Rehearsal\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 3870,
+                "end": 3924
+              },
+              {
+                "path": "tasks.7.owner",
+                "binding": "[null,\"Supervise collection of pupils and clean venue after event\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.7.dueDate",
+                "binding": "[null,\"Supervise collection of pupils and clean venue after event\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.8.owner",
+                "binding": "[null,\"Return borrowed equipment\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.8.dueDate",
+                "binding": "[null,\"Return borrowed equipment\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.9.owner",
+                "binding": "[null,\"Reconcile spending and record feedback\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.9.dueDate",
+                "binding": "[null,\"Reconcile spending and record feedback\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.0.quantity",
+                "binding": "[60,\"Printed programmes\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.0.unitCostMinor",
+                "binding": "[25000,\"Printed programmes\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4587,
+                "end": 4633
+              },
+              {
+                "path": "budget.1.quantity",
+                "binding": "[150,\"Bottled water\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.1.unitCostMinor",
+                "binding": "[20000,\"Bottled water\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4636,
+                "end": 4679
+              },
+              {
+                "path": "budget.2.quantity",
+                "binding": "[150,\"Refreshment packs\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.2.unitCostMinor",
+                "binding": "[35000,\"Refreshment packs\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4682,
+                "end": 4727
+              },
+              {
+                "path": "budget.3.quantity",
+                "binding": "[100,\"Participation certificates\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.3.unitCostMinor",
+                "binding": "[10000,\"Participation certificates\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4730,
+                "end": 4785
+              },
+              {
+                "path": "budget.4.quantity",
+                "binding": "[1,\"Hall decorations\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.4.unitCostMinor",
+                "binding": "[1800000,\"Hall decorations\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4788,
+                "end": 4832
+              },
+              {
+                "path": "budget.5.quantity",
+                "binding": "[1,\"Sound system hire\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.5.unitCostMinor",
+                "binding": "[1200000,\"Sound system hire\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4835,
+                "end": 4880
+              },
+              {
+                "path": "budget.6.quantity",
+                "binding": "[1,\"Event banner\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.6.unitCostMinor",
+                "binding": "[null,\"Event banner\\u0000NGN\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.7.quantity",
+                "binding": "[10,\"Recognition prizes\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "budget.7.unitCostMinor",
+                "binding": "[null,\"Recognition prizes\\u0000NGN\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "ec27d708ca6475f34d569c26aeff85efdec4476bb2b25220ddf2c7c2a01824a5",
+                "start": 4912,
+                "end": 4974
+              }
+            ]
+          }
+        },
+        "approval": null,
+        "provenance": {
+          "mode": "live",
+          "provider": "Groq",
+          "model": "openai/gpt-oss-120b",
+          "requestedModel": "openai/gpt-oss-120b",
+          "primaryModel": "openai/gpt-oss-120b",
+          "attempts": 3,
+          "responseFormat": "json-schema",
+          "priceQuestionsAdded": 0,
+          "stage": "schedule",
+          "generatedAt": "2026-10-24T18:32:22.146Z",
+          "durationMs": 7701,
+          "pipeline": "staged-v1",
+          "reusedSteps": 0,
+          "steps": [
+            {
+              "stage": "facts",
+              "model": "openai/gpt-oss-120b",
+              "durationMs": 5518,
+              "attempts": 1,
+              "requestId": "5ebc5a73-d467-4137-ac5b-663284606e2f"
+            },
+            {
+              "stage": "invitation",
+              "model": "openai/gpt-oss-120b",
+              "durationMs": 835,
+              "attempts": 1,
+              "requestId": "a8726000-9fd3-4b8e-9051-2887f838d745"
+            },
+            {
+              "stage": "schedule",
+              "model": "openai/gpt-oss-120b",
+              "durationMs": 1348,
+              "attempts": 1,
+              "requestId": "218cdf5a-8e5c-4d6c-9708-eb83cb1d6388"
+            }
+          ]
+        }
+      },
+      "preparedSource": "v5 known-school Prepare on code 2ba1026f15d85035eeab873282d56c0b684c5d80; 44 declared checks passed."
+    },
+    {
+      "id": "fresh-school",
+      "cohort": "targeted-regression",
+      "request": "Prepare Riverside Literacy Morning for Riverside School on Saturday 5 December 2026 at 09:00 in Riverside Hall. The organizer is Riverside School. Sign Nkem Eze, Headteacher. Yemi Lawal leads the reading activity. Programme: Welcome 5 minutes, Reading activity 25 minutes, Book quiz 10 minutes, Closing 5 minutes, in that order. Currency NGN. Spending limit NGN 100000. Budget: 12 notebooks at NGN 1250 each and one banner with unknown price. Rehearsal is 4 December 2026; its time needs approval. Keep banner price and rehearsal time open. Fictional test: no sending or bookings.",
+      "answers": "Move to Riverside Library Room. Use 15 notebooks at the same NGN 1250 unit price. The banner is NGN 4500. Tola Akin replaces Yemi Lawal as reading lead. Keep date, 09:00 start, organizer, signer, spending limit and activity durations unchanged. Rehearsal time remains unapproved.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Riverside Literacy Morning",
+            "eventDate": "2026-12-05",
+            "startTime": "09:00",
+            "venue": "Riverside Hall",
+            "organizer": "Riverside School",
+            "signatory": "Nkem Eze, Headteacher",
+            "currency": "NGN",
+            "spendingLimitMinor": 10000000
+          },
+          "budget": [
+            {
+              "match": [
+                "notebook"
+              ],
+              "quantity": 12,
+              "unitCostMinor": 125000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 1500000,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 8500000,
+          "owners": [
+            {
+              "name": "Yemi Lawal",
+              "rolePattern": "read"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "banner price",
+              "pattern": "banner|price"
+            },
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "09:00",
+              "welcome",
+              5
+            ],
+            [
+              "09:05",
+              "read",
+              25
+            ],
+            [
+              "09:30",
+              "quiz",
+              10
+            ],
+            [
+              "09:40",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-04"
+            }
+          ]
+        },
+        "update": {
+          "facts": {
+            "title": "Riverside Literacy Morning",
+            "eventDate": "2026-12-05",
+            "startTime": "09:00",
+            "venue": "Riverside Library Room",
+            "organizer": "Riverside School",
+            "signatory": "Nkem Eze, Headteacher",
+            "currency": "NGN",
+            "spendingLimitMinor": 10000000
+          },
+          "budget": [
+            {
+              "match": [
+                "notebook"
+              ],
+              "quantity": 15,
+              "unitCostMinor": 125000
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 450000
+            }
+          ],
+          "knownTotalMinor": 2325000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 7675000,
+          "owners": [
+            {
+              "name": "Tola Akin",
+              "rolePattern": "read"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "09:00",
+              "welcome",
+              5
+            ],
+            [
+              "09:05",
+              "read",
+              25
+            ],
+            [
+              "09:30",
+              "quiz",
+              10
+            ],
+            [
+              "09:40",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-04"
+            }
+          ]
+        }
+      },
+      "actions": [
+        "prepare",
+        "update"
+      ]
+    },
+    {
+      "id": "fresh-ambiguous-date",
+      "cohort": "targeted-regression",
+      "request": "Oak PTA organizes Oak Parent Meeting. The supplied date 11/12/2026 is ambiguous: do not choose day/month or month/day; leave event date unknown and ask which date is intended. Start is 15:30 at Oak Hall. Sign Chioma Udo, Secretary. Aba Mensah leads discussion. Programme order: Welcome 10 minutes, Discussion 30 minutes, Closing 5 minutes. Currency GHS, spending limit GHS 3000. Budget: 40 chairs at GHS 12 each and 40 refreshments with unknown unit price. Room booking remains unconfirmed. Keep date interpretation, room booking and price open. Fictional test.",
+      "answers": "The date means Thursday 12 November 2026, not 11 December. Increase chairs to 45 at the same GHS 12 each. Refreshments are GHS 8 each for 40. Keep 15:30, Oak Hall, organizer, signer, owner, durations and limit. The room booking is still unconfirmed.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Oak Parent Meeting",
+            "eventDate": null,
+            "startTime": "15:30",
+            "venue": "Oak Hall",
+            "organizer": "Oak PTA",
+            "signatory": "Chioma Udo, Secretary",
+            "currency": "GHS",
+            "spendingLimitMinor": 300000
+          },
+          "budget": [
+            {
+              "match": [
+                "chair"
+              ],
+              "quantity": 40,
+              "unitCostMinor": 1200
+            },
+            {
+              "match": [
+                "refresh"
+              ],
+              "quantity": 40,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 48000,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 252000,
+          "owners": [
+            {
+              "name": "Aba Mensah",
+              "rolePattern": "discuss"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "ambiguous date",
+              "pattern": "date|11/12"
+            },
+            {
+              "label": "booking",
+              "pattern": "book|room|venue"
+            },
+            {
+              "label": "refreshment price",
+              "pattern": "refresh|price"
+            }
+          ],
+          "schedule": [
+            [
+              "15:30",
+              "welcome",
+              10
+            ],
+            [
+              "15:40",
+              "discuss",
+              30
+            ],
+            [
+              "16:10",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": []
+        },
+        "update": {
+          "facts": {
+            "title": "Oak Parent Meeting",
+            "eventDate": "2026-11-12",
+            "startTime": "15:30",
+            "venue": "Oak Hall",
+            "organizer": "Oak PTA",
+            "signatory": "Chioma Udo, Secretary",
+            "currency": "GHS",
+            "spendingLimitMinor": 300000
+          },
+          "budget": [
+            {
+              "match": [
+                "chair"
+              ],
+              "quantity": 45,
+              "unitCostMinor": 1200
+            },
+            {
+              "match": [
+                "refresh"
+              ],
+              "quantity": 40,
+              "unitCostMinor": 800
+            }
+          ],
+          "knownTotalMinor": 86000,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 214000,
+          "owners": [
+            {
+              "name": "Aba Mensah",
+              "rolePattern": "discuss"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "booking",
+              "pattern": "book|room|venue"
+            }
+          ],
+          "schedule": [
+            [
+              "15:30",
+              "welcome",
+              10
+            ],
+            [
+              "15:40",
+              "discuss",
+              30
+            ],
+            [
+              "16:10",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": []
+        }
+      },
+      "actions": [
+        "prepare"
+      ]
+    },
+    {
+      "id": "known-community",
+      "cohort": "targeted-regression",
+      "request": "Prepare a draft for Community Book Exchange, organized by Cedar Reading Club at Cedar Hall on Saturday 12 December 2026. Programme begins at 14:15; registration is 14:00. The audience is local adult readers and attendance is free. Sign the invitation Ada Nwosu, Club Secretary. Activities in this exact order: Welcome 10 minutes; book exchange 30 minutes; Closing 5 minutes. Ada Nwosu coordinates registration. David Cole leads book exchange. Rehearsal is Friday 11 December, but its time is still awaiting approval. The currency is USD, with a maximum spending limit of USD 500. Budget: three tables at USD 107.50 each; one banner, price unknown. Preserve the unknown price and rehearsal approval. Do not send invitations or book anything.",
+      "answers": "The venue is now Cedar Library Hall. The banner price is confirmed as USD 25. The programme still begins at 14:15 and the spending limit stays USD 500. Keep both activity durations and assigned owners. The rehearsal time is still awaiting approval.",
+      "expected": {
+        "prepare": {
+          "facts": {
+            "title": "Community Book Exchange",
+            "eventDate": "2026-12-12",
+            "startTime": "14:15",
+            "venue": "Cedar Hall",
+            "organizer": "Cedar Reading Club",
+            "signatory": "Ada Nwosu, Club Secretary",
+            "currency": "USD",
+            "spendingLimitMinor": 50000
+          },
+          "budget": [
+            {
+              "match": [
+                "table"
+              ],
+              "quantity": 3,
+              "unitCostMinor": 10750
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": null
+            }
+          ],
+          "knownTotalMinor": 32250,
+          "unknownPrices": 1,
+          "remainingAllowanceMinor": 17750,
+          "owners": [
+            {
+              "name": "Ada Nwosu",
+              "rolePattern": "registr"
+            },
+            {
+              "name": "David Cole",
+              "rolePattern": "book|exchange"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "banner price",
+              "pattern": "banner|price"
+            },
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "14:15",
+              "welcome",
+              10
+            ],
+            [
+              "14:25",
+              "book|exchange",
+              30
+            ],
+            [
+              "14:55",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-11"
+            }
+          ]
+        },
+        "update": {
+          "facts": {
+            "title": "Community Book Exchange",
+            "eventDate": "2026-12-12",
+            "startTime": "14:15",
+            "venue": "Cedar Library Hall",
+            "organizer": "Cedar Reading Club",
+            "signatory": "Ada Nwosu, Club Secretary",
+            "currency": "USD",
+            "spendingLimitMinor": 50000
+          },
+          "budget": [
+            {
+              "match": [
+                "table"
+              ],
+              "quantity": 3,
+              "unitCostMinor": 10750
+            },
+            {
+              "match": [
+                "banner"
+              ],
+              "quantity": 1,
+              "unitCostMinor": 2500
+            }
+          ],
+          "knownTotalMinor": 34750,
+          "unknownPrices": 0,
+          "remainingAllowanceMinor": 15250,
+          "owners": [
+            {
+              "name": "Ada Nwosu",
+              "rolePattern": "registr"
+            },
+            {
+              "name": "David Cole",
+              "rolePattern": "book|exchange"
+            }
+          ],
+          "pendingQuestions": [
+            {
+              "label": "rehearsal time",
+              "pattern": "rehears"
+            }
+          ],
+          "schedule": [
+            [
+              "14:15",
+              "welcome",
+              10
+            ],
+            [
+              "14:25",
+              "book|exchange",
+              30
+            ],
+            [
+              "14:55",
+              "clos",
+              5
+            ]
+          ],
+          "forbidden": [],
+          "taskDates": [
+            {
+              "pattern": "rehears",
+              "date": "2026-12-11"
+            }
+          ]
+        }
+      },
+      "actions": [
+        "update"
+      ],
+      "prepared": {
+        "request": "Prepare a draft for Community Book Exchange, organized by Cedar Reading Club at Cedar Hall on Saturday 12 December 2026. Programme begins at 14:15; registration is 14:00. The audience is local adult readers and attendance is free. Sign the invitation Ada Nwosu, Club Secretary. Activities in this exact order: Welcome 10 minutes; book exchange 30 minutes; Closing 5 minutes. Ada Nwosu coordinates registration. David Cole leads book exchange. Rehearsal is Friday 11 December, but its time is still awaiting approval. The currency is USD, with a maximum spending limit of USD 500. Budget: three tables at USD 107.50 each; one banner, price unknown. Preserve the unknown price and rehearsal approval. Do not send invitations or book anything.",
+        "answers": "",
+        "plan": {
+          "title": "Community Book Exchange",
+          "eventDate": "2026-12-12",
+          "requestedWeekday": "Saturday",
+          "venue": "Cedar Hall",
+          "startTime": "14:15",
+          "organizer": "Cedar Reading Club",
+          "signatory": "Ada Nwosu, Club Secretary",
+          "currency": "USD",
+          "spendingLimitMinor": 50000,
+          "tasks": [
+            {
+              "label": "Welcome",
+              "owner": null,
+              "dueDate": null
+            },
+            {
+              "label": "Book exchange",
+              "owner": "David Cole",
+              "dueDate": null
+            },
+            {
+              "label": "Closing",
+              "owner": null,
+              "dueDate": null
+            },
+            {
+              "label": "Registration coordination",
+              "owner": "Ada Nwosu",
+              "dueDate": null
+            },
+            {
+              "label": "Rehearsal",
+              "owner": null,
+              "dueDate": "2026-12-11"
+            }
+          ],
+          "budget": [
+            {
+              "label": "Tables",
+              "quantity": 3,
+              "unitCostMinor": 10750
+            },
+            {
+              "label": "Banner",
+              "quantity": 1,
+              "unitCostMinor": null
+            }
+          ],
+          "drafts": {
+            "invitation": "Dear Local Adult Readers,\n\nYou are cordially invited to the Community Book Exchange hosted by the Cedar Reading Club. The event will take place on Saturday, 12 December 2026 at the proposed venue, Cedar Hall. Registration will begin at 14:00, followed by the programme commencing at 14:15.\n\nThe purpose of this gathering is to provide a friendly space for adults in our community to exchange books and share their love of reading. Attendance is free of charge.\n\nProgramme:\n- 14:15 \u2013 Welcome (10 minutes)\n- 14:25 \u2013 Book exchange (30 minutes) \u2013 led by David\u00a0Cole\n- 14:55 \u2013 Closing (5 minutes)\n\nPlease arrive early to register; Ada\u00a0Nwosu will be coordinating registration.\n\nWe note that the rehearsal scheduled for Friday, 11 December 2026 is still awaiting time approval, and the booking of Cedar Hall remains pending confirmation.\n\nWe look forward to your participation in this enriching community event.\n\nYours faithfully,\n\nAda\u00a0Nwosu\nClub Secretary",
+            "schedule": "Community Book Exchange\nCedar Hall\n14:00 Registration (coordinated by Ada Nwosu)\n14:15 Welcome \u2013 10 minutes\n14:25 Book exchange \u2013 30 minutes \u2013 led by David Cole\n14:55 Closing \u2013 5 minutes\n15:00 End of programme"
+          },
+          "openQuestions": [
+            "Rehearsal time approval pending.",
+            "Venue booking approval pending.",
+            "What is the unit price for Banner?"
+          ],
+          "sourceEvidence": {
+            "version": 1,
+            "legacy": false,
+            "notesChanged": false,
+            "sources": [
+              {
+                "id": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "kind": "notes",
+                "text": "Prepare a draft for Community Book Exchange, organized by Cedar Reading Club at Cedar Hall on Saturday 12 December 2026. Programme begins at 14:15; registration is 14:00. The audience is local adult readers and attendance is free. Sign the invitation Ada Nwosu, Club Secretary. Activities in this exact order: Welcome 10 minutes; book exchange 30 minutes; Closing 5 minutes. Ada Nwosu coordinates registration. David Cole leads book exchange. Rehearsal is Friday 11 December, but its time is still awaiting approval. The currency is USD, with a maximum spending limit of USD 500. Budget: three tables at USD 107.50 each; one banner, price unknown. Preserve the unknown price and rehearsal approval. Do not send invitations or book anything."
+              }
+            ],
+            "records": [
+              {
+                "path": "title",
+                "binding": "[\"Community Book Exchange\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 0,
+                "end": 43
+              },
+              {
+                "path": "eventDate",
+                "binding": "[\"2026-12-12\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 94,
+                "end": 119
+              },
+              {
+                "path": "startTime",
+                "binding": "[\"14:15\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 121,
+                "end": 146
+              },
+              {
+                "path": "venue",
+                "binding": "[\"Cedar Hall\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 77,
+                "end": 90
+              },
+              {
+                "path": "organizer",
+                "binding": "[\"Cedar Reading Club\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 45,
+                "end": 76
+              },
+              {
+                "path": "signatory",
+                "binding": "[\"Ada Nwosu, Club Secretary\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 231,
+                "end": 276
+              },
+              {
+                "path": "currency",
+                "binding": "[\"USD\",\"\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 517,
+                "end": 536
+              },
+              {
+                "path": "spendingLimitMinor",
+                "binding": "[50000,\"USD\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 538,
+                "end": 578
+              },
+              {
+                "path": "tasks.0.owner",
+                "binding": "[null,\"Welcome\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.0.dueDate",
+                "binding": "[null,\"Welcome\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.1.owner",
+                "binding": "[\"David Cole\",\"Book exchange\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 411,
+                "end": 441
+              },
+              {
+                "path": "tasks.1.dueDate",
+                "binding": "[null,\"Book exchange\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.owner",
+                "binding": "[null,\"Closing\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.2.dueDate",
+                "binding": "[null,\"Closing\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.3.owner",
+                "binding": "[\"Ada Nwosu\",\"Registration coordination\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 375,
+                "end": 409
+              },
+              {
+                "path": "tasks.3.dueDate",
+                "binding": "[null,\"Registration coordination\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.owner",
+                "binding": "[null,\"Rehearsal\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              },
+              {
+                "path": "tasks.4.dueDate",
+                "binding": "[\"2026-12-11\",\"Rehearsal\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 443,
+                "end": 474
+              },
+              {
+                "path": "budget.0.quantity",
+                "binding": "[3,\"Tables\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 588,
+                "end": 600
+              },
+              {
+                "path": "budget.0.unitCostMinor",
+                "binding": "[10750,\"Tables\\u0000USD\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 604,
+                "end": 619
+              },
+              {
+                "path": "budget.1.quantity",
+                "binding": "[1,\"Banner\"]",
+                "origin": "extracted",
+                "confirmed": false,
+                "sourceId": "97343a45d44c2a10ce2006efcc4ad5e2331ae051ce7c5dfe03e013b514a3f32f",
+                "start": 621,
+                "end": 631
+              },
+              {
+                "path": "budget.1.unitCostMinor",
+                "binding": "[null,\"Banner\\u0000USD\"]",
+                "origin": "unsupported",
+                "confirmed": false
+              }
+            ]
+          }
+        },
+        "approval": null,
+        "provenance": {
+          "mode": "live",
+          "provider": "Groq",
+          "model": "openai/gpt-oss-120b",
+          "requestedModel": "openai/gpt-oss-120b",
+          "primaryModel": "openai/gpt-oss-120b",
+          "attempts": 3,
+          "responseFormat": "json-schema",
+          "priceQuestionsAdded": 1,
+          "stage": "schedule",
+          "generatedAt": "2026-10-24T18:50:16.222Z",
+          "durationMs": 5331,
+          "pipeline": "staged-v1",
+          "reusedSteps": 0,
+          "steps": [
+            {
+              "stage": "facts",
+              "model": "openai/gpt-oss-120b",
+              "durationMs": 3996,
+              "attempts": 1,
+              "requestId": "009618cc-a9ad-4679-bbe9-577d602a414a"
+            },
+            {
+              "stage": "invitation",
+              "model": "openai/gpt-oss-120b",
+              "durationMs": 905,
+              "attempts": 1,
+              "requestId": "d6345445-58c7-4256-b824-e2d8c2132a61"
+            },
+            {
+              "stage": "schedule",
+              "model": "openai/gpt-oss-120b",
+              "durationMs": 430,
+              "attempts": 1,
+              "requestId": "c8e74eaf-9510-4a63-a1b4-fdb25078c508"
+            }
+          ]
+        }
+      },
+      "preparedSource": "v5 known-community Prepare on code 2ba1026f15d85035eeab873282d56c0b684c5d80; 29 declared checks passed."
+    }
+  ]
+}

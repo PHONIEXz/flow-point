@@ -6,7 +6,7 @@ These are planned changes, not completed features or winning probabilities. Fini
 
 ## Delivered foundation
 
-Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 104 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
+Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 133 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
 
 ## Chunk 1: fix known content omissions
 
@@ -56,7 +56,7 @@ Owner-requested addition before Chunk 4: each Invitation, Run of show, Preparati
 
 ## Chunk 4: evaluate quality on a frozen set
 
-**Status:** frozen harness implemented; first live run interrupted by Google quota. 3 operations attempted, 1 complete, 2 failed and 17 skipped; no fresh case executed. Live quality gate remains open. See [results and limits](chunk-4-verification.md). **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
+**Status:** verification open. Frozen v4 recorded 24 planned operations: 22 attempted, 20 complete, two failed and two skipped; 13 complete operations passed all declared checks. Targeted v5 completed ten of eleven operations, six passing all declared checks; its final Update hit Groq daily quota. Five post-fix v6 operations are frozen but unexecuted. All 133 software tests pass. See [current results, corrections and pending gate](chunk-4-current-run.md). **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
 
 **Goal:** measure the quality of the returned pack separately from valid JSON and response speed.
 
@@ -103,4 +103,4 @@ Voice capture, mascots, additional sponsor integrations, accounts, collaboration
 
 ## Tracking rule
 
-Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. Chunks 2 and 3 were separately authorized and implemented. Chunk 4 is the next implementation step after Chunk 3 release verification; Chunk 1’s deferred live gate remains open.
+Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. Chunks 2 and 3 were separately authorized and implemented. Chunk 4 is in verification. Chunk 1’s detailed school Update lost its confirmed start in v5; its correction passes software tests but the live retest remains quota-blocked. Chunk 5 has not started.

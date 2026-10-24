@@ -1,3 +1,5 @@
+> Historical v1 record. For current v4/v5 results, the daily-quota block and five unexecuted v6 retests, see [current Chunk 4 status](chunk-4-current-run.md). The live quality gate remains open; 133 software tests pass on the latest correction build.
+
 # Chunk 4: frozen quality evaluation v1
 
 24 October 2026. **Status: harness implemented; live evaluation interrupted by provider quota. The live quality gate is open.**

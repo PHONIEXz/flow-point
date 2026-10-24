@@ -1,4 +1,33 @@
-# Chunk 4: current Groq evaluation
+# Chunk 4: quality evaluation status, 24 October 2026
+
+**Status: verification remains open.** The model selector and post-run fixes are implemented, but the last live operation exhausted Groq daily quota. No further inference was attempted. Do not mark Chunk 4 complete or start Chunk 5 as though the quality gate passed.
+
+| Run | Planned operations | Attempted | Completed | Failed | Skipped | Completed operations passing all declared checks |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Frozen v4 | 24 | 22 | 20 | 2 | 2 | 13 |
+| Exposed post-fix v5 | 11 | 11 | 10 | 1 | 0 | 6 |
+| Frozen post-fix v6 | 5 | 0 | 0 | 0 | 0 | Not run |
+
+v4 contains eleven exposed briefs and one brief not previously executed, Willow, which ran first. Both Willow operations passed all 54 declared checks combined. Cases and answer keys were assistant-authored; there was no independent reviewer. This is not an estimate of general reliability. v5 is deliberately a targeted regression run, not a new unseen evaluation.
+
+All 20 completed v4 packs and all ten completed v5 packs passed application approval-blocking and standalone PDF response probes. Those checks did not prove semantic correctness or PDF visual layout. v4 retained seven completed operations with literal mismatches. See the original scorecards and compressed full records in [v4](evidence/quality-v4-2026-10-24/README.md) and [v5](evidence/quality-v5-2026-10-24/README.md). Earlier v1/v2/v3 failures remain historical evidence.
+
+## Corrections and results
+
+The first post-v4 build corrected false budget-item identity checks for copies/bottles/packages; accepted unknown-price items receive deterministic missing-price questions without invented costs; explicit hosts must remain checklist owners; comma-style unknown-price items and requested rehearsal tasks are checked; and requested venue versus booking approval is clarified. The Groq/Google model selector uses separate keys, consent and checkpoint identities. All 130 software tests passed on that deployed build.
+
+v5 then completed the detailed school Prepare with all 44 declared checks, community Prepare with 28, debate Prepare/Update with 29/28, judge Prepare with 28 and older community Prepare with 29. Its other completed operations exposed a missing school start time, a request verb copied into the Riverside title and the proposed Oak Hall name being erased. The final community Update returned accepted facts, then hit Groq daily quota at invitation. The run stopped; it was not silently retried with another key, model or provider.
+
+Code `0bba82442b9a48874534a828914fbd5bd9edd35f` adds conservative checks rejecting loss of an explicit programme start or a single supplied requested location, clarifies the schema/prompt for title/start/venue, and increments the browser checkpoint contract to v12. It also makes the legacy benchmark explicitly provider-aware. All **133 software tests** pass, including the captured missing-start failure, bounded regeneration and previous-pack preservation. Those software checks do not substitute for the pending live retests.
+
+## Pending gate
+
+[v6 is frozen but unexecuted](evidence/quality-v6-2026-10-24/README.md): detailed school Update, Riverside Prepare/Update, ambiguous-date Oak Prepare and the quota-blocked community Update. Successful v5 school/community Prepare baselines are embedded and hash-protected, avoiding redundant initial generations. Once provider capacity is available, run the committed v6 command on the matching source. Preserve every outcome. Do not claim corrected live behavior until it is observed.
+
+Separately, a selected Google Gemma request still returned upstream HTTP 500, reference `8e4fcf2f-4029-406e-a233-e5ee78105901`; [record and model-choice rationale](model-choice.md). This is distinct from Groq daily quota and the application/model omissions above. Neither provider is described as universally reliable. Physical-device checks, human review effort and a timed human-writing baseline remain Chunk 5 and are unmeasured.
+
+## Earlier preflight and v3 history
+
 
 A new v3 corpus contains twelve paired fictional cases: ten exposed regression briefs plus two newly authored briefs run before first model inference on those briefs. The same assistant authored expectations; no independent reviewer or blinded evaluation is claimed. The answer key, scorer and implementation hashes are frozen before inference. v1/v2 evidence remains unchanged.
 

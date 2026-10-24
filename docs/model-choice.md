@@ -28,3 +28,9 @@ The venue field retains a single named requested/proposed location. A location n
 Code `2ba1026f15d85035eeab873282d56c0b684c5d80` deployed through Render `dep-dbefif7b9u1s739iak60`. All 130 software tests passed. Desktop browser checks exercised both options, preference restoration after reload, separate remembered permission and unchanged sample-pack content after switching. Test permission was revoked after this check. No real attendee data was used.
 
 A fictional Cedar Reading Meetup Google Prepare reached the selected Gemma adapter but failed in its facts step: the application returned HTTP 502 for upstream Google HTTP 500 after bounded retries, reference `8e4fcf2f-4029-406e-a233-e5ee78105901`. The recorded request and response are in `docs/evidence/model-choice-2026-10-24/google-choice.json`. No cross-provider fallback occurred. Google being configured means its key exists, not that every generation will succeed. The Groq pack-quality retests are recorded separately.
+
+The follow-up correction build is `0bba82442b9a48874534a828914fbd5bd9edd35f`, with **133 passing software tests**. It retains the same selector. v5 completed ten of eleven Groq operations before daily quota stopped the final community Update. Five further regression operations are frozen but not executed; [Chunk 4 remains open](chunk-4-current-run.md). No quota-bypass inference was attempted.
+
+![Live model selector above a hand-authored sample pack](media/model-choice-2026-10-24.jpg)
+
+This screenshot demonstrates the selector and layout, not a new live model generation.
