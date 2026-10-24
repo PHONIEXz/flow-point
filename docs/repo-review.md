@@ -76,3 +76,8 @@ A short live test confirmed native function arguments on the primary model in 6.
 
 
 The 90-second detailed run still failed, so detailed inputs above 5,000 serialized characters now start on the existing 31b model while short inputs retain 26b. Safe finish-reason and token-count diagnostics were added because the previous run did not expose its stop category. The exact prior non-success category remains unknown. Provenance records configured, primary and actual models; 61 tests pass. The final deployed detailed replay is recorded in the verification history.
+
+
+## Current limitation after the format incident
+
+The final native short Prepare/Update pair succeeded on the first primary attempt in 5.9/6.1 seconds, with correct NGN 4,000/6,000 totals. The detailed school-event replay still failed: 31b returned 503 and 500, then the fallback timed out at the shared 90-second deadline. No detailed quality checks were passed in that replay. The exact user's failing brief is not available. The deployed format handling and bounded recovery are improved, but the app must not be described as fully reliable or this original report as conclusively resolved. See the [final live results](verification.md#final-deployed-checks-for-this-pass).

@@ -4,7 +4,7 @@ These are acceptance gates, not a probability of winning.
 
 ## 1. Reliability and difficult requests
 
-Status: first stress-test and correction pass completed on 21 October 2026. Broader repeated evaluation remains necessary.
+Status: first stress-test and correction pass completed on 21 October 2026. Broader repeated evaluation remains necessary. The 24 October format-recovery pass confirms native short Prepare/Update success, but the detailed school-event replay still failed with upstream 503/500 responses followed by a timeout. See [the final results](verification.md#final-deployed-checks-for-this-pass).
 
 | Case | Observed result |
 | --- | --- |

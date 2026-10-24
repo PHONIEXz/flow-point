@@ -90,3 +90,6 @@ The 61-test automated suite passed in the latest app verification. Remaining mea
 MIT. Copyright (c) 2026 Paul Ayoade David. Upstream models and services retain their own licenses and terms.
 
 The [23 October repository review](docs/repo-review.md) records the latest fixes, automated checks and remaining limits.
+
+
+Latest reliability check (24 October): the native structured-response path completed short Prepare/Update requests in 5.9/6.1 seconds on the first attempt. The detailed school-event replay still failed after upstream 503/500 errors and a fallback timeout. The 61 automated tests pass, but successful completion of detailed briefs remains an open limitation; see [the complete incident and live results](docs/verification.md#invalid-json-recovery-24-october-2026).

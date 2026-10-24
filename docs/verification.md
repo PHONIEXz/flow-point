@@ -112,3 +112,15 @@ The hosted native function response was verified on a short fictional brief: req
 
 
 The 90-second native long replay (`bb62f54b-6c7c-4e9e-96b9-a1ed9e67eae1`) did not produce a usable result: a primary HTTP 500 was retried, then a returned candidate had a non-success finish reason. The earlier adapter did not log that category, so its exact reason is unknown and must not be inferred. Safe response diagnostics now record a fixed stop-category whitelist and numeric output-token count, without response text. Inputs whose serialized request, answers and previous plan exceed 5,000 characters start on the existing larger 31b Gemma model; short requests keep the configured 26b primary. Fallback selection and actual model choice remain explicit in provenance, with the same 90-second and three-attempt bounds. This is a routing heuristic, not a reliability guarantee. The suite passes 61 tests, including both routing paths and safe truncation diagnostics.
+
+
+### Final deployed checks for this pass
+
+Application commit `98966788b1d7b3623baccf4ef7c3c9f135a1ea2b` is live in `dep-dbe2090m7kps73c2ml00`. The final short fictional Prepare and Update checks both returned HTTP 200 on the first primary 26b attempt, using native `function-call` responses:
+
+| Action | Reference | Server time | Known total |
+| --- | --- | --- | --- |
+| Prepare | `810d7b9e-26e0-4d0f-989c-0963286b9cd8` | 5,886 ms | NGN 4,000 |
+| Update | `36c7f01e-30a0-4c3e-99d5-d624e9b653ab` | 6,101 ms | NGN 6,000 |
+
+The final 5,915-character school-event replay did **not** pass. Reference `66d7af42-1bb6-4434-a82d-8a5fbccb193c` started on 31b, which returned HTTP 503 followed by HTTP 500; the 26b fallback then reached the shared 90-second deadline. The follow-up update was not sent, and no school quality checks were claimed as passed. The original user brief behind `84d0884f-b86c-4cce-b2f6-3254b7dfb6f8` is unavailable, so that exact case cannot be asserted resolved. No raw notes, raw broken output or credentials were logged. This pass improves typed formatting and recovery but does not establish reliable completion for detailed briefs. All 61 automated tests pass; the live long-input failure remains an explicit open limitation.
