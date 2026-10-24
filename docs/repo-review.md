@@ -81,3 +81,8 @@ The 90-second detailed run still failed, so detailed inputs above 5,000 serializ
 ## Current limitation after the format incident
 
 The final native short Prepare/Update pair succeeded on the first primary attempt in 5.9/6.1 seconds, with correct NGN 4,000/6,000 totals. The detailed school-event replay still failed: 31b returned 503 and 500, then the fallback timed out at the shared 90-second deadline. No detailed quality checks were passed in that replay. The exact user's failing brief is not available. The deployed format handling and bounded recovery are improved, but the app must not be described as fully reliable or this original report as conclusively resolved. See the [final live results](verification.md#final-deployed-checks-for-this-pass).
+
+
+## 24 October staged workflow follow-up
+
+Three validated generation steps now save browser checkpoints, match exact input before reuse, retain the previous complete pack until final validation and expose per-step timing/request references. Added the public judge guide, exact fictional test data, opt-in live benchmark and revised submission source. 69 automated tests pass. Expanded short-brief Prepare/Update checks passed live; detailed replays continued to fail on provider errors/timeouts, including the plain-JSON attempt. These failures are retained in `docs/verification.md` and `docs/evidence/`. Public article publication was not changed.

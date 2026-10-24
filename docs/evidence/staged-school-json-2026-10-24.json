@@ -1,0 +1,36 @@
+{
+  "testedAt": "2026-10-24T03:38:08.890Z",
+  "site": "https://flowpoint.phoenixreborn.tech",
+  "version": "staged-v1",
+  "scope": "Hosted inference and deterministic facts. Startup, manual drafting, human review and export time excluded.",
+  "runs": [
+    {
+      "label": "detailed-school",
+      "repeat": 1,
+      "action": "prepare",
+      "startedAt": "2026-10-24T03:38:08.890Z",
+      "steps": [
+        {
+          "stage": "facts",
+          "httpStatus": 504,
+          "wallMs": 67608,
+          "requestId": "972715f4-2efd-4dcf-8a0f-9a84a36d5743",
+          "code": "APP_ERROR"
+        }
+      ],
+      "completed": false,
+      "error": "Gemma took too long to reply. Your draft is safe; please retry.",
+      "wallMs": 67609
+    }
+  ],
+  "summary": {
+    "planned": 2,
+    "skipped": 1,
+    "attempted": 1,
+    "completed": 0,
+    "checksPassed": 0,
+    "medianCompletedMs": null,
+    "slowestCompletedMs": null,
+    "stoppedOnQuota": false
+  }
+}

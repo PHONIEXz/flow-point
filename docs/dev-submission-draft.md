@@ -18,6 +18,14 @@ That distinction matters. A made-up price can travel from a draft into a real sp
 
 ## Demo
 
+### A reproducible route through the work
+
+[Open the judge guide](https://flowpoint.phoenixreborn.tech/judge), then load the fictional Community Reading Morning brief from Notes. The first budget should show NGN 4,000 known subtotal with an unknown programme price. After the published update, it should show NGN 6,000 and the multipurpose hall in both drafts. The guide links the exact inputs and lists what to inspect in the PDF and Saved Packs.
+
+I split generation into three smaller steps: facts and budget, invitation, then run of show. Completed steps stay in the browser's workspace when storage is available. If a later request fails, retrying the same input reuses the earlier responses. My existing pack stays intact until the replacement is fully validated. This does not make Google immune to outages or prove every sentence correct; review is still part of the product.
+
+The [verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md) separates live measurements, automated simulated-provider tests and remaining limitations. I have not measured an equivalent manual-writing session, so I am not claiming a percentage time saved.
+
 **[Try Flow Point](https://flowpoint.phoenixreborn.tech/workspace)**. It runs in the browser and needs no account. The Notes page gives you room for a rough brief; the Preparation Pack page puts the Gemma update form beside the editable pack. If you just want to explore the workflow, open the clearly labelled hand-authored sample. That sample makes no AI call.
 
 ### Watch: create and navigate (3:12)
@@ -42,11 +50,11 @@ The refreshed screenshots show the current interface using a labelled School Fam
 
 **[Source and setup instructions](https://github.com/PHONIEXz/flow-point)** · **[Live verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md)**
 
-The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current test suite passes **38 tests**.
+The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current automated suite passes **69 tests**. Provider tests use simulated responses; live results are recorded separately.
 
 ## How I Built It
 
-The browser sends the event note to a Node service on Render. The server sends it to Google's Gemini API using the open-weight `gemma-4-26b-a4b-it` model. The key stays on the server. Gemma proposes structured event facts, two text drafts, tasks, budget items and open questions. The application validates the returned shape and checks dates, quantities and exact money arithmetic before accepting a pack.
+The browser sends the event note to a Node service on Render. The server sends it to Google's Gemini API using the open-weight `gemma-4-26b-a4b-it` model. The key stays on the server. The current browser workflow makes three smaller requests: facts, checklist and budget; invitation; then run of show. Each response is validated and saved before the next step. Later draft calls cannot change the structured facts. Retries with identical input reuse completed steps; changing the input starts fresh. The old complete pack stays intact until all steps and the final checks pass. Browser storage must be available to keep those checkpoints across reloads.
 
 I kept the model's job focused on interpreting the rough note and writing draft language. Code handles the parts that should be predictable. A missing price stays `null`, separate from a confirmed zero. The UI only calls a sum a *known subtotal* while prices are missing. Date and weekday conflicts and unresolved questions block approval. Editing a reviewed pack invalidates its approval. PDF, Markdown and budget CSV exports remain available as clearly marked drafts.
 
@@ -65,6 +73,12 @@ My first real generation failed with a Google HTTP 500. Flow Point reported the 
 The first PDF also split the invitation signatory's name and role across pages. I fixed the page break, deployed it and checked a second live export. These are small details, but they are the difference between a nice screenshot and a tool someone can use.
 
 The current invitation is a starting draft, not polished copy. The later schedule times still need confirmation, and a human must check the facts and complete the unknown budget item. I checked the app on my phone, and the flow I tried worked. The saved pack also survived a desktop page reload. The [verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md) separates the live observations from tests that used simulated provider responses.
+
+### Current measurements and what still fails
+
+A fixed fictional Community Reading Morning test prepared in **16.452 seconds** and updated in **12.723 seconds**. The expanded checks passed the actual signer and named activity lead, activity durations, date, time, NGN 4,000 initial known subtotal, NGN 6,000 updated total and changed venue in both drafts. This is one Prepare/Update pair, not a reliability estimate. Earlier repeated attempts hit Google quota and stopped; those failures remain in the public measurement record.
+
+A browser check also caught the model writing the field label “signatory” instead of the supplied person's name. I added rejection of that placeholder and expanded the checks to cover actual names. The smaller structured steps still encountered upstream errors with the long school brief, including a final attempt using smaller plain-JSON responses, so detailed-input reliability remains an open test gate. I am keeping failures and successful tests together in the [dated verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md).
 
 ### A second test with a detailed school event
 
@@ -100,16 +114,8 @@ These are the challenge tools at the heart of Flow Point and the categories I am
 - **Render → Best Use of Render.** Render runs the [Node service](https://github.com/PHONIEXz/flow-point/blob/main/src/server.mjs) behind the public demo. It keeps the Google key on the server, validates Gemma's output, serves the workspace and produces PDF, Markdown and CSV downloads.
 - **.tech domain → Best Use of a .tech Domain.** [flowpoint.phoenixreborn.tech](https://flowpoint.phoenixreborn.tech/workspace) is the public address for the live project, under the .tech domain claimed for this challenge.
 
-- **GitHub Copilot → Best Use of GitHub Copilot.** I used Copilot Chat to inspect the PDF download changes in [pull request #1](https://github.com/PHONIEXz/flow-point/pull/1). It identified malformed Unicode handling and recommended independent checks for decoded browser filenames. I evaluated the findings, corrected its inaccurate HTTP-status claim, and added Unicode handling plus safe filename fallbacks. The [review record](https://github.com/PHONIEXz/flow-point/blob/main/docs/copilot-review.md) explains the fixes and the 38 passing automated tests. Gemma remains the app’s inference model.
+- **GitHub Copilot → Best Use of GitHub Copilot.** I used Copilot Chat to inspect the PDF download changes in [pull request #1](https://github.com/PHONIEXz/flow-point/pull/1). It identified malformed Unicode handling and recommended independent checks for decoded browser filenames. I evaluated the findings, corrected its inaccurate HTTP-status claim, and added Unicode handling plus safe filename fallbacks. The [review record](https://github.com/PHONIEXz/flow-point/blob/main/docs/copilot-review.md) explains the fixes and the 38 passing automated tests at that review stage. Gemma remains the app’s inference model.
 
 The [MIT-licensed GitHub repository](https://github.com/PHONIEXz/flow-point) holds the application, tests, sample and verification notes. GitHub is how I share the work; the four entries above are the prize categories I am targeting.
 
 Flow Point is built by Paul Ayoade David. I directed the project and used AI assistance for code and for a draft of this article. I checked the live workflow, failure path, exports and test results before this submission. Gemma is developed by Google and its model and hosted service terms apply separately from the app's MIT license.
-
-## A reproducible route through the work
-
-[Open the judge guide](https://flowpoint.phoenixreborn.tech/judge), then load the fictional Community Reading Morning brief from Notes. The first budget should show NGN 4,000 known subtotal with an unknown programme price. After the published update, it should show NGN 6,000 and the multipurpose hall in both drafts. The guide links the exact inputs and lists what to inspect in the PDF and Saved Packs.
-
-I split generation into three smaller steps: facts and budget, invitation, then run of show. Completed steps stay in the browser's workspace when storage is available. If a later request fails, retrying the same input reuses the earlier responses. My existing pack stays intact until the replacement is fully validated. This does not make Google immune to outages or prove every sentence correct; review is still part of the product.
-
-The [verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md) separates live measurements, automated simulated-provider tests and remaining limitations. I have not measured an equivalent manual-writing session, so I am not claiming a percentage time saved.

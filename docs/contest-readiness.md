@@ -42,3 +42,6 @@ Completed: three distinct 3:12 videos are published and embedded in the DEV arti
 ## 5. Submission writing and eligibility
 
 Published: the [DEV submission](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8) describes the problem, implementation, evidence and limitations, with Render, Gemma, .tech and Copilot contributions. Videos and refreshed pictures are embedded. The [source draft](dev-submission-draft.md) is retained. Publication and category selection do not guarantee eligibility or a prize. The measured usefulness pilot above remains incomplete.
+
+
+24 October staged follow-up: `/judge` offers a reproducible brief/update and expected values. Browser generation checkpoints and per-step receipts are deployed. 69 automated tests pass; expanded short-brief checks passed live. Detailed-school generation still failed in recorded replays and remains an open gate. No overall-completion, arbitrary-input reliability or percentage-time-saving claim is justified. See `docs/verification.md`.

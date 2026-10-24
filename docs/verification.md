@@ -162,3 +162,10 @@ The fixed judge example then passed both operations with the **expanded** checks
 The latest code tests plain JSON responses for staged inputs over 5,000 serialized characters, with the same validation and no native tool settings. Staged retries also use this simpler response format. Short requests retain the successful native function path. **69 automated tests pass**. Detailed live verification for this format change is recorded next; it must not be presumed successful from the mocked tests.
 
 The browser replacement retest was stopped by automatic approval review because it would overwrite an existing browser draft. The confirmation was dismissed; no saved draft was replaced in that retest. The independent API benchmark provided the subsequent content checks.
+
+
+### Final plain-JSON detailed replay (03:38 UTC)
+
+App commit `e6a4309c01418eba9a2454cd95b8cfb68944d9ce` became live on Render deployment `dep-dbe2fs1srm7s73de3gj0` at 03:37:56 UTC. The first detailed-school facts step again timed out: request `972715f4-2efd-4dcf-8a0f-9a84a36d5743`, HTTP 504 after 67.609 s client wall time (60-second server step deadline). No completed facts response reached the client; Update was skipped. [`evidence/staged-school-json-2026-10-24.json`](evidence/staged-school-json-2026-10-24.json).
+
+**Final status:** staged browser recovery, judge guide, generation receipts and reproducible benchmark tooling are deployed. **Detailed-brief live completion remains unverified and failed in these replays.** Do not call the whole app complete or claim this provider limitation is fixed. The passing short-brief expanded checks above do not establish long-brief reliability. The latest full automated suite passes 69 tests with simulated provider responses. No manual-writing baseline, percentage time saving or overall reliability estimate has been measured. The published DEV post has not been edited in this session; its repository draft has been updated with this distinction.

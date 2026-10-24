@@ -20,6 +20,8 @@ The three videos are embedded in different sections of the published entry. They
 
 ## Current status
 
+**24 October reliability status:** resumable three-step generation and the [judge guide](https://flowpoint.phoenixreborn.tech/judge) are deployed. The short fixed brief passed the expanded Prepare/Update checks in 16.452 / 12.723 seconds on the bounded-attempt release. Detailed-school replays still failed, including the final simpler JSON path. The current 69-test automated suite passes, but detailed live reliability remains an open limitation. [All attempts and references](docs/verification.md).
+
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
 **Earlier live inference and production deployment were verified on 23 October 2026.** A fictional event pack and a follow-up update were generated with `gemma-4-26b-a4b-it` on the deployed site. One provider HTTP 500 preceded the successful retry; the request was preserved. No API key is bundled. Without a configured server key the workspace explicitly disables live generation and offers a labelled, hand-authored sample. Provider errors never substitute sample output. Automated model tests use simulated HTTP responses; see the separate [live verification record](docs/verification.md).
