@@ -24,7 +24,7 @@ Deliverables:
 
 ## Chunk 2: show the source behind important facts
 
-**Status:** deployed; corrective source checks and final browser verification in progress. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
+**Status:** source-review implementation delivered; desktop checks pass. Saved-history UI final check and physical-phone verification are tracked separately. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
 
 **Goal:** let the organizer check an extracted fact without searching the entire brief.
 
@@ -98,4 +98,4 @@ Voice capture, mascots, additional sponsor integrations, accounts, collaboration
 
 ## Tracking rule
 
-Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1 is being verified; later chunks remain queued until its live and export checks are recorded.
+Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. The owner authorized Chunk 2 separately; Chunk 3 is next after its source-review checks.

@@ -9,6 +9,7 @@ let collection = { current: emptyWorkspace(), packs: [], activeId: null };
 let state = collection.current;
 let lastSavedRaw = null;
 const sourceHosts = new Map();
+let renderedSourceHistoryKey = null;
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
 function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
@@ -292,6 +293,17 @@ function attachStaticSource(input, path) {
 }
 function renderSourceCards() {
   if (!state.plan) return;
+  const history=state.plan.sourceEvidence;
+  const historyKey=(history?.sources || []).map(s=>s.id).join(':')+':'+Boolean(history?.notesChanged);
+  if(historyKey !== renderedSourceHistoryKey) {
+    renderedSourceHistoryKey=historyKey;
+    let updateIndex=0;
+    const entries=(history?.sources || []).map(source=> {
+      const card=node('details',null,'saved-source-document');
+      card.append(node('summary',source.kind === 'notes' ? `Saved original notes${history.notesChanged ? ' · changed since capture' : ''}` : `Saved update ${++updateIndex}`),node('pre',source.text)); return card;
+    });
+    $('source-history-list').replaceChildren(...(entries.length ? entries : [node('p','This older pack has no saved source history. You can check the Notes page; historical updates have not been invented.','field-help')]));
+  }
   const labels = {unknown:'Unknown · needs a value',legacy:'No saved source · needs review',unreviewed:'Quote found · needs review',manual:'Manually entered · needs review',unsupported:'No valid quote · needs review',confirmed:'Confirmed by you'};
   const all = factFields(state.plan).map(f => factSourceInfo(state.plan,f.path));
   const counts = { confirmed:0, unknown:0, review:0 };
