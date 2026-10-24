@@ -20,7 +20,7 @@ The three videos are embedded in different sections of the published entry. They
 
 ## Current status
 
-**24 October reliability status:** resumable three-step generation and the [judge guide](https://flowpoint.phoenixreborn.tech/judge) are deployed. The short fixed brief passed the expanded Prepare/Update checks in 16.452 / 12.723 seconds on the bounded-attempt release. Detailed-school replays still failed, including the final simpler JSON path. The current 69-test automated suite passes, but detailed live reliability remains an open limitation. [All attempts and references](docs/verification.md).
+**24 October reliability status:** resumable three-step generation and the [judge guide](https://flowpoint.phoenixreborn.tech/judge) are deployed. The short fixed brief passed the expanded Prepare/Update checks in 16.452 / 12.723 seconds on the bounded-attempt release. Detailed-school replays still failed, including the final simpler JSON path. The current 70-test automated suite passes, but detailed live reliability remains an open limitation. [All attempts and references](docs/verification.md).
 
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
@@ -28,7 +28,7 @@ The event workspace uses a full-page notes editor at `/workspace` and a preparat
 
 ## Run
 
-Requires Node.js 22.9 or newer (Node 24 recommended). Run `npm ci` to install the locked dependencies, including PDFKit and DejaVu fonts for PDF export. Hosted inference does not require a model download.
+Requires Node.js 22.19.0 or newer (Node 24 recommended). Run `npm ci` to install the locked dependencies, including PDFKit and DejaVu fonts for PDF export. Hosted inference does not require a model download.
 
 ```sh
 cp .env.example .env
@@ -85,7 +85,7 @@ Entry categories: Gemma, Render, .tech Domain and GitHub Copilot, subject to eli
 
 Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 
-The 69-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
+The 70-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 
 ## License
 
@@ -101,8 +101,8 @@ Latest reliability check (24 October): the native structured-response path compl
 
 The browser now prepares the pack through three separately validated calls: facts/checklist/budget, invitation, and run of show. Draft calls cannot change the checkpoint's structured facts. Completed responses are stored in the existing browser workspace; retries with identical notes, update text and previous plan reuse the successful prefix. Any input change starts fresh. The old pack is replaced only after all steps and a final server validation complete.
 
-Each step has a 60-second server deadline and bounded retries, so a full pack may take up to three minutes. Three requests can use more provider quota than a single call. Checkpoints require available browser storage and do not recover responses lost before receipt. This is browser-local recovery, not a durable server queue or an exactly-once billing guarantee. Model/provider failures remain possible.
+Each model step has a seven-minute server deadline shared by its bounded retries. The browser allows seven minutes and 15 seconds per step for transport overhead. With three sequential steps, a full pack can take up to about 21 minutes; you can cancel at any time. Three requests can use more provider quota than a single call. Checkpoints require available browser storage and do not recover responses lost before receipt. This is browser-local recovery, not a durable server queue or an exactly-once billing guarantee. Model/provider failures remain possible.
 
-The [judge guide](docs/judge-guide.md) includes a small repeatable brief and expected initial NGN 4,000 subtotal / updated NGN 6,000 total. The original detailed school brief remains a separate regression case. `node scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2` records every attempted hosted run, per-step references, timings and fact checks. It is excluded from tests and builds. Live results are recorded separately from the 69 simulated-provider/unit/UI tests. Human review and a manual-writing baseline remain unmeasured.
+The [judge guide](docs/judge-guide.md) includes a small repeatable brief and expected initial NGN 4,000 subtotal / updated NGN 6,000 total. The original detailed school brief remains a separate regression case. `node scripts/benchmark-live.mjs --live --site https://flowpoint.phoenixreborn.tech --repeats 2` records every attempted hosted run, per-step references, timings and fact checks. It is excluded from tests and builds. Live results are recorded separately from the 70 simulated-provider/unit/UI tests. Human review and a manual-writing baseline remain unmeasured.
 
 First staged live measurement: the fixed judge brief prepared in 18.606 seconds and updated in 13.394 seconds, passing the listed budget/date/venue checks. The next attempt hit Google quota at its invitation step, and the runner stopped. Two completed out of three attempted operations is an interrupted small sample, not proof of overall reliability. [Raw measurement record](docs/evidence/staged-live-2026-10-24.json). The detailed-school staged regression was not reached in that batch.

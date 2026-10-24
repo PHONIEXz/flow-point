@@ -9,6 +9,8 @@ Open https://flowpoint.phoenixreborn.tech/judge for the guided test. Use **Load 
 5. Review all sections, resolve only answered questions, approve the exact version, then download the PDF. Edit a detail and confirm approval clears. PDF names begin with the event title plus a unique suffix.
 6. Name the pack, reload, reopen, and download a backup.
 
+Each generation step can wait up to seven minutes for its model response. Retries share that step deadline. Three steps can take up to about 21 minutes in total; the Cancel button remains available.
+
 ## Recovery test
 
 In browser developer tools, block `/api/generate` after the first step completes, or cancel during a later step. Your previous complete pack must remain unchanged. Retry with the exact same notes, changes and previous plan: completed steps are reused. Changing any input invalidates the checkpoint. No draft is published into the pack editor until all three steps and the final server review succeed. Storage restrictions can prevent durable checkpoints; the UI reports storage failure and still keeps work in the open page.

@@ -1,3 +1,5 @@
+import { Agent, fetch } from 'undici';
+const generationDispatcher = new Agent({ headersTimeout: 450000, bodyTimeout: 450000 });
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { prepareInStages } from '../public/generation.mjs';
 if (!process.argv.includes('--live')) throw new Error('Pass --live to authorize real hosted inference requests.');
@@ -24,7 +26,7 @@ for (const [label, fixture] of cases) {
         const result = await prepareInStages({ request: fixture.request, answers: action === 'update' ? fixture.answers : '', previousPlan }, {
           call: async data => {
             const begin = Date.now();
-            const response = await fetch(site + '/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal: AbortSignal.timeout(75000) });
+            const response = await fetch(site + '/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), dispatcher: generationDispatcher, signal: AbortSignal.timeout(435000) });
             const value = await response.json();
             row.steps.push({ stage: data.stage, httpStatus: response.status, wallMs: Date.now() - begin, requestId: value.requestId, provenance: value.provenance, code: value.code });
             if (!response.ok) { if (response.status === 429) stop = true; throw new Error(value.error || 'Generation failed'); }

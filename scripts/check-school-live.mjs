@@ -1,3 +1,5 @@
+import { Agent, fetch } from 'undici';
+const generationDispatcher = new Agent({ headersTimeout: 450000, bodyTimeout: 450000 });
 import { prepareInStages } from '../public/generation.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 await mkdir('tmp', { recursive: true });
@@ -8,7 +10,7 @@ const record={testedAt:new Date().toISOString(),input:'docs/school-event-test.md
 async function generate(data,label){
  const started=Date.now();
  const result=await prepareInStages(data,{call:async input=>{
-  const res=await fetch(record.site+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input),signal:AbortSignal.timeout(75000)});
+  const res=await fetch(record.site+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input),dispatcher:generationDispatcher,signal:AbortSignal.timeout(435000)});
   const value=await res.json();
   if(!res.ok) throw new Error(label+': '+value.error+' Reference: '+value.requestId);
   return value;

@@ -50,7 +50,7 @@ The refreshed screenshots show the current interface using a labelled School Fam
 
 **[Source and setup instructions](https://github.com/PHONIEXz/flow-point)** · **[Live verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md)**
 
-The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current automated suite passes **69 tests**. Provider tests use simulated responses; live results are recorded separately.
+The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without a private Google key, the labelled sample still supports editing, review and export. The current automated suite passes **70 tests**. Provider tests use simulated responses; live results are recorded separately.
 
 ## How I Built It
 

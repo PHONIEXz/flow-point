@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { reviewPlan, approvePlan, isApproved } from './plan.mjs';
 import { budgetCsv, preparationPack } from './export.mjs';
 import { preparationPdf } from './pdf.mjs';
-import { generatePack, checkModelAccess, probeGeneration, AppError } from './gemma.mjs';
+import { generatePack, checkModelAccess, probeGeneration, fetchModelResponse, MODEL_RESPONSE_TIMEOUT_MS, AppError } from './gemma.mjs';
 
 const publicRoot = new URL('../dist/', import.meta.url);
 const routes = { '/': 'index.html', '/workspace': 'workspace.html', '/workspace/': 'workspace.html', '/workspace/pack': 'workspace.html', '/workspace/pack/': 'workspace.html', '/styles.css': 'styles.css', '/app.js': 'app.js', '/workspace.css': 'workspace.css', '/workspace.js': 'workspace.js', '/theme.css': 'theme.css', '/theme.js': 'theme.js', '/pack-store.mjs': 'pack-store.mjs', '/download-name.mjs': 'download-name.mjs', '/money.mjs': 'money.mjs', '/generation.mjs': 'generation.mjs', '/judge-example.json': 'judge-example.json', '/judge': 'judge.html', '/icon.svg': 'icon.svg', '/sample-pack.md': 'sample-pack.md' };
@@ -18,7 +18,7 @@ async function body(req) {
   for await (const chunk of req) { size += chunk.length; if (size > 100000) throw new AppError(413, 'This pack is too large. Please shorten it.'); chunks.push(chunk); }
   try { return JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { throw new AppError(400, 'Invalid JSON data.'); }
 }
-export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it', fetchImpl = fetch, log = entry => console.info(JSON.stringify(entry)) } = {}) {
+export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it', fetchImpl = fetchModelResponse, log = entry => console.info(JSON.stringify(entry)) } = {}) {
   let active = 0;
   const limits = new Map();
   const approved = new Map(); // Review state, not user identity. Forgotten on restart.
@@ -36,7 +36,7 @@ export function createApp({ apiKey = process.env.GEMINI_API_KEY, model = process
       try { pathname = new URL(req.url, 'http://local').pathname; }
       catch { throw new AppError(400, 'Invalid request URL.'); }
       if (req.method === 'GET' && pathname === '/healthz') return json(res, 200, { status: 'ok' });
-      if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), model, storage: 'browser-local' });
+      if (req.method === 'GET' && pathname === '/api/config') return json(res, 200, { liveAvailable: Boolean(apiKey), model, storage: 'browser-local', generationTimeoutMs: MODEL_RESPONSE_TIMEOUT_MS });
       if (req.method === 'GET' && pathname === '/api/sample') {
         const plan = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
         return json(res, 200, { ...reviewPlan(plan), provenance: { mode: 'sample', model: null } });

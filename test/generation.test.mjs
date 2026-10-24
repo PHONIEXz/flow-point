@@ -85,3 +85,14 @@ test('detailed staged input uses small validated JSON responses without native t
   assert.equal(result.provenance.responseFormat, 'text-json');
   assert.equal(result.plan.title, sample.title);
 });
+
+test('production HTTP transport uses a compatible fetch/dispatcher pair', async t => {
+  const { createServer } = await import('node:http');
+  const { once } = await import('node:events');
+  const { fetchModelResponse } = await import('../src/gemma.mjs');
+  const server = createServer((req, res) => { res.setHeader('Content-Type', 'application/json'); res.end('{"ok":true}'); });
+  server.listen(0, '127.0.0.1'); await once(server, 'listening');
+  t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); }));
+  const response = await fetchModelResponse(`http://127.0.0.1:${server.address().port}/`, { signal: AbortSignal.timeout(5000) });
+  assert.equal(response.status, 200); assert.deepEqual(await response.json(), { ok: true });
+});

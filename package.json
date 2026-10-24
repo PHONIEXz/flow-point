@@ -13,11 +13,12 @@
     "pretest": "npm run build"
   },
   "engines": {
-    "node": ">=22.9"
+    "node": ">=22.19.0"
   },
   "license": "MIT",
   "dependencies": {
     "dejavu-fonts-ttf": "2.37.3",
-    "pdfkit": "0.20.2"
+    "pdfkit": "0.20.2",
+    "undici": "8.12.3"
   }
 }
