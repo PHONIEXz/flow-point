@@ -6,13 +6,18 @@ import { prepareInStages } from '../public/generation.mjs';
 if (!process.argv.includes('--live')) throw new Error('Pass --live to authorize real hosted inference requests.');
 const arg = (key, fallback) => process.argv.includes(key) ? process.argv[process.argv.indexOf(key) + 1] : fallback;
 const site = arg('--site', 'http://127.0.0.1:3000').replace(/\/$/, '');
+const selectedProvider=arg('--provider',null);
+if(selectedProvider&&!['google','groq'].includes(selectedProvider))throw Error('Choose --provider google or groq.');
+const config=await(await fetch(site+'/api/config',{dispatcher:generationDispatcher,signal:AbortSignal.timeout(60000)})).json();
+const choice=config.providers?.find(p=>p.id===(selectedProvider||config.provider));
+if(!choice?.configured)throw Error('The selected provider is not connected; no inference attempted.');
 const repeats = Number(arg('--repeats', '2'));
 if (!Number.isInteger(repeats) || repeats < 1 || repeats > 2) throw new Error('Use 1 or 2 repeats per case to respect the live service quota.');
 const example = JSON.parse(await readFile(new URL('../public/judge-example.json', import.meta.url), 'utf8'));
 const school = await readFile(new URL('../docs/school-event-test.md', import.meta.url), 'utf8');
 const detailed = { request: school.split('## Initial brief\n\n')[1].split('\n## Follow-up update')[0].trim(), answers: school.split('## Follow-up update\n\n')[1].split('\n## Expected checks')[0].trim() };
 const cooldownBeforeUpdateMs = process.argv.includes('--paced') ? 60000 : 0;
-const report = { cooldownBeforeUpdateMs, testedAt: new Date().toISOString(), site, version: 'staged-v1', scope: 'Hosted inference and deterministic facts. Startup, manual drafting, human review, export time and the explicitly recorded cooldown between operations are excluded.', runs: [] };
+const report = { processingProvider:choice.id, processingModel:choice.model, cooldownBeforeUpdateMs, testedAt: new Date().toISOString(), site, version: 'staged-v1', scope: 'Hosted inference and deterministic facts. Startup, manual drafting, human review, export time and the explicitly recorded cooldown between operations are excluded.', runs: [] };
 const output = arg('--output', `docs/evidence/live-${Date.now()}.json`);
 await mkdir(new URL('../docs/evidence/', import.meta.url), { recursive: true });
 const selectedCase = arg('--case', 'all');
@@ -31,7 +36,7 @@ for (const [label, fixture] of cases) {
       if (action === 'update' && !prepared && cooldownBeforeUpdateMs) await pace(cooldownBeforeUpdateMs);
       const row = { label, repeat, action, startedAt: new Date().toISOString(), steps: [] }; const started = Date.now();
       try {
-        const result = await prepareInStages({ request: fixture.request, answers: action === 'update' ? fixture.answers : '', previousPlan }, {
+        const result = await prepareInStages({ processingProvider:choice.id, processingModel:choice.model, request: fixture.request, answers: action === 'update' ? fixture.answers : '', previousPlan }, {
           call: async data => {
             const begin = Date.now();
             const response = await fetch(site + '/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), dispatcher: generationDispatcher, signal: AbortSignal.timeout(435000) });
@@ -74,3 +79,5 @@ const times = report.runs.filter(r => r.completed).map(r => r.wallMs).sort((a, b
 report.summary = { planned: cases.length * repeats * actions.length, skipped: cases.length * repeats * actions.length - report.runs.length, attempted: report.runs.length, completed: times.length, checksPassed: report.runs.filter(r => r.checksPassed).length, medianCompletedMs: times.length ? (times[Math.floor((times.length - 1) / 2)] + times[Math.ceil((times.length - 1) / 2)]) / 2 : null, slowestCompletedMs: times.at(-1) ?? null, stoppedOnQuota: stop };
 await writeFile(output, JSON.stringify(report, null, 2) + '\n'); console.log(JSON.stringify({ output, ...report.summary }));
 if (report.summary.checksPassed !== report.summary.attempted || stop) process.exitCode = 1;
+
+await generationDispatcher.close();

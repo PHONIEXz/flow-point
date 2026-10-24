@@ -54,7 +54,7 @@ test('missing draft time regenerates only the affected step within three attempt
   assert.equal(calls, 3); assert.deepEqual(p, before);
 });
 test('old saved prefixes cannot reuse responses from the earlier content contract', () => {
-  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 11);
+  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 12);
 });
 
 test('source checks reject real currency-unit mistake, missing named assignment and dated rehearsal without mutating facts', async () => {
@@ -79,4 +79,12 @@ test('checks clock arithmetic against activity minutes and regenerates a wrong c
   let calls = 0;
   const result = await generatePack({ request: 'Community event test', stage: 'schedule', checkpoint: p }, { ...quiet, fetchImpl: async () => reply({ schedule: ++calls === 1 ? wrong : wrong.replace('14:50 Closing', '14:55 Closing') }) });
   assert.equal(calls, 2); assert.equal(result.issues.some(x => x.code === 'SCHEDULE_DURATION'), false);
+});
+
+
+test('captured update with null start time regenerates the facts step without changing the old pack',async()=>{
+ const captured=JSON.parse(await readFile(new URL('./school-start-regression.json',import.meta.url)));
+ const previous=school(),before=structuredClone(previous),fixed=structuredClone(captured.plan);fixed.startTime='10:00';let calls=0;
+ const result=await generatePack({request:captured.request,answers:captured.answers,previousPlan:previous,stage:'facts'},{...quiet,fetchImpl:async()=>reply(++calls===1?captured.plan:fixed)});
+ assert.equal(calls,2);assert.equal(result.plan.startTime,'10:00');assert.deepEqual(previous,before);
 });

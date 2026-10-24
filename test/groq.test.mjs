@@ -83,6 +83,6 @@ test('explicit provider choice routes each request to its own key without changi
   const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider:provider,processingModel:model})});assert.equal(r.status,200);const data=await r.json();assert.equal(data.provenance.provider,provider==='groq'?'Groq':'Google Gemini API');
  }
  assert.equal(seen[0].headers['x-goog-api-key'],'fake-google-key');assert.equal(seen[0].headers.Authorization,undefined);assert.equal(seen[1].headers.Authorization,'Bearer fake-groq-key');assert.equal(seen[1].headers['x-goog-api-key'],undefined);
- for(const [provider,model,status]of [['__proto__',null,400],['google','arbitrary-model',409]]){const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider:provider,processingModel:model})});assert.equal(r.status,status);}
+ for(const [provider,model,status]of [['__proto__',null,400],[['google'],null,400],[{},null,400],['google','arbitrary-model',409]]){const r=await fetch(base+'/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request:fixture.request,stage:'facts',processingProvider:provider,processingModel:model})});assert.equal(r.status,status);}
  assert.equal(seen.length,2);c=await(await fetch(base+'/api/config')).json();assert.equal(c.provider,'groq');
 });
