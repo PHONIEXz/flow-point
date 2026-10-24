@@ -73,3 +73,6 @@ The longer replay still timed out after the malformed-text retry, so the follow-
 
 
 A short live test confirmed native function arguments on the primary model in 6.3 seconds. The detailed native run reached the prior 60-second cutoff. The subsequent generation deadline is 90 seconds total, with a 105-second client deadline, an explicit progress notice, concise draft guidance, the same three-attempt cap and cancellation. This supersedes the earlier 60-second budget descriptions for the final implementation.
+
+
+The 90-second detailed run still failed, so detailed inputs above 5,000 serialized characters now start on the existing 31b model while short inputs retain 26b. Safe finish-reason and token-count diagnostics were added because the previous run did not expose its stop category. The exact prior non-success category remains unknown. Provenance records configured, primary and actual models; 61 tests pass. The final deployed detailed replay is recorded in the verification history.

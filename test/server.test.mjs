@@ -406,3 +406,22 @@ test('a malformed native function response can recover within the same bounded a
   assert.equal(calls, 2); assert.equal(result.provenance.attempts, 2);
   assert.equal(result.provenance.responseFormat, 'function-call');
 });
+
+test('detailed inputs start on the larger Gemma while short inputs keep the configured primary', async () => {
+  for (const [request, expected] of [['Short fictional event.', 'gemma-4-26b-a4b-it'], ['Detailed event '.repeat(500), 'gemma-4-31b-it']]) {
+    let used;
+    const result = await generatePack({ request }, { apiKey: 'test', log: () => {}, fetchImpl: async url => { used = url; return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ functionCall: { name: 'submit_event_pack', args: complete() } }] } }] }); } });
+    assert.ok(used.includes(expected + ':generateContent'));
+    assert.equal(result.provenance.model, expected);
+    assert.equal(result.provenance.primaryModel, expected);
+    assert.equal(result.provenance.requestedModel, 'gemma-4-26b-a4b-it');
+  }
+});
+
+test('safe response diagnostics record stop categories and token counts without raw model content', async () => {
+  const logs = [];
+  await assert.rejects(generatePack({ request: 'private-note-marker' }, { apiKey: 'private-key-marker', log: entry => logs.push(entry), fetchImpl: async () => Response.json({ usageMetadata: { candidatesTokenCount: 4096 }, candidates: [{ finishReason: 'MAX_TOKENS', content: { parts: [{ text: 'private-output-marker' }] } }] }) }), error => error.status === 502);
+  const diagnostic = logs.find(entry => entry.event === 'gemma_generation_response');
+  assert.equal(diagnostic.finishReason, 'MAX_TOKENS'); assert.equal(diagnostic.outputTokens, 4096);
+  assert.doesNotMatch(JSON.stringify(logs), /private-(note|key|output)-marker/);
+});

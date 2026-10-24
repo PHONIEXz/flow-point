@@ -32,11 +32,13 @@ export async function generatePack({ request, answers = '', previousPlan = null 
   }
   const record = entry => log({ ...entry, requestId, action });
   let response, parsed, attempts = 0, usedModel = model, invalidReply = false, responseFormat = 'text-json';
-  const fallbackModel = model === 'gemma-4-26b-a4b-it' ? 'gemma-4-31b-it' : null;
+  const inputSize = JSON.stringify({ request, answers, previousPlan }).length;
+  const primaryModel = model === 'gemma-4-26b-a4b-it' && inputSize > 5000 ? 'gemma-4-31b-it' : model;
+  const fallbackModel = primaryModel === 'gemma-4-26b-a4b-it' ? 'gemma-4-31b-it' : primaryModel === 'gemma-4-31b-it' ? 'gemma-4-26b-a4b-it' : null;
   try {
     for (let attempt = 0; attempt < 3; attempt++) {
       checkInterrupted();
-      usedModel = fallbackModel && (attempt === 2 || invalidReply) ? fallbackModel : model;
+      usedModel = fallbackModel && (attempt === 2 || invalidReply) ? fallbackModel : primaryModel;
       attempts++;
       const attemptStarted = Date.now();
       const nativeFunction = usedModel.startsWith('gemma-4-');
@@ -63,6 +65,9 @@ export async function generatePack({ request, answers = '', previousPlan = null 
           checkInterrupted();
           if (result?.promptFeedback?.blockReason) throw new AppError(502, 'Gemma could not produce a usable pack for this request. Review the wording before retrying.', 'MODEL_BLOCKED');
           const candidate = Array.isArray(result?.candidates) ? result.candidates[0] : null;
+          const finishReason = ['STOP', 'MAX_TOKENS', 'SAFETY', 'RECITATION', 'BLOCKLIST', 'PROHIBITED_CONTENT', 'SPII', 'MALFORMED_FUNCTION_CALL', 'UNEXPECTED_TOOL_CALL', 'OTHER'].includes(candidate?.finishReason) ? candidate.finishReason : 'UNKNOWN';
+          const outputTokens = result?.usageMetadata?.candidatesTokenCount;
+          record({ event: 'gemma_generation_response', model: usedModel, attempt: attempts, finishReason, outputTokens: Number.isSafeInteger(outputTokens) && outputTokens >= 0 ? outputTokens : null });
           if (candidate?.finishReason === 'MALFORMED_FUNCTION_CALL') throw new AppError(502, 'Gemma returned an invalid pack structure. Your previous draft is safe. Please retry.', 'MODEL_JSON_INVALID');
           // Safety blocks and truncated replies remain explicit failures.
           if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'Gemma did not finish a usable pack. Try a shorter request.');
@@ -117,8 +122,8 @@ export async function generatePack({ request, answers = '', previousPlan = null 
     record({ event: 'gemma_generation_failed', httpStatus: response.status, model: usedModel, attempts, durationMs: Date.now() - started });
     throw new AppError(502, `Google generation returned HTTP ${response.status}. Please retry when the provider is available.`);
   }
-  record({ event: 'gemma_generation_succeeded', model: usedModel, requestedModel: model, attempts, responseFormat, durationMs: Date.now() - started });
-  return { ...parsed, provenance: { mode: 'live', provider: 'Google Gemini API', model: usedModel, requestedModel: model, attempts, responseFormat, generatedAt: new Date().toISOString(), durationMs: Date.now() - started } };
+  record({ event: 'gemma_generation_succeeded', model: usedModel, requestedModel: model, primaryModel, attempts, responseFormat, durationMs: Date.now() - started });
+  return { ...parsed, provenance: { mode: 'live', provider: 'Google Gemini API', model: usedModel, requestedModel: model, primaryModel, attempts, responseFormat, generatedAt: new Date().toISOString(), durationMs: Date.now() - started } };
 }
 
 // One metadata check per server start, with no event content or credentials in logs.
