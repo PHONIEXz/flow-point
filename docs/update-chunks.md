@@ -6,7 +6,7 @@ These are planned changes, not completed features or winning probabilities. Fini
 
 ## Delivered foundation
 
-Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 87 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
+Three-stage generation, browser-local checkpoints, seven-minute model-step deadlines, generation receipts, a judge guide, and separate sample PDF/Markdown downloads are deployed. The latest automated suite has 88 passing tests. Provider quota and semantic omissions remain open; this does not mean the application is fully complete.
 
 ## Chunk 1: fix known content omissions
 
@@ -24,7 +24,7 @@ Deliverables:
 
 ## Chunk 2: show the source behind important facts
 
-**Status:** implementing; automated checks pass, deployment and browser verification next. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
+**Status:** deployed; corrective source checks and final browser verification in progress. **Lessons:** Availazy, Ditto, TwoToe, BioFlow, LazyShelf.
 
 **Goal:** let the organizer check an extracted fact without searching the entire brief.
 

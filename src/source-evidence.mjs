@@ -1,6 +1,26 @@
 import {createHash} from 'node:crypto';
 import {factFields,factSourceInfo} from '../public/source-fields.mjs';
 const sourceId = (kind,text) => createHash('sha256').update(kind+'\0'+text).digest('hex');
+const textFields=new Set(['title','venue','organizer','signatory','currency']);
+const words=value=>String(value).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();
+function supportsText(field,quote) {
+  return !textFields.has(field.path) || (` ${words(quote)} `).includes(` ${words(field.value)} `);
+}
+function latestLiteralSpan(field,sources) {
+  if(!textFields.has(field.path) || typeof field.value!=='string' || !field.value.trim()) return null;
+  for(const source of [...sources].reverse().filter(s=>s.kind==='update')) {
+    const index=source.text.indexOf(field.value);
+    if(index<0 || !supportsText(field,source.text.slice(index,index+field.value.length))) continue;
+    const left=Math.max(source.text.lastIndexOf('\n',index),source.text.lastIndexOf('.',index),source.text.lastIndexOf('!',index),source.text.lastIndexOf('?',index));
+    const start=Math.max(left+1,index-100);
+    const rest=source.text.slice(index+field.value.length), boundary=rest.search(/[.!?\n]/);
+    const end=Math.min(source.text.length,start+320,index+field.value.length+(boundary<0 ? 80 : boundary+1));
+    if (end < index + field.value.length || !supportsText(field, source.text.slice(start,end))) continue;
+    return {sourceId:source.id,start,end};
+  }
+  return null;
+}
+
 export function normalizeSourceEvidence(input,plan) {
   if (input == null) return null;
   if(input.version !== 1 || !Array.isArray(input.sources) || input.sources.length > 8 || !Array.isArray(input.records) || input.records.length > 420) throw new Error('Invalid source evidence');
@@ -20,7 +40,13 @@ export function normalizeSourceEvidence(input,plan) {
     if(old.origin === 'manual') return {...record,origin:'manual',confirmed:old.confirmed===true && field.value!==null};
     if(old.origin === 'legacy') return record;
     const source=sources.find(s=>s.id===old.sourceId);
-    if(source && !(input.notesChanged && source.kind==='notes') && Number.isInteger(old.start) && Number.isInteger(old.end) && old.start>=0 && old.end>old.start && old.end<=source.text.length && old.end-old.start<=320 && source.text.slice(old.start,old.end).trim()) return {...record,origin:'extracted',sourceId:source.id,start:old.start,end:old.end,confirmed:old.confirmed===true && field.value!==null};
+    if(source && !(input.notesChanged && source.kind==='notes') && Number.isInteger(old.start) && Number.isInteger(old.end) && old.start>=0 && old.end>old.start && old.end<=source.text.length && old.end-old.start<=320 && source.text.slice(old.start,old.end).trim()) {
+      if(supportsText(field,source.text.slice(old.start,old.end))) return {...record,origin:'extracted',sourceId:source.id,start:old.start,end:old.end,confirmed:old.confirmed===true && field.value!==null};
+      // Recover only from a genuine latest-update statement containing the displayed text.
+      // An invented model quote has no span and never enters this recovery path.
+      const current=latestLiteralSpan(field,sources);
+      if(current) return {...record,origin:'extracted',...current,confirmed:false};
+    }
     return {...record,origin:'unsupported'};
   });
   return {version:1,legacy:input.legacy===true,notesChanged:input.notesChanged===true,sources,records};

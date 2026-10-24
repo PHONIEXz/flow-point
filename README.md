@@ -20,7 +20,7 @@ The three videos are embedded in different sections of the published entry. They
 
 ## Current status
 
-**24 October status:** the interface now groups evidence, event details, review items, saved packs and exports into cards, with a working Home sample preview. There are 79 passing automated tests. Chunk 1 adds spending-limit/allowance arithmetic, source-omission guards and programme-time checks; its complete school Prepare/Update verification remains open after provider HTTP 500/503. A smaller community run revealed a clock-arithmetic issue now covered by validation. [UI checks](docs/ui-organization-2026-10-24.md) · [Chunk 1 results and limits](docs/chunk-1-verification.md).
+**24 October status:** the interface now groups evidence, event details, review items, saved packs and exports into cards, with a working Home sample preview. There are 88 passing automated tests. Chunk 1 adds spending-limit/allowance arithmetic, source-omission guards and programme-time checks; its complete school Prepare/Update verification remains open after provider HTTP 500/503. A smaller community run revealed a clock-arithmetic issue now covered by validation. [UI checks](docs/ui-organization-2026-10-24.md) · [Chunk 1 results and limits](docs/chunk-1-verification.md). Chunk 2 adds exact source quotes, manual confirmation and stale-evidence checks; [its live results](docs/chunk-2-verification.md) retain the observed semantic failures.
 
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the Gemma update form beside the pack. A Node HTTP server and server-only hosted Gemma adapter support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
@@ -85,7 +85,7 @@ Entry categories: Gemma, Render, .tech Domain and GitHub Copilot, subject to eli
 
 Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 
-The 79-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
+The 88-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 
 ## License
 

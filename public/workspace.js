@@ -437,6 +437,10 @@ async function sample() {
 $('sample').addEventListener('click', sample); $('empty-sample').addEventListener('click', sample);
 $('approve').addEventListener('click', async () => {
   const version = revision; $('approve').disabled = true;
+  if ($('review-confirm').checked && state.plan?.sourceEvidence) {
+    for (const field of factFields(state.plan)) if (factSourceInfo(state.plan, field.path).status === 'unreviewed') confirmFact(state.plan, field.path);
+    save(); renderSourceCards();
+  }
   try {
     const result = await api('/api/approve', { plan: state.plan, confirmed: $('review-confirm').checked });
     if (version !== revision) return;

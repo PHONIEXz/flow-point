@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-24",
+  "release": "580e6abbb4bf7e8905df1b0c8fd95183c3a71ea2",
+  "fixture": "docs/evidence/chunk-2-source-fixture-2026-10-24.json",
+  "method": "Manual live browser inspection plus server generation receipts. Server durations exclude human review, exports and unmeasured end-to-end browser time.",
+  "receipts": [
+    {
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 10043,
+      "requestId": "78d7c289-c3cd-4e54-be6a-c75d32cc4e70",
+      "action": "prepare",
+      "stage": "facts"
+    },
+    {
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 3440,
+      "requestId": "42941017-6359-44e8-958b-9501f97abedc",
+      "action": "prepare",
+      "stage": "invitation"
+    },
+    {
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 2513,
+      "requestId": "4dc06258-5ec0-4c68-9842-9d72a9466b0d",
+      "action": "prepare",
+      "stage": "schedule"
+    },
+    {
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 10423,
+      "requestId": "e42d71b8-502d-4edf-89b4-a900562745fc",
+      "action": "update",
+      "stage": "facts"
+    },
+    {
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 3525,
+      "requestId": "1b368e1f-5f5c-4091-a600-5b87d4a73138",
+      "action": "update",
+      "stage": "invitation"
+    },
+    {
+      "event": "gemma_generation_succeeded",
+      "model": "gemma-4-26b-a4b-it",
+      "requestedModel": "gemma-4-26b-a4b-it",
+      "primaryModel": "gemma-4-26b-a4b-it",
+      "attempts": 1,
+      "responseFormat": "function-call",
+      "durationMs": 2405,
+      "requestId": "3c148f0d-ea27-41ea-ba56-17a774c7b2e6",
+      "action": "update",
+      "stage": "schedule"
+    }
+  ],
+  "prepare": {
+    "completed": true,
+    "serverGenerationMs": 15996,
+    "knownSubtotalMinor": 6000,
+    "provisionalAllowanceMinor": 14000,
+    "unknownPriceCount": 1,
+    "unknownVenue": true,
+    "knownFactsWithQuotes": 10
+  },
+  "update": {
+    "completed": true,
+    "serverGenerationMs": 16353,
+    "venue": "Cedar Library Hall",
+    "badVenueQuote": "The proposed venue is Cedar Hall",
+    "badVenueQuoteSource": "notes",
+    "signatory": "A",
+    "signatoryQuote": "Amina Bello, Club Secretary",
+    "staleQuestion": "What is the price of the banner?",
+    "contentPass": false,
+    "notes": "A literal quote existing in a note did not prove that it supported the displayed name/place. Follow-up adds whole-token text checks and recovery only to an actual saved update containing the full displayed value. The run is not an overall content pass. Ada Okafor's duty was omitted from the checklist in this exposed run, remaining a Chunk 1 semantic omission."
+  }
+}

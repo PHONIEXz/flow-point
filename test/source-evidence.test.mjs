@@ -78,3 +78,13 @@ test('staged model quotes are bound to actual request text and preserved by late
  assert.deepEqual(invitation.plan.sourceEvidence,facts.plan.sourceEvidence);
  const forged={...base(),sourceEvidence:cited().sourceEvidence}; assert.equal(parseModelPlan(JSON.stringify(forged)).plan.sourceEvidence,undefined);
 });
+
+test('a genuine old venue quote cannot label a different venue; a single-letter signer is unsupported',()=>{
+ const previous=cited();
+ const next=attachSourceEvidence({...base(),venue:'Cedar Library Hall',signatory:'A'},{request:notes,answers:'The confirmed venue is now Cedar Library Hall; its booking is approved. Keep Ada Okafor in charge.',previousPlan:previous,quotes:[{path:'venue',source:'notes',quote:'at Cedar Hall on 12 December 2026'},{path:'signatory',source:'notes',quote:'Ada Nwosu'}]});
+ assert.equal(factSourceInfo(next,'venue').sourceKind,'update'); assert.match(factSourceInfo(next,'venue').quote,/Cedar Library Hall/);
+ assert.equal(factSourceInfo(next,'signatory').status,'unsupported'); assert.equal(factSourceInfo(next,'signatory').quote,null);
+ // A valid place fragment is not sufficient if the displayed name has extra unsupported words.
+ const partial=attachSourceEvidence({...base(),venue:'Cedar Hall Annex'},{request:notes,quotes:[{path:'venue',source:'notes',quote:'Cedar Hall'}]});
+ assert.equal(factSourceInfo(partial,'venue').status,'unsupported');
+});

@@ -1,0 +1,6 @@
+{
+  "scope": "Fictional exposed regression for Chunk 2, not an unseen evaluation.",
+  "request": "Cedar Reading Morning is organized by Cedar Reading Club on Saturday 12 December 2026. The programme starts at 10:00; registration opens at 09:45. The proposed venue is Cedar Hall, but its booking is not confirmed. Attendance is free for local adult readers. Sign the invitation Amina Bello, Club Secretary. Ada Okafor leads the reading circle. Activities in this exact order: Welcome 10 minutes; Reading circle 20 minutes; Closing 10 minutes. Currency is USD. The spending limit is USD 200. We need 20 notebooks at USD 3 each and one banner whose price is unknown. Keep the booking and banner price as questions. Do not send invitations or book anything.",
+  "answers": "The confirmed venue is now Cedar Library Hall; its booking is approved. Increase notebooks to 25 at the same USD 3 unit price. The banner now costs USD 25. The spending limit stays USD 200. Keep the date, start time, organizer, signatory, activity durations and Ada Okafor's reading duty unchanged.",
+  "expected": {"date":"2026-12-12","startTime":"10:00","initialSubtotalMinor":6000,"initialUnknownPrices":1,"updatedTotalMinor":10000,"updatedAllowanceMinor":10000,"updatedVenue":"Cedar Library Hall","venueEvidenceSource":"update","bannerEvidenceSource":"update","spendingLimitMinor":20000}
+}
