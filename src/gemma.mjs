@@ -1,4 +1,4 @@
-import { groqPayload, normalizeGroqResponse } from './providers.mjs';
+import { groqPayload, normalizeGroqResponse, groqQuotaInfo } from './providers.mjs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { Agent, fetch as generationFetch } from 'undici';
 
@@ -94,6 +94,7 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
     } catch (error) { if (error.code === 'MODEL_CONTENT_MISSING') throw error; throw new AppError(502, 'The model returned an invalid step. Your saved progress is safe. Please retry.', 'MODEL_PLAN_INVALID'); }
   }
   const record = entry => log({ ...entry, ...(groq ? {event:entry.event.replace(/^gemma_/, 'groq_'),provider:'Groq'} : {}), requestId, action, ...(stage ? { stage } : {}) });
+  let quotaInfo=null;
   let response, parsed, attempts = 0, usedModel = model, invalidReply = false, truncatedReply = false, attemptTimedOut = false, responseFormat = groq ? 'json-schema' : 'text-json';
   const inputSize = JSON.stringify({ request, answers, previousPlan: modelFacts(previousPlan) }).length;
   const primaryModel = !groq && !stage && model === 'gemma-4-26b-a4b-it' && inputSize > 5000 ? 'gemma-4-31b-it' : model;
@@ -130,6 +131,15 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
         throw error;
       }
       record({ event: 'gemma_generation_attempt', model: usedModel, attempt: attempts, httpStatus: response.status, durationMs: Date.now() - attemptStarted });
+      if(groq && response.status===429) {
+        quotaInfo=groqQuotaInfo(response,await response.json().catch(()=>({})));
+        record({event:'groq_quota',model:usedModel,attempt:attempts,...quotaInfo});
+        if(quotaInfo.quotaWindow==='minute' && quotaInfo.retryAfterSeconds && quotaInfo.retryAfterSeconds<=90 && attempt<2) {
+          record({event:'groq_generation_retry',httpStatus:429,model:usedModel,attempt:attempts,waitMs:(quotaInfo.retryAfterSeconds+1)*1000});
+          await wait((quotaInfo.retryAfterSeconds+1)*1000,requestSignal);continue;
+        }
+        break;
+      }
       if (response.ok) {
         try {
           let result;
@@ -197,8 +207,11 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
   }
   if (!response.ok) {
     if (groq) {
+      if(response.status===429) {
+        const error=new AppError(429,quotaInfo?.quotaWindow==='day'?'Groq daily quota reached. Wait for the provider quota to reset; your saved pack is safe.':`Groq rate or token quota reached.${quotaInfo?.retryAfterSeconds ? ' Retry after '+quotaInfo.retryAfterSeconds+' seconds.' : ' Please wait before retrying.'} Your saved pack is safe.`,'PROVIDER_QUOTA');
+        Object.assign(error,quotaInfo||{});throw error;
+      }
       await response.body?.cancel();
-      if(response.status===429) throw new AppError(429, 'Groq rate or token quota reached. Please wait before retrying; your saved pack is safe.');
       if([401,403].includes(response.status)) throw new AppError(503, 'Groq rejected access. Check GROQ_API_KEY and model access in Render.');
       if([400,404,413].includes(response.status)) throw new AppError(502, 'Groq rejected the request or its size. Try shorter notes and check GROQ_MODEL and account token limits.');
       throw new AppError(502, `Groq returned HTTP ${response.status}. Your saved pack is safe. Please retry later.`);

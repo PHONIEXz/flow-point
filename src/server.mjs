@@ -126,7 +126,8 @@ export function createApp(options = {}) {
       if (pathname === '/api/generate') log({ event: 'generation_request_failed', requestId, action, httpStatus: status, code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', durationMs: Date.now() - started });
       if (res.destroyed || res.writableEnded) return;
       // Never return upstream response bodies, prompts, or credentials.
-      json(res, status, { requestId, code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', error: error instanceof AppError ? error.message : status === 404 ? 'Page not found. Run the build before starting the server.' : 'This plan could not be validated. Check the fields and try again.' });
+      if(error instanceof AppError && error.code==='PROVIDER_QUOTA' && error.retryAfterSeconds) res.setHeader('Retry-After',String(error.retryAfterSeconds));
+      json(res, status, { requestId, ...(error instanceof AppError && error.code==='PROVIDER_QUOTA'?{quotaWindow:error.quotaWindow,retryAfterSeconds:error.retryAfterSeconds}:{}), code: error instanceof AppError ? error.code : 'VALIDATION_ERROR', error: error instanceof AppError ? error.message : status === 404 ? 'Page not found. Run the build before starting the server.' : 'This plan could not be validated. Check the fields and try again.' });
     }
   });
 }

@@ -29,3 +29,12 @@ export function googleDiagnosticEnabled(until, now=Date.now()) {
  const deadline=Date.parse(until || '');
  return Number.isFinite(deadline) && deadline > now && deadline - now <= 15 * 60 * 1000;
 }
+
+// Classify only known quota categories. Never expose the raw upstream message.
+export function groqQuotaInfo(response, body) {
+ const message=typeof body?.error?.message==='string'?body.error.message:'';
+ const quotaWindow=/\b(?:TPD|RPD)\b|(?:tokens|requests) per day/i.test(message)?'day':/\b(?:TPM|RPM)\b|(?:tokens|requests) per minute/i.test(message)?'minute':'unknown';
+ const header=response.headers.get('retry-after');
+ const seconds=header!==null&&/^\d+(?:\.\d+)?$/.test(header)?Number(header):Number(message.match(/try again in\s+([\d.]+)s\b/i)?.[1]);
+ return {quotaWindow,...(Number.isFinite(seconds)&&seconds>0&&seconds<=86400?{retryAfterSeconds:Math.ceil(seconds)}:{})};
+}
