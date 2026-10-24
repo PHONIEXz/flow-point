@@ -75,6 +75,18 @@ export function draftTimeIssues(plan) {
   // Registration can precede the programme. Require the first other timed row at the start.
   const timedRows = plan.drafts.schedule.split(/\n|(?<=\.)\s+/).filter(line => /^\s*(?:[-*•]\s*)?(?:(?:Suggested|Proposed)\s+)?\d{1,2}[:.]\d{2}\b/i.test(line) && !/registration|arrival|check.?in/i.test(line) && clockTimes(line).length);
   if (plan.drafts.schedule && (!timedRows.length || clockTimes(timedRows[0])[0] !== plan.startTime)) issues.push({ code: 'SCHEDULE_TIME', message: `Anchor the first programme activity at ${plan.startTime}; list earlier registration separately. Check every activity and supplied duration against your notes.` });
+  const minutes = time => Number(time.slice(0, 2)) * 60 + Number(time.slice(3));
+  for (let i = 0; i < timedRows.length - 1; i++) {
+    const duration = timedRows[i].match(/\b(\d{1,4})\s*(?:minutes?|mins?)\b/i);
+    if (!duration) continue;
+    const start = clockTimes(timedRows[i])[0], next = clockTimes(timedRows[i + 1])[0];
+    const expected = (minutes(start) + Number(duration[1])) % 1440;
+    if (minutes(next) !== expected) {
+      const expectedTime = `${String(Math.floor(expected / 60)).padStart(2, '0')}:${String(expected % 60).padStart(2, '0')}`;
+      issues.push({ code: 'SCHEDULE_DURATION', message: `Check programme timings: ${start} plus ${duration[1]} minutes is ${expectedTime}, but the next activity starts at ${next}. Preserve supplied durations and account explicitly for any break.` });
+      break;
+    }
+  }
   return issues;
 }
 

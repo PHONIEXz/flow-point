@@ -72,7 +72,8 @@ Return nonempty concise plain text under 6000 characters in the one declared str
       }
       if (Object.keys(value).length !== 1 || typeof value[stage] !== 'string' || !value[stage].trim() || value[stage].length > 6000) throw new Error();
       const accepted = reviewPlan({ ...base, drafts: { ...base.drafts, [stage]: value[stage] } });
-      if (draftTimeIssues(accepted.plan).some(issue => issue.code === (stage === 'invitation' ? 'INVITATION_TIME' : 'SCHEDULE_TIME'))) throw new AppError(502, 'Gemma omitted the confirmed programme time. Your saved progress is safe. Please retry.', 'MODEL_CONTENT_MISSING');
+      contentFailures = draftTimeIssues(accepted.plan).filter(issue => issue.code.startsWith(stage === 'invitation' ? 'INVITATION_' : 'SCHEDULE_')).map(issue => issue.message);
+      if (contentFailures.length) throw new AppError(502, 'Gemma returned inconsistent programme times. Your saved progress is safe. Please retry.', 'MODEL_CONTENT_MISSING');
       return accepted;
     } catch (error) { if (error.code === 'MODEL_CONTENT_MISSING') throw error; throw new AppError(502, 'Gemma returned an invalid step. Your saved progress is safe. Please retry.', 'MODEL_PLAN_INVALID'); }
   }

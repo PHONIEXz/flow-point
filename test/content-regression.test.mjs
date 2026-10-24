@@ -54,7 +54,7 @@ test('missing draft time regenerates only the affected step within three attempt
   assert.equal(calls, 3); assert.deepEqual(p, before);
 });
 test('old saved prefixes cannot reuse responses from the earlier content contract', () => {
-  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 3);
+  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 4);
 });
 
 test('source checks reject real currency-unit mistake, missing named assignment and dated rehearsal without mutating facts', async () => {
@@ -69,4 +69,14 @@ test('source checks reject real currency-unit mistake, missing named assignment 
   assert.equal(calls, 2); assert.equal(result.knownTotalMinor, 18150000);
   assert.equal(sourceContentIssues(result.plan, source).length, 0);
   assert.equal(sourceContentIssues(fixed, { answers: 'The rehearsal is cancelled. Mr Samuel Eze is no longer assigned as first-aid officer.' }).length, 0);
+});
+
+test('checks clock arithmetic against activity minutes and regenerates a wrong closing time', async () => {
+  const p = school(); p.startTime = '14:15'; p.drafts.invitation = 'Join us at 14:15.';
+  const wrong = '14:00 Registration\n14:15 Welcome (10 minutes)\n14:25 Book exchange (30 minutes)\n14:50 Closing (5 minutes)';
+  p.drafts.schedule = wrong;
+  assert.match(reviewPlan(p).issues.find(x => x.code === 'SCHEDULE_DURATION').message, /14:55/);
+  let calls = 0;
+  const result = await generatePack({ request: 'Community event test', stage: 'schedule', checkpoint: p }, { ...quiet, fetchImpl: async () => reply({ schedule: ++calls === 1 ? wrong : wrong.replace('14:50 Closing', '14:55 Closing') }) });
+  assert.equal(calls, 2); assert.equal(result.issues.some(x => x.code === 'SCHEDULE_DURATION'), false);
 });

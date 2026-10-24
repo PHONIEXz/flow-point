@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-24",
+  "release": "a72c16b314e9d08b6ea28f5d303d0ac43b6623ff",
+  "method": "Manual inspection of live browser fields, generation evidence and textareas; not an automated benchmark. No manually written time-saving baseline.",
+  "fixture": "docs/evidence/chunk-1-community-fixture-2026-10-24.json",
+  "prepare": {
+    "completed": true,
+    "displayedServerGenerationSeconds": 11.2,
+    "factsReference": "7d9cae19-38a0-45e5-bd94-5b0fadeae4e6",
+    "observedBudgetMainUnits": {"currency":"USD","limit":500,"knownSubtotal":322.50,"provisionalAllowance":177.50,"unknownPriceCount":1},
+    "pendingRehearsalQuestion": true
+  },
+  "update": {
+    "completed": true,
+    "displayedServerGenerationSeconds": 11.5,
+    "observedVenue": "Cedar Library Hall",
+    "observedBudgetMainUnits": {"currency":"USD","limit":500,"total":347.50,"remainingAllowance":152.50,"unknownPriceCount":0},
+    "observedOwners": ["Ada Nwosu","David Cole"],
+    "pendingRehearsalQuestion": true,
+    "approvalBlocked": true,
+    "contentPass": false,
+    "observedSchedule": "14:00 Registration (Ada Nwosu coordinates)\n14:15 Welcome (10 minutes)\n14:25 Book exchange (30 minutes) (David Cole leads)\n14:50 Suggested Closing (5 minutes) (Note: timings are proposed and need confirmation)\n[Confirm rehearsal time for Friday 11 December]",
+    "failure": "Closing should be 14:55 after a 30-minute activity beginning 14:25. A subsequent patch adds deterministic adjacency checks and bounded schedule regeneration. The checklist also contains the wording typo LED book exchange; this was not scored as a polished content pass."
+  }
+}

@@ -1,6 +1,6 @@
 # Reproduce Flow Point's event workflow
 
-Open https://flowpoint.phoenixreborn.tech/judge for the guided test. Use **Load fictional judge brief** on Notes. This loads `public/judge-example.json` without inference. Read the brief and permit Google processing before live generation.
+Open https://flowpoint.phoenixreborn.tech/judge for the guided test. On Notes, open **Examples & help** and choose **Load fictional judge brief**. This loads `public/judge-example.json` without inference. Read the brief and permit Google processing before live generation.
 
 1. Prepare Community Reading Morning. Check the title, date `2026-11-21`, time `10:00`, school library, Amina Bello and Ada Okafor.
 2. Check NGN 4,000 known subtotal and one unknown programme price. Booking remains unconfirmed. A draft with unresolved issues cannot be approved.
