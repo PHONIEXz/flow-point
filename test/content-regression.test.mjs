@@ -54,7 +54,7 @@ test('missing draft time regenerates only the affected step within three attempt
   assert.equal(calls, 3); assert.deepEqual(p, before);
 });
 test('old saved prefixes cannot reuse responses from the earlier content contract', () => {
-  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 2);
+  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 3);
 });
 
 test('source checks reject real currency-unit mistake, missing named assignment and dated rehearsal without mutating facts', async () => {

@@ -36,6 +36,7 @@ export async function generatePack({ request, answers = '', previousPlan = null,
   let base = null;
   if (stage && stage !== 'facts') {
     try { base = reviewPlan(checkpoint).plan; } catch { throw new AppError(400, 'The saved generation step is invalid. Prepare the pack again.'); }
+    if (sourceContentIssues(base, { request, answers }).length) throw new AppError(400, 'Saved facts need fresh generation under the updated checks. Reload the app and retry with the same notes.');
     if (stage === 'schedule' && !base.drafts.invitation.trim()) throw new AppError(400, 'Prepare the invitation before the run of show.');
   }
   const declaration = stageFunction(stage);
