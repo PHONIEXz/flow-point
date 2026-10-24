@@ -169,7 +169,7 @@ async function api(path, data, signal) {
   const cancel = () => requestController.abort();
   if (signal?.aborted) cancel();
   else signal?.addEventListener('abort', cancel, { once: true });
-  const deadline = setTimeout(() => { timedOut = true; cancel(); }, path === '/api/generate' ? 75000 : 15000);
+  const deadline = setTimeout(() => { timedOut = true; cancel(); }, path === '/api/generate' ? 105000 : 15000);
   try {
     const response = await fetch(path, data === undefined ? { signal: requestController.signal } : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal: requestController.signal });
     if (!response.ok) { const result = await response.json().catch(() => ({})); const message = result?.error || 'This action could not finish. Please retry.'; throw new Error(message + (result?.requestId ? ` Reference: ${result.requestId}` : '')); }
@@ -302,7 +302,7 @@ async function generate(refine = false) {
   } else if (!$('request-form').reportValidity()) return;
   if (!processingAllowed) { switchView('notes'); $('consent').focus(); return announce('Allow Google processing below your notes before preparing or updating a pack.'); }
   if (!refine && state.plan && !confirm(collection.activeId ? 'Prepare a new pack? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack? Save it with a name first if you want to keep editing it.')) return;
-  clearTimeout(timer); revision++; setBusy(true); announce('Gemma is preparing the pack. Your previous draft stays safe until a valid reply arrives.'); controller = new AbortController();
+  clearTimeout(timer); revision++; setBusy(true); announce('Gemma is preparing the pack. Detailed packs can take up to 90 seconds. You can cancel; your previous draft stays safe until a valid reply arrives.'); controller = new AbortController();
   try {
     const result = await api('/api/generate', { request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null }, controller.signal);
     if (!refine) collection = { ...collection, activeId: null };

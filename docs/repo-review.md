@@ -70,3 +70,6 @@ The author reproduced a failure after the clean key-change checks: `84d0884f-b86
 
 
 The longer replay still timed out after the malformed-text retry, so the follow-up uses Gemma 4's native data-only pack function and system instructions. Function arguments must pass the existing validator; no tool is executed and unknown/multiple calls are rejected. The suite now passes 59 tests. `responseFormat` in provenance and safe success logs distinguishes native function results from validated text compatibility replies. See the [follow-up record](verification.md#native-pack-response-follow-up) for the failed intermediate test and the deployed retest status.
+
+
+A short live test confirmed native function arguments on the primary model in 6.3 seconds. The detailed native run reached the prior 60-second cutoff. The subsequent generation deadline is 90 seconds total, with a 105-second client deadline, an explicit progress notice, concise draft guidance, the same three-attempt cap and cancellation. This supersedes the earlier 60-second budget descriptions for the final implementation.
