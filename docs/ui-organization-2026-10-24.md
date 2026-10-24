@@ -17,3 +17,7 @@ Requested 24 October 2026 after the owner supplied a screenshot of the expanded 
 Light and dark desktop views were inspected. The pack view had no horizontal overflow at the observed 1,363 CSS-pixel viewport. Narrow-width CSS is supplied; this is not a physical-phone test. The initial browser PDF download reported success but its nested file did not synchronize into the executor, so that attempt is not counted as an inspected downloaded document.
 
 The community run's budget and pending question were correct, but manual review caught a schedule clock-arithmetic error. This is preserved in `docs/evidence/chunk-1-community-browser-2026-10-24.json`; the follow-up timing check must not be represented as an independent unseen evaluation. Large-school Update verification separately remains blocked by provider HTTP 500/503.
+
+## Final release check
+
+Commit `85d4b5891cce97d577e8ba37eaf1eb77f229a227` became live in Render deployment `dep-dbe6c4bncjis73d5iga0`. A live `/api/review` check returned `SCHEDULE_DURATION` for 14:25 + 30 minutes followed incorrectly by 14:50, with the expected 14:55 in the message. Reloading the existing community pack also showed this additional actionable review item; the existing pack was preserved and approval remained blocked. This verifies the new guard, not a new successful model generation.
