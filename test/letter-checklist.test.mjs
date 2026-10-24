@@ -16,3 +16,16 @@ test('requested after-event jobs cannot silently disappear from a named-duty-onl
  assert.deepEqual(sourceContentIssues(p,input),[]);
  assert.deepEqual(sourceContentIssues({...p,tasks:[]},{request:'Hold a reading event.'}),[]);
 });
+test('switching letter layouts keeps a single signatory and preserves body paragraphs',()=>{
+ for(const signatory of [null,'Grace Okoro, Headteacher']) {
+  const body='Please join us at 10:00.\n\nBring a book to share.';
+  const p={title:'Reading Day',organizer:'Reading Club',signatory,drafts:{invitation:`Dear Dr Bello,\n\n${body}\n\nYours sincerely,\n${signatory?'Grace Okoro\nHeadteacher\nOn behalf of Reading Club':'[School name and signatory]'}`}};
+  const formal=letterLayout(p);
+  assert.ok(formal.includes(body));assert.match(formal,/Yours sincerely,/);
+  assert.equal((formal.match(/Grace Okoro|Confirm signatory/g)||[]).length,1);
+  const informal=letterLayout({...p,drafts:{invitation:formal}},'informal');
+  assert.ok(informal.includes(body));assert.match(informal,/Warm wishes,/);
+  assert.equal(letterLayout({...p,drafts:{invitation:informal}},'informal'),informal);
+  assert.doesNotMatch(informal,/School name and signatory|On behalf of/);
+ }
+});
