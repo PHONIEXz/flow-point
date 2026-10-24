@@ -1,0 +1,50 @@
+{
+  "appCommit": "5c9e566369e9b073716ba0e6f5c3fa79444c482a",
+  "scope": "Tiny OK probes only; no event-pack or reliability claim. Groq remains active.",
+  "observations": [
+    {
+      "timestamp": "2026-10-24T14:21:35.365829179Z",
+      "event": "gemma_model_access",
+      "configured": true,
+      "model": "gemma-4-26b-a4b-it",
+      "httpStatus": 403,
+      "available": false
+    },
+    {
+      "timestamp": "2026-10-24T14:21:35.388461513Z",
+      "event": "groq_model_access",
+      "provider": "Groq",
+      "configured": true,
+      "model": "openai/gpt-oss-120b",
+      "httpStatus": 200,
+      "available": true
+    },
+    {
+      "timestamp": "2026-10-24T14:21:36.786700384Z",
+      "event": "gemma_diagnostic_probe",
+      "model": "gemma-4-26b-a4b-it",
+      "variant": "minimal",
+      "httpStatus": 200,
+      "usableReply": true,
+      "durationMs": 1809
+    },
+    {
+      "timestamp": "2026-10-24T14:21:37.365933432Z",
+      "event": "gemma_diagnostic_probe",
+      "model": "gemma-4-26b-a4b-it",
+      "variant": "app-settings",
+      "httpStatus": 200,
+      "usableReply": true,
+      "durationMs": 579
+    },
+    {
+      "timestamp": "2026-10-24T14:21:57.370347966Z",
+      "event": "gemma_diagnostic_probe",
+      "model": "gemma-4-31b-it",
+      "variant": "minimal",
+      "httpStatus": null,
+      "usableReply": false,
+      "durationMs": 20004
+    }
+  ]
+}
