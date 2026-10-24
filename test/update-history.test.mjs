@@ -93,3 +93,10 @@ test('question overflow rejects the update without dropping old questions or cha
   assert.throws(() => updatedWorkspace(before, result), /exceed 50/);
   assert.equal(before.plan.openQuestions.length, 50); assert.equal(before.previousVersion, undefined);
 });
+
+test('letter contacts and the separate letter date survive named save, update and restore without approval reuse',()=>{
+ const before=base();before.letterDetails={senderAddress:'12 Cedar Street',letterDate:'2026-10-24',recipientName:'Dr. Reed'};
+ const next=updatedWorkspace(before,update(before));assert.equal(next.letterDetails.letterDate,'2026-10-24');assert.equal(next.previousVersion.workspace.letterDetails.senderAddress,'12 Cedar Street');
+ next.letterDetails.senderAddress='New Street';const restored=restoredWorkspace(next);assert.equal(restored.letterDetails.senderAddress,'12 Cedar Street');assert.equal(restored.approval,null);
+ const saved=saveNamed(restoreCollection(null,null),next,'Letter test','letter');assert.equal(openNamed(restoreCollection(serializeCollection(saved),null),'letter').current.letterDetails.recipientName,'Dr. Reed');assert.equal(before.letterDetails.senderAddress,'12 Cedar Street');
+});

@@ -25,15 +25,17 @@ export async function preparationPdf(input, approval, { sample = false, section 
   const result = new Promise((resolve, reject) => { doc.on('data', chunk => chunks.push(chunk)); doc.on('end', () => resolve(Buffer.concat(chunks))); doc.on('error', reject); });
   doc.registerFont('Body', regular).registerFont('Bold', bold);
   const width = 499.28;
-  function paragraph(text, { size = 10, color = '#282439', font = 'Body' } = {}) {
-    doc.font(font).fontSize(size).fillColor(color).text(String(text), 48, doc.y, { width, lineGap: 3, paragraphGap: 6 });
+  function paragraph(text, { size = 10, color = '#282439', font = 'Body', paragraphGap = 6 } = {}) {
+    doc.font(font).fontSize(size).fillColor(color).text(String(text), 48, doc.y, { width, lineGap: 3, paragraphGap });
     doc.moveDown(0.4);
   }
   function room(height) { if (doc.y + height > doc.page.height - 58) doc.addPage(); }
   function heading(title) { room(70); doc.moveDown(0.4); paragraph(title, { size: 15, font: 'Bold', color: '#7B263F' }); }
   doc.addPage();
-  paragraph(plan.title, { size: 24, font: 'Bold' });
-  paragraph(section ? pdfSections[section] : 'Event preparation pack', { size: 15, font: 'Bold', color: '#7B263F' });
+  if(section!=='invitation'){
+    paragraph(plan.title, { size: 24, font: 'Bold' });
+    paragraph(section ? pdfSections[section] : 'Event preparation pack', { size: 15, font: 'Bold', color: '#7B263F' });
+  }
   if (sample) paragraph('Hand-authored sample. No AI generation was performed for this example.', { color: '#805000' });
   if (!section) {
   for (const [label, value] of [['Event date', plan.eventDate], ['Start time', plan.startTime], ['Venue', plan.venue], ['Organizer', plan.organizer], ['Signatory', plan.signatory]]) paragraph(`${label}: ${value ?? 'To confirm'}`);
@@ -41,7 +43,7 @@ export async function preparationPdf(input, approval, { sample = false, section 
   paragraph(approved ? 'This exact version was reviewed and approved. Approval does not confirm external actions or guarantee factual accuracy.' : 'This is a working draft. Check the facts, wording and outstanding items before use.');
   if (issues.length) for (const issue of issues) paragraph(`• ${issue.message}`, { size: 9 });
   else paragraph('Structural checks passed. Human review of the facts and wording is still required.', { size: 9 });
-  } else {
+  } else if(section!=='invitation') {
     paragraph(approved ? 'Approved as part of this reviewed pack version.' : `Draft / Review required. The current pack has ${issues.length} review item(s). Check the facts and wording before use.`, { size: 9, color: '#575065' });
   }
   if (!section || section === 'invitation') {
@@ -56,7 +58,7 @@ export async function preparationPdf(input, approval, { sample = false, section 
       const closingHeight = doc.font('Body').fontSize(10).heightOfString(closing, { width, lineGap: 3, paragraphGap: 6 });
       if (closingHeight < doc.page.height - 134) room(closingHeight + 38);
     }
-    paragraph(invitationBlocks[index]);
+    paragraph(invitationBlocks[index], { size: 11, paragraphGap: 0, font: /^SUBJECT:/.test(invitationBlocks[index]) ? 'Bold' : 'Body' });
   }
   }
   if (!section || section === 'schedule') {
@@ -108,8 +110,10 @@ export async function preparationPdf(input, approval, { sample = false, section 
     let headerSize = 10;
     doc.font('Bold').fontSize(headerSize);
     while (headerSize > 6 && doc.heightOfString(plan.title, { width, lineGap: 1 }) > 28) doc.fontSize(headerSize -= 0.5);
-    doc.fillColor('#7B263F').text(plan.title, 48, 20, { width, lineGap: 1 });
-    doc.moveTo(48, 52).lineTo(547, 52).strokeColor('#D4C2B5').stroke();
+    if(section!=='invitation'||i>0){
+      doc.fillColor('#7B263F').text(plan.title, 48, 20, { width, lineGap: 1 });
+      doc.moveTo(48, 52).lineTo(547, 52).strokeColor('#D4C2B5').stroke();
+    }
     doc.font('Body').fontSize(8).fillColor('#575065').text(`Flow Point • ${section ? pdfSections[section] + ' • ' : ''}${status} • Page ${i + 1} of ${range.count}`, 48, doc.page.height - 35, { width, lineBreak: false });
     doc.page.margins.bottom = bottom;
   }

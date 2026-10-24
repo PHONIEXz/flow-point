@@ -1,0 +1,18 @@
+{
+  "method": "Actual PDFKit exporter, hand-authored fictional fixtures, no AI call; pdftoppm rendered at 1100px and inspected; pdfplumber extracted text.",
+  "softwareTests": 139,
+  "files": {
+    "formal": {
+      "bytes": 20984,
+      "sha256": "9b7fe5b75aca674f63fb669a910ad92af4d975c36f7b5606606ff57d475950d0",
+      "pages": 1,
+      "visualInspection": "Pass: left-aligned, no clipping/overlap, subject/signature order correct, review footer retained."
+    },
+    "informal": {
+      "bytes": 12610,
+      "sha256": "c71ef28e10e1f7b76c1b591491560969d43cd86dfe753cf14f36ac180b87aa87",
+      "pages": 1,
+      "visualInspection": "Pass: left-aligned, no clipping/overlap, subject/signature order correct, review footer retained."
+    }
+  }
+}

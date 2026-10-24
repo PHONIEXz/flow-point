@@ -7,7 +7,7 @@ import * as store from '../public/pack-store.mjs';
 import { downloadFilename } from '../public/download-name.mjs';
 import { minorToDecimal, formatMinor } from '../public/money.mjs';
 import * as sourceFields from '../public/source-fields.mjs';
-import { letterLayout } from '../public/letter-layout.mjs';
+import { letterLayout, normalizeLetterDetails } from '../public/letter-layout.mjs';
 import * as updateHistory from '../public/update-history.mjs';
 import { reviewPlan } from '../src/plan.mjs';
 const source = (await readFile(new URL('../public/workspace.js', import.meta.url), 'utf8')).replace(/^import .*;$/gm, '');
@@ -29,7 +29,7 @@ function harness(fetchImpl, initial = null, { fastTimeouts = false } = {}) {
   const values = new Map(initial ? [[store.storageKey, JSON.stringify(initial)]] : []);
   const storage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value), removeItem: key => values.delete(key) };
   const location = { pathname: '/workspace' };
-  const context = vm.createContext({ ...store, ...sourceFields, ...updateHistory, letterLayout, prepareInStages, structuredClone, DOMException, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
+  const context = vm.createContext({ ...store, ...sourceFields, ...updateHistory, letterLayout, normalizeLetterDetails, prepareInStages, structuredClone, DOMException, downloadFilename, minorToDecimal, formatMinor, console, fetch: fetchImpl, AbortController, crypto: { randomUUID: () => 'test-id' }, URL,
     document: { getElementById: get, createElement: element, body: get('body'), querySelectorAll: selector => selector === '[role=tab]' ? [tab] : selector.startsWith('#pack-editor ') ? [get('editable')] : [] },
     window: { addEventListener() {}, scrollTo() {} }, location, history: { pushState: (_, __, path) => { location.pathname = path; }, replaceState: (_, __, path) => { location.pathname = path; } },
     localStorage: storage, sessionStorage: { getItem() { return null; }, removeItem() {}, setItem() {} }, confirm: () => true, setTimeout: (fn, ms) => setTimeout(fn, fastTimeouts && ms === 15000 ? 0 : ms), clearTimeout
@@ -274,4 +274,13 @@ test('model choice is remembered separately, restores provider-specific consent 
  assert.equal(ui.get('ai-provider').value,'groq');assert.equal(ui.get('consent').checked,true);const before=ui.run('JSON.stringify(state.plan)');
  ui.get('ai-provider').value='google';ui.get('ai-provider').handlers.change();assert.equal(ui.get('consent').checked,false);assert.match(ui.get('processing-consent-text').textContent,/sent to Google/);assert.match(ui.get('refine').textContent,/Gemma/);assert.equal(ui.values.get('flow-point-ai-provider-v1'),'google');assert.equal(ui.run('JSON.stringify(state.plan)'),before);
  ui.get('ai-provider').value='groq';ui.get('ai-provider').handlers.change();assert.equal(ui.get('consent').checked,true);assert.equal(ui.run('JSON.stringify(state.plan)'),before);
+});
+
+test('letter details apply locally, persist after reload and clear prior approval without calling a model',async()=>{
+ let generations=0;const current={...store.emptyWorkspace(),request:'Fictional event notes',plan:structuredClone(sample),approval:{fingerprint:'old'},letterDetails:{senderName:'Cedar Club',letterDate:'2026-10-24',recipientName:'Dr. Reed'}};
+ const response=async path=>path==='/api/config'?config():path==='/api/generate'?(generations++,pack()):pack();
+ const ui=harness(response,{current,packs:[],activeId:null});await flush();await flush();
+ assert.equal(ui.get('letter-letterDate').value,'2026-10-24');ui.get('letter-senderAddress').value='12 Cedar Street';await ui.get('apply-letter-style').handlers.click();
+ let saved=JSON.parse(ui.values.get(store.storageKey)).current;assert.match(saved.plan.drafts.invitation,/Cedar Club\n12 Cedar Street/);assert.match(saved.plan.drafts.invitation,/October 24, 2026/);assert.equal(saved.approval,null);assert.equal(generations,0);
+ const reload=harness(response,JSON.parse(ui.values.get(store.storageKey)));await flush();await flush();assert.equal(reload.get('letter-senderAddress').value,'12 Cedar Street');assert.equal(reload.get('letter-recipientName').value,'Dr. Reed');
 });

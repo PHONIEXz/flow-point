@@ -1,6 +1,6 @@
 'use strict';
 import { previousVersion, capturePrevious, updatedWorkspace, restoredWorkspace, compareVersions, markQuestionResolved } from './update-history.mjs';
-import { letterLayout } from './letter-layout.mjs';
+import { letterLayout, normalizeLetterDetails } from './letter-layout.mjs';
 import { prepareInStages } from './generation.mjs';
 import { downloadFilename } from './download-name.mjs';
 import { factFields, factSourceInfo, markManualField, confirmFact, markNotesChanged } from './source-fields.mjs';
@@ -128,7 +128,7 @@ function persist(candidate) {
   }
 }
 function save() {
-  state.request = $('request').value; state.answers = $('answers').value; state.invitationStyle = $('invitation-style').value || 'formal';
+  state.request = $('request').value; state.answers = $('answers').value; state.invitationStyle = $('invitation-style').value || 'formal'; state.letterDetails = readLetterDetails();
   return persist(recordCurrent(collection, state));
 }
 function node(tag, text, className) { const item = document.createElement(tag); if (text != null) item.textContent = text; if (className) item.className = className; return item; }
@@ -439,15 +439,26 @@ async function restorePrevious() {
   finally { $('restore-previous').textContent = 'Restore previous version'; setBusy(false); }
 }
 $('restore-previous').addEventListener('click', restorePrevious);
-$('invitation-style').addEventListener('change', save);
+function readLetterDetails() {
+ return normalizeLetterDetails(Object.fromEntries(Object.keys(normalizeLetterDetails()).map(key=>[key,$('letter-'+key).value])));
+}
+function renderLetterFields() {
+ const details=normalizeLetterDetails(state.letterDetails);
+ for(const key of Object.keys(details))$('letter-'+key).value=details[key];
+ const formal=$('invitation-style').value!=='informal';
+ document.querySelectorAll('[data-formal-letter]').forEach(el=>el.hidden=!formal);
+ document.querySelectorAll('[data-informal-letter]').forEach(el=>el.hidden=formal);
+}
+for(const key of Object.keys(normalizeLetterDetails()))$('letter-'+key).addEventListener('input',save);
+$('invitation-style').addEventListener('change',()=>{save();renderLetterFields();});
 $('apply-letter-style').addEventListener('click', () => {
   if (busy || !state.plan) return;
-  state.plan.drafts.invitation = letterLayout(state.plan, $('invitation-style').value || 'formal');
+  try { state.plan.drafts.invitation = letterLayout(state.plan, $('invitation-style').value || 'formal', readLetterDetails()); } catch(error) { return announce(error.message); }
   $('invitation').value = state.plan.drafts.invitation; invalidate();
-  announce('Letter layout applied locally. Review the greeting, body and closing; edit any wording below.');
+  announce('Letter layout applied locally. Review the header, date, greeting, body and signature; edit any wording below.');
 });
 function renderPack() {
-  $('invitation-style').value = state.invitationStyle || 'formal';
+  $('invitation-style').value = state.invitationStyle || 'formal'; renderLetterFields();
   const exists = Boolean(state.plan); $('empty-state').hidden = exists; $('pack-editor').hidden = !exists; $('clarify-section').hidden = !exists;
   renderView();
   renderSavedPacks(); renderComparison();
@@ -522,6 +533,8 @@ async function generate(refine = false) {
       }
     });
     const next = refine ? updatedWorkspace(before, result) : { request: before.request, answers: '', plan: result.plan, provenance: result.provenance, approval: null };
+    next.letterDetails=normalizeLetterDetails(before.letterDetails);
+    next.plan.drafts.invitation=letterLayout(next.plan,input.invitationStyle,next.letterDetails);
     const checked = await api('/api/review', { plan: next.plan }, controller.signal);
     for (const field of ['plan', 'issues', 'knownTotalMinor', 'budgetComplete', 'remainingAllowanceMinor', 'allowanceProvisional']) result[field] = checked[field];
     if (controller.signal.aborted) throw new DOMException('Cancelled', 'AbortError');
