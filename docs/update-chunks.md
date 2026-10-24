@@ -56,7 +56,7 @@ Owner-requested addition before Chunk 4: each Invitation, Run of show, Preparati
 
 ## Chunk 4: evaluate quality on a frozen set
 
-**Status:** verification open. Frozen v4 recorded 24 planned operations: 22 attempted, 20 complete, two failed and two skipped; 13 complete operations passed all declared checks. Targeted v5 completed ten of eleven operations, six passing all declared checks; its final Update hit Groq daily quota. Five post-fix v7 operations are frozen but unexecuted, superseding unexecuted v6 for the block-letter release. All 139 software tests pass. See [current results, corrections and pending gate](chunk-4-current-run.md). **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
+**Status:** verification open. Frozen v4 recorded 24 planned operations: 22 attempted, 20 complete, two failed and two skipped; 13 complete operations passed all declared checks. Targeted v5 completed ten of eleven operations, six passing all declared checks; its final Update hit Groq daily quota. v7 attempted one of five operations: facts succeeded, invitation hit daily quota, and four operations were skipped. Five full-operation checks remain; the failures are preserved. All 139 software tests pass. See [current results, corrections and pending gate](chunk-4-current-run.md). **Lessons:** Recall Sloth, Ditto, Leave It, SlothSpec, Night Guard.
 
 **Goal:** measure the quality of the returned pack separately from valid JSON and response speed.
 
@@ -70,7 +70,7 @@ Deliverables:
 
 ## Chunk 5: measure the organizer's actual effort
 
-**Status:** queued after Chunk 4. **Lessons:** Availazy, Second Look, Mimu, Recall Sloth.
+**Status:** independent desktop checks performed; real-phone and human-effort results pending. Chunk 4 remains quota-blocked. See [verification](chunk-5-verification.md) and [phone handoff](chunk-5-phone-check.md). **Lessons:** Availazy, Second Look, Mimu, Recall Sloth.
 
 **Goal:** understand whether reviewing and correcting the pack is easier than doing the work manually.
 
@@ -103,4 +103,4 @@ Voice capture, mascots, additional sponsor integrations, accounts, collaboration
 
 ## Tracking rule
 
-Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. Chunks 2 and 3 were separately authorized and implemented. Chunk 4 is in verification. Chunk 1’s detailed school Update lost its confirmed start in v5; its correction passes software tests but the live retest remains quota-blocked. Chunk 5 has not started.
+Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. Chunks 2 and 3 were separately authorized and implemented. Chunk 4 is in verification. Chunk 1’s detailed school Update lost its confirmed start in v5; its correction passes software tests but the live retest remains quota-blocked. Independent Chunk 5 desktop checks have started, with physical-phone and human-effort results still pending. This is not a waiver of Chunk 4.
