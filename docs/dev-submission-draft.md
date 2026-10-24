@@ -50,7 +50,7 @@ These earlier screenshots show the interface at capture time using a labelled Sc
 
 **[Source and setup instructions](https://github.com/PHONIEXz/flow-point)** · **[Live verification record](https://github.com/PHONIEXz/flow-point/blob/main/docs/verification.md)**
 
-The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without private provider keys, the labelled sample still supports editing, review and export. The current automated suite passes **130 tests**. Provider tests use simulated responses; live results are recorded separately.
+The repository is MIT-licensed and was started during the Week 3 challenge. Run `npm test`, then `npm start` to explore locally. Without private provider keys, the labelled sample still supports editing, review and export. The current automated suite passes **133 tests**. Provider tests use simulated responses; live results are recorded separately.
 
 ## How I Built It
 

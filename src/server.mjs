@@ -69,7 +69,7 @@ export function createApp(options = {}) {
           if (data.answers != null && (typeof data.answers !== 'string' || data.answers.length > 8000)) throw new AppError(400, 'Clarifications must be text under 8,000 characters.');
           if(!data.processingProvider && provider!=='google') throw new AppError(409, 'Choose an AI model and review the processing choice before generating.');
           const generationProvider=data.processingProvider || provider;
-          if(!Object.hasOwn(providerOptions,generationProvider)) throw new AppError(400, 'Choose Gemma or GPT-OSS.');
+          if(typeof generationProvider!=='string'||!Object.hasOwn(providerOptions,generationProvider)) throw new AppError(400, 'Choose Gemma or GPT-OSS.');
           const generationOptions=providerOptions[generationProvider];
           if(!generationOptions.apiKey) throw new AppError(503, 'The selected AI provider is not connected. Choose another available model.');
           if(data.processingModel && data.processingModel!==generationOptions.model) throw new AppError(409, 'The configured model changed. Reload and choose the model again.');

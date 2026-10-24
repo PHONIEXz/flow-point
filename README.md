@@ -20,7 +20,7 @@ The three videos are embedded in different sections of the published entry. They
 
 ## Current status
 
-**24 October status:** the interface now groups evidence, event details, review items, saved packs and exports into cards, with a working Home sample preview. There are 130 passing automated tests in the latest model-choice build. Chunk 1 adds spending-limit/allowance arithmetic, source-omission guards and programme-time checks. Frozen live evaluation and post-fix regression results are tracked in [Chunk 4](docs/chunk-4-current-run.md), with provider failures kept visible. A smaller community run revealed a clock-arithmetic issue now covered by validation. [UI checks](docs/ui-organization-2026-10-24.md) · [Chunk 1 results and limits](docs/chunk-1-verification.md). Chunk 2 adds exact source quotes, manual confirmation and stale-evidence checks; [its live results](docs/chunk-2-verification.md) retain the observed semantic failures.
+**24 October status:** the interface now groups evidence, event details, review items, saved packs and exports into cards, with a working Home sample preview. There are 133 passing automated tests in the latest model-choice build. Chunk 1 adds spending-limit/allowance arithmetic, source-omission guards and programme-time checks. Frozen live evaluation and post-fix regression results are tracked in [Chunk 4](docs/chunk-4-current-run.md), with provider failures kept visible. A smaller community run revealed a clock-arithmetic issue now covered by validation. [UI checks](docs/ui-organization-2026-10-24.md) · [Chunk 1 results and limits](docs/chunk-1-verification.md). Chunk 2 adds exact source quotes, manual confirmation and stale-evidence checks; [its live results](docs/chunk-2-verification.md) retain the observed semantic failures.
 
 The event workspace uses a full-page notes editor at `/workspace` and a preparation pack editor at `/workspace/pack`, with the AI update form beside the pack. A Node HTTP server and server-only Google Gemma and Groq GPT-OSS adapters support editing, open questions, deterministic checks, named browser-local Saved Packs, version approval, and PDF/Markdown/CSV downloads. There are no accounts, database, email sending or calendar writes.
 
@@ -97,7 +97,7 @@ Earlier implementation and recordings used Gemma. The current runtime supports G
 
 Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 
-The 130-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
+The 133-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 
 ## License
 

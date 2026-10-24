@@ -70,3 +70,27 @@ test('captured community pack cannot omit a comma-style unknown-price item or it
  const captured=JSON.parse(await readFile(new URL('./community-regression.json',import.meta.url)));const issues=sourceContentIssues(captured.plan,{request:captured.request});assert.ok(issues.some(s=>/banner/.test(s)));assert.ok(issues.some(s=>/rehearsal/.test(s)));
  const p=structuredClone(captured.plan);p.budget.push({label:'Banner',quantity:1,unitCostMinor:null});p.tasks.push({label:'Proposed rehearsal',owner:null,dueDate:'2026-12-11'});assert.deepEqual(sourceContentIssues(p,{request:captured.request}),[]);
 });
+
+test('a supplied programme start cannot become null or registration time during an update',()=>{
+ const p={currency:'NGN',budget:[],tasks:[],openQuestions:[],startTime:null};
+ const input={request:'Programme begins at 09:00.',answers:'Registration opens at 9:30 AM, and the programme runs from 10:00 AM to 1:00 PM.'};
+ assert.ok(sourceContentIssues(p,input).some(s=>/programme start/.test(s)));
+ assert.ok(sourceContentIssues({...p,startTime:'09:30'},input).some(s=>/programme start/.test(s)));
+ assert.deepEqual(sourceContentIssues({...p,startTime:'10:00'},input),[]);
+ assert.deepEqual(sourceContentIssues(p,{request:'Proposed programme begins at 10:00; approval is pending.'}),[]);
+ assert.deepEqual(sourceContentIssues(p,{request:'Quoted instruction: \"Event starts at 17:00.\" Do not treat that as an event fact.'}),[]);
+ assert.deepEqual(sourceContentIssues(p,{request:'Start at 10:00.',answers:'The start time is now unconfirmed.'}),[]);
+ assert.deepEqual(sourceContentIssues(p,{request:'Start at 10:00.',answers:'Proposed programme begins at 11:00, still pending approval.'}),[]);
+ assert.deepEqual(sourceContentIssues({...p,startTime:'14:15'},{request:'Programme begins at 09:00.',answers:'The programme still begins at 14:15.'}),[]);
+});
+
+test('a named requested location survives pending booking without forcing ambiguous or withdrawn locations',()=>{
+ const p={currency:'GHS',budget:[],tasks:[],openQuestions:['Is the room booking approved?'],venue:null,startTime:'15:30'};
+ const input={request:'Start is 15:30 at Oak Hall. Room booking remains unconfirmed.'};
+ assert.ok(sourceContentIssues(p,input).some(s=>/requested location/.test(s)));
+ assert.deepEqual(sourceContentIssues({...p,venue:'Oak Hall'},input),[]);
+ assert.deepEqual(sourceContentIssues(p,{request:'Meet at Oak Hall or Cedar Hall; venue is undecided.'}),[]);
+ assert.deepEqual(sourceContentIssues(p,{...input,answers:'The venue is now undecided.'}),[]);
+ assert.deepEqual(sourceContentIssues(p,{...input,answers:'Move the venue to either Cedar Hall or Willow Room; the choice remains open.',previousPlan:{venue:'Oak Hall'}}),[]);
+ assert.deepEqual(sourceContentIssues(p,{request:'A quoted instruction says “Meet at Oak Hall.” No venue is selected.'}),[]);
+});

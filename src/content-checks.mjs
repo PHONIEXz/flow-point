@@ -1,4 +1,5 @@
 import { explicitObligationIssues } from './explicit-obligations.mjs';
+import { clockTimes } from './plan.mjs';
 // Conservative checks for explicit English statements. They reject omissions;
 // they never populate facts or certify semantic truth. Human source review remains required.
 const months = ['january','february','march','april','may','june','july','august','september','october','november','december'];
@@ -12,9 +13,35 @@ function rehearsalContext(value) {
   // Sentences/paragraphs mentioning rehearsal, including a following approval sentence.
   return [...value.matchAll(/[^\n.!?]*\brehears\w*[^\n.!?]*(?:[.!?][^\n.!?]{0,160})?/gi)].map(m => m[0]).join('\n');
 }
+function suppliedStart(text) {
+  const values=[];let seen=false,uncertain=false;
+  for(const clause of text.replace(/“[^”]*”|"[^"]*"|`[^`]*`/g,'').split(/[\n;!?]+|\.(?!\d)/)) {
+    const matches=[...clause.matchAll(/\b(?:(?:programme|program|event)\s+(?:still\s+)?(?:runs?\s+from|begins?(?:\s+at)?|starts?(?:\s+at)?)|start(?:\s+time)?\s*(?:is|at|:)?)\s*(\d{1,2}[:.]\d{2}\s*(?:am|pm)?)/gi)];
+    if(!matches.length)continue;seen=true;
+    if(/\b(?:proposed|suggested|pending|unconfirmed|not approved|not confirmed|awaiting approval)\b/i.test(clause)){uncertain=true;continue;}
+    for(const match of matches) {
+      const time=clockTimes(match[1])[0];if(time)values.push(time);
+    }
+  }
+  return !seen?undefined:!uncertain&&new Set(values).size===1?values[0]:null;
+}
+function hasSingleLocation(text) {
+  const names=[];
+  for(const clause of text.replace(/“[^”]*”|"[^"]*"|`[^`]*`/g,'').split(/[\n.!?;]+/)) {
+    if(/\b(?:either|or|options?|choose between)\b/i.test(clause))continue;
+    for(const match of clause.matchAll(/\b(?:at|in)\s+(?:the\s+)?((?:[A-Z][a-z]+\s+){0,4}(?:Hall|Room|Library|Chapel|Centre|Center)|school library|multipurpose hall)\b/g))names.push(match[1].toLowerCase());
+  }
+  return new Set(names).size===1;
+}
 export function sourceContentIssues(plan, { request = '', answers = '', previousPlan = null } = {}) {
   const issues = explicitObligationIssues(plan, { request, answers, previousPlan });
   const source = request + '\n' + answers;
+  const timeWithdrawn=/\b(?:event|programme|program|start)\s+(?:start\s+)?time\s+(?:is\s+)?(?:now\s+)?(?:unknown|unconfirmed|pending|not confirmed|not approved)/i.test(answers);
+  const latestStart=suppliedStart(answers);
+  const start=timeWithdrawn?null:latestStart!==undefined?latestStart:suppliedStart(request);
+  if(start && plan.startTime!==start)issues.push('Retain the latest explicitly supplied programme start time in startTime; registration and rehearsal times are separate.');
+  const locationWithdrawn=/\b(?:venue|location)\s+(?:is\s+)?(?:now\s+)?(?:unknown|undecided|not selected|not chosen|TBD)\b/i.test(answers);
+  if(!plan.venue&&!locationWithdrawn&&(hasSingleLocation(answers)||(!/\b(?:move|venue|location)\b/i.test(answers)&&(previousPlan?.venue||hasSingleLocation(request)))))issues.push('Retain the single supplied requested location in venue; a pending booking is a separate question, not a reason to erase its name.');
   const costs = [...source.matchAll(new RegExp(`\\b${escape(plan.currency)}\\s*([0-9]+(?:,[0-9]{3})*(?:\\.[0-9]{1,2})?)(?!\\d|,\\d|\\.\\d)`, 'gi'))].map(m => amountMinor(m[1])).filter(n => n !== null);
   const supplied = new Set(costs);
   // Only identify a demonstrable factor-of-100 discrepancy, not unspecified-price syntax.

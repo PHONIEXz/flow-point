@@ -1,0 +1,9 @@
+# Targeted post-fix evaluation v5
+
+Frozen before inference in commit 7229d347efbdd9c74f670501f790a3311bd4db1f. Runtime code 2ba1026f15d85035eeab873282d56c0b684c5d80. Eleven exposed regression operations, selected after v4. Same assistant-authored expectations; no independent or blinded reviewer.
+
+All eleven were attempted: ten completed, six completed operations passed every declared check, and the final community Update failed on Groq daily quota in its invitation step. Its successful facts step is preserved. Live testing stopped on the daily quota; no other key, model or provider was used to bypass it. All ten completed packs passed the application approval/export protocol probes. Those probes did not establish semantic correctness.
+
+Remaining mismatches were the school Update losing the supplied 10:00 start (and hence its invitation time), Prepare being copied into the Riverside title in both operations, and Oak Hall being erased while booking was pending. Source checks, model/schema instructions and browser checkpoint contract v12 were subsequently corrected and covered by 133 passing software tests. These post-run corrections are not retroactive passing scores and remain awaiting live retest because quota was exhausted.
+
+The archive preserves accepted API responses, failures, request references, applied workspaces, answer-key worksheets and scorecard. Fields named rawModelResult contain accepted, application-processed output, including deterministic missing-price questions, not rejected raw internal retry text. The price-question helper never fills prices; its additions are counted in provenance. PDFs are recorded by protocol/hash, not saved visual artifacts. Wall times include deliberate pacing; no human effort baseline is measured. Original v4 evidence remains unchanged.
