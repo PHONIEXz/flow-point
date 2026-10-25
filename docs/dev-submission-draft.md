@@ -138,6 +138,23 @@ const choices = [
 
 With fallback off, only the selected provider is tried. With it on, the alternate can handle an eligible provider failure. The surrounding code stops on cancellation or invalid model content and records the provider/model actually used. It never substitutes a sample or invents a result to make the request look successful.
 
+### Code update: a model refusal is not a provider outage
+
+The latest [merged fix](https://github.com/PHONIEXz/flow-point/pull/2) gives non-success candidate finishes an explicit error code in [`src/gemma.mjs`](https://github.com/PHONIEXz/flow-point/blob/main/src/gemma.mjs):
+
+```javascript
+if (candidate?.finishReason && candidate.finishReason !== 'STOP') {
+  throw new AppError(
+    502,
+    'The model did not finish a usable pack. ' +
+      'Review the request before retrying.',
+    'MODEL_BLOCKED'
+  );
+}
+```
+
+This guard follows the separate malformed-response and staged token-limit checks. The fallback runner excludes `MODEL_BLOCKED`, so a refusal stops instead of being passed to another provider as though it were a temporary outage. A regression test covers seven non-success finish reasons. The five live retests below ran before this small correction; the correction itself is covered by the software suite.
+
 ## Why Open Innovation Matters
 
 Gemma and GPT-OSS are open-weight models at the core of the event-drafting workflow. Their available weights make alternative hosting and model inspection possible; the MIT-licensed app exposes its prompts, adapters and validation boundary for others to examine and change.
@@ -160,11 +177,21 @@ See a real exported letter and the jobs of Render, Gemma, Groq, the .tech addres
 
 ## What I Tested, and What Remains
 
-The current suite passes **145 software tests**, including simulated provider failures, consent boundaries, source handling, checklist completeness, exact arithmetic, exports and draft preservation. Those tests are not an AI accuracy percentage.
+The current suite passes **146 software tests**, including simulated provider failures, consent boundaries, source handling, checklist completeness, exact arithmetic, exports and draft preservation. Those tests are not an AI accuracy percentage.
 
-The broader frozen v4 evaluation completed 20 of 24 planned operations, with 13 completed operations passing all declared checks. Targeted v5 completed ten of eleven operations, with six passing all declared checks. Failures and mismatches are retained. Five subsequent complete-generation retests were blocked by quota and are deferred, not counted as passes.
+The broader frozen v4 evaluation completed 20 of 24 planned operations, with 13 completed operations passing all declared checks. Targeted v5 completed ten of eleven operations, with six passing all declared checks. Failures and mismatches are retained. Those earlier outcomes remain in the repository. On 25 October, I reran the five previously quota-blocked operations through Groq. **All five completed, with all 166 declared content checks passing and no quota failures in that run.**
 
-I also completed a real-phone usability check and reported healthy fitting/layout and perceived speed. I did not record a timed manual-writing comparison, so I am not claiming a percentage time saved. Provider availability and arbitrary wording mistakes remain limitations.
+| Retested operation | Declared content checks passed |
+| --- | ---: |
+| Detailed school Update | 53 |
+| Riverside Prepare | 29 |
+| Riverside Update | 28 |
+| Ambiguous-date Oak Prepare | 28 |
+| Community Update | 28 |
+
+All **20 standalone PDF response checks** passed, along with the five application/approval checks. The PDF checks verify successful responses and valid PDF headers, not visual layout. These are exposed regression cases with unchanged expectations, not an independent model-accuracy score or an uptime guarantee. [Read the scorecard and preserved evidence](https://github.com/PHONIEXz/flow-point/tree/main/docs/evidence/quality-v8-2026-10-25).
+
+I also completed a real-phone usability check and reported healthy fitting/layout and perceived speed. Provider availability and arbitrary wording mistakes remain limitations. Google availability was not retested in this latest run.
 
 **The payoff is fewer places to start from scratch:** one note becomes an editable set of drafts, and a later change has a reviewable trail. The organizer still makes the final call.
 
