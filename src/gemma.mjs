@@ -169,7 +169,7 @@ CHECKLIST COVERAGE: Include explicitly requested before-event, on-the-day and af
             throw new AppError(502, 'The model reached its response limit before finishing this step. Your previous draft and completed steps are safe. Please retry.', 'MODEL_TRUNCATED');
           }
           // Safety blocks remain explicit failures. Never accept or repair truncated data.
-          if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'The model did not finish a usable pack. Try a shorter request.');
+          if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new AppError(502, 'The model did not finish a usable pack. Review the request before retrying.', 'MODEL_BLOCKED');
           const parts = candidate?.content?.parts;
           const output = Array.isArray(parts) ? parts.filter(part => part && !part.thought && typeof part.text === 'string').map(part => part.text).join('') : undefined;
           const calls = Array.isArray(parts) ? parts.filter(part => part && !part.thought && part.functionCall).map(part => part.functionCall) : [];

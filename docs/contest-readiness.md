@@ -39,7 +39,7 @@ Saved Packs now keeps up to 12 named browser-local packs, migrates the previous 
 
 ## 4. Demo and evidence
 
-Completed: three distinct 3:12 videos are published and embedded in the DEV article. They cover preparation, updates/review, and tools/build evidence. See [the delivered video list](demo-shot-list.md) and [media provenance](media/README.md). Earlier live footage, human corrections and labelled samples are distinguished; provider failures remain documented.
+Completed: three replacement videos (48, 48 and 54 seconds) are published and embedded in the DEV article. They cover preparation, updates/review, and tools/build evidence. See [the delivered video list](demo-shot-list.md) and [media provenance](media/README.md). Earlier live footage, human corrections and labelled samples are distinguished; provider failures remain documented.
 
 ## 5. Submission writing and eligibility
 

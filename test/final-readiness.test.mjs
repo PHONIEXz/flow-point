@@ -5,7 +5,7 @@ import { reviewPlan, approvePlan } from '../src/plan.mjs';
 import { preparationPack } from '../src/export.mjs';
 import { letterLayout } from '../public/letter-layout.mjs';
 import { createProviderRunner } from '../src/resilience.mjs';
-import { AppError } from '../src/gemma.mjs';
+import { AppError, generatePack } from '../src/gemma.mjs';
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url)));
 test('missing task dates and generic owners remain unresolved and block approval', () => {
  const p = structuredClone(sample); p.tasks = [{label:'Send invitations',owner:'Staff',dueDate:null}];
@@ -50,4 +50,15 @@ test('daily quota immediately pauses that provider and invalid output does not s
  await assert.rejects(run({},providers.google));await assert.rejects(run({},providers.google),e=>e.code==='PROVIDER_COOLDOWN');assert.equal(calls,1);
  const invalid=createProviderRunner({providers,generate:async()=>{calls++;throw new AppError(502,'Invalid content','MODEL_CONTENT_MISSING');}});
  await assert.rejects(invalid({},providers.google,{},true),e=>e.code==='MODEL_CONTENT_MISSING');assert.equal(calls,2);
+});
+
+test('candidate refusal and non-success finish reasons never cross providers', async () => {
+ const providers={google:{provider:'google',apiKey:'g'},groq:{provider:'groq',apiKey:'q'}};
+ for (const finishReason of ['SAFETY','RECITATION','BLOCKLIST','PROHIBITED_CONTENT','SPII','OTHER','MAX_TOKENS']) {
+  const calls=[];
+  const run=createProviderRunner({providers,generate:(input,options)=>generatePack(input,{...options,log:()=>{},wait:async()=>{},fetchImpl:async url=>{calls.push(url);return Response.json({candidates:[{finishReason}]});}})});
+  await assert.rejects(run({request:'Fictional school event.'},providers.google,{},true),e=>e.code==='MODEL_BLOCKED');
+  assert.equal(calls.length,1,finishReason);
+  assert.ok(calls.every(url=>!url.includes('api.groq.com')),finishReason);
+ }
 });
