@@ -16,7 +16,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 | [2. Update, review and export](https://youtu.be/MtRfONnSB9U) | Recorded Willow update, overspend and human review | 0:48 |
 | [3. Tools and build evidence](https://youtu.be/-6ep1lx5ANI) | Actual PDF export and Render, models, .tech, Copilot, Node.js and PDFKit evidence | 0:54 |
 
-The three replacement videos are embedded in different sections of the submission source. Publication state is tracked in the handoff record. They combine edited interface motion, original instrumental music, captions and cursor emphasis. Earlier successful live runs and hand-authored sample sections are explicitly labelled; video pacing is not a speed benchmark. See [the media record](docs/media/README.md) and [demo guide](docs/demo-shot-list.md).
+The three replacement videos are embedded in different sections of the published DEV article. The cover, all six body images and three explained code excerpts were updated on 25 October; see the [publication record](docs/submission-handoff-2026-10-25.md). They combine edited interface motion, original instrumental music, captions and cursor emphasis. Earlier successful live runs and hand-authored sample sections are explicitly labelled; video pacing is not a speed benchmark. See [the media record](docs/media/README.md) and [demo guide](docs/demo-shot-list.md).
 
 ## Current status
 

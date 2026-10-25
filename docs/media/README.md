@@ -8,7 +8,7 @@ Replacement videos: 48s notes/provider/pack tour; 48s recorded Willow update and
 
 The Willow case is sourced from docs/evidence/quality-v4-2026-10-24/unseen-willow-{prepare,update}.json. Recorded case graphics are explicitly labelled and do not imitate current website output. Provider/tool cards explain actual roles rather than inventing dashboards. The Cedar PDF was exported through the local HTTP app using the release source, visually inspected and labelled as sample/draft. New provider inference was not requested for these recordings.
 
-Old YouTube recordings remain historical until replacements are uploaded and verified. Updating the article source and repository images does not update the already-published DEV post. Rebuild script and scene/caption source: short-video-source-20261025.py. Delivered source ZIP contains the original soundtrack and source images.
+The three replacement links are now embedded in the published DEV article. The cover and all six body images were also replaced and verified loaded. Older YouTube recordings remain available as historical uploads; none was deleted. Full uninterrupted streaming in the cloud browser was not established. Rebuild script and scene/caption source: short-video-source-20261025.py. Delivered source ZIP contains the original soundtrack and source images.
 
 
 ## Current article presentation, 25 October

@@ -1,0 +1,60 @@
+{
+  "url": "https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8",
+  "videos": [
+    "https://www.youtube.com/embed/x_cZCxtVlFA",
+    "https://www.youtube.com/embed/MtRfONnSB9U",
+    "https://www.youtube.com/embed/-6ep1lx5ANI"
+  ],
+  "codeBlocks": [
+    {
+      "characters": 218,
+      "clientWidth": 678,
+      "scrollWidth": 678
+    },
+    {
+      "characters": 271,
+      "clientWidth": 678,
+      "scrollWidth": 678
+    },
+    {
+      "characters": 199,
+      "clientWidth": 678,
+      "scrollWidth": 678
+    }
+  ],
+  "images": [
+    {
+      "alt": "Cover image for Flow Point: one messy event note, four useful drafts, and the questions we still need to answer",
+      "loaded": true
+    },
+    {
+      "alt": "Full-page Notes editor containing a fictional event brief",
+      "loaded": true
+    },
+    {
+      "alt": "Current provider selector",
+      "loaded": true
+    },
+    {
+      "alt": "Actual invitation PDF with a formal address block, subject, paragraphs and one signatory",
+      "loaded": true
+    },
+    {
+      "alt": "Sample budget with NGN 20,000 total and NGN 10,000 allowance",
+      "loaded": true
+    },
+    {
+      "alt": "Manual source-review panel showing facts still awaiting review",
+      "loaded": true
+    },
+    {
+      "alt": "Optional combined consent for provider fallback",
+      "loaded": true
+    }
+  ],
+  "requiredTags": {
+    "devchallenge": 1,
+    "hf26challenge": 1
+  },
+  "playbackNote": "YouTube players recognised all three uploaded clips; uninterrupted playback was not established in this cloud browser."
+}
