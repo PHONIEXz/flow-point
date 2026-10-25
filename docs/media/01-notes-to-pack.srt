@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:06,000
+One note. Four useful drafts.
+Less copying. More room for the event.
+
+2
+00:00:06,000 --> 00:00:12,000
+Give the brief some space.
+Write the date, place, duties and known prices on a full Notes page.
+
+3
+00:00:12,000 --> 00:00:18,000
+Choose your AI provider.
+Gemma via Google or GPT-OSS via Groq. Optional fallback needs permission for both.
+
+4
+00:00:18,000 --> 00:00:24,000
+A proper invitation.
+Apply a formal or informal letter. Add only the contact details you actually know.
+
+5
+00:00:24,000 --> 00:00:30,000
+A schedule you can edit.
+Keep the supplied durations. Later proposed timings stay labelled Suggested.
+
+6
+00:00:30,000 --> 00:00:36,000
+Turn gaps into review items.
+Unknown task owners and dates stay blank and block approval until resolved.
+
+7
+00:00:36,000 --> 00:00:42,000
+Costs that add up.
+50 × NGN 300 + 50 × NGN 100 = NGN 20,000. A NGN 30,000 limit leaves NGN 10,000.
+
+8
+00:00:42,000 --> 00:00:48,000
+Your event. Your final say.
+Review every section. Save a named pack in this browser, then export a backup.

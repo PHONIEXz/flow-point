@@ -6,7 +6,7 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 **[Judge guide and fixed example](https://flowpoint.phoenixreborn.tech/judge)** · **[Live workspace](https://flowpoint.phoenixreborn.tech/workspace)** · **[Published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8)**
 
-![Current Flow Point Home page](docs/media/current/cover.png)
+![Current Flow Point Home page](docs/media/current/cover-20261025.png)
 
 ## Watch the walkthroughs
 
@@ -95,7 +95,7 @@ The [published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-e
 
 Earlier implementation and recordings used Gemma. The current runtime supports Groq GPT-OSS as an alternative; partner-category claims must match actual use. Render, .tech Domain and GitHub Copilot credits remain subject to eligibility. [Copilot Chat's evaluated contribution](docs/copilot-review.md) covers PDF download filenames; it was not a registered formal PR review.
 
-Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited School Family Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
+Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited Cedar School Reading Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 
 The 145-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 

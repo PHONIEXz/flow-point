@@ -18,3 +18,8 @@ Owner reports real-phone fitting/layout and perceived speed healthy. Device/brow
 The app still uses bounded admission (two concurrent requests and 30 calls per ten-minute process bucket), browser-local checkpoints and server-only keys. A durable queue, shared result cache, third provider, automatic 20B draft routing and user-supplied API keys are not added to this focused release. These are optional architecture changes, not prerequisites for an honest submission. No page-load warm-up inference consumes user quota.
 
 Review of an older school sample found NGN 181,500 arithmetic was correct; that does not establish invitation claims as source-supported. Arbitrary semantic contradictions and quantities/audience relationships still require human source review. Older evidence is never relabelled as current-build output.
+
+
+## Deployment confirmation
+
+Release 02005ef7af710b1a470f5d68dbbde95feded1d13 is live on Render deploy dep-dbenfe1srm7s73cndpo0 (25 October). The live browser showed the model selector and combined-consent control, with the main consent still unchecked. No inference was sent. Local HTTP review/export checks confirmed NGN 20,000 total, NGN 10,000 allowance, HTTP 400 approval rejection for missing task owners/dates, readable Markdown subtotals and a valid standalone invitation PDF. Direct shell access to the public domain timed out in this environment, so these export checks are labelled local; the deployed UI and Render status were checked separately.

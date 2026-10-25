@@ -1,0 +1,44 @@
+1
+00:00:00,000 --> 00:00:06,000
+Useful work should leave the browser.
+Download the invitation, run of show, checklist or budget as its own PDF.
+
+2
+00:00:06,000 --> 00:00:12,000
+A letter you can read.
+This is an actual PDF exported by the app from the fictional Cedar demo.
+
+3
+00:00:12,000 --> 00:00:18,000
+A filename that makes sense.
+Each PDF starts with the event title, then its document name and a unique suffix.
+
+4
+00:00:18,000 --> 00:00:24,000
+Render keeps the app running.
+A Node web service serves the workspace, protects API keys and produces exports.
+
+5
+00:00:24,000 --> 00:00:30,000
+Two models. Clear roles.
+Open-weight Gemma and GPT-OSS interpret notes and propose wording. Humans review the result.
+
+6
+00:00:30,000 --> 00:00:36,000
+A public home. Open source.
+The .tech address gives judges a direct route to the app. GitHub holds the MIT-licensed source.
+
+7
+00:00:36,000 --> 00:00:42,000
+Copilot helped review a real fix.
+Copilot Chat inspected PDF filenames in PR #1. Its findings were evaluated and regression-tested.
+
+8
+00:00:42,000 --> 00:00:48,000
+Built to be checked.
+145 passing software tests cover app behavior. They do not measure general AI accuracy.
+
+9
+00:00:48,000 --> 00:00:54,000
+Make room for the event.
+Try Flow Point. Read the evidence, edit a sample and open its PDF.

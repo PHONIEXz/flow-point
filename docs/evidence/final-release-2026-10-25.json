@@ -1,0 +1,18 @@
+{
+  "mode": "local HTTP export and review verification; live UI verified separately",
+  "release": "02005ef7af710b1a470f5d68dbbde95feded1d13",
+  "checkedAt": "2026-10-25T03:33:21.108Z",
+  "health": {
+    "status": "ok"
+  },
+  "reviewIssueCodes": [
+    "MISSING_TASK_OWNERS",
+    "MISSING_TASK_DATES"
+  ],
+  "totalMinor": 2000000,
+  "remainingMinor": 1000000,
+  "missingChecklistApprovalStatus": 400,
+  "pdfBytes": 19896,
+  "contentDisposition": "attachment; filename=\"sample-cedar-school-reading-day-2026-11-14-invitation-draft-20261025T033321031Z-7e0c11f6.pdf\"; filename*=UTF-8''SAMPLE%20-%20Cedar%20School%20Reading%20Day%20-%20Invitation%20-%20Draft%20-%2020261025T033321031Z-b5967a78.pdf",
+  "inferenceCalls": 0
+}

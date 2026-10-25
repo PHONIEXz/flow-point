@@ -1,0 +1,39 @@
+1
+00:00:00,000 --> 00:00:06,000
+One change. Check the ripple.
+A recorded update shows why review matters as much as generation.
+
+2
+00:00:06,000 --> 00:00:12,000
+Change the responsible person.
+The update replaced Lara Chen with Nora Cole for the practical session.
+
+3
+00:00:12,000 --> 00:00:18,000
+Change the quantities.
+Eight kits became ten, each still CAD 12.50. Room hire changed from zero to CAD 90.
+
+4
+00:00:18,000 --> 00:00:24,000
+Catch the overspend.
+The spending limit stayed CAD 200. The updated budget exceeded it by CAD 15.
+
+5
+00:00:24,000 --> 00:00:30,000
+Check the fact. See its source.
+The current workspace gives facts Source cards. Missing evidence needs manual review.
+
+6
+00:00:30,000 --> 00:00:36,000
+Keep the previous draft.
+Completed steps have browser checkpoints. A failed replacement must not erase the saved pack.
+
+7
+00:00:36,000 --> 00:00:42,000
+Know who processed it.
+Receipts identify each provider and model. Optional fallback does not bypass content checks.
+
+8
+00:00:42,000 --> 00:00:48,000
+AI drafts. You decide.
+The Willow Prepare and Update passed their 54 declared checks combined. One case is not an accuracy rate.
