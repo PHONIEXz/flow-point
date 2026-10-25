@@ -1,5 +1,10 @@
 # Chunk 4: quality evaluation status, 24 October 2026
 
+## Latest status: 25 October 2026
+
+The five previously quota-blocked complete-generation retests now pass on Groq: five completed, zero failed/skipped, all 166 declared checks correct, 20 standalone PDF probes passed. See [the preserved v8 evidence](evidence/quality-v8-2026-10-25/README.md). This closes the five-operation pending gate; older failures below remain historical. It is not a general model-reliability claim. The current software suite passes 146 tests, including the candidate-refusal fallback fix. Phone usability remains owner-reported passed; timed human review and manual-writing comparisons remain unmeasured. Google availability was not newly tested.
+
+
 **Current letter-template release:** `f6b6a2f5bf1d3bba98e18451b911db1b36b39f5f`, with 139 passing software tests and local PDF visual checks. The [v7 attempt](evidence/quality-v7-2026-10-24/README.md) superseded unexecuted v6. On retry, its school facts step succeeded, but invitation hit Groq daily quota: one attempted, zero complete, one failed, four skipped. Five complete-operation checks remain outstanding. v7 includes the browser’s deterministic letter formatter before application scoring/export; that point was not reached.
 
 **Status: provider-limit handling verified; successful-generation retests deferred by the owner on 25 October.** The model selector and post-run fixes are implemented, but the last live operation exhausted Groq daily quota. No further inference was attempted. Proceeding to presentation does not turn blocked/skipped generation checks into passes. Raw outcomes remain unchanged.

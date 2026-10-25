@@ -1,0 +1,28 @@
+{
+  "version": 8,
+  "frozenAt": "2026-10-25T13:46:29.321296+00:00",
+  "appCommit": "ff9ac9d01677b78aa726983870e863231e1f9144",
+  "casesSha256": "b66dd2380733050a96f80fdbe3a05ee1af0d5496406f65d676ba83205615e954",
+  "files": {
+    "src/gemma.mjs": "9481828a7329b13a0e74ba7e3d31036e620752d3a5faaf32d31f8a62afff3b85",
+    "src/providers.mjs": "450945a3b79489d6f3d309278fb19de7333ddd3aecaeeb19b365dcc12d29b9b9",
+    "src/explicit-obligations.mjs": "50ed8a21c1c5aa049ba3538857e7cd85896c6d6c745c63e3a121f604a91b22ac",
+    "src/content-checks.mjs": "a4e4aaf9300fac892b5e76201837117f37865d1341b2de573445aad37f677ec9",
+    "src/server.mjs": "939a3b7b84a2f0e126170db3418b2a91b24cf774b15a654feaf5f86d92c25463",
+    "src/pack-schema.mjs": "d67091b6eb06ae467c07195a6391b0a3a2608bf38d7e0a87948d405170de69d0",
+    "src/plan.mjs": "9d32c11604d97da8cb4ef4c6d548fff4b66a1438f365747c95abd52fa49c9695",
+    "src/source-evidence.mjs": "9e29b1fcd33a008d839b77bec1d90ea0a090b7a714b2151b475a52fe3a1d46e7",
+    "public/generation.mjs": "82eeb59a8dbd2ea7ed3da02eb6fdd3bfcef46b52d0f82ad9a2718d5b8690cac8",
+    "public/update-history.mjs": "c4be37b38e7c84efdf9a0431e0e8a9ce6b8a2cf2c2b4ed374913cda5bacfc834",
+    "public/source-fields.mjs": "b53252a78f7f5cc17e3431126eb9413ed1cd39720fec7f46b76b392712bd57dd",
+    "public/letter-layout.mjs": "302f8e3b9404da91a5344ac241c1655090ec9e037ca7c3042f2ee245632f7b9f",
+    "evaluation/score-v4.mjs": "69d2b190c61751f2a3f44740e178b177dc5c13d05e4f50eea65131c7a60dcf43",
+    "src/input-questions.mjs": "4e97be1c5b82536ef8fde8f1afb8602c4c93ee6535f0ce13f7db10b29fc57a2f",
+    "public/workspace.js": "7189b09181165e1b1e40000e623ea3911e346d4788bd2261795b82339724f02b",
+    "public/pack-store.mjs": "e8e40e16ff20add5877c5f8f6dba49959e03dfc9abe6dd645f5707af5b549914",
+    "src/pdf.mjs": "6e66e8bd7373f431c4ca93d33300f22b746ada40ce5983abcdb378ddb333cb5c",
+    "scripts/evaluate-quality-v8.mjs": "fa5645dbd5bc5584fc88d80ac93d34ba98854822022b3bf3ab4f1b28b9ff4c7a",
+    "src/resilience.mjs": "495cb2b07b7f8dd38804c4d0b14836b35f55db421d0af0c4647747184d8bd933"
+  },
+  "notes": "Current-release retest of five exposed operations, unchanged cases and expectations. Original v7 evidence preserved. No independent evaluation claim."
+}

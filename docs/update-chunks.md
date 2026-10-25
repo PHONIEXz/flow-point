@@ -1,5 +1,10 @@
 # Flow Point: project update chunks
 
+## Latest status: 25 October 2026
+
+The five previously quota-blocked complete-generation retests now pass on Groq: five completed, zero failed/skipped, all 166 declared checks correct, 20 standalone PDF probes passed. See [the preserved v8 evidence](evidence/quality-v8-2026-10-25/README.md). This closes the five-operation pending gate; older failures below remain historical. It is not a general model-reliability claim. The current software suite passes 146 tests, including the candidate-refusal fallback fix. Phone usability remains owner-reported passed; timed human review and manual-writing comparisons remain unmeasured. Google availability was not newly tested.
+
+
 Created 24 October 2026 from the [competitor review](competitor-review-2026-10-24.md). This is the active sequence for the next updates. Historical work and observations remain in [contest readiness](contest-readiness.md) and [verification](verification.md).
 
 These are planned changes, not completed features or winning probabilities. Finish and verify each chunk; explicitly record any gate deferred by the owner. On 24 October the owner authorized starting Chunk 2 while Chunk 1’s provider-blocked live gate remains open. Keep Prepare, Update, review and exports usable throughout. At the start of Chunk 1, freeze the current fixtures and results before changing prompts or behavior; reserve fresh cases for Chunk 4.

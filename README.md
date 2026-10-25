@@ -97,7 +97,7 @@ Earlier implementation and recordings used Gemma. The current runtime supports G
 
 Earlier live generation, refinement and draft PDF export were checked. Later recording and screenshot attempts also encountered timeouts and Google HTTP 500, so inference availability is not consistently verified. The latest UI screenshots use a labelled, manually edited Cedar School Reading Day sample; they are not new model-output evidence. The author reported successful phone use and a successful later school-event retest; see the chronological [verification record](docs/verification.md).
 
-The 145-test automated suite passed in the latest app verification. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
+All five formerly quota-blocked targeted Groq retests now pass (166 declared content checks and 20 standalone PDF probes); see [the results](docs/evidence/quality-v8-2026-10-25/README.md). The 146-test automated suite passed on 25 October, including a regression preventing model refusals from triggering cross-provider fallback. Remaining measurement work: a timed manual-writing baseline plus review/export effort. The author's approximately 37-second preparation and 53-second update timings are operation timings, not a measured time-saving percentage. Record any changes made after the deadline.
 
 ## License
 
