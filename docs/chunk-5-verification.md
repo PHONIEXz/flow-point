@@ -1,6 +1,6 @@
 # Chunk 5: desktop verification and real-phone handoff
 
-24 October 2026. Status: independent desktop subset checked; real-phone and human-effort results pending. Chunk 4 remains blocked by Groq daily quota. No general usability, mobile success or time-savings claim is made.
+24 October 2026. Status: independent desktop subset checked; real-phone usability passed according to the owner; measured human-effort results remain unavailable. Chunk 4 remains blocked by Groq daily quota. No general usability, mobile success or time-savings claim is made.
 
 A separate named browser pack, Chunk 5 desktop check, was manually edited from the hand-authored sample. The existing Letter layout demo was preserved. No AI generation was requested by this UI workflow. The fictional brief was Chunk 5 School Day, Cedar Learning Centre, Saturday 14 November 2026, 10:00, Cedar Hall, signer Ada Cole/Coordinator. Programme durations were 10/20/30/10 minutes. Two budget rows had 50 refreshments at NGN 300 and 50 programmes at NGN 100; NGN 30,000 limit.
 
@@ -18,3 +18,6 @@ No new implementation defect was established by these checks. Rapid scripted cli
 The [real-phone check](chunk-5-phone-check.md) is ready for the owner. Record phone/browser, readability, actual file opening, saved-value persistence and elapsed time only if measured. Leave blocked or unperformed steps visible. There are still 139 passing software tests from the unchanged deployed release; this verification did not rerun or replace those tests.
 
 ![Desktop budget verification on a labelled manual test pack](media/chunk-5-desktop-2026-10-24.jpg)
+
+
+25 October owner sign-off: real-phone layout, fitting and perceived speed reported healthy. No device/browser or numerical timing supplied. This is owner-reported usability evidence. The new checklist completeness rules supersede the earlier ability to approve packs with blank task owners/dates. Earlier observations remain historical, not a pass for the new rules.

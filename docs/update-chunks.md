@@ -104,3 +104,6 @@ Voice capture, mascots, additional sponsor integrations, accounts, collaboration
 ## Tracking rule
 
 Each chunk moves through **Queued → Implementing → Verification → Complete**, with its code commit, deployed release where applicable, observed result and remaining limits recorded. A blocked provider request or unperformed manual check is not a passed gate. Chunk 1’s deferred live gate remains open. Chunks 2 and 3 were separately authorized and implemented. Chunk 4 is in verification. Chunk 1’s detailed school Update lost its confirmed start in v5; its correction passes software tests but the live retest remains quota-blocked. Independent Chunk 5 desktop checks have started, with physical-phone and human-effort results still pending. This is not a waiver of Chunk 4.
+
+
+25 October owner decision: proceed to submission preparation. Provider-limit handling is verified; five quota-blocked complete-generation retests are deferred, not passed. Physical-phone usability is owner-reported passed; numerical speed and manual-writing savings are unmeasured. Final export/review/fallback corrections are tracked in final-readiness-2026-10-25.md. The proposed greeting/request classifier is not pursued at the owner’s request.

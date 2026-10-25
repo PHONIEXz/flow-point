@@ -6,7 +6,7 @@ import { readFile } from 'node:fs/promises';
 import { createApp } from '../src/server.mjs';
 import { generatePack, parseModelPlan, checkModelAccess, probeGeneration } from '../src/gemma.mjs';
 const sample = JSON.parse(await readFile(new URL('../examples/school-event.json', import.meta.url), 'utf8'));
-function complete() { return { ...structuredClone(sample), spendingLimitMinor: null, startTime: '10:00', organizer: 'Example School', signatory: 'Principal', openQuestions: [], budget: [{ label: 'Paper', quantity: 3, unitCostMinor: 101 }], drafts: { invitation: 'Reviewed invitation at 10:00.', schedule: '10:00 Welcome. 11:00 Closing.' } }; }
+function complete() { return { ...structuredClone(sample), tasks: structuredClone(sample.tasks).map(task => ({...task, owner: 'Ada Cole'})), spendingLimitMinor: null, startTime: '10:00', organizer: 'Example School', signatory: 'Principal', openQuestions: [], budget: [{ label: 'Paper', quantity: 3, unitCostMinor: 101 }], drafts: { invitation: 'Reviewed invitation at 10:00.', schedule: '10:00 Welcome. 11:00 Closing.' } }; }
 async function app(t, config = {}) { const server = createApp({provider:'google',apiKey:'',...config}); server.listen(0, '127.0.0.1'); await once(server, 'listening'); t.after(() => new Promise(resolve => { server.closeAllConnections(); server.close(resolve); })); const base = `http://127.0.0.1:${server.address().port}`; return { get: path => fetch(base + path), post: (path, data, headers = {}, signal) => fetch(base + path, { signal, method: 'POST', headers: { 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(data) }) }; }
 
 test('HTTP flow: sample -> edit -> approve -> export -> edit invalidates approval', async t => {
@@ -360,7 +360,7 @@ test('HTTP generation recovers malformed output and reports the same reference i
   const failed = await app(t, { apiKey: 'test', log: () => {}, fetchImpl: async () => { calls++; return Response.json({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"title":' }] } }] }); } });
   const rejected = await failed.post('/api/generate', { request: 'Fictional school event.' });
   const error = await rejected.json();
-  assert.equal(rejected.status, 502); assert.equal(error.code, 'MODEL_JSON_INVALID'); assert.equal(calls, 3);
+  assert.equal(rejected.status, 502); assert.equal(error.code, 'MODEL_JSON_INVALID'); assert.equal(calls, 2);
   assert.equal(rejected.headers.get('x-request-id'), error.requestId);
 });
 

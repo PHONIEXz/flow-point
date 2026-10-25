@@ -21,7 +21,7 @@ test('school allowance is deterministic, unknowns provisional, zero distinct and
   p.spendingLimitMinor = 20000000;
   let r = reviewPlan(p);
   assert.equal(r.knownTotalMinor, 18150000); assert.equal(r.remainingAllowanceMinor, 1850000); assert.equal(r.allowanceProvisional, false);
-  assert.match(preparationPack(p), /Remaining allowance: 1850000 minor units/);
+  assert.match(preparationPack(p), /Remaining allowance: NGN 18,500.00/);
   p.budget[6].unitCostMinor = null; r = reviewPlan(p);
   assert.equal(r.allowanceProvisional, true); assert.equal(r.budgetComplete, false);
   assert.match(preparationPack(p), /Provisional allowance before unknown costs/);
@@ -36,7 +36,7 @@ test('different community event: afternoon time, registration before programme, 
   p.spendingLimitMinor = 32250; assert.equal(reviewPlan(p).remainingAllowanceMinor, 0);
   p.spendingLimitMinor = 30000; assert.equal(reviewPlan(p).remainingAllowanceMinor, -2250);
   assert.ok(reviewPlan(p).issues.some(x => x.code === 'OVER_BUDGET'));
-  assert.throws(() => approvePlan(p)); assert.match(preparationPack(p), /Over budget by: 2250/);
+  assert.throws(() => approvePlan(p)); assert.match(preparationPack(p), /Over budget by: USD 22.50/);
   for (const value of [-1, 0.1, Number.MAX_SAFE_INTEGER + 1, '500']) { p.spendingLimitMinor = value; assert.throws(() => validatePlan(p)); }
   assert.deepEqual(clockTimes('12:00 AM; 12:00 PM; 2:15 PM; 24:00; 99:99; 110:00'), ['00:00','12:00','14:15']);
   p.drafts.schedule = 'Programme start: 14:15\n14:00 Registration\n14:25 Welcome: 10 minutes\n14:15 Closing';
@@ -48,13 +48,13 @@ test('missing draft time regenerates only the affected step within three attempt
   const r = await generatePack({ request: 'Original school notes', stage: 'invitation', checkpoint: p }, { ...quiet, fetchImpl: async () => reply({ invitation: ++calls === 1 ? 'Welcome at the hall.' : 'Welcome at 10:00.' }) });
   assert.equal(calls, 2); assert.deepEqual(p, before);
   assert.equal(r.plan.spendingLimitMinor, 20000000);
-  assert.deepEqual(r.plan.tasks, p.tasks); assert.deepEqual(r.plan.openQuestions, p.openQuestions);
+  assert.deepEqual(r.plan.tasks, validatePlan(p).tasks); assert.deepEqual(r.plan.openQuestions, p.openQuestions);
   calls = 0;
   await assert.rejects(generatePack({ request: 'Original school notes', stage: 'schedule', checkpoint: p }, { ...quiet, fetchImpl: async () => { calls++; return reply({ schedule: '09:30 Registration\nWelcome: 10 minutes' }); } }), e => e.code === 'MODEL_CONTENT_MISSING');
   assert.equal(calls, 3); assert.deepEqual(p, before);
 });
 test('old saved prefixes cannot reuse responses from the earlier content contract', () => {
-  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 13);
+  assert.equal(JSON.parse(generationKey({ request: 'Same notes' })).version, 14);
 });
 
 test('source checks reject real currency-unit mistake, missing named assignment and dated rehearsal without mutating facts', async () => {

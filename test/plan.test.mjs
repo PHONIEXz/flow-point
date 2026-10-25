@@ -7,6 +7,7 @@ const example = JSON.parse(await readFile(new URL('../examples/school-event.json
 const copy = () => structuredClone(example);
 function completePlan() {
   const plan = copy();
+  plan.tasks.forEach(task => { task.owner ||= 'Ada Cole'; task.dueDate ||= '2026-10-22'; });
   plan.startTime = '10:00';
   plan.organizer = 'Example School';
   plan.signatory = 'Event Coordinator';

@@ -1,3 +1,4 @@
+import { createProviderRunner } from './resilience.mjs';
 import { providerSettings, processorName, modelLabel, checkGroqAccess, googleDiagnosticEnabled } from './providers.mjs';
 import { randomUUID } from 'node:crypto';
 import { createServer } from 'node:http';
@@ -31,6 +32,7 @@ export function createApp(options = {}) {
     groq:{provider:'groq',apiKey:options.groqApiKey ?? process.env.GROQ_API_KEY,model:options.groqModel || process.env.GROQ_MODEL || 'openai/gpt-oss-120b'}
   };
   providerOptions[provider]={provider,apiKey,model};
+  const runProvider = createProviderRunner({ generate: generatePack, providers: providerOptions });
   const publicProviders=Object.values(providerOptions).map(p=>({id:p.provider,processor:processorName(p.provider),modelLabel:modelLabel(p.provider),model:p.model,configured:Boolean(p.apiKey)}));
   let active = 0;
   const limits = new Map();
@@ -85,7 +87,7 @@ export function createApp(options = {}) {
           active++;
           log({ event: 'generation_request_started', requestId, action, provider:generationProvider, model:generationOptions.model });
           try {
-            const result = await generatePack({ request: data.request, answers: data.answers, previousPlan, invitationStyle: data.invitationStyle || 'formal', stage: data.stage ?? null, checkpoint: data.checkpoint }, { ...generationOptions, fetchImpl, signal: controller.signal, requestId, action, log });
+            const result = await runProvider({ request: data.request, answers: data.answers, previousPlan, invitationStyle: data.invitationStyle || 'formal', stage: data.stage ?? null, checkpoint: data.checkpoint }, generationOptions, { fetchImpl, signal: controller.signal, requestId, action, log }, data.fallbackConsent === 'google-groq-v1');
             log({ event: 'generation_request_succeeded', requestId, action, model: result.provenance.model, attempts: result.provenance.attempts, durationMs: Date.now() - started });
             return json(res, 200, { ...result, requestId });
           }

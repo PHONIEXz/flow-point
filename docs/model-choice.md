@@ -11,7 +11,7 @@ During development Google-hosted Gemma produced intermittent HTTP 500s, timeouts
 | Gemma | Google Gemma | Google Gemini API |
 | GPT-OSS | OpenAI GPT-OSS, open weights | Groq |
 
-The GPT-OSS choice does not use the OpenAI API. Both providers run on the server with independent keys, limits and availability. Their separate request formats feed the same structure/content checks, source review, saved-prefix protection, review/approval and exports. Generation evidence records the actual model used; within-Google fallback may change the exact Gemma model and is disclosed in step receipts. Cross-provider fallback never happens automatically.
+The GPT-OSS choice does not use the OpenAI API. Both providers run on the server with independent keys, limits and availability. Their separate request formats feed the same structure/content checks, source review, saved-prefix protection, review/approval and exports. Generation evidence records the actual model used; within-Google fallback may change the exact Gemma model and is disclosed in step receipts. As of 25 October, optional automatic fallback is available only after a fresh combined Google/Groq consent choice. It is off by default; old single-provider permissions do not authorize it. Each step records its actual provider/model and any fallback. Content-validation failures are not hidden by switching providers.
 
 ## Consent and saved work
 
@@ -34,3 +34,6 @@ The follow-up correction build is `0bba82442b9a48874534a828914fbd5bd9edd35f`, wi
 ![Live model selector above a hand-authored sample pack](media/model-choice-2026-10-24.jpg)
 
 This screenshot demonstrates the selector and layout, not a new live model generation.
+
+
+25 October release: 45-second hosted attempt deadlines, two attempts per provider, bounded retry delays and a short circuit pause are covered by simulated-provider tests. Quota exhaustion is still possible. Later draft prompts omit the redundant previous-plan copy but retain original notes for activity durations and other context absent from the fact schema. No claim is made that smaller models are more accurate or solve daily quotas.

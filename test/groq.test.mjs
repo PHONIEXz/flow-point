@@ -66,7 +66,7 @@ test('Google backup diagnostics expire and never change active provider selectio
 test('Groq short minute throttles wait for the provider within three attempts; daily/unknown quotas stop',async()=>{
  const waits=[];let calls=0;
  const r=await generatePack({request:fixture.request,stage:'facts'},{...config,wait:async ms=>waits.push(ms),fetchImpl:async()=>++calls===1?Response.json({error:{message:'Token limit (TPM). Please try again in 12.2s.'}},{status:429,headers:{'Retry-After':'13'}}):reply(good())});
- assert.equal(calls,2);assert.deepEqual(waits,[14000]);assert.equal(r.plan.budget[0].quantity,80);
+ assert.equal(calls,2);assert.deepEqual(waits,[13000]);assert.equal(r.plan.budget[0].quantity,80);
  for(const [message,window]of [['Tokens per day (TPD) exhausted','day'],['Unrecognized quota response','unknown']]){
   calls=0;await assert.rejects(generatePack({request:fixture.request,stage:'facts'},{...config,fetchImpl:async()=>{calls++;return Response.json({error:{message}},{status:429,headers:{'Retry-After':'20'}});}}),e=>e.status===429&&e.quotaWindow===window);assert.equal(calls,1);
  }

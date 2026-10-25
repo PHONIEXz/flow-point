@@ -38,7 +38,9 @@ export function validatePlan(input) {
     if (!label) throw new Error('Task label is required');
     const dueDate = task.dueDate == null ? null : text(task.dueDate, 'task date', 10);
     if (dueDate !== null && !calendarDate(dueDate)) throw new Error('Invalid task date');
-    return { label, owner: task.owner == null ? null : text(task.owner, 'task owner', 150) || null, dueDate };
+    const rawOwner = task.owner == null ? '' : text(task.owner, 'task owner', 150);
+    const owner = /^(?:staff|team|someone|anyone|owner|tbd|to (?:assign|confirm)|unassigned)$/i.test(rawOwner.trim()) ? null : rawOwner || null;
+    return { label, owner, dueDate };
   });
   if (!Array.isArray(input.budget) || input.budget.length > 100) throw new Error('Invalid budget');
   const budget = input.budget.map((item) => {
@@ -109,7 +111,12 @@ export function reviewPlan(input) {
   if (actual && plan.requestedWeekday && actual !== plan.requestedWeekday) {
     issues.push({ code: 'DATE_CONFLICT', message: `${plan.eventDate} is a ${actual}, but the request says ${plan.requestedWeekday}.` });
   }
+  const missingOwners = plan.tasks.filter(task => !task.owner).length;
+  const missingDates = plan.tasks.filter(task => !task.dueDate).length;
+  if (missingOwners) issues.push({ code: 'MISSING_TASK_OWNERS', message: `${missingOwners} checklist task(s) need an assigned owner.` });
+  if (missingDates) issues.push({ code: 'MISSING_TASK_DATES', message: `${missingDates} checklist task(s) need a due date.` });
   plan.tasks.forEach((task, index) => {
+    if (task.dueDate && /\b(?:proposed|suggested|pending|awaiting approval)\b/i.test(task.label)) issues.push({ code: 'PROPOSED_TASK_DATE', message: `Task ${index + 1} has a proposed date. Confirm its date and update its label before approval.` });
     if (task.dueDate && plan.eventDate && task.dueDate > plan.eventDate) issues.push({ code: 'LATE_TASK', message: `Task ${index + 1} falls after the event. Confirm whether this is intentional.` });
   });
   const unknownPrices = plan.budget.filter((item) => item.unitCostMinor === null).length;

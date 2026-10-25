@@ -1,6 +1,6 @@
 # Quick real-phone check
 
-Status: prepared, not performed by the agent. This checks editing/storage/download usability without AI calls, so it can proceed while provider quota is blocked. It is not a test of AI generation or a timed manual-writing comparison. Save any current unnamed work before starting a separate sample.
+Status: owner-reported PASS on 25 October 2026 for overall phone usability, fitting/layout and perceived speed. The owner reports the real-phone test was completed and everything was healthy. Device/browser, individual download/storage outcomes and numerical elapsed time were not supplied; no independent observation or timed benchmark is claimed. The checklist below is retained as the test guidance, not an assertion that every individual step was separately evidenced. This checks editing/storage/download usability without AI calls, so it can proceed while provider quota is blocked. It is not a test of AI generation or a timed manual-writing comparison. Save any current unnamed work before starting a separate sample.
 
 1. Open the live workspace on your real phone. Open the sample and save it as a named pack, such as Phone check.
 2. Visit all five pack tabs. Check readable text, usable buttons, no overlap and no sideways page scrolling. Switch light/dark once. Try both letter styles. In Letter details, set a letter date, apply the layout and check that it is separate from the event date.

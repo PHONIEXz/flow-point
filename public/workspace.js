@@ -16,7 +16,7 @@ let processor = 'Google', aiModelLabel = 'Gemma', activeProvider = 'google', pro
 const providerChoiceKey = 'flow-point-ai-provider-v1';
 let review = null, revision = 0, timer, controller, busy = false, liveAvailable = false;
 const tabs = [...document.querySelectorAll('[role=tab]')];
-function announce(message) { $('notice').textContent = message.replaceAll('Google', processor).replaceAll('Gemma', aiModelLabel); $('notice').hidden = !message; }
+function announce(message) { $('notice').textContent = message; $('notice').hidden = !message; }
 // A versioned choice covers explicit Prepare and Update actions, never automatic sends.
 let consentKey = 'flow-point-google-processing-v2';
 let processingAllowed = false;
@@ -32,7 +32,7 @@ function restoreConsent() {
 }
 function renderConsent() {
   $('processing-status').textContent = processingAllowed
-    ? processor + ' processing allowed for Prepare and Update. ' + ($('remember-consent').checked ? 'Choice remembered on this browser.' : 'Choice applies to this tab session.')
+    ? ($('allow-fallback').checked ? 'Google or Groq' : processor) + ' processing allowed for Prepare and Update. ' + ($('remember-consent').checked ? 'Choice remembered on this browser.' : 'Choice applies to this tab session.')
     : `Choose whether to allow ${processor} processing on the Notes page before updating.`;
 }
 function saveConsent() {
@@ -55,11 +55,11 @@ function saveConsent() {
 }
 $('consent').addEventListener('change', saveConsent);
 $('remember-consent').addEventListener('change', () => {
-  if (!$('consent').checked) { $('remember-consent').checked = false; return announce('Choose whether to allow Google processing first.'); }
+  if (!$('consent').checked) { $('remember-consent').checked = false; return announce('Choose whether to allow AI processing first.'); }
   saveConsent();
 });
 $('change-consent').addEventListener('click', () => {
-  switchView('notes'); $('consent').focus(); announce('Change or forget your Google processing choice below your notes. This does not send any content.');
+  switchView('notes'); $('consent').focus(); announce('Change or forget your AI processing choice below your notes. This does not send any content.');
 });
 window.addEventListener('storage', event => { if (event.key === consentKey || event.key === null) { if (event.newValue !== 'allowed') { try { sessionStorage.removeItem(consentKey); } catch {} } restoreConsent(); } });
 restoreConsent();
@@ -68,10 +68,10 @@ function chooseProvider(id, remember=false) {
   if(!choice) return false;
   activeProvider=choice.id;processor=choice.processor;aiModelLabel=choice.modelLabel;selectedModel=choice.model;
   liveAvailable=choice.configured;
-  consentKey=activeProvider==='google'?'flow-point-google-processing-v2':'flow-point-groq-processing-v1';
+  consentKey=$('allow-fallback').checked?'flow-point-google-groq-processing-v1':activeProvider==='google'?'flow-point-google-processing-v2':'flow-point-groq-processing-v1';
   restoreConsent();
   $('ai-provider').value=activeProvider;
-  $('processing-consent-text').textContent=`I allow my event notes, current pack and follow-up changes to be sent to ${processor} for hosted ${aiModelLabel} processing when I choose Prepare or Update. I will leave out private attendee details.`;
+  $('processing-consent-text').textContent=$('allow-fallback').checked ? 'I allow my event notes, current pack and follow-up changes to be sent to Google or Groq, whichever is available, when I choose Prepare or Update. I will leave out private attendee details.' : `I allow my event notes, current pack and follow-up changes to be sent to ${processor} for hosted ${aiModelLabel} processing when I choose Prepare or Update. I will leave out private attendee details.`;
   $('refine').textContent=`Update pack with ${aiModelLabel}`;
   $('model-state').textContent=liveAvailable?`Live drafting · ${processor} · ${selectedModel}`:`${aiModelLabel} is not connected. Choose another available model or explore the sample.`;
   $('ai-choice-help').textContent=`${aiModelLabel} via ${processor} · ${selectedModel}. This choice applies to your next Prepare or Update. Each provider has its own usage limits. Your current pack stays unchanged.`;
@@ -79,6 +79,7 @@ function chooseProvider(id, remember=false) {
   setBusy(busy);
   return true;
 }
+$('allow-fallback').addEventListener('change',()=>{ if(busy)return; chooseProvider(activeProvider); });
 $('ai-provider').addEventListener('change',()=>{
   if(busy){$('ai-provider').value=activeProvider;return;}
   if(chooseProvider($('ai-provider').value,true))announce(`Selected ${aiModelLabel} via ${processor}. ${processingAllowed?'Your processing choice is already saved for this provider.':'Review the processing choice on Notes before generating.'}`);
@@ -467,7 +468,7 @@ function renderPack() {
   $('pack-heading').textContent = state.plan.title;
   const p = state.provenance;
   renderEvidence(p);
-  $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.provider || 'AI'} · ${p.model}${p.pipeline === 'staged-v1' ? ' in 3 steps' : ''} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · Human edits may follow.` : 'Restored working draft · Review all details.';
+  $('provenance').textContent = p?.mode === 'sample' ? 'SAMPLE DATA · Hand-authored example. No AI call was made.' : p?.mode === 'live' ? `Generated with ${p.provider || 'AI'} · ${p.model}${p.pipeline === 'staged-v1' ? ' in 3 steps' : ''} · ${new Date(p.generatedAt).toLocaleString()} · ${(p.durationMs / 1000).toFixed(1)} seconds · ${p.steps?.map(step => `${step.stage}: ${step.provider || 'AI'} / ${step.model}${step.fallbackFrom ? ' (fallback)' : ''}`).join('; ') || ''} · Human edits may follow.` : 'Restored working draft · Review all details.';
   document.querySelectorAll('[data-field]').forEach(input => { input.value = state.plan[input.dataset.field] ?? ''; });
   document.querySelectorAll('[data-draft]').forEach(input => { input.value = state.plan.drafts[input.dataset.draft]; });
   registerStaticSources(); renderRows(); refreshReview();
@@ -505,7 +506,7 @@ $('add-budget').addEventListener('click', () => { if (state.plan.budget.length >
 function setBusy(value, cancellable = false) {
   busy = value;
   document.querySelectorAll('#pack-editor input, #pack-editor textarea, #pack-editor select, #pack-editor button').forEach(input => { input.disabled = value; });
-  $('ai-provider').disabled = value || !providerChoices.length; $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
+  $('ai-provider').disabled = value || !providerChoices.length; $('request').disabled = value; $('answers').disabled = value; $('consent').disabled = value; $('allow-fallback').disabled = value; $('remember-consent').disabled = value; $('change-consent').disabled = value; $('generate').disabled = value || !liveAvailable; $('refine').disabled = value || !liveAvailable; $('sample').disabled = value; $('empty-sample').disabled = value; $('reset').disabled = value;
   $('saved-name').disabled = value; $('judge-example').disabled = value; renderSavedPacks();
   $('cancel').hidden = !value || !cancellable; $('cancel-refine').hidden = !value || !cancellable; $('generate').textContent = value && cancellable ? `Preparing with ${aiModelLabel}…` : 'Prepare my event pack ↗';
   $('restore-confirm').disabled = value; $('restore-previous').disabled = value || !previousVersion(state.previousVersion) || !$('restore-confirm').checked;
@@ -514,16 +515,16 @@ function setBusy(value, cancellable = false) {
 async function generate(refine = false) {
   if (busy) return;
   if (refine) {
-    if (!$('answers').value.trim()) return announce('Add the confirmations or changes you want Gemma to apply.');
+    if (!$('answers').value.trim()) return announce('Add the confirmations or changes you want the model to apply.');
   } else if (!$('request-form').reportValidity()) return;
-  if (!processingAllowed) { switchView('notes'); $('consent').focus(); return announce('Allow Google processing below your notes before preparing or updating a pack.'); }
+  if (!processingAllowed) { switchView('notes'); $('consent').focus(); return announce(`Allow ${$('allow-fallback').checked ? 'Google or Groq' : processor} processing below your notes before preparing or updating a pack.`); }
   if (!refine && state.plan && !confirm(collection.activeId ? 'Prepare a new pack? Your named pack will stay in Saved Packs.' : 'Replace the current unnamed pack? Save it with a name first if you want to keep editing it.')) return;
   if (!save()) return;
   const before = structuredClone(state);
   if (refine) { try { capturePrevious(before); } catch (error) { return announce(error.message); } }
-  clearTimeout(timer); revision++; setBusy(true, true); announce('Preparing three sections with Gemma. Each step can take up to 7 minutes. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
+  clearTimeout(timer); revision++; setBusy(true, true); announce('Preparing three sections. Slow provider attempts time out after 45 seconds; the overall ceiling remains 7 minutes per step. You can cancel and retry with the same notes to reuse saved progress.'); controller = new AbortController();
   try {
-    const input = { processingProvider: activeProvider, processingModel: selectedModel, invitationStyle: $('invitation-style').value || 'formal', request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
+    const input = { fallbackConsent: $('allow-fallback').checked ? 'google-groq-v1' : null, processingProvider: activeProvider, processingModel: selectedModel, invitationStyle: $('invitation-style').value || 'formal', request: $('request').value, answers: refine ? $('answers').value : '', previousPlan: refine ? state.plan : null };
     const result = await prepareInStages(input, {
       call: (data, signal) => api('/api/generate', data, signal), saved: state.pendingGeneration, signal: controller.signal,
       checkpoint: work => { state.pendingGeneration = work; save(); },

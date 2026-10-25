@@ -2,7 +2,7 @@
 
 **Current letter-template release:** `f6b6a2f5bf1d3bba98e18451b911db1b36b39f5f`, with 139 passing software tests and local PDF visual checks. The [v7 attempt](evidence/quality-v7-2026-10-24/README.md) superseded unexecuted v6. On retry, its school facts step succeeded, but invitation hit Groq daily quota: one attempted, zero complete, one failed, four skipped. Five complete-operation checks remain outstanding. v7 includes the browser’s deterministic letter formatter before application scoring/export; that point was not reached.
 
-**Status: verification remains open.** The model selector and post-run fixes are implemented, but the last live operation exhausted Groq daily quota. No further inference was attempted. Do not mark Chunk 4 complete or start Chunk 5 as though the quality gate passed.
+**Status: provider-limit handling verified; successful-generation retests deferred by the owner on 25 October.** The model selector and post-run fixes are implemented, but the last live operation exhausted Groq daily quota. No further inference was attempted. Proceeding to presentation does not turn blocked/skipped generation checks into passes. Raw outcomes remain unchanged.
 
 | Run | Planned operations | Attempted | Completed | Failed | Skipped | Completed operations passing all declared checks |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -27,7 +27,7 @@ Code `0bba82442b9a48874534a828914fbd5bd9edd35f` adds conservative checks rejecti
 
 [v7 stopped on daily quota](evidence/quality-v7-2026-10-24/README.md): detailed school Update, Riverside Prepare/Update, ambiguous-date Oak Prepare and the quota-blocked community Update. Successful v5 school/community Prepare baselines are embedded and hash-protected, avoiding redundant initial generations. Once provider capacity is available, use a new documented output/run revision on the matching source. The default v7 directory now contains preserved failures/skips and must not be overwritten. Preserve every outcome. Do not claim corrected live behavior until it is observed.
 
-Separately, a selected Google Gemma request still returned upstream HTTP 500, reference `8e4fcf2f-4029-406e-a233-e5ee78105901`; [record and model-choice rationale](model-choice.md). This is distinct from Groq daily quota and the application/model omissions above. Neither provider is described as universally reliable. Physical-device checks, human review effort and a timed human-writing baseline remain Chunk 5 and are unmeasured.
+Separately, a selected Google Gemma request still returned upstream HTTP 500, reference `8e4fcf2f-4029-406e-a233-e5ee78105901`; [record and model-choice rationale](model-choice.md). This is distinct from Groq daily quota and the application/model omissions above. Neither provider is described as universally reliable. Real-phone usability was subsequently reported healthy by the owner. Human review effort and a timed manual-writing baseline remain unmeasured.
 
 ## Earlier preflight and v3 history
 

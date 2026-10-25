@@ -17,7 +17,7 @@ export function letterLayout(plan,style='formal',value={}) {
  const lines=plan.drafts.invitation.trim().split('\n');
  const greetingIndex=lines.findIndex(l=>/^(?:dear|hi|hello|hey|dearest)\b/i.test(l.trim()));
  let content=greetingIndex<0?lines:lines.slice(greetingIndex+1);
- const end=content.findLastIndex(l=>closing.test(l.trim()));
+ const end=content.findIndex(l=>closing.test(l.trim()));
  if(end>=0)content=content.slice(0,end);
  else {
   const signatures=new Set([signature,name,role,plan.organizer,...parts].filter(Boolean).map(s=>s.toLowerCase()));

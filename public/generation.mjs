@@ -1,6 +1,6 @@
 // Browser-local checkpoints contain event data, never credentials. They are not approvals.
 export const generationStages = ['facts', 'invitation', 'schedule'];
-export function generationKey(input) { return JSON.stringify({ version: 13, processingModel: input.processingModel || null, processingProvider: input.processingProvider || 'google', invitationStyle: input.invitationStyle || 'formal', request: input.request, answers: input.answers || '', previousPlan: input.previousPlan || null }); }
+export function generationKey(input) { return JSON.stringify({ version: 14, fallbackConsent: input.fallbackConsent || null, processingModel: input.processingModel || null, processingProvider: input.processingProvider || 'google', invitationStyle: input.invitationStyle || 'formal', request: input.request, answers: input.answers || '', previousPlan: input.previousPlan || null }); }
 export async function prepareInStages(input, { call, saved = null, checkpoint = () => {}, progress = () => {}, signal } = {}) {
   const key = generationKey(input);
   let work = { key, results: [] };
@@ -16,5 +16,5 @@ export async function prepareInStages(input, { call, saved = null, checkpoint = 
     await checkpoint(structuredClone(work));
   }
   const last = work.results.at(-1);
-  return { ...last, provenance: { ...last.provenance, pipeline: 'staged-v1', priceQuestionsAdded: work.results.reduce((n,r)=>n+(r.provenance.priceQuestionsAdded||0),0), attempts: work.results.reduce((n, r) => n + r.provenance.attempts, 0), durationMs: work.results.reduce((n, r) => n + r.provenance.durationMs, 0), reusedSteps: reused, steps: work.results.map(r => ({ stage: r.provenance.stage, model: r.provenance.model, durationMs: r.provenance.durationMs, attempts: r.provenance.attempts, requestId: r.requestId })) } };
+  return { ...last, provenance: { ...last.provenance, pipeline: 'staged-v1', priceQuestionsAdded: work.results.reduce((n,r)=>n+(r.provenance.priceQuestionsAdded||0),0), attempts: work.results.reduce((n, r) => n + r.provenance.attempts, 0), durationMs: work.results.reduce((n, r) => n + r.provenance.durationMs, 0), reusedSteps: reused, steps: work.results.map(r => ({ stage: r.provenance.stage, provider: r.provenance.provider, fallbackFrom: r.provenance.fallbackFrom || null, model: r.provenance.model, durationMs: r.provenance.durationMs, attempts: r.provenance.attempts, requestId: r.requestId })) } };
 }
