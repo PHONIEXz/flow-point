@@ -6,17 +6,17 @@ Flow Point helps organizers at schools, churches and community groups prepare an
 
 **[Judge guide and fixed example](https://flowpoint.phoenixreborn.tech/judge)** · **[Live workspace](https://flowpoint.phoenixreborn.tech/workspace)** · **[Published DEV entry](https://dev.to/phoniexcryptz001/flow-point-one-messy-event-note-four-useful-drafts-and-the-questions-we-still-need-to-answer-3if8)**
 
-![Current Flow Point Home page](docs/media/current/cover-20261025.png)
+![Current Flow Point Home page](docs/media/submission-20261025/cover.png)
 
 ## Watch the walkthroughs
 
 | Video | Focus | Length |
 | --- | --- | --- |
-| [1. Create and navigate](https://youtu.be/xHEi4ybfHL0) | Home, Notes, consent and preparing a pack | 3:12 |
-| [2. Update, review and export](https://youtu.be/m3PTH6_Rt2w) | Live update evidence, manual corrections, PDF and saved packs | 3:12 |
-| [3. Tools and build evidence](https://youtu.be/p_Ob6AzwyVo) | Render, Gemma, .tech, GitHub, Copilot Chat, Node.js and PDFKit | 3:12 |
+| [1. Create and navigate](https://youtu.be/x_cZCxtVlFA) | Edited Notes, model choice and four-document sample tour | 0:48 |
+| [2. Update, review and export](https://youtu.be/MtRfONnSB9U) | Recorded Willow update, overspend and human review | 0:48 |
+| [3. Tools and build evidence](https://youtu.be/-6ep1lx5ANI) | Actual PDF export and Render, models, .tech, Copilot, Node.js and PDFKit evidence | 0:54 |
 
-The three videos are embedded in different sections of the published entry. They combine edited interface motion, original instrumental music, captions and cursor emphasis. Earlier successful live runs and hand-authored sample sections are explicitly labelled; video pacing is not a speed benchmark. See [the media record](docs/media/README.md) and [demo guide](docs/demo-shot-list.md).
+The three replacement videos are embedded in different sections of the submission source. Publication state is tracked in the handoff record. They combine edited interface motion, original instrumental music, captions and cursor emphasis. Earlier successful live runs and hand-authored sample sections are explicitly labelled; video pacing is not a speed benchmark. See [the media record](docs/media/README.md) and [demo guide](docs/demo-shot-list.md).
 
 ## Current status
 

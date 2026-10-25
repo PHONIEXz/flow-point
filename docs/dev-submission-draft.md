@@ -12,13 +12,21 @@ Write your event in ordinary language. Choose **Gemma through Google** or **GPT-
 
 The important boundary is simple: **a draft is not an approved plan, and an unknown price is not zero.**
 
-![Flow Point home in its cream and burgundy theme](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/current/cover-20261025.png)
+![Full-page Notes editor containing a fictional event brief](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/submission-20261025/notes.png)
+
+*An edited fictional sample. No AI request was made for this capture.*
 
 ## Demo
 
 **[Try Flow Point](https://flowpoint.phoenixreborn.tech/workspace)** · **[Judge guide and reproducible brief](https://flowpoint.phoenixreborn.tech/judge)** · **[Source code](https://github.com/PHONIEXz/flow-point)**
 
 No account is required. If a provider is unavailable, the clearly labelled hand-authored sample lets you explore editing, review and PDF export without an AI call. It is never presented as generated output.
+
+### Watch: notes to preparation pack, 48 seconds
+
+A quick tour of Notes, model choice, the four documents and the review boundary. The sample sections are labelled; this is not a fresh AI-generation recording.
+
+{% youtube x_cZCxtVlFA %}
 
 The workflow is:
 
@@ -28,7 +36,7 @@ The workflow is:
 4. **Apply changes.** Update Pack preserves a previous version for comparison and restoration. Questions omitted by the model stay open until explicitly resolved.
 5. **Review and export.** Download the complete pack or each document separately as PDF. Filenames begin with the event title and have a unique suffix. Markdown includes readable currency, review issues, open questions and source evidence; CSV supports the budget.
 
-![Current provider selector](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/current/models-20261025.png)
+![Current provider selector](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/submission-20261025/models.png)
 
 ### A small example you can check
 
@@ -36,9 +44,11 @@ The fictional Cedar School Reading Day screenshots show an edited sample, not a 
 
 The invitation supports formal block-letter or informal layout. Optional sender/recipient details come from the user, while the letter date stays separate from the event date.
 
-![Editable formal invitation from the fictional Cedar sample](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/current/invitation-20261025.png)
+![Actual invitation PDF with a formal address block, subject, paragraphs and one signatory](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/submission-20261025/invitation-pdf.png)
 
-![Sample budget with NGN 20,000 total and NGN 10,000 allowance](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/current/budget-20261025.png)
+*An excerpt from an actual local app export of the fictional Cedar sample. It remains a draft requiring review.*
+
+![Sample budget with NGN 20,000 total and NGN 10,000 allowance](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/submission-20261025/budget.png)
 
 ### What happened in a real model run
 
@@ -46,15 +56,11 @@ A recorded Groq/GPT-OSS run used the fictional **Willow Skills Exchange**. Its u
 
 Both Willow operations passed all **54 declared checks combined**. The same assistant authored the briefs and expectations; this is one recorded case, not an independent accuracy score. [Inspect the raw evidence and evaluation limits](https://github.com/PHONIEXz/flow-point/tree/main/docs/evidence/quality-v4-2026-10-24).
 
-### Earlier walkthroughs
+### Watch: update and review, 48 seconds
 
-These published recordings show the earlier implementation and remain available while the new short clips are uploaded. Their interface and provider behavior are historical.
+This clip explains the recorded Willow update and overspend, then distinguishes it from the current sample interface and software-tested recovery controls.
 
-{% youtube xHEi4ybfHL0 %}
-
-{% youtube m3PTH6_Rt2w %}
-
-{% youtube p_Ob6AzwyVo %}
+{% youtube MtRfONnSB9U %}
 
 ## How I Built It
 
@@ -64,19 +70,85 @@ The model handles varied language and draft wording. Code checks structure, date
 
 Completed generation steps save in the browser when storage is available. Retrying the same input can reuse those steps. A failed replacement leaves the previous pack intact. Up to **12 named packs** can be saved in the same browser; there is no cross-device sync, so exported backups matter.
 
+### Code: money calculations stay outside the model
+
+The model proposes budget entries; JavaScript calculates the totals. This excerpt from [`src/plan.mjs`](https://github.com/PHONIEXz/flow-point/blob/main/src/plan.mjs) counts missing prices separately from the known subtotal:
+
+```javascript
+const unknownPrices = plan.budget.filter(
+  (item) => item.unitCostMinor === null
+).length;
+
+const knownTotalMinor = plan.budget.reduce(
+  (total, item) =>
+    total + item.quantity * (item.unitCostMinor ?? 0),
+  0
+);
+```
+
+Prices are stored as integer minor units. NGN 300 is stored as 30,000 kobo, avoiding floating-point money arithmetic. The zero in this sum means an unpriced item adds nothing to the **known subtotal**. Its actual price stays `null`, and the missing-price flag keeps the budget incomplete. A confirmed zero-priced item is different.
+
+### Code: approval is earned by this exact version
+
+The approval function in the same file runs the review again before issuing a fingerprint:
+
+```javascript
+export function approvePlan(input) {
+  const review = reviewPlan(input);
+  if (review.issues.length) {
+    throw new Error('Resolve review issues before approval');
+  }
+  return {
+    fingerprint: fingerprint(review.plan),
+    approvedAt: new Date().toISOString()
+  };
+}
+```
+
+Unassigned tasks, missing due dates, unpriced items, overspending and other recorded review issues block approval. The fingerprint binds approval to the checked content. Editing that content requires another review. This does not establish that every sentence is true; the organizer must still compare it with the source.
+
+![Manual source-review panel showing facts still awaiting review](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/submission-20261025/source-review.png)
+
+*The sample has manual facts still to review. A Source card is a place to inspect evidence, not an automatic correctness stamp.*
+
 ### Why I added Groq
 
 During development, Google-hosted Gemma sometimes returned HTTP 500 or timed out. Groq gave users another open-weight model option, but it also reached quota limits. Adding a second provider did not remove the need for careful failure handling.
 
 The current release uses **45-second attempt deadlines**, bounded retries and a short circuit pause after repeated failures. Optional automatic fallback asks for **fresh permission covering both Google and Groq**. Existing single-provider consent never expands silently. Each generation step records the actual provider and model used. Invalid content is rejected, and failures never create fake output.
 
-![Optional combined consent for provider fallback](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/current/fallback-20261025.png)
+![Optional combined consent for provider fallback](https://raw.githubusercontent.com/PHONIEXz/flow-point/main/docs/media/submission-20261025/fallback.png)
+
+### Code: fallback requires permission, not just another key
+
+In [`src/resilience.mjs`](https://github.com/PHONIEXz/flow-point/blob/main/src/resilience.mjs), the alternate provider only enters the attempt list when fallback was explicitly allowed and its server key exists:
+
+```javascript
+const alternate = selected.provider === 'google'
+  ? 'groq'
+  : 'google';
+
+const choices = [
+  selected,
+  ...(allowFallback && providers[alternate]?.apiKey
+    ? [providers[alternate]]
+    : [])
+];
+```
+
+With fallback off, only the selected provider is tried. With it on, the alternate can handle an eligible provider failure. The surrounding code stops on cancellation or invalid model content and records the provider/model actually used. It never substitutes a sample or invents a result to make the request look successful.
 
 ## Why Open Innovation Matters
 
 Gemma and GPT-OSS are open-weight models at the core of the event-drafting workflow. Their available weights make alternative hosting and model inspection possible; the MIT-licensed app exposes its prompts, adapters and validation boundary for others to examine and change.
 
 **This deployment uses hosted inference. It does not run offline or keep consented event notes exclusively on the device.** The choice helps someone try the app without downloading a model, while leaving room for a future self-hosted adapter. No offline-performance claim is made.
+
+### Watch: PDFs and the build, 54 seconds
+
+See a real exported letter and the jobs of Render, Gemma, Groq, the .tech address, Copilot, Node.js and PDFKit. Deployment/evidence cards are labelled records, not fabricated provider dashboards.
+
+{% youtube -6ep1lx5ANI %}
 
 ## Tools and Partner Contributions
 

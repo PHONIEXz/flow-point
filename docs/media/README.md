@@ -9,3 +9,8 @@ Replacement videos: 48s notes/provider/pack tour; 48s recorded Willow update and
 The Willow case is sourced from docs/evidence/quality-v4-2026-10-24/unseen-willow-{prepare,update}.json. Recorded case graphics are explicitly labelled and do not imitate current website output. Provider/tool cards explain actual roles rather than inventing dashboards. The Cedar PDF was exported through the local HTTP app using the release source, visually inspected and labelled as sample/draft. New provider inference was not requested for these recordings.
 
 Old YouTube recordings remain historical until replacements are uploaded and verified. Updating the article source and repository images does not update the already-published DEV post. Rebuild script and scene/caption source: short-video-source-20261025.py. Delivered source ZIP contains the original soundtrack and source images.
+
+
+## Current article presentation, 25 October
+
+The submission-20261025 folder contains native-pixel close-ups of the Notes editor, model selector, budget total/allowance, manual source-review panel, consent choice and an actual local sample PDF export, plus a 1000:420-ratio home cover crop. These crops remove surrounding page chrome without inventing or repainting UI. The article embeds the three owner-supplied replacement YouTube IDs x_cZCxtVlFA, MtRfONnSB9U and -6ep1lx5ANI at different points. It explains three actual code excerpts for integer budget arithmetic, approval fingerprints and permission-gated provider fallback.
